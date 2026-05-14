@@ -631,6 +631,10 @@ const LS_CONFIG_KEY = "fintech_jsonbin_config";
 const LS_DATA_KEY   = "fintech_todo_data";
 
 function loadConfig() {
+  const envKey = import.meta.env.VITE_JSONBIN_API_KEY;
+  const envBin = import.meta.env.VITE_JSONBIN_BIN_ID;
+  if (envKey && envBin) return { apiKey: envKey, binId: envBin };
+
   try { return JSON.parse(localStorage.getItem(LS_CONFIG_KEY) || "null"); }
   catch { return null; }
 }
@@ -885,11 +889,14 @@ export default function TodoFintech() {
                   <div style={{ fontSize: 10, color: "#71717A" }}>{l}</div>
                 </div>
               ))}
-            <button
+
+            {!import.meta.env.VITE_JSONBIN_API_KEY && !import.meta.env.VITE_JSONBIN_BIN_ID (
+              <button
               onClick={() => { if (confirm("Redefinir configuração do JSONBin?")) { localStorage.removeItem(LS_CONFIG_KEY); setConfig(null); } }}
               style={{ fontSize: 11, padding: "5px 10px", background: "transparent", border: "1px solid #E4E4E7", borderRadius: 6, cursor: "pointer", color: "#71717A" }}>
               ⚙ Config
             </button>
+            )}
           </div>
         </div>
 
