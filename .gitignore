@@ -6,7 +6,7 @@
 *.nar
 target/
 build/
-out/
+/out/
 
 # Maven
 .mvn/wrapper/maven-wrapper.jar
