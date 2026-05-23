@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.processamentojob;
+package com.enterprise.gustadev.fintech_app.adapters.out.persistence.processamentojob;
 
 import com.enterprise.gustadev.fintech_app.domain.processamentojob.model.ProcessamentoJob;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusJob;

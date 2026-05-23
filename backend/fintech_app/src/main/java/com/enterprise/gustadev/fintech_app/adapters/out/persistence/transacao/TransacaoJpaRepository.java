@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.transacao;
+package com.enterprise.gustadev.fintech_app.adapters.out.persistence.transacao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.snapshotfinanceiro;
+package com.enterprise.gustadev.fintech_app.adapters.in.web.snapshotfinanceiro;
 
 import com.enterprise.gustadev.fintech_app.adapters.in.web.snapshotfinanceiro.dto.SnapshotFinanceiroResponseDTO;
 import com.enterprise.gustadev.fintech_app.application.snapshotfinanceiro.usecase.BuscarSnapshotFinanceiroUseCase;

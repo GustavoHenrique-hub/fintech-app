@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.application.notificacao.usecase;
+package com.enterprise.gustadev.fintech_app.application.notificacao.usecase;
 
 import com.enterprise.gustadev.fintech_app.domain.notificacao.model.Notificacao;
 import com.enterprise.gustadev.fintech_app.domain.notificacao.port.NotificacaoRepositoryPort;

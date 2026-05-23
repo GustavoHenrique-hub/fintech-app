@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.domain.categoriapai.model;
+package com.enterprise.gustadev.fintech_app.domain.categoriapai.model;
 
 import com.enterprise.gustadev.fintech_app.domain.categoriapai.exception.CategoriaPaiInvalidaException;
 import lombok.Getter;

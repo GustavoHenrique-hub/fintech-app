@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.notificacao;
+package com.enterprise.gustadev.fintech_app.adapters.out.persistence.notificacao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

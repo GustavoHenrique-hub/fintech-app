@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.domain.motivocancelamento.model;
+package com.enterprise.gustadev.fintech_app.domain.motivocancelamento.model;
 
 import com.enterprise.gustadev.fintech_app.domain.motivocancelamento.exception.MotivoCancelamentoInvalidoException;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemPermitidaCancelamento;

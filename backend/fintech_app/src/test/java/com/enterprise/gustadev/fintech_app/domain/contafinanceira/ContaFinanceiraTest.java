@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.domain.contafinanceira;
+package com.enterprise.gustadev.fintech_app.domain.contafinanceira;
 
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.exception.ContaFinanceiraInvalidaException;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;

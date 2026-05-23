@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.transacaocancelada;
+package com.enterprise.gustadev.fintech_app.adapters.out.persistence.transacaocancelada;
 
 import com.enterprise.gustadev.fintech_app.domain.transacaocancelada.model.TransacaoCancelada;
 import com.enterprise.gustadev.fintech_app.domain.transacaocancelada.port.TransacaoCanceladaRepositoryPort;

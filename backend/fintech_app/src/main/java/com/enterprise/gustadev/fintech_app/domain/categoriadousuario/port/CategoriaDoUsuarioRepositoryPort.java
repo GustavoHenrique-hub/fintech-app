@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.domain.categoriadousuario.port;
+package com.enterprise.gustadev.fintech_app.domain.categoriadousuario.port;
 
 import com.enterprise.gustadev.fintech_app.domain.categoriadousuario.model.CategoriaDoUsuario;
 

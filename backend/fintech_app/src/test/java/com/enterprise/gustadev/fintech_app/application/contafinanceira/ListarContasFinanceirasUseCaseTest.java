@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.application.contafinanceira;
+package com.enterprise.gustadev.fintech_app.application.contafinanceira;
 
 import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.ListarContasFinanceirasUseCase;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;

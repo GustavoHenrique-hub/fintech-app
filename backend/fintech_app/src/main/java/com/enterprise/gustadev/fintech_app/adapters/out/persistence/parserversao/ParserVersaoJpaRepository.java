@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.parserversao;
+package com.enterprise.gustadev.fintech_app.adapters.out.persistence.parserversao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

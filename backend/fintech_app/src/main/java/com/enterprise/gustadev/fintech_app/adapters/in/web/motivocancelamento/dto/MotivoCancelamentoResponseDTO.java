@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.motivocancelamento.dto;
+package com.enterprise.gustadev.fintech_app.adapters.in.web.motivocancelamento.dto;
 
 import com.enterprise.gustadev.fintech_app.domain.motivocancelamento.model.MotivoCancelamento;
 

@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.domain.snapshotfinanceiro.port;
+package com.enterprise.gustadev.fintech_app.domain.snapshotfinanceiro.port;
 
 import com.enterprise.gustadev.fintech_app.domain.snapshotfinanceiro.model.SnapshotFinanceiro;
 

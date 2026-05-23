@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.domain.processamentojob.port;
+package com.enterprise.gustadev.fintech_app.domain.processamentojob.port;
 
 import com.enterprise.gustadev.fintech_app.domain.processamentojob.model.ProcessamentoJob;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusJob;

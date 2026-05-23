@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.contafinanceira;
+package com.enterprise.gustadev.fintech_app.adapters.in.web.contafinanceira;
 
 import com.enterprise.gustadev.fintech_app.adapters.in.web.contafinanceira.dto.ContaFinanceiraRequestDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.contafinanceira.dto.ContaFinanceiraResponseDTO;

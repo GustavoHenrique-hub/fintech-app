@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.domain.categoriapai.port;
+package com.enterprise.gustadev.fintech_app.domain.categoriapai.port;
 
 import com.enterprise.gustadev.fintech_app.domain.categoriapai.model.CategoriaPai;
 

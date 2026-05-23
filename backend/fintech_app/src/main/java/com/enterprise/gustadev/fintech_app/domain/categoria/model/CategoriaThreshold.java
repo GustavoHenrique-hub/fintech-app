@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.domain.categoria.model;
+package com.enterprise.gustadev.fintech_app.domain.categoria.model;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.transacaocancelada.dto;
+package com.enterprise.gustadev.fintech_app.adapters.in.web.transacaocancelada.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

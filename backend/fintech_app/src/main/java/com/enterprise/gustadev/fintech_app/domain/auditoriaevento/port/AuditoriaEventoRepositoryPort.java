@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.domain.auditoriaevento.port;
+package com.enterprise.gustadev.fintech_app.domain.auditoriaevento.port;
 
 import com.enterprise.gustadev.fintech_app.domain.auditoriaevento.model.AuditoriaEvento;
 

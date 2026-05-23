@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.extrato;
+package com.enterprise.gustadev.fintech_app.adapters.out.persistence.extrato;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

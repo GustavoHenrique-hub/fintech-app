@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.categoriapai.dto;
+package com.enterprise.gustadev.fintech_app.adapters.in.web.categoriapai.dto;
 
 import com.enterprise.gustadev.fintech_app.domain.categoriapai.model.CategoriaPai;
 

@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.application.categoriadousuario.usecase;
+package com.enterprise.gustadev.fintech_app.application.categoriadousuario.usecase;
 
 import com.enterprise.gustadev.fintech_app.domain.categoriadousuario.model.CategoriaDoUsuario;
 import com.enterprise.gustadev.fintech_app.domain.categoriadousuario.port.CategoriaDoUsuarioRepositoryPort;

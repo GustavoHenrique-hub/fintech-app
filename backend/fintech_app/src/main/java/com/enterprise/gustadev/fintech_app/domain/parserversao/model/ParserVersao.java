@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.domain.parserversao.model;
+package com.enterprise.gustadev.fintech_app.domain.parserversao.model;
 
 import com.enterprise.gustadev.fintech_app.domain.parserversao.exception.ParserVersaoNaoEncontradaException;
 import lombok.Getter;

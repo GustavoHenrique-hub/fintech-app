@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.categoriapai;
+package com.enterprise.gustadev.fintech_app.adapters.out.persistence.categoriapai;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.consentimentolgpd;
+package com.enterprise.gustadev.fintech_app.adapters.out.persistence.consentimentolgpd;
 
 import com.enterprise.gustadev.fintech_app.domain.consentimentolgpd.model.ConsentimentoLgpd;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoConsentimentoLgpd;

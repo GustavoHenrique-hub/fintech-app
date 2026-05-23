@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.snapshotfinanceiro;
+package com.enterprise.gustadev.fintech_app.adapters.out.persistence.snapshotfinanceiro;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

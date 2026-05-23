@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.domain.categoriadousuario.model;
+package com.enterprise.gustadev.fintech_app.domain.categoriadousuario.model;
 
 import com.enterprise.gustadev.fintech_app.domain.categoriadousuario.exception.CategoriaDoUsuarioInvalidaException;
 import lombok.Getter;

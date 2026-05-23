@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.domain.parserversao.port;
+package com.enterprise.gustadev.fintech_app.domain.parserversao.port;
 
 import com.enterprise.gustadev.fintech_app.domain.parserversao.model.ParserVersao;
 

@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.transacaocancelada;
+package com.enterprise.gustadev.fintech_app.adapters.out.persistence.transacaocancelada;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

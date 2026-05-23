@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.categoria;
+package com.enterprise.gustadev.fintech_app.adapters.in.web.categoria;
 
 import com.enterprise.gustadev.fintech_app.application.categoria.usecase.BuscarCategoriaUseCase;
 import com.enterprise.gustadev.fintech_app.application.categoria.usecase.CriarCategoriaUseCase;

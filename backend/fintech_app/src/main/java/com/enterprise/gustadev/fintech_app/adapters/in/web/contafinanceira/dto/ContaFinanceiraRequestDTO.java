@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.contafinanceira.dto;
+package com.enterprise.gustadev.fintech_app.adapters.in.web.contafinanceira.dto;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;

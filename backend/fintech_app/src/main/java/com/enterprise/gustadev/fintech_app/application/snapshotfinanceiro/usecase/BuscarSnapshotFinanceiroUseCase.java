@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.application.snapshotfinanceiro.usecase;
+package com.enterprise.gustadev.fintech_app.application.snapshotfinanceiro.usecase;
 
 import com.enterprise.gustadev.fintech_app.domain.snapshotfinanceiro.model.SnapshotFinanceiro;
 import com.enterprise.gustadev.fintech_app.domain.snapshotfinanceiro.port.SnapshotFinanceiroRepositoryPort;

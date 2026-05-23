@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.auditoriaevento;
+package com.enterprise.gustadev.fintech_app.adapters.out.persistence.auditoriaevento;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

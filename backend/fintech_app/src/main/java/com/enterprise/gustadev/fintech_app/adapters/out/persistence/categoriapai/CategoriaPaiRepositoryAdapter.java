@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.categoriapai;
+package com.enterprise.gustadev.fintech_app.adapters.out.persistence.categoriapai;
 
 import com.enterprise.gustadev.fintech_app.domain.categoriapai.model.CategoriaPai;
 import com.enterprise.gustadev.fintech_app.domain.categoriapai.port.CategoriaPaiRepositoryPort;

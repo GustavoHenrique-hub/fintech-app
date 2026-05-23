@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.domain.auditoriaevento.model;
+package com.enterprise.gustadev.fintech_app.domain.auditoriaevento.model;
 
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.AcaoAuditoria;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemAuditoria;

@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.notificacao.dto;
+package com.enterprise.gustadev.fintech_app.adapters.in.web.notificacao.dto;
 
 import com.enterprise.gustadev.fintech_app.domain.notificacao.model.Notificacao;
 

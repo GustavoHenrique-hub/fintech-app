@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.application.categoria.usecase;
+package com.enterprise.gustadev.fintech_app.application.categoria.usecase;
 
 import com.enterprise.gustadev.fintech_app.domain.categoria.exception.CategoriaInvalidaException;
 import com.enterprise.gustadev.fintech_app.domain.categoria.model.Categoria;

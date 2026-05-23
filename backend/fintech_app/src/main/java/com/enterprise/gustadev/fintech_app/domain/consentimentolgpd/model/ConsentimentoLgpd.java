@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.domain.consentimentolgpd.model;
+package com.enterprise.gustadev.fintech_app.domain.consentimentolgpd.model;
 
 import com.enterprise.gustadev.fintech_app.domain.consentimentolgpd.exception.ConsentimentoLgpdInvalidoException;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoConsentimentoLgpd;

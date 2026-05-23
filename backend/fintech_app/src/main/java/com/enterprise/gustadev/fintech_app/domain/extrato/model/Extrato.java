@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.domain.extrato.model;
+package com.enterprise.gustadev.fintech_app.domain.extrato.model;
 
 import com.enterprise.gustadev.fintech_app.domain.extrato.exception.ExtratoInvalidoException;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusExtrato;

@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.notificacao;
+package com.enterprise.gustadev.fintech_app.adapters.out.persistence.notificacao;
 
 import com.enterprise.gustadev.fintech_app.domain.notificacao.model.Notificacao;
 import com.enterprise.gustadev.fintech_app.domain.notificacao.port.NotificacaoRepositoryPort;

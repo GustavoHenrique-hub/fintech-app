@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.motivocancelamento;
+package com.enterprise.gustadev.fintech_app.adapters.out.persistence.motivocancelamento;
 
 import com.enterprise.gustadev.fintech_app.domain.motivocancelamento.model.MotivoCancelamento;
 import com.enterprise.gustadev.fintech_app.domain.motivocancelamento.port.MotivoCancelamentoRepositoryPort;

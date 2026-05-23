@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.motivocancelamento;
+package com.enterprise.gustadev.fintech_app.adapters.out.persistence.motivocancelamento;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

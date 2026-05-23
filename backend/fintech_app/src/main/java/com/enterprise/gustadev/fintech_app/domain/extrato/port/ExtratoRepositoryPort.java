@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.domain.extrato.port;
+package com.enterprise.gustadev.fintech_app.domain.extrato.port;
 
 import com.enterprise.gustadev.fintech_app.domain.extrato.model.Extrato;
 

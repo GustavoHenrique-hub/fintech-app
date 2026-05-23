@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.consentimentolgpd;
+package com.enterprise.gustadev.fintech_app.adapters.out.persistence.consentimentolgpd;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.contafinanceira;
+package com.enterprise.gustadev.fintech_app.adapters.out.persistence.contafinanceira;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

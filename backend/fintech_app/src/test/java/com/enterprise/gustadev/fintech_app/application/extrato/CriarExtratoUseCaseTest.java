@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.application.extrato;
+package com.enterprise.gustadev.fintech_app.application.extrato;
 
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.CriarExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.domain.extrato.exception.ExtratoInvalidoException;

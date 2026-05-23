@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.application.transacao.usecase;
+package com.enterprise.gustadev.fintech_app.application.transacao.usecase;
 
 import com.enterprise.gustadev.fintech_app.domain.transacao.exception.TransacaoInvalidaException;
 import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;

@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.domain.snapshotfinanceiro.model;
+package com.enterprise.gustadev.fintech_app.domain.snapshotfinanceiro.model;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.categoriapai.dto;
+package com.enterprise.gustadev.fintech_app.adapters.in.web.categoriapai.dto;
 
 import jakarta.validation.constraints.NotNull;
 

@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.categoriadousuario;
+package com.enterprise.gustadev.fintech_app.adapters.in.web.categoriadousuario;
 
 import com.enterprise.gustadev.fintech_app.adapters.in.web.categoriadousuario.dto.CategoriaDoUsuarioResponseDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.categoriadousuario.dto.VincularCategoriaUsuarioRequestDTO;

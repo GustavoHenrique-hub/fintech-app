@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.domain.notificacao.port;
+package com.enterprise.gustadev.fintech_app.domain.notificacao.port;
 
 import com.enterprise.gustadev.fintech_app.domain.notificacao.model.Notificacao;
 

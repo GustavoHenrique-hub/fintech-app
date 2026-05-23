@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.domain.categoria.port;
+package com.enterprise.gustadev.fintech_app.domain.categoria.port;
 
 import com.enterprise.gustadev.fintech_app.domain.categoria.model.Categoria;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoCategoria;

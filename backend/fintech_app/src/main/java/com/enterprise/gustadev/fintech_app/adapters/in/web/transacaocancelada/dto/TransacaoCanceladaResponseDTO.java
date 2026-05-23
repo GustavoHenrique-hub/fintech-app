@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.transacaocancelada.dto;
+package com.enterprise.gustadev.fintech_app.adapters.in.web.transacaocancelada.dto;
 
 import com.enterprise.gustadev.fintech_app.domain.transacaocancelada.model.TransacaoCancelada;
 

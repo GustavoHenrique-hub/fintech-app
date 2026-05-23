@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.consentimentolgpd;
+package com.enterprise.gustadev.fintech_app.adapters.in.web.consentimentolgpd;
 
 import com.enterprise.gustadev.fintech_app.adapters.in.web.consentimentolgpd.dto.ConsentimentoLgpdRequestDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.consentimentolgpd.dto.ConsentimentoLgpdResponseDTO;

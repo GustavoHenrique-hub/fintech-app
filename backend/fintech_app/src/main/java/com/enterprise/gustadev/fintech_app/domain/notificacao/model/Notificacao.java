@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.domain.notificacao.model;
+package com.enterprise.gustadev.fintech_app.domain.notificacao.model;
 
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.CanalNotificacao;
 import lombok.Getter;

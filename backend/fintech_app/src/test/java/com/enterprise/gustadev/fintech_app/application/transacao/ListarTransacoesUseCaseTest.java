@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.application.transacao;
+package com.enterprise.gustadev.fintech_app.application.transacao;
 
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.ListarTransacoesUseCase;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;

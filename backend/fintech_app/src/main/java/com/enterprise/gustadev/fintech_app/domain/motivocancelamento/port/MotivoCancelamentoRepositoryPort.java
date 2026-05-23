@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.domain.motivocancelamento.port;
+package com.enterprise.gustadev.fintech_app.domain.motivocancelamento.port;
 
 import com.enterprise.gustadev.fintech_app.domain.motivocancelamento.model.MotivoCancelamento;
 

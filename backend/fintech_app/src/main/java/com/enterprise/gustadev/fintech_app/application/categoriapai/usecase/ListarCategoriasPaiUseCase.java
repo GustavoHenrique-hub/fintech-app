@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.application.categoriapai.usecase;
+package com.enterprise.gustadev.fintech_app.application.categoriapai.usecase;
 
 import com.enterprise.gustadev.fintech_app.domain.categoriapai.model.CategoriaPai;
 import com.enterprise.gustadev.fintech_app.domain.categoriapai.port.CategoriaPaiRepositoryPort;

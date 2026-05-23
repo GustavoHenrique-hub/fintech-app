@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.extrato.dto;
+package com.enterprise.gustadev.fintech_app.adapters.in.web.extrato.dto;
 
 import com.enterprise.gustadev.fintech_app.domain.extrato.model.Extrato;
 

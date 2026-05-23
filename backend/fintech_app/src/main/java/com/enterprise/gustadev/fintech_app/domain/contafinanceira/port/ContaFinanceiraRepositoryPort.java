@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.domain.contafinanceira.port;
+package com.enterprise.gustadev.fintech_app.domain.contafinanceira.port;
 
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
 

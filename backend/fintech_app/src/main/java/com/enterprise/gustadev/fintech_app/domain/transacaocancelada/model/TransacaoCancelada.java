@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.domain.transacaocancelada.model;
+package com.enterprise.gustadev.fintech_app.domain.transacaocancelada.model;
 
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.CanceladoPor;
 import com.enterprise.gustadev.fintech_app.domain.transacaocancelada.exception.TransacaoCanceladaInvalidaException;

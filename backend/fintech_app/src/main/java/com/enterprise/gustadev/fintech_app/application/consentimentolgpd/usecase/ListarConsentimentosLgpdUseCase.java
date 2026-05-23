@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.application.consentimentolgpd.usecase;
+package com.enterprise.gustadev.fintech_app.application.consentimentolgpd.usecase;
 
 import com.enterprise.gustadev.fintech_app.domain.consentimentolgpd.model.ConsentimentoLgpd;
 import com.enterprise.gustadev.fintech_app.domain.consentimentolgpd.port.ConsentimentoLgpdRepositoryPort;

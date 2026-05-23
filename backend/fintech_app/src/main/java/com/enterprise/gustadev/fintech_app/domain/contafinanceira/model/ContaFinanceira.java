@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.domain.contafinanceira.model;
+package com.enterprise.gustadev.fintech_app.domain.contafinanceira.model;
 
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.exception.ContaFinanceiraInvalidaException;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoConta;

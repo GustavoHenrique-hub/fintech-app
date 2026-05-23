@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.domain.transacao.model;
+package com.enterprise.gustadev.fintech_app.domain.transacao.model;
 
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusRevisaoTransacao;

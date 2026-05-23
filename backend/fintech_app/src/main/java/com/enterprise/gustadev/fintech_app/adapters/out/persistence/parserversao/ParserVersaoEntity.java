@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.parserversao;
+package com.enterprise.gustadev.fintech_app.adapters.out.persistence.parserversao;
 
 import com.enterprise.gustadev.fintech_app.domain.parserversao.model.ParserVersao;
 import jakarta.persistence.Column;

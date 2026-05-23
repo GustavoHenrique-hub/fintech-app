@@ -1,4 +1,4 @@
-﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.extrato;
+package com.enterprise.gustadev.fintech_app.adapters.out.persistence.extrato;
 
 import com.enterprise.gustadev.fintech_app.domain.extrato.model.Extrato;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusExtrato;
