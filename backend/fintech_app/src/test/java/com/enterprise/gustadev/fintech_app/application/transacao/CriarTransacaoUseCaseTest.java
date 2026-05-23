@@ -1,0 +1,68 @@
+package com.enterprise.gustadev.fintech_app.application.transacao;
+
+import com.enterprise.gustadev.fintech_app.application.transacao.usecase.CriarTransacaoUseCase;
+import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;
+import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoTransacao;
+import com.enterprise.gustadev.fintech_app.domain.transacao.exception.TransacaoInvalidaException;
+import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;
+import com.enterprise.gustadev.fintech_app.domain.transacao.port.TransacaoRepositoryPort;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.UUID;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
+class CriarTransacaoUseCaseTest {
+
+    @Mock
+    private TransacaoRepositoryPort repository;
+
+    @InjectMocks
+    private CriarTransacaoUseCase useCase;
+
+    @Test
+    void executar_deveSalvarTransacao_quandoDadosValidos() {
+        UUID usuarioId = UUID.randomUUID();
+        UUID contaId = UUID.randomUUID();
+        Transacao transacao = new Transacao(
+                usuarioId, contaId, TipoTransacao.gasto,
+                new BigDecimal("150.00"), LocalDate.now(), OrigemTransacao.manual
+        );
+        Transacao salva = new Transacao(UUID.randomUUID(), usuarioId, contaId, null, null,
+                TipoTransacao.gasto, null, null, null, new BigDecimal("150.00"),
+                LocalDate.now(), null, null, null, null, OrigemTransacao.manual,
+                null, null, false, null, null, null, 1, null, null);
+        when(repository.salvar(any())).thenReturn(salva);
+
+        Transacao resultado = useCase.executar(transacao);
+
+        assertThat(resultado.getId()).isNotNull();
+        assertThat(resultado.getValor()).isEqualByComparingTo("150.00");
+        verify(repository).salvar(transacao);
+    }
+
+    @Test
+    void executar_naoDeveSalvar_quandoValorInvalido() {
+        Transacao transacaoInvalida = new Transacao(
+                UUID.randomUUID(), UUID.randomUUID(), TipoTransacao.gasto,
+                BigDecimal.ZERO, LocalDate.now(), OrigemTransacao.manual
+        );
+
+        assertThatThrownBy(() -> useCase.executar(transacaoInvalida))
+                .isInstanceOf(TransacaoInvalidaException.class);
+
+        verify(repository, never()).salvar(any());
+    }
+}
