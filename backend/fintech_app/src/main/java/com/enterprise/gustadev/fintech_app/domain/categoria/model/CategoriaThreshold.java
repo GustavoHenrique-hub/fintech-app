@@ -1,21 +1,20 @@
-package com.enterprise.gustadev.fintech_app.domain.categoria.model;
+﻿package com.enterprise.gustadev.fintech_app.domain.categoria.model;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.UUID;
 
 @Getter
 @Setter
 public class CategoriaThreshold {
 
-    private UUID id;
-    private UUID categoriaId;
+    private Long id;
+    private Long categoriaId;
     private short thresholdAuto;
     private short thresholdAlerta;
     private boolean ambiguidadeAlta;
 
-    public CategoriaThreshold(UUID id, UUID categoriaId, short thresholdAuto,
+    public CategoriaThreshold(Long id, Long categoriaId, short thresholdAuto,
                                short thresholdAlerta, boolean ambiguidadeAlta) {
         this.id = id;
         this.categoriaId = categoriaId;
@@ -24,7 +23,7 @@ public class CategoriaThreshold {
         this.ambiguidadeAlta = ambiguidadeAlta;
     }
 
-    public CategoriaThreshold(UUID categoriaId, short thresholdAuto, short thresholdAlerta, boolean ambiguidadeAlta) {
+    public CategoriaThreshold(Long categoriaId, short thresholdAuto, short thresholdAlerta, boolean ambiguidadeAlta) {
         this(null, categoriaId, thresholdAuto, thresholdAlerta, ambiguidadeAlta);
     }
 }

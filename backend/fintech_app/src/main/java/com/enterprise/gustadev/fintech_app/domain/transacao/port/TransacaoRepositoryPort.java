@@ -1,17 +1,16 @@
-package com.enterprise.gustadev.fintech_app.domain.transacao.port;
+﻿package com.enterprise.gustadev.fintech_app.domain.transacao.port;
 
 import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public interface TransacaoRepositoryPort {
     Transacao salvar(Transacao transacao);
-    List<Transacao> listarPorUsuario(UUID usuarioId);
-    List<Transacao> listarPorConta(UUID contaId);
-    List<Transacao> listarPorExtrato(UUID extratoId);
-    Optional<Transacao> buscarPorId(UUID id);
-    Optional<Transacao> buscarPorIdECode(UUID id, String code);
-    void deletarPorId(UUID id);
+    List<Transacao> listarPorUsuario(Long usuarioId);
+    List<Transacao> listarPorConta(Long contaId);
+    List<Transacao> listarPorExtrato(Long extratoId);
+    Optional<Transacao> buscarPorId(Long id);
+    Optional<Transacao> buscarPorIdECode(Long id, String code);
+    void deletarPorId(Long id);
 }

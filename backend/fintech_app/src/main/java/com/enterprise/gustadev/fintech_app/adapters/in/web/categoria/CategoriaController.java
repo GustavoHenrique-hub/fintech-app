@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.in.web.categoria;
+﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.categoria;
 
 import com.enterprise.gustadev.fintech_app.adapters.in.web.categoria.dto.CategoriaResponseDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.categoria.dto.CriarCategoriaRequestDTO;
@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.util.List;
-import java.util.UUID;
 
 @Tag(name = "Categorias", description = "Gerenciamento de categorias de transações")
 @RestController
@@ -74,7 +73,7 @@ public class CategoriaController {
     })
     @GetMapping("/{id_categorias}/{categorias_code}")
     public ResponseEntity<CategoriaResponseDTO> buscarPorId(
-            @Parameter(description = "UUID da categoria (id_categorias)") @PathVariable("id_categorias") UUID idCategorias,
+            @Parameter(description = "ID da categoria (id_categorias)") @PathVariable("id_categorias") Long idCategorias,
             @Parameter(description = "Código alfanumérico de 6 caracteres (categorias_code)") @PathVariable("categorias_code") String categoriasCode) {
         return ResponseEntity.ok(CategoriaResponseDTO.fromDomain(buscarUseCase.executar(idCategorias, categoriasCode)));
     }

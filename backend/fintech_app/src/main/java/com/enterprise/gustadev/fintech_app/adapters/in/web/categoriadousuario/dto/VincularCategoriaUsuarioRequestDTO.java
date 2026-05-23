@@ -1,10 +1,9 @@
-package com.enterprise.gustadev.fintech_app.adapters.in.web.categoriadousuario.dto;
+﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.categoriadousuario.dto;
 
 import jakarta.validation.constraints.NotNull;
 
-import java.util.UUID;
 
 public record VincularCategoriaUsuarioRequestDTO(
-        @NotNull UUID usuarioId,
-        @NotNull UUID categoriaId
+        @NotNull Long usuarioId,
+        @NotNull Long categoriaId
 ) {}

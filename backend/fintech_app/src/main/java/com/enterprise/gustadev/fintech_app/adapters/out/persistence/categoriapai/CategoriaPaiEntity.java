@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.out.persistence.categoriapai;
+﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.categoriapai;
 
 import com.enterprise.gustadev.fintech_app.domain.categoriapai.model.CategoriaPai;
 import jakarta.persistence.Column;
@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "categorias_pai")
@@ -22,14 +21,14 @@ import java.util.UUID;
 public class CategoriaPaiEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "categoria_id", nullable = false)
-    private UUID categoriaId;
+    private Long categoriaId;
 
     @Column(name = "pai_id", nullable = false)
-    private UUID paiId;
+    private Long paiId;
 
     @Column(name = "criado_em", nullable = false)
     private OffsetDateTime criadoEm;

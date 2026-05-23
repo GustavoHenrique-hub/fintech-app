@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.domain.motivocancelamento.model;
+﻿package com.enterprise.gustadev.fintech_app.domain.motivocancelamento.model;
 
 import com.enterprise.gustadev.fintech_app.domain.motivocancelamento.exception.MotivoCancelamentoInvalidoException;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemPermitidaCancelamento;
@@ -6,20 +6,19 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Getter
 @Setter
 public class MotivoCancelamento {
 
-    private UUID id;
+    private Long id;
     private String code;
     private String descricao;
     private OrigemPermitidaCancelamento origemPermitida;
     private boolean ativo;
     private OffsetDateTime criadoEm;
 
-    public MotivoCancelamento(UUID id, String descricao, OrigemPermitidaCancelamento origemPermitida,
+    public MotivoCancelamento(Long id, String descricao, OrigemPermitidaCancelamento origemPermitida,
                                boolean ativo, OffsetDateTime criadoEm) {
         this.id = id;
         this.descricao = descricao;

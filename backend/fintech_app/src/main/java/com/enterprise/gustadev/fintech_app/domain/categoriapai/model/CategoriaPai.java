@@ -1,29 +1,28 @@
-package com.enterprise.gustadev.fintech_app.domain.categoriapai.model;
+﻿package com.enterprise.gustadev.fintech_app.domain.categoriapai.model;
 
 import com.enterprise.gustadev.fintech_app.domain.categoriapai.exception.CategoriaPaiInvalidaException;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Getter
 @Setter
 public class CategoriaPai {
 
-    private UUID id;
-    private UUID categoriaId;
-    private UUID paiId;
+    private Long id;
+    private Long categoriaId;
+    private Long paiId;
     private OffsetDateTime criadoEm;
 
-    public CategoriaPai(UUID id, UUID categoriaId, UUID paiId, OffsetDateTime criadoEm) {
+    public CategoriaPai(Long id, Long categoriaId, Long paiId, OffsetDateTime criadoEm) {
         this.id = id;
         this.categoriaId = categoriaId;
         this.paiId = paiId;
         this.criadoEm = criadoEm;
     }
 
-    public CategoriaPai(UUID categoriaId, UUID paiId) {
+    public CategoriaPai(Long categoriaId, Long paiId) {
         this(null, categoriaId, paiId, null);
     }
 

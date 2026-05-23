@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.in.web.transacaocancelada;
+﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.transacaocancelada;
 
 import com.enterprise.gustadev.fintech_app.adapters.in.web.transacaocancelada.dto.CancelarTransacaoRequestDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.transacaocancelada.dto.TransacaoCanceladaResponseDTO;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.util.List;
-import java.util.UUID;
 
 @Tag(name = "Transações Canceladas", description = "Registro de cancelamentos de transações")
 @RestController
@@ -54,7 +53,7 @@ public class TransacaoCanceladaController {
     @Operation(summary = "Listar cancelamentos de um usuário")
     @ApiResponse(responseCode = "200", description = "Lista retornada com sucesso")
     @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<List<TransacaoCanceladaResponseDTO>> listarPorUsuario(@PathVariable UUID usuarioId) {
+    public ResponseEntity<List<TransacaoCanceladaResponseDTO>> listarPorUsuario(@PathVariable Long usuarioId) {
         return ResponseEntity.ok(listarUseCase.executar(usuarioId).stream()
                 .map(TransacaoCanceladaResponseDTO::fromDomain).toList());
     }

@@ -1,16 +1,15 @@
-package com.enterprise.gustadev.fintech_app.adapters.in.web.extrato.dto;
+﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.extrato.dto;
 
 import com.enterprise.gustadev.fintech_app.domain.extrato.model.Extrato;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 public record ExtratoResponseDTO(
-        UUID id,
+        Long id,
         String code,
-        UUID usuarioId,
-        UUID contaId,
+        Long usuarioId,
+        Long contaId,
         String arquivoNome,
         String bancoDetectado,
         LocalDate periodoInicio,

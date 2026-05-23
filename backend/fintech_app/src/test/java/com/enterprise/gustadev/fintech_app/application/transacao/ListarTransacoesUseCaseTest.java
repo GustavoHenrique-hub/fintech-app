@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.application.transacao;
+﻿package com.enterprise.gustadev.fintech_app.application.transacao;
 
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.ListarTransacoesUseCase;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;
@@ -14,7 +14,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
@@ -29,15 +28,15 @@ class ListarTransacoesUseCaseTest {
     @InjectMocks
     private ListarTransacoesUseCase useCase;
 
-    private Transacao criarTransacao(UUID usuarioId, UUID contaId) {
-        return new Transacao(usuarioId, contaId, TipoTransacao.gasto,
+    private Transacao criarTransacao(Long usuarioId, Long contaId) {
+        return new Transacao(usuarioId, contaId, TipoTransacao.GASTO,
                 new BigDecimal("50.00"), LocalDate.now(), OrigemTransacao.manual);
     }
 
     @Test
     void executarPorUsuario_deveRetornarTransacoesDoUsuario() {
-        UUID usuarioId = UUID.randomUUID();
-        List<Transacao> lista = List.of(criarTransacao(usuarioId, UUID.randomUUID()));
+        Long usuarioId = 1L;
+        List<Transacao> lista = List.of(criarTransacao(usuarioId, 1L));
         when(repository.listarPorUsuario(usuarioId)).thenReturn(lista);
 
         List<Transacao> resultado = useCase.executarPorUsuario(usuarioId);
@@ -48,8 +47,8 @@ class ListarTransacoesUseCaseTest {
 
     @Test
     void executarPorConta_deveRetornarTransacoesDaConta() {
-        UUID contaId = UUID.randomUUID();
-        List<Transacao> lista = List.of(criarTransacao(UUID.randomUUID(), contaId));
+        Long contaId = 1L;
+        List<Transacao> lista = List.of(criarTransacao(1L, contaId));
         when(repository.listarPorConta(contaId)).thenReturn(lista);
 
         List<Transacao> resultado = useCase.executarPorConta(contaId);
@@ -60,7 +59,7 @@ class ListarTransacoesUseCaseTest {
 
     @Test
     void executarPorExtrato_deveRetornarTransacoesDoExtrato() {
-        UUID extratoId = UUID.randomUUID();
+        Long extratoId = 1L;
         when(repository.listarPorExtrato(extratoId)).thenReturn(List.of());
 
         List<Transacao> resultado = useCase.executarPorExtrato(extratoId);

@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.in.web.snapshotfinanceiro;
+﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.snapshotfinanceiro;
 
 import com.enterprise.gustadev.fintech_app.adapters.in.web.snapshotfinanceiro.dto.SnapshotFinanceiroResponseDTO;
 import com.enterprise.gustadev.fintech_app.application.snapshotfinanceiro.usecase.BuscarSnapshotFinanceiroUseCase;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.UUID;
 
 @Tag(name = "Snapshots Financeiros", description = "Consolidação mensal de saldo e movimentação financeira por conta ou usuário")
 @RestController
@@ -36,7 +35,7 @@ public class SnapshotFinanceiroController {
     @ApiResponse(responseCode = "200", description = "Lista de snapshots retornada com sucesso")
     @GetMapping("/usuario/{usuarioId}")
     public ResponseEntity<List<SnapshotFinanceiroResponseDTO>> listarPorUsuario(
-            @Parameter(description = "UUID do usuário") @PathVariable UUID usuarioId) {
+            @Parameter(description = "ID do usuário") @PathVariable Long usuarioId) {
         return ResponseEntity.ok(listarUseCase.executar(usuarioId).stream()
                 .map(SnapshotFinanceiroResponseDTO::fromDomain).toList());
     }
@@ -48,8 +47,8 @@ public class SnapshotFinanceiroController {
     })
     @GetMapping("/usuario/{usuarioId}/mes")
     public ResponseEntity<SnapshotFinanceiroResponseDTO> buscarPorMes(
-            @Parameter(description = "UUID do usuário") @PathVariable UUID usuarioId,
-            @Parameter(description = "UUID da conta (opcional, filtra por conta específica)") @RequestParam(required = false) UUID contaId,
+            @Parameter(description = "ID do usuário") @PathVariable Long usuarioId,
+            @Parameter(description = "ID da conta (opcional, filtra por conta específica)") @RequestParam(required = false) Long contaId,
             @Parameter(description = "Ano do snapshot (ex: 2025)") @RequestParam short ano,
             @Parameter(description = "Mês do snapshot (1-12)") @RequestParam short mes) {
         return buscarUseCase.executar(usuarioId, contaId, ano, mes)

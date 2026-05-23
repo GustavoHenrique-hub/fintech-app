@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.application.contafinanceira;
+﻿package com.enterprise.gustadev.fintech_app.application.contafinanceira;
 
 import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.DeletarContaFinanceiraUseCase;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
@@ -12,7 +12,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.util.Optional;
-import java.util.UUID;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -28,9 +27,9 @@ class DeletarContaFinanceiraUseCaseTest {
 
     @Test
     void executar_deveDelegarDeletarAoRepository() {
-        UUID id = UUID.randomUUID();
+        Long id = 1L;
         String code = "ABC123";
-        ContaFinanceira conta = new ContaFinanceira(id, UUID.randomUUID(), "Nubank",
+        ContaFinanceira conta = new ContaFinanceira(id, 1L, "Nubank",
                 TipoConta.corrente, "Nubank", BigDecimal.TEN, false, true, null, null);
         when(repository.buscarPorIdECode(id, code)).thenReturn(Optional.of(conta));
 

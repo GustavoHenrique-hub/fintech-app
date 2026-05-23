@@ -1,14 +1,13 @@
-package com.enterprise.gustadev.fintech_app.adapters.in.web.snapshotfinanceiro.dto;
+﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.snapshotfinanceiro.dto;
 
 import com.enterprise.gustadev.fintech_app.domain.snapshotfinanceiro.model.SnapshotFinanceiro;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 public record SnapshotFinanceiroResponseDTO(
-        UUID id,
-        UUID usuarioId,
-        UUID contaId,
+        Long id,
+        Long usuarioId,
+        Long contaId,
         short ano,
         short mes,
         BigDecimal saldoInicial,

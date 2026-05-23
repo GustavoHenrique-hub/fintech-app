@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.out.persistence.transacaocancelada;
+﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.transacaocancelada;
 
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.CanceladoPor;
 import com.enterprise.gustadev.fintech_app.domain.transacaocancelada.model.TransacaoCancelada;
@@ -16,7 +16,6 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "transacoes_canceladas")
@@ -26,20 +25,20 @@ import java.util.UUID;
 public class TransacaoCanceladaEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "transacao_id", nullable = false)
-    private UUID transacaoId;
+    private Long transacaoId;
 
     @Column(name = "usuario_id", nullable = false)
-    private UUID usuarioId;
+    private Long usuarioId;
 
     @Column(name = "conta_id", nullable = false)
-    private UUID contaId;
+    private Long contaId;
 
     @Column(name = "motivo_id", nullable = false)
-    private UUID motivoId;
+    private Long motivoId;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "cancelado_por", nullable = false, length = 20)

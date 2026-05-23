@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.domain.extrato.model;
+﻿package com.enterprise.gustadev.fintech_app.domain.extrato.model;
 
 import com.enterprise.gustadev.fintech_app.domain.extrato.exception.ExtratoInvalidoException;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusExtrato;
@@ -8,21 +8,20 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Getter
 @Setter
 public class Extrato {
 
-    private UUID id;
+    private Long id;
     private String code;
-    private UUID usuarioId;
-    private UUID contaId;
+    private Long usuarioId;
+    private Long contaId;
     private String arquivoNome;
     private String arquivoUuid;
     private String hashArquivo;
     private String bancoDetectado;
-    private UUID parserVersaoId;
+    private Long parserVersaoId;
     private BigDecimal scoreExtracao;
     private LocalDate periodoInicio;
     private LocalDate periodoFim;
@@ -35,9 +34,9 @@ public class Extrato {
     private OffsetDateTime criadoEm;
     private OffsetDateTime atualizadoEm;
 
-    public Extrato(UUID id, UUID usuarioId, UUID contaId, String arquivoNome,
+    public Extrato(Long id, Long usuarioId, Long contaId, String arquivoNome,
                    String arquivoUuid, String hashArquivo, String bancoDetectado,
-                   UUID parserVersaoId, BigDecimal scoreExtracao, LocalDate periodoInicio,
+                   Long parserVersaoId, BigDecimal scoreExtracao, LocalDate periodoInicio,
                    LocalDate periodoFim, StatusExtrato status, int totalLancamentos,
                    int lancamentosConfirmados, int lancamentosPendentes, int lancamentosIgnorados,
                    int versao, OffsetDateTime criadoEm, OffsetDateTime atualizadoEm) {
@@ -62,7 +61,7 @@ public class Extrato {
         this.atualizadoEm = atualizadoEm;
     }
 
-    public Extrato(UUID usuarioId, UUID contaId, String arquivoNome, String arquivoUuid, String hashArquivo) {
+    public Extrato(Long usuarioId, Long contaId, String arquivoNome, String arquivoUuid, String hashArquivo) {
         this(null, usuarioId, contaId, arquivoNome, arquivoUuid, hashArquivo, null,
              null, null, null, null, StatusExtrato.upload_recebido,
              0, 0, 0, 0, 1, null, null);

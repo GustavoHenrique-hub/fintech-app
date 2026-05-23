@@ -1,11 +1,10 @@
-package com.enterprise.gustadev.fintech_app.adapters.in.web.motivocancelamento.dto;
+﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.motivocancelamento.dto;
 
 import com.enterprise.gustadev.fintech_app.domain.motivocancelamento.model.MotivoCancelamento;
 
-import java.util.UUID;
 
 public record MotivoCancelamentoResponseDTO(
-        UUID id,
+        Long id,
         String code,
         String descricao,
         String origemPermitida,

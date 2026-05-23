@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.domain.transacao;
+﻿package com.enterprise.gustadev.fintech_app.domain.transacao;
 
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoTransacao;
@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -18,8 +17,8 @@ class TransacaoTest {
     @Test
     void validar_devePassar_quandoDadosCorretos() {
         Transacao transacao = new Transacao(
-                UUID.randomUUID(), UUID.randomUUID(),
-                TipoTransacao.gasto, new BigDecimal("50.00"),
+                1L, 1L,
+                TipoTransacao.GASTO, new BigDecimal("50.00"),
                 LocalDate.now(), OrigemTransacao.manual
         );
         assertThatCode(transacao::validar).doesNotThrowAnyException();
@@ -28,8 +27,8 @@ class TransacaoTest {
     @Test
     void validar_deveLancarExcecao_quandoUsuarioIdNulo() {
         Transacao transacao = new Transacao(
-                null, UUID.randomUUID(),
-                TipoTransacao.gasto, new BigDecimal("50.00"),
+                null, 1L,
+                TipoTransacao.GASTO, new BigDecimal("50.00"),
                 LocalDate.now(), OrigemTransacao.manual
         );
         assertThatThrownBy(transacao::validar)
@@ -40,8 +39,8 @@ class TransacaoTest {
     @Test
     void validar_deveLancarExcecao_quandoValorZero() {
         Transacao transacao = new Transacao(
-                UUID.randomUUID(), UUID.randomUUID(),
-                TipoTransacao.gasto, BigDecimal.ZERO,
+                1L, 1L,
+                TipoTransacao.GASTO, BigDecimal.ZERO,
                 LocalDate.now(), OrigemTransacao.manual
         );
         assertThatThrownBy(transacao::validar)
@@ -52,8 +51,8 @@ class TransacaoTest {
     @Test
     void validar_deveLancarExcecao_quandoValorNegativo() {
         Transacao transacao = new Transacao(
-                UUID.randomUUID(), UUID.randomUUID(),
-                TipoTransacao.gasto, new BigDecimal("-10.00"),
+                1L, 1L,
+                TipoTransacao.GASTO, new BigDecimal("-10.00"),
                 LocalDate.now(), OrigemTransacao.manual
         );
         assertThatThrownBy(transacao::validar)
@@ -64,8 +63,8 @@ class TransacaoTest {
     @Test
     void validar_deveLancarExcecao_quandoDataNula() {
         Transacao transacao = new Transacao(
-                UUID.randomUUID(), UUID.randomUUID(),
-                TipoTransacao.receita, new BigDecimal("100.00"),
+                1L, 1L,
+                TipoTransacao.RECEITA, new BigDecimal("100.00"),
                 null, OrigemTransacao.manual
         );
         assertThatThrownBy(transacao::validar)
@@ -76,8 +75,8 @@ class TransacaoTest {
     @Test
     void validar_deveLancarExcecao_quandoOrigemNula() {
         Transacao transacao = new Transacao(
-                UUID.randomUUID(), UUID.randomUUID(),
-                TipoTransacao.receita, new BigDecimal("100.00"),
+                1L, 1L,
+                TipoTransacao.RECEITA, new BigDecimal("100.00"),
                 LocalDate.now(), null
         );
         assertThatThrownBy(transacao::validar)

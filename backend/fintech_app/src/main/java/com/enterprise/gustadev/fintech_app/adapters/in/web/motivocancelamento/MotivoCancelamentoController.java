@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.in.web.motivocancelamento;
+﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.motivocancelamento;
 
 import com.enterprise.gustadev.fintech_app.adapters.in.web.motivocancelamento.dto.MotivoCancelamentoResponseDTO;
 import com.enterprise.gustadev.fintech_app.application.motivocancelamento.usecase.BuscarMotivoCancelamentoUseCase;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.UUID;
 
 @Tag(name = "Motivos de Cancelamento", description = "Catálogo de motivos para cancelamento de transações")
 @RestController
@@ -47,7 +46,7 @@ public class MotivoCancelamentoController {
     })
     @GetMapping("/{id_motivos}/{motivos_code}")
     public ResponseEntity<MotivoCancelamentoResponseDTO> buscar(
-            @Parameter(description = "UUID do motivo de cancelamento (id_motivos)") @PathVariable("id_motivos") UUID idMotivos,
+            @Parameter(description = "ID do motivo de cancelamento (id_motivos)") @PathVariable("id_motivos") Long idMotivos,
             @Parameter(description = "Código alfanumérico de 6 caracteres (motivos_code)") @PathVariable("motivos_code") String motivosCode) {
         return ResponseEntity.ok(MotivoCancelamentoResponseDTO.fromDomain(buscarUseCase.executar(idMotivos, motivosCode)));
     }

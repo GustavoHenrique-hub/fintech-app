@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.out.persistence.motivocancelamento;
+﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.motivocancelamento;
 
 import com.enterprise.gustadev.fintech_app.domain.motivocancelamento.model.MotivoCancelamento;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemPermitidaCancelamento;
@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "motivos_cancelamento")
@@ -25,8 +24,8 @@ import java.util.UUID;
 public class MotivoCancelamentoEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "motivos_cancelamento_code", unique = true, nullable = false, length = 6)
     private String code;
@@ -48,7 +47,7 @@ public class MotivoCancelamentoEntity {
         MotivoCancelamentoEntity entity = new MotivoCancelamentoEntity();
         entity.id = domain.getId();
         entity.code = domain.getCode() != null ? domain.getCode()
-                : UUID.randomUUID().toString().replace("-", "").substring(0, 6).toUpperCase();
+                : Long.toHexString(System.nanoTime()).substring(0, 6).toUpperCase();
         entity.descricao = domain.getDescricao();
         entity.origemPermitida = domain.getOrigemPermitida();
         entity.ativo = domain.isAtivo();

@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.out.persistence.notificacao;
+﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.notificacao;
 
 import com.enterprise.gustadev.fintech_app.domain.notificacao.model.Notificacao;
 import com.enterprise.gustadev.fintech_app.domain.notificacao.port.NotificacaoRepositoryPort;
@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Component
 public class NotificacaoRepositoryAdapter implements NotificacaoRepositoryPort {
@@ -23,7 +22,7 @@ public class NotificacaoRepositoryAdapter implements NotificacaoRepositoryPort {
     }
 
     @Override
-    public List<Notificacao> listarPorUsuario(UUID usuarioId) {
+    public List<Notificacao> listarPorUsuario(Long usuarioId) {
         return jpaRepository.findByUsuarioId(usuarioId).stream()
                 .map(NotificacaoEntity::toDomain).toList();
     }
@@ -35,7 +34,7 @@ public class NotificacaoRepositoryAdapter implements NotificacaoRepositoryPort {
     }
 
     @Override
-    public Optional<Notificacao> buscarPorId(UUID id) {
+    public Optional<Notificacao> buscarPorId(Long id) {
         return jpaRepository.findById(id).map(NotificacaoEntity::toDomain);
     }
 }

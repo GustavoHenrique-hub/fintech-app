@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.in.web.transacao;
+﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.transacao;
 
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.BuscarTransacaoUseCase;
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.CriarTransacaoUseCase;
@@ -21,7 +21,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -58,7 +57,7 @@ class TransacaoControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
-    private Transacao transacaoCompleta(UUID id, UUID usuarioId, UUID contaId) {
+    private Transacao transacaoCompleta(Long id, Long usuarioId, Long contaId) {
         return new Transacao(id, usuarioId, contaId, null, null,
                 TipoTransacao.GASTO, null, null, null,
                 new BigDecimal("150.00"), LocalDate.now(), null,
@@ -69,9 +68,9 @@ class TransacaoControllerTest {
 
     @Test
     void criar_deveRetornar201_quandoDadosValidos() throws Exception {
-        UUID usuarioId = UUID.randomUUID();
-        UUID contaId = UUID.randomUUID();
-        UUID transacaoId = UUID.randomUUID();
+        Long usuarioId = 1L;
+        Long contaId = 1L;
+        Long transacaoId = 1L;
         when(criarUseCase.executar(any()))
                 .thenReturn(transacaoCompleta(transacaoId, usuarioId, contaId));
 
@@ -94,9 +93,9 @@ class TransacaoControllerTest {
 
     @Test
     void listarPorUsuario_deveRetornar200ComLista() throws Exception {
-        UUID usuarioId = UUID.randomUUID();
+        Long usuarioId = 1L;
         when(listarUseCase.executarPorUsuario(usuarioId))
-                .thenReturn(List.of(transacaoCompleta(UUID.randomUUID(), usuarioId, UUID.randomUUID())));
+                .thenReturn(List.of(transacaoCompleta(1L, usuarioId, 1L)));
 
         mockMvc.perform(get("/transacoes/usuario/{usuarioId}", usuarioId))
                 .andExpect(status().isOk())
@@ -105,9 +104,9 @@ class TransacaoControllerTest {
 
     @Test
     void listarPorConta_deveRetornar200ComLista() throws Exception {
-        UUID contaId = UUID.randomUUID();
+        Long contaId = 1L;
         when(listarUseCase.executarPorConta(contaId))
-                .thenReturn(List.of(transacaoCompleta(UUID.randomUUID(), UUID.randomUUID(), contaId)));
+                .thenReturn(List.of(transacaoCompleta(1L, 1L, contaId)));
 
         mockMvc.perform(get("/transacoes/conta/{contaId}", contaId))
                 .andExpect(status().isOk())
@@ -116,18 +115,18 @@ class TransacaoControllerTest {
 
     @Test
     void buscarPorId_deveRetornar200ComTransacao() throws Exception {
-        UUID id = UUID.randomUUID();
+        Long id = 1L;
         when(buscarUseCase.executar(any(), anyString()))
-                .thenReturn(transacaoCompleta(id, UUID.randomUUID(), UUID.randomUUID()));
+                .thenReturn(transacaoCompleta(id, 1L, 1L));
 
         mockMvc.perform(get("/transacoes/{id_transacoes}/{transacoes_code}", id, "ABC123"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(id.toString()));
+                .andExpect(jsonPath("$.id").value(id.intValue()));
     }
 
     @Test
     void deletar_deveRetornar204() throws Exception {
-        UUID id = UUID.randomUUID();
+        Long id = 1L;
         doNothing().when(deletarUseCase).executar(any(), anyString());
 
         mockMvc.perform(delete("/transacoes/{id_transacoes}/{transacoes_code}", id, "ABC123"))

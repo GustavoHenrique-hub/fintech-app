@@ -1,10 +1,9 @@
-package com.enterprise.gustadev.fintech_app.application.categoriapai.usecase;
+﻿package com.enterprise.gustadev.fintech_app.application.categoriapai.usecase;
 
 import com.enterprise.gustadev.fintech_app.domain.categoriapai.model.CategoriaPai;
 import com.enterprise.gustadev.fintech_app.domain.categoriapai.port.CategoriaPaiRepositoryPort;
 
 import java.util.List;
-import java.util.UUID;
 
 public class ListarCategoriasPaiUseCase {
 
@@ -14,7 +13,7 @@ public class ListarCategoriasPaiUseCase {
         this.repository = repository;
     }
 
-    public List<CategoriaPai> executar(UUID paiId) {
+    public List<CategoriaPai> executar(Long paiId) {
         return repository.listarPorPai(paiId);
     }
 }

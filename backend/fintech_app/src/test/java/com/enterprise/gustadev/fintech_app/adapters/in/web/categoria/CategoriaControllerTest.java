@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.in.web.categoria;
+﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.categoria;
 
 import com.enterprise.gustadev.fintech_app.application.categoria.usecase.BuscarCategoriaUseCase;
 import com.enterprise.gustadev.fintech_app.application.categoria.usecase.CriarCategoriaUseCase;
@@ -16,7 +16,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.List;
-import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -48,13 +47,13 @@ class CategoriaControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
-    private Categoria categoriaCompleta(UUID id) {
+    private Categoria categoriaCompleta(Long id) {
         return new Categoria(id, "Alimentação", TipoCategoria.gasto, "🍔", "#FF5733", true, null);
     }
 
     @Test
     void criar_deveRetornar201_quandoDadosValidos() throws Exception {
-        UUID categoriaId = UUID.randomUUID();
+        Long categoriaId = 1L;
         Categoria salva = new Categoria(categoriaId, "Pets", TipoCategoria.gasto, "🐶", "#FF0000", false, null);
         when(criarUseCase.executar(any())).thenReturn(salva);
 
@@ -75,7 +74,7 @@ class CategoriaControllerTest {
 
     @Test
     void listarPadrao_deveRetornar200ComListaDeCategoriasPadrao() throws Exception {
-        when(listarUseCase.executarPadrao()).thenReturn(List.of(categoriaCompleta(UUID.randomUUID())));
+        when(listarUseCase.executarPadrao()).thenReturn(List.of(categoriaCompleta(1L)));
 
         mockMvc.perform(get("/categorias/padrao"))
                 .andExpect(status().isOk())
@@ -85,11 +84,11 @@ class CategoriaControllerTest {
 
     @Test
     void buscarPorId_deveRetornar200ComCategoria() throws Exception {
-        UUID id = UUID.randomUUID();
+        Long id = 1L;
         when(buscarUseCase.executar(any(), anyString())).thenReturn(categoriaCompleta(id));
 
         mockMvc.perform(get("/categorias/{id_categorias}/{categorias_code}", id, "ABC123"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(id.toString()));
+                .andExpect(jsonPath("$.id").value(id.intValue()));
     }
 }

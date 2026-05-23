@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.in.web.notificacao;
+﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.notificacao;
 
 import com.enterprise.gustadev.fintech_app.adapters.in.web.notificacao.dto.CriarNotificacaoRequestDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.notificacao.dto.NotificacaoResponseDTO;
@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.util.List;
-import java.util.UUID;
 
 @Tag(name = "Notificações", description = "Envio e listagem de notificações para os usuários (push, e-mail, SMS)")
 @RestController
@@ -58,7 +57,7 @@ public class NotificacaoController {
     @ApiResponse(responseCode = "200", description = "Lista de notificações retornada com sucesso")
     @GetMapping("/usuario/{usuarioId}")
     public ResponseEntity<List<NotificacaoResponseDTO>> listarPorUsuario(
-            @Parameter(description = "UUID do usuário") @PathVariable UUID usuarioId) {
+            @Parameter(description = "ID do usuário") @PathVariable Long usuarioId) {
         return ResponseEntity.ok(listarUseCase.executar(usuarioId).stream()
                 .map(NotificacaoResponseDTO::fromDomain).toList());
     }

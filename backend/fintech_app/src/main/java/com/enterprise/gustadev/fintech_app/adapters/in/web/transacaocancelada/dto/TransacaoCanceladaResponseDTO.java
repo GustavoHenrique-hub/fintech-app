@@ -1,17 +1,16 @@
-package com.enterprise.gustadev.fintech_app.adapters.in.web.transacaocancelada.dto;
+﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.transacaocancelada.dto;
 
 import com.enterprise.gustadev.fintech_app.domain.transacaocancelada.model.TransacaoCancelada;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 public record TransacaoCanceladaResponseDTO(
-        UUID id,
-        UUID transacaoId,
-        UUID usuarioId,
-        UUID contaId,
-        UUID motivoId,
+        Long id,
+        Long transacaoId,
+        Long usuarioId,
+        Long contaId,
+        Long motivoId,
         String canceladoPor,
         BigDecimal valorOriginal,
         String observacao,

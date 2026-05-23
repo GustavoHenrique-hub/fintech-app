@@ -1,9 +1,8 @@
-package com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase;
+﻿package com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase;
 
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.exception.ContaFinanceiraInvalidaException;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.port.ContaFinanceiraRepositoryPort;
 
-import java.util.UUID;
 
 public class DeletarContaFinanceiraUseCase {
 
@@ -13,7 +12,7 @@ public class DeletarContaFinanceiraUseCase {
         this.repository = repository;
     }
 
-    public void executar(UUID id, String code) {
+    public void executar(Long id, String code) {
         repository.buscarPorIdECode(id, code)
                 .orElseThrow(() -> new ContaFinanceiraInvalidaException("Conta financeira não encontrada: " + id));
         repository.deletarPorId(id);

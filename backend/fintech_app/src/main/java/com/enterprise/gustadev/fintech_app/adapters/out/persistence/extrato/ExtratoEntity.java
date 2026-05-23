@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.out.persistence.extrato;
+﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.extrato;
 
 import com.enterprise.gustadev.fintech_app.domain.extrato.model.Extrato;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusExtrato;
@@ -17,7 +17,6 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "extratos")
@@ -27,17 +26,17 @@ import java.util.UUID;
 public class ExtratoEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "extratos_code", unique = true, nullable = false, length = 6)
     private String code;
 
     @Column(name = "usuario_id", nullable = false)
-    private UUID usuarioId;
+    private Long usuarioId;
 
     @Column(name = "conta_id", nullable = false)
-    private UUID contaId;
+    private Long contaId;
 
     @Column(name = "arquivo_nome", length = 255)
     private String arquivoNome;
@@ -52,7 +51,7 @@ public class ExtratoEntity {
     private String bancoDetectado;
 
     @Column(name = "parser_versao_id")
-    private UUID parserVersaoId;
+    private Long parserVersaoId;
 
     @Column(name = "score_extracao", precision = 4, scale = 3)
     private BigDecimal scoreExtracao;
@@ -92,7 +91,7 @@ public class ExtratoEntity {
         ExtratoEntity entity = new ExtratoEntity();
         entity.id = domain.getId();
         entity.code = domain.getCode() != null ? domain.getCode()
-                : UUID.randomUUID().toString().replace("-", "").substring(0, 6).toUpperCase();
+                : Long.toHexString(System.nanoTime()).substring(0, 6).toUpperCase();
         entity.usuarioId = domain.getUsuarioId();
         entity.contaId = domain.getContaId();
         entity.arquivoNome = domain.getArquivoNome();

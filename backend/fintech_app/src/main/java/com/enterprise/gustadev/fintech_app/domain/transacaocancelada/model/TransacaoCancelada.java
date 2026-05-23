@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.domain.transacaocancelada.model;
+﻿package com.enterprise.gustadev.fintech_app.domain.transacaocancelada.model;
 
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.CanceladoPor;
 import com.enterprise.gustadev.fintech_app.domain.transacaocancelada.exception.TransacaoCanceladaInvalidaException;
@@ -7,25 +7,24 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Getter
 @Setter
 public class TransacaoCancelada {
 
-    private UUID id;
-    private UUID transacaoId;
-    private UUID usuarioId;
-    private UUID contaId;
-    private UUID motivoId;
+    private Long id;
+    private Long transacaoId;
+    private Long usuarioId;
+    private Long contaId;
+    private Long motivoId;
     private CanceladoPor canceladoPor;
     private BigDecimal valorOriginal;
     private String observacao;
     private String ipOrigem;
     private OffsetDateTime canceladoEm;
 
-    public TransacaoCancelada(UUID id, UUID transacaoId, UUID usuarioId, UUID contaId,
-                               UUID motivoId, CanceladoPor canceladoPor, BigDecimal valorOriginal,
+    public TransacaoCancelada(Long id, Long transacaoId, Long usuarioId, Long contaId,
+                               Long motivoId, CanceladoPor canceladoPor, BigDecimal valorOriginal,
                                String observacao, String ipOrigem, OffsetDateTime canceladoEm) {
         this.id = id;
         this.transacaoId = transacaoId;
@@ -39,8 +38,8 @@ public class TransacaoCancelada {
         this.canceladoEm = canceladoEm;
     }
 
-    public TransacaoCancelada(UUID transacaoId, UUID usuarioId, UUID contaId,
-                               UUID motivoId, CanceladoPor canceladoPor, BigDecimal valorOriginal,
+    public TransacaoCancelada(Long transacaoId, Long usuarioId, Long contaId,
+                               Long motivoId, CanceladoPor canceladoPor, BigDecimal valorOriginal,
                                String observacao, String ipOrigem) {
         this(null, transacaoId, usuarioId, contaId, motivoId, canceladoPor,
                 valorOriginal, observacao, ipOrigem, null);

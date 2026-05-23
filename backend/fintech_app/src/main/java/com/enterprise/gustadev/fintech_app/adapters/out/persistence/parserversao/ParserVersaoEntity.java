@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.out.persistence.parserversao;
+﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.parserversao;
 
 import com.enterprise.gustadev.fintech_app.domain.parserversao.model.ParserVersao;
 import jakarta.persistence.Column;
@@ -13,7 +13,6 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "parser_versoes")
@@ -23,8 +22,8 @@ import java.util.UUID;
 public class ParserVersaoEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false, length = 100)
     private String banco;

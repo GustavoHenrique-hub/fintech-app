@@ -1,10 +1,9 @@
-package com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase;
+﻿package com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase;
 
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.port.ContaFinanceiraRepositoryPort;
 
 import java.util.List;
-import java.util.UUID;
 
 public class ListarContasFinanceirasUseCase {
 
@@ -14,7 +13,7 @@ public class ListarContasFinanceirasUseCase {
         this.repository = repository;
     }
 
-    public List<ContaFinanceira> executar(UUID usuarioId) {
+    public List<ContaFinanceira> executar(Long usuarioId) {
         return repository.listarPorUsuario(usuarioId);
     }
 }

@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.in.web.transacao;
+﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.transacao;
 
 import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.TransacaoRequestDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.TransacaoResponseDTO;
@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.util.List;
-import java.util.UUID;
 
 @Tag(name = "Transações", description = "Registro e consulta de transações financeiras (débito, crédito, transferência)")
 @RestController
@@ -76,7 +75,7 @@ public class TransacaoController {
     @ApiResponse(responseCode = "200", description = "Lista de transações retornada com sucesso")
     @GetMapping("/usuario/{usuarioId}")
     public ResponseEntity<List<TransacaoResponseDTO>> listarPorUsuario(
-            @Parameter(description = "UUID do usuário") @PathVariable UUID usuarioId) {
+            @Parameter(description = "ID do usuário") @PathVariable Long usuarioId) {
         return ResponseEntity.ok(listarUseCase.executarPorUsuario(usuarioId).stream()
                 .map(TransacaoResponseDTO::fromDomain).toList());
     }
@@ -85,7 +84,7 @@ public class TransacaoController {
     @ApiResponse(responseCode = "200", description = "Lista de transações retornada com sucesso")
     @GetMapping("/conta/{contaId}")
     public ResponseEntity<List<TransacaoResponseDTO>> listarPorConta(
-            @Parameter(description = "UUID da conta") @PathVariable UUID contaId) {
+            @Parameter(description = "ID da conta") @PathVariable Long contaId) {
         return ResponseEntity.ok(listarUseCase.executarPorConta(contaId).stream()
                 .map(TransacaoResponseDTO::fromDomain).toList());
     }
@@ -94,7 +93,7 @@ public class TransacaoController {
     @ApiResponse(responseCode = "200", description = "Lista de transações retornada com sucesso")
     @GetMapping("/extrato/{extratoId}")
     public ResponseEntity<List<TransacaoResponseDTO>> listarPorExtrato(
-            @Parameter(description = "UUID do extrato") @PathVariable UUID extratoId) {
+            @Parameter(description = "ID do extrato") @PathVariable Long extratoId) {
         return ResponseEntity.ok(listarUseCase.executarPorExtrato(extratoId).stream()
                 .map(TransacaoResponseDTO::fromDomain).toList());
     }
@@ -107,7 +106,7 @@ public class TransacaoController {
     })
     @GetMapping("/{id_transacoes}/{transacoes_code}")
     public ResponseEntity<TransacaoResponseDTO> buscarPorId(
-            @Parameter(description = "UUID da transação (id_transacoes)") @PathVariable("id_transacoes") UUID idTransacoes,
+            @Parameter(description = "ID da transação (id_transacoes)") @PathVariable("id_transacoes") Long idTransacoes,
             @Parameter(description = "Código alfanumérico de 6 caracteres (transacoes_code)") @PathVariable("transacoes_code") String transacoesCode) {
         return ResponseEntity.ok(TransacaoResponseDTO.fromDomain(buscarUseCase.executar(idTransacoes, transacoesCode)));
     }
@@ -120,7 +119,7 @@ public class TransacaoController {
     })
     @DeleteMapping("/{id_transacoes}/{transacoes_code}")
     public ResponseEntity<Void> deletar(
-            @Parameter(description = "UUID da transação (id_transacoes)") @PathVariable("id_transacoes") UUID idTransacoes,
+            @Parameter(description = "ID da transação (id_transacoes)") @PathVariable("id_transacoes") Long idTransacoes,
             @Parameter(description = "Código alfanumérico de 6 caracteres (transacoes_code)") @PathVariable("transacoes_code") String transacoesCode) {
         deletarUseCase.executar(idTransacoes, transacoesCode);
         return ResponseEntity.noContent().build();

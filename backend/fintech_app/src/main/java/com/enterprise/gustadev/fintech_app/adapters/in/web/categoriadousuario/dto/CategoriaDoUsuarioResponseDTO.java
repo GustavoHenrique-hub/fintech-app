@@ -1,14 +1,13 @@
-package com.enterprise.gustadev.fintech_app.adapters.in.web.categoriadousuario.dto;
+﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.categoriadousuario.dto;
 
 import com.enterprise.gustadev.fintech_app.domain.categoriadousuario.model.CategoriaDoUsuario;
 
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 public record CategoriaDoUsuarioResponseDTO(
-        UUID id,
-        UUID usuarioId,
-        UUID categoriaId,
+        Long id,
+        Long usuarioId,
+        Long categoriaId,
         boolean ativa,
         OffsetDateTime criadoEm
 ) {

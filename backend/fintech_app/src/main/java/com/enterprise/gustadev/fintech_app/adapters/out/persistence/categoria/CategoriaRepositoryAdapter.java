@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.out.persistence.categoria;
+﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.categoria;
 
 import com.enterprise.gustadev.fintech_app.domain.categoria.model.Categoria;
 import com.enterprise.gustadev.fintech_app.domain.categoria.port.CategoriaRepositoryPort;
@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Component
 public class CategoriaRepositoryAdapter implements CategoriaRepositoryPort {
@@ -34,17 +33,17 @@ public class CategoriaRepositoryAdapter implements CategoriaRepositoryPort {
     }
 
     @Override
-    public Optional<Categoria> buscarPorId(UUID id) {
+    public Optional<Categoria> buscarPorId(Long id) {
         return jpaRepository.findById(id).map(CategoriaEntity::toDomain);
     }
 
     @Override
-    public Optional<Categoria> buscarPorIdECode(UUID id, String code) {
+    public Optional<Categoria> buscarPorIdECode(Long id, String code) {
         return jpaRepository.findByIdAndCode(id, code).map(CategoriaEntity::toDomain);
     }
 
     @Override
-    public void deletarPorId(UUID id) {
+    public void deletarPorId(Long id) {
         jpaRepository.deleteById(id);
     }
 }

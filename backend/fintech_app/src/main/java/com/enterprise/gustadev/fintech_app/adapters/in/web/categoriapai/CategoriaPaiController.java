@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.in.web.categoriapai;
+﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.categoriapai;
 
 import com.enterprise.gustadev.fintech_app.adapters.in.web.categoriapai.dto.CategoriaPaiResponseDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.categoriapai.dto.CriarCategoriaPaiRequestDTO;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.util.List;
-import java.util.UUID;
 
 @Tag(name = "Hierarquia de Categorias", description = "Define relações pai/filho entre categorias")
 @RestController
@@ -47,7 +46,7 @@ public class CategoriaPaiController {
     @Operation(summary = "Listar subcategorias de uma categoria pai")
     @ApiResponse(responseCode = "200", description = "Lista retornada com sucesso")
     @GetMapping("/pai/{paiId}")
-    public ResponseEntity<List<CategoriaPaiResponseDTO>> listarPorPai(@PathVariable UUID paiId) {
+    public ResponseEntity<List<CategoriaPaiResponseDTO>> listarPorPai(@PathVariable Long paiId) {
         return ResponseEntity.ok(listarUseCase.executar(paiId).stream()
                 .map(CategoriaPaiResponseDTO::fromDomain).toList());
     }

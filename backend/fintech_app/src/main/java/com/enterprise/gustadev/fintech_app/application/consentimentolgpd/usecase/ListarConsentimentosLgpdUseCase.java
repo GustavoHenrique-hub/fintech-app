@@ -1,10 +1,9 @@
-package com.enterprise.gustadev.fintech_app.application.consentimentolgpd.usecase;
+﻿package com.enterprise.gustadev.fintech_app.application.consentimentolgpd.usecase;
 
 import com.enterprise.gustadev.fintech_app.domain.consentimentolgpd.model.ConsentimentoLgpd;
 import com.enterprise.gustadev.fintech_app.domain.consentimentolgpd.port.ConsentimentoLgpdRepositoryPort;
 
 import java.util.List;
-import java.util.UUID;
 
 public class ListarConsentimentosLgpdUseCase {
 
@@ -14,7 +13,7 @@ public class ListarConsentimentosLgpdUseCase {
         this.repository = repository;
     }
 
-    public List<ConsentimentoLgpd> executar(UUID usuarioId) {
+    public List<ConsentimentoLgpd> executar(Long usuarioId) {
         return repository.listarPorUsuario(usuarioId);
     }
 }

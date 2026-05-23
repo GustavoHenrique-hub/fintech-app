@@ -1,11 +1,10 @@
-package com.enterprise.gustadev.fintech_app.adapters.in.web.categoria.dto;
+﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.categoria.dto;
 
 import com.enterprise.gustadev.fintech_app.domain.categoria.model.Categoria;
 
-import java.util.UUID;
 
 public record CategoriaResponseDTO(
-        UUID id,
+        Long id,
         String code,
         String nome,
         String tipo,

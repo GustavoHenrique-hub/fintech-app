@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.out.persistence.contafinanceira;
+﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.contafinanceira;
 
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.port.ContaFinanceiraRepositoryPort;
@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Component
 public class ContaFinanceiraRepositoryAdapter implements ContaFinanceiraRepositoryPort {
@@ -23,22 +22,22 @@ public class ContaFinanceiraRepositoryAdapter implements ContaFinanceiraReposito
     }
 
     @Override
-    public List<ContaFinanceira> listarPorUsuario(UUID usuarioId) {
+    public List<ContaFinanceira> listarPorUsuario(Long usuarioId) {
         return jpaRepository.findByUsuarioId(usuarioId).stream().map(ContaFinanceiraEntity::toDomain).toList();
     }
 
     @Override
-    public Optional<ContaFinanceira> buscarPorId(UUID id) {
+    public Optional<ContaFinanceira> buscarPorId(Long id) {
         return jpaRepository.findById(id).map(ContaFinanceiraEntity::toDomain);
     }
 
     @Override
-    public Optional<ContaFinanceira> buscarPorIdECode(UUID id, String code) {
+    public Optional<ContaFinanceira> buscarPorIdECode(Long id, String code) {
         return jpaRepository.findByIdAndCode(id, code).map(ContaFinanceiraEntity::toDomain);
     }
 
     @Override
-    public void deletarPorId(UUID id) {
+    public void deletarPorId(Long id) {
         jpaRepository.deleteById(id);
     }
 }

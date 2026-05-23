@@ -1,10 +1,9 @@
-package com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase;
+﻿package com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase;
 
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.exception.ContaFinanceiraInvalidaException;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.port.ContaFinanceiraRepositoryPort;
 
-import java.util.UUID;
 
 public class BuscarContaFinanceiraUseCase {
 
@@ -14,7 +13,7 @@ public class BuscarContaFinanceiraUseCase {
         this.repository = repository;
     }
 
-    public ContaFinanceira executar(UUID id, String code) {
+    public ContaFinanceira executar(Long id, String code) {
         return repository.buscarPorIdECode(id, code)
                 .orElseThrow(() -> new ContaFinanceiraInvalidaException("Conta financeira não encontrada: " + id));
     }

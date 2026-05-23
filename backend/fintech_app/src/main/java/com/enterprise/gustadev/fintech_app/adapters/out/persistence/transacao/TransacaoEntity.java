@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.out.persistence.transacao;
+﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.transacao;
 
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusRevisaoTransacao;
@@ -19,7 +19,6 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "transacoes")
@@ -29,23 +28,23 @@ import java.util.UUID;
 public class TransacaoEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "transacoes_code", unique = true, nullable = false, length = 6)
     private String code;
 
     @Column(name = "usuario_id", nullable = false)
-    private UUID usuarioId;
+    private Long usuarioId;
 
     @Column(name = "conta_id", nullable = false)
-    private UUID contaId;
+    private Long contaId;
 
     @Column(name = "extrato_id")
-    private UUID extratoId;
+    private Long extratoId;
 
     @Column(name = "transacao_estorno_id")
-    private UUID transacaoEstornoId;
+    private Long transacaoEstornoId;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 10)
@@ -70,7 +69,7 @@ public class TransacaoEntity {
     private OffsetDateTime dataLancamento;
 
     @Column(name = "categoria_id")
-    private UUID categoriaId;
+    private Long categoriaId;
 
     @Column(length = 100)
     private String subcategoria;
@@ -114,7 +113,7 @@ public class TransacaoEntity {
         TransacaoEntity entity = new TransacaoEntity();
         entity.id = domain.getId();
         entity.code = domain.getCode() != null ? domain.getCode()
-                : UUID.randomUUID().toString().replace("-", "").substring(0, 6).toUpperCase();
+                : Long.toHexString(System.nanoTime()).substring(0, 6).toUpperCase();
         entity.usuarioId = domain.getUsuarioId();
         entity.contaId = domain.getContaId();
         entity.extratoId = domain.getExtratoId();

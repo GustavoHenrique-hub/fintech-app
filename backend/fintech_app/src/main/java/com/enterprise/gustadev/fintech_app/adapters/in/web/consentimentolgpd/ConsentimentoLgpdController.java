@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.in.web.consentimentolgpd;
+﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.consentimentolgpd;
 
 import com.enterprise.gustadev.fintech_app.adapters.in.web.consentimentolgpd.dto.ConsentimentoLgpdRequestDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.consentimentolgpd.dto.ConsentimentoLgpdResponseDTO;
@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.util.List;
-import java.util.UUID;
 
 @Tag(name = "Consentimentos LGPD", description = "Registro e consulta de consentimentos de privacidade conforme a LGPD")
 @RestController
@@ -60,7 +59,7 @@ public class ConsentimentoLgpdController {
     @ApiResponse(responseCode = "200", description = "Lista de consentimentos retornada com sucesso")
     @GetMapping("/usuario/{usuarioId}")
     public ResponseEntity<List<ConsentimentoLgpdResponseDTO>> listarPorUsuario(
-            @Parameter(description = "UUID do usuário") @PathVariable UUID usuarioId) {
+            @Parameter(description = "ID do usuário") @PathVariable Long usuarioId) {
         return ResponseEntity.ok(listarUseCase.executar(usuarioId).stream()
                 .map(ConsentimentoLgpdResponseDTO::fromDomain).toList());
     }

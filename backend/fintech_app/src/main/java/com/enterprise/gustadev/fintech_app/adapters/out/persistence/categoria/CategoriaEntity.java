@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.out.persistence.categoria;
+﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.categoria;
 
 import com.enterprise.gustadev.fintech_app.domain.categoria.model.Categoria;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoCategoria;
@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "categorias")
@@ -25,8 +24,8 @@ import java.util.UUID;
 public class CategoriaEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "categorias_code", unique = true, nullable = false, length = 6)
     private String code;
@@ -54,7 +53,7 @@ public class CategoriaEntity {
         CategoriaEntity entity = new CategoriaEntity();
         entity.id = domain.getId();
         entity.code = domain.getCode() != null ? domain.getCode()
-                : UUID.randomUUID().toString().replace("-", "").substring(0, 6).toUpperCase();
+                : Long.toHexString(System.nanoTime()).substring(0, 6).toUpperCase();
         entity.nome = domain.getNome();
         entity.tipo = domain.getTipo();
         entity.icone = domain.getIcone();

@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.domain.consentimentolgpd.model;
+﻿package com.enterprise.gustadev.fintech_app.domain.consentimentolgpd.model;
 
 import com.enterprise.gustadev.fintech_app.domain.consentimentolgpd.exception.ConsentimentoLgpdInvalidoException;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoConsentimentoLgpd;
@@ -6,14 +6,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Getter
 @Setter
 public class ConsentimentoLgpd {
 
-    private UUID id;
-    private UUID usuarioId;
+    private Long id;
+    private Long usuarioId;
     private TipoConsentimentoLgpd tipo;
     private String versaoPolitica;
     private boolean consentido;
@@ -22,7 +21,7 @@ public class ConsentimentoLgpd {
     private OffsetDateTime revogadoEm;
     private String revogadoMotivo;
 
-    public ConsentimentoLgpd(UUID id, UUID usuarioId, TipoConsentimentoLgpd tipo,
+    public ConsentimentoLgpd(Long id, Long usuarioId, TipoConsentimentoLgpd tipo,
                               String versaoPolitica, boolean consentido, String ipOrigem,
                               OffsetDateTime criadoEm, OffsetDateTime revogadoEm,
                               String revogadoMotivo) {
@@ -37,7 +36,7 @@ public class ConsentimentoLgpd {
         this.revogadoMotivo = revogadoMotivo;
     }
 
-    public ConsentimentoLgpd(UUID usuarioId, TipoConsentimentoLgpd tipo,
+    public ConsentimentoLgpd(Long usuarioId, TipoConsentimentoLgpd tipo,
                               String versaoPolitica, boolean consentido, String ipOrigem) {
         this(null, usuarioId, tipo, versaoPolitica, consentido, ipOrigem, null, null, null);
     }

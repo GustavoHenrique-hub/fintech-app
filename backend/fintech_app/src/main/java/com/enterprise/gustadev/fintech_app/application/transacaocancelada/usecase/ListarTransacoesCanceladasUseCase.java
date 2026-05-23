@@ -1,10 +1,9 @@
-package com.enterprise.gustadev.fintech_app.application.transacaocancelada.usecase;
+﻿package com.enterprise.gustadev.fintech_app.application.transacaocancelada.usecase;
 
 import com.enterprise.gustadev.fintech_app.domain.transacaocancelada.model.TransacaoCancelada;
 import com.enterprise.gustadev.fintech_app.domain.transacaocancelada.port.TransacaoCanceladaRepositoryPort;
 
 import java.util.List;
-import java.util.UUID;
 
 public class ListarTransacoesCanceladasUseCase {
 
@@ -14,7 +13,7 @@ public class ListarTransacoesCanceladasUseCase {
         this.repository = repository;
     }
 
-    public List<TransacaoCancelada> executar(UUID usuarioId) {
+    public List<TransacaoCancelada> executar(Long usuarioId) {
         return repository.listarPorUsuario(usuarioId);
     }
 }

@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.in.web.extrato;
+﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.extrato;
 
 import com.enterprise.gustadev.fintech_app.adapters.in.web.extrato.dto.ExtratoRequestDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.extrato.dto.ExtratoResponseDTO;
@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.util.List;
-import java.util.UUID;
 
 @Tag(name = "Extratos", description = "Upload e consulta de extratos bancários importados pelo usuário")
 @RestController
@@ -41,7 +40,7 @@ public class ExtratoController {
         this.buscarUseCase = buscarUseCase;
     }
 
-    @Operation(summary = "Criar extrato", description = "Registra os metadados de um extrato bancário importado (nome, UUID e hash do arquivo).")
+    @Operation(summary = "Criar extrato", description = "Registra os metadados de um extrato bancário importado (nome, ID e hash do arquivo).")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Extrato criado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Dados inválidos na requisição")
@@ -60,7 +59,7 @@ public class ExtratoController {
     @ApiResponse(responseCode = "200", description = "Lista de extratos retornada com sucesso")
     @GetMapping("/usuario/{usuarioId}")
     public ResponseEntity<List<ExtratoResponseDTO>> listarPorUsuario(
-            @Parameter(description = "UUID do usuário") @PathVariable UUID usuarioId) {
+            @Parameter(description = "ID do usuário") @PathVariable Long usuarioId) {
         return ResponseEntity.ok(listarUseCase.executar(usuarioId).stream()
                 .map(ExtratoResponseDTO::fromDomain).toList());
     }
@@ -73,7 +72,7 @@ public class ExtratoController {
     })
     @GetMapping("/{id_extratos}/{extratos_code}")
     public ResponseEntity<ExtratoResponseDTO> buscarPorId(
-            @Parameter(description = "UUID do extrato (id_extratos)") @PathVariable("id_extratos") UUID idExtratos,
+            @Parameter(description = "ID do extrato (id_extratos)") @PathVariable("id_extratos") Long idExtratos,
             @Parameter(description = "Código alfanumérico de 6 caracteres (extratos_code)") @PathVariable("extratos_code") String extratosCode) {
         return ResponseEntity.ok(ExtratoResponseDTO.fromDomain(buscarUseCase.executar(idExtratos, extratosCode)));
     }

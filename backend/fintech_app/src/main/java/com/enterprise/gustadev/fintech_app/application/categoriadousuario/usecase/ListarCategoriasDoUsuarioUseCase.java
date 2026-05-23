@@ -1,10 +1,9 @@
-package com.enterprise.gustadev.fintech_app.application.categoriadousuario.usecase;
+﻿package com.enterprise.gustadev.fintech_app.application.categoriadousuario.usecase;
 
 import com.enterprise.gustadev.fintech_app.domain.categoriadousuario.model.CategoriaDoUsuario;
 import com.enterprise.gustadev.fintech_app.domain.categoriadousuario.port.CategoriaDoUsuarioRepositoryPort;
 
 import java.util.List;
-import java.util.UUID;
 
 public class ListarCategoriasDoUsuarioUseCase {
 
@@ -14,7 +13,7 @@ public class ListarCategoriasDoUsuarioUseCase {
         this.repository = repository;
     }
 
-    public List<CategoriaDoUsuario> executar(UUID usuarioId) {
+    public List<CategoriaDoUsuario> executar(Long usuarioId) {
         return repository.listarPorUsuario(usuarioId);
     }
 }

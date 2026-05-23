@@ -1,10 +1,9 @@
-package com.enterprise.gustadev.fintech_app.application.transacao.usecase;
+﻿package com.enterprise.gustadev.fintech_app.application.transacao.usecase;
 
 import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;
 import com.enterprise.gustadev.fintech_app.domain.transacao.port.TransacaoRepositoryPort;
 
 import java.util.List;
-import java.util.UUID;
 
 public class ListarTransacoesUseCase {
 
@@ -14,15 +13,15 @@ public class ListarTransacoesUseCase {
         this.repository = repository;
     }
 
-    public List<Transacao> executarPorUsuario(UUID usuarioId) {
+    public List<Transacao> executarPorUsuario(Long usuarioId) {
         return repository.listarPorUsuario(usuarioId);
     }
 
-    public List<Transacao> executarPorConta(UUID contaId) {
+    public List<Transacao> executarPorConta(Long contaId) {
         return repository.listarPorConta(contaId);
     }
 
-    public List<Transacao> executarPorExtrato(UUID extratoId) {
+    public List<Transacao> executarPorExtrato(Long extratoId) {
         return repository.listarPorExtrato(extratoId);
     }
 }

@@ -1,15 +1,14 @@
-package com.enterprise.gustadev.fintech_app.adapters.in.web.contafinanceira.dto;
+﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.contafinanceira.dto;
 
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 public record ContaFinanceiraResponseDTO(
-        UUID id,
+        Long id,
         String code,
-        UUID usuarioId,
+        Long usuarioId,
         String nome,
         String tipo,
         String banco,

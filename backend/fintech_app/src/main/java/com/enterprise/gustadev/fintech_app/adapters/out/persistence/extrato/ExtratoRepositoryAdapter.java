@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.out.persistence.extrato;
+﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.extrato;
 
 import com.enterprise.gustadev.fintech_app.domain.extrato.model.Extrato;
 import com.enterprise.gustadev.fintech_app.domain.extrato.port.ExtratoRepositoryPort;
@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Component
 public class ExtratoRepositoryAdapter implements ExtratoRepositoryPort {
@@ -23,18 +22,18 @@ public class ExtratoRepositoryAdapter implements ExtratoRepositoryPort {
     }
 
     @Override
-    public List<Extrato> listarPorUsuario(UUID usuarioId) {
+    public List<Extrato> listarPorUsuario(Long usuarioId) {
         return jpaRepository.findByUsuarioIdOrderByCriadoEmDesc(usuarioId)
                 .stream().map(ExtratoEntity::toDomain).toList();
     }
 
     @Override
-    public Optional<Extrato> buscarPorId(UUID id) {
+    public Optional<Extrato> buscarPorId(Long id) {
         return jpaRepository.findById(id).map(ExtratoEntity::toDomain);
     }
 
     @Override
-    public Optional<Extrato> buscarPorIdECode(UUID id, String code) {
+    public Optional<Extrato> buscarPorIdECode(Long id, String code) {
         return jpaRepository.findByIdAndCode(id, code).map(ExtratoEntity::toDomain);
     }
 
@@ -44,7 +43,7 @@ public class ExtratoRepositoryAdapter implements ExtratoRepositoryPort {
     }
 
     @Override
-    public void deletarPorId(UUID id) {
+    public void deletarPorId(Long id) {
         jpaRepository.deleteById(id);
     }
 }

@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.in.web.contafinanceira;
+﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.contafinanceira;
 
 import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.BuscarContaFinanceiraUseCase;
 import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.CriarContaFinanceiraUseCase;
@@ -19,7 +19,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -56,7 +55,7 @@ class ContaFinanceiraControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
-    private ContaFinanceira contaCompleta(UUID id, UUID usuarioId) {
+    private ContaFinanceira contaCompleta(Long id, Long usuarioId) {
         return new ContaFinanceira(id, usuarioId, "Nubank", TipoConta.corrente,
                 "Nubank", new BigDecimal("1000.00"), true, true,
                 OffsetDateTime.now(), null);
@@ -64,8 +63,8 @@ class ContaFinanceiraControllerTest {
 
     @Test
     void criar_deveRetornar201_quandoDadosValidos() throws Exception {
-        UUID usuarioId = UUID.randomUUID();
-        UUID contaId = UUID.randomUUID();
+        Long usuarioId = 1L;
+        Long contaId = 1L;
         when(criarUseCase.executar(any())).thenReturn(contaCompleta(contaId, usuarioId));
 
         mockMvc.perform(post("/contas")
@@ -87,9 +86,9 @@ class ContaFinanceiraControllerTest {
 
     @Test
     void listarPorUsuario_deveRetornar200ComLista() throws Exception {
-        UUID usuarioId = UUID.randomUUID();
+        Long usuarioId = 1L;
         when(listarUseCase.executar(usuarioId))
-                .thenReturn(List.of(contaCompleta(UUID.randomUUID(), usuarioId)));
+                .thenReturn(List.of(contaCompleta(1L, usuarioId)));
 
         mockMvc.perform(get("/contas/usuario/{usuarioId}", usuarioId))
                 .andExpect(status().isOk())
@@ -98,17 +97,17 @@ class ContaFinanceiraControllerTest {
 
     @Test
     void buscarPorId_deveRetornar200ComConta() throws Exception {
-        UUID id = UUID.randomUUID();
-        when(buscarUseCase.executar(any(), anyString())).thenReturn(contaCompleta(id, UUID.randomUUID()));
+        Long id = 1L;
+        when(buscarUseCase.executar(any(), anyString())).thenReturn(contaCompleta(id, 1L));
 
         mockMvc.perform(get("/contas/{id_contas}/{contas_code}", id, "ABC123"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(id.toString()));
+                .andExpect(jsonPath("$.id").value(id.intValue()));
     }
 
     @Test
     void deletar_deveRetornar204() throws Exception {
-        UUID id = UUID.randomUUID();
+        Long id = 1L;
         doNothing().when(deletarUseCase).executar(any(), anyString());
 
         mockMvc.perform(delete("/contas/{id_contas}/{contas_code}", id, "ABC123"))

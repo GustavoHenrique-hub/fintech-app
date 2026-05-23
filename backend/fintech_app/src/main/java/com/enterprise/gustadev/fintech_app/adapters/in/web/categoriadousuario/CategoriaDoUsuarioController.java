@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.in.web.categoriadousuario;
+﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.categoriadousuario;
 
 import com.enterprise.gustadev.fintech_app.adapters.in.web.categoriadousuario.dto.CategoriaDoUsuarioResponseDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.categoriadousuario.dto.VincularCategoriaUsuarioRequestDTO;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.util.List;
-import java.util.UUID;
 
 @Tag(name = "Categorias do Usuário", description = "Vincula categorias a um usuário específico")
 @RestController
@@ -49,7 +48,7 @@ public class CategoriaDoUsuarioController {
     @Operation(summary = "Listar categorias de um usuário")
     @ApiResponse(responseCode = "200", description = "Lista retornada com sucesso")
     @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<List<CategoriaDoUsuarioResponseDTO>> listarPorUsuario(@PathVariable UUID usuarioId) {
+    public ResponseEntity<List<CategoriaDoUsuarioResponseDTO>> listarPorUsuario(@PathVariable Long usuarioId) {
         return ResponseEntity.ok(listarUseCase.executar(usuarioId).stream()
                 .map(CategoriaDoUsuarioResponseDTO::fromDomain).toList());
     }

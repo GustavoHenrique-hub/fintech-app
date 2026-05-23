@@ -1,19 +1,18 @@
-package com.enterprise.gustadev.fintech_app.domain.snapshotfinanceiro.model;
+﻿package com.enterprise.gustadev.fintech_app.domain.snapshotfinanceiro.model;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Getter
 @Setter
 public class SnapshotFinanceiro {
 
-    private UUID id;
-    private UUID usuarioId;
-    private UUID contaId;
+    private Long id;
+    private Long usuarioId;
+    private Long contaId;
     private short ano;
     private short mes;
     private BigDecimal saldoInicial;
@@ -23,7 +22,7 @@ public class SnapshotFinanceiro {
     private boolean fechado;
     private OffsetDateTime fechadoEm;
 
-    public SnapshotFinanceiro(UUID id, UUID usuarioId, UUID contaId, short ano, short mes,
+    public SnapshotFinanceiro(Long id, Long usuarioId, Long contaId, short ano, short mes,
                                BigDecimal saldoInicial, BigDecimal totalReceitas,
                                BigDecimal totalGastos, BigDecimal saldoFinal,
                                boolean fechado, OffsetDateTime fechadoEm) {
@@ -40,7 +39,7 @@ public class SnapshotFinanceiro {
         this.fechadoEm = fechadoEm;
     }
 
-    public SnapshotFinanceiro(UUID usuarioId, UUID contaId, short ano, short mes,
+    public SnapshotFinanceiro(Long usuarioId, Long contaId, short ano, short mes,
                                BigDecimal saldoInicial) {
         this(null, usuarioId, contaId, ano, mes, saldoInicial,
              BigDecimal.ZERO, BigDecimal.ZERO, saldoInicial, false, null);

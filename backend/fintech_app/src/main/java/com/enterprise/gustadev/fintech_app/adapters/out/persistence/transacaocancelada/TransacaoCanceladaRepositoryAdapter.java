@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.out.persistence.transacaocancelada;
+﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.transacaocancelada;
 
 import com.enterprise.gustadev.fintech_app.domain.transacaocancelada.model.TransacaoCancelada;
 import com.enterprise.gustadev.fintech_app.domain.transacaocancelada.port.TransacaoCanceladaRepositoryPort;
@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Component
 public class TransacaoCanceladaRepositoryAdapter implements TransacaoCanceladaRepositoryPort {
@@ -23,13 +22,13 @@ public class TransacaoCanceladaRepositoryAdapter implements TransacaoCanceladaRe
     }
 
     @Override
-    public List<TransacaoCancelada> listarPorUsuario(UUID usuarioId) {
+    public List<TransacaoCancelada> listarPorUsuario(Long usuarioId) {
         return jpaRepository.findByUsuarioId(usuarioId).stream()
                 .map(TransacaoCanceladaEntity::toDomain).toList();
     }
 
     @Override
-    public Optional<TransacaoCancelada> buscarPorTransacao(UUID transacaoId) {
+    public Optional<TransacaoCancelada> buscarPorTransacao(Long transacaoId) {
         return jpaRepository.findByTransacaoId(transacaoId).map(TransacaoCanceladaEntity::toDomain);
     }
 }

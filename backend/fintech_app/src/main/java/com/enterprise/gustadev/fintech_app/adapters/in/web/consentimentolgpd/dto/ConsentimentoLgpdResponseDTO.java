@@ -1,13 +1,12 @@
-package com.enterprise.gustadev.fintech_app.adapters.in.web.consentimentolgpd.dto;
+﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.consentimentolgpd.dto;
 
 import com.enterprise.gustadev.fintech_app.domain.consentimentolgpd.model.ConsentimentoLgpd;
 
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 public record ConsentimentoLgpdResponseDTO(
-        UUID id,
-        UUID usuarioId,
+        Long id,
+        Long usuarioId,
         String tipo,
         String versaoPolitica,
         boolean consentido,

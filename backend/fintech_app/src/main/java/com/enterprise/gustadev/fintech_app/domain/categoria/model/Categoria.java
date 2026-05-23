@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.domain.categoria.model;
+﻿package com.enterprise.gustadev.fintech_app.domain.categoria.model;
 
 import com.enterprise.gustadev.fintech_app.domain.categoria.exception.CategoriaInvalidaException;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoCategoria;
@@ -6,13 +6,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Getter
 @Setter
 public class Categoria {
 
-    private UUID id;
+    private Long id;
     private String code;
     private String nome;
     private TipoCategoria tipo;
@@ -21,7 +20,7 @@ public class Categoria {
     private boolean padrao;
     private OffsetDateTime criadoEm;
 
-    public Categoria(UUID id, String nome, TipoCategoria tipo, String icone,
+    public Categoria(Long id, String nome, TipoCategoria tipo, String icone,
                      String corHex, boolean padrao, OffsetDateTime criadoEm) {
         this.id = id;
         this.nome = nome;

@@ -1,23 +1,22 @@
-package com.enterprise.gustadev.fintech_app.domain.categoriadousuario.model;
+﻿package com.enterprise.gustadev.fintech_app.domain.categoriadousuario.model;
 
 import com.enterprise.gustadev.fintech_app.domain.categoriadousuario.exception.CategoriaDoUsuarioInvalidaException;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Getter
 @Setter
 public class CategoriaDoUsuario {
 
-    private UUID id;
-    private UUID usuarioId;
-    private UUID categoriaId;
+    private Long id;
+    private Long usuarioId;
+    private Long categoriaId;
     private boolean ativa;
     private OffsetDateTime criadoEm;
 
-    public CategoriaDoUsuario(UUID id, UUID usuarioId, UUID categoriaId,
+    public CategoriaDoUsuario(Long id, Long usuarioId, Long categoriaId,
                                boolean ativa, OffsetDateTime criadoEm) {
         this.id = id;
         this.usuarioId = usuarioId;
@@ -26,7 +25,7 @@ public class CategoriaDoUsuario {
         this.criadoEm = criadoEm;
     }
 
-    public CategoriaDoUsuario(UUID usuarioId, UUID categoriaId) {
+    public CategoriaDoUsuario(Long usuarioId, Long categoriaId) {
         this(null, usuarioId, categoriaId, true, null);
     }
 

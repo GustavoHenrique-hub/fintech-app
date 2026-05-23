@@ -1,14 +1,13 @@
-package com.enterprise.gustadev.fintech_app.adapters.out.persistence.categoria;
+﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.categoria;
 
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoCategoria;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
-public interface CategoriaJpaRepository extends JpaRepository<CategoriaEntity, UUID> {
+public interface CategoriaJpaRepository extends JpaRepository<CategoriaEntity, Long> {
     List<CategoriaEntity> findByPadraoTrue();
     List<CategoriaEntity> findByTipo(TipoCategoria tipo);
-    Optional<CategoriaEntity> findByIdAndCode(UUID id, String code);
+    Optional<CategoriaEntity> findByIdAndCode(Long id, String code);
 }

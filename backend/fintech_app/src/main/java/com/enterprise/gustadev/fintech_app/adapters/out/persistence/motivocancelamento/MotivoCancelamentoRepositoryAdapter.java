@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.out.persistence.motivocancelamento;
+﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.motivocancelamento;
 
 import com.enterprise.gustadev.fintech_app.domain.motivocancelamento.model.MotivoCancelamento;
 import com.enterprise.gustadev.fintech_app.domain.motivocancelamento.port.MotivoCancelamentoRepositoryPort;
@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Component
 public class MotivoCancelamentoRepositoryAdapter implements MotivoCancelamentoRepositoryPort {
@@ -29,12 +28,12 @@ public class MotivoCancelamentoRepositoryAdapter implements MotivoCancelamentoRe
     }
 
     @Override
-    public Optional<MotivoCancelamento> buscarPorId(UUID id) {
+    public Optional<MotivoCancelamento> buscarPorId(Long id) {
         return jpaRepository.findById(id).map(MotivoCancelamentoEntity::toDomain);
     }
 
     @Override
-    public Optional<MotivoCancelamento> buscarPorIdECode(UUID id, String code) {
+    public Optional<MotivoCancelamento> buscarPorIdECode(Long id, String code) {
         return jpaRepository.findByIdAndCode(id, code).map(MotivoCancelamentoEntity::toDomain);
     }
 }

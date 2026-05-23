@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.out.persistence.processamentojob;
+﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.processamentojob;
 
 import com.enterprise.gustadev.fintech_app.domain.processamentojob.model.ProcessamentoJob;
 import com.enterprise.gustadev.fintech_app.domain.processamentojob.port.ProcessamentoJobRepositoryPort;
@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Component
 public class ProcessamentoJobRepositoryAdapter implements ProcessamentoJobRepositoryPort {
@@ -30,18 +29,18 @@ public class ProcessamentoJobRepositoryAdapter implements ProcessamentoJobReposi
     }
 
     @Override
-    public List<ProcessamentoJob> listarPorExtrato(UUID extratoId) {
+    public List<ProcessamentoJob> listarPorExtrato(Long extratoId) {
         return jpaRepository.findByExtratoId(extratoId).stream()
                 .map(ProcessamentoJobEntity::toDomain).toList();
     }
 
     @Override
-    public Optional<ProcessamentoJob> buscarPorId(UUID id) {
+    public Optional<ProcessamentoJob> buscarPorId(Long id) {
         return jpaRepository.findById(id).map(ProcessamentoJobEntity::toDomain);
     }
 
     @Override
-    public void deletarPorId(UUID id) {
+    public void deletarPorId(Long id) {
         jpaRepository.deleteById(id);
     }
 }

@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.out.persistence.categoria;
+﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.categoria;
 
 import com.enterprise.gustadev.fintech_app.domain.categoria.model.CategoriaThreshold;
 import jakarta.persistence.Column;
@@ -11,7 +11,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.UUID;
 
 @Entity
 @Table(name = "categoria_thresholds")
@@ -21,11 +20,11 @@ import java.util.UUID;
 public class CategoriaThresholdEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "categoria_id", nullable = false, unique = true)
-    private UUID categoriaId;
+    private Long categoriaId;
 
     @Column(name = "threshold_auto", nullable = false)
     private short thresholdAuto = 70;

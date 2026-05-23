@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.application.contafinanceira;
+﻿package com.enterprise.gustadev.fintech_app.application.contafinanceira;
 
 import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.BuscarContaFinanceiraUseCase;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.exception.ContaFinanceiraInvalidaException;
@@ -13,7 +13,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.util.Optional;
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -30,9 +29,9 @@ class BuscarContaFinanceiraUseCaseTest {
 
     @Test
     void executar_deveRetornarConta_quandoEncontrada() {
-        UUID id = UUID.randomUUID();
+        Long id = 1L;
         String code = "ABC123";
-        ContaFinanceira conta = new ContaFinanceira(id, UUID.randomUUID(), "Nubank",
+        ContaFinanceira conta = new ContaFinanceira(id, 1L, "Nubank",
                 TipoConta.corrente, "Nubank", BigDecimal.TEN, false, true, null, null);
         when(repository.buscarPorIdECode(id, code)).thenReturn(Optional.of(conta));
 
@@ -43,7 +42,7 @@ class BuscarContaFinanceiraUseCaseTest {
 
     @Test
     void executar_deveLancarExcecao_quandoNaoEncontrada() {
-        UUID id = UUID.randomUUID();
+        Long id = 1L;
         String code = "XYZ999";
         when(repository.buscarPorIdECode(id, code)).thenReturn(Optional.empty());
 

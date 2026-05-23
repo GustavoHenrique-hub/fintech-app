@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.out.persistence.contafinanceira;
+﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.contafinanceira;
 
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoConta;
@@ -16,7 +16,6 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "contas_financeiras")
@@ -26,14 +25,14 @@ import java.util.UUID;
 public class ContaFinanceiraEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "contas_code", unique = true, nullable = false, length = 6)
     private String code;
 
     @Column(name = "usuario_id", nullable = false)
-    private UUID usuarioId;
+    private Long usuarioId;
 
     @Column(nullable = false, length = 100)
     private String nome;
@@ -64,7 +63,7 @@ public class ContaFinanceiraEntity {
         ContaFinanceiraEntity entity = new ContaFinanceiraEntity();
         entity.id = domain.getId();
         entity.code = domain.getCode() != null ? domain.getCode()
-                : UUID.randomUUID().toString().replace("-", "").substring(0, 6).toUpperCase();
+                : Long.toHexString(System.nanoTime()).substring(0, 6).toUpperCase();
         entity.usuarioId = domain.getUsuarioId();
         entity.nome = domain.getNome();
         entity.tipo = domain.getTipo();

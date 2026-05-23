@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.in.web.contafinanceira;
+﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.contafinanceira;
 
 import com.enterprise.gustadev.fintech_app.adapters.in.web.contafinanceira.dto.ContaFinanceiraRequestDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.contafinanceira.dto.ContaFinanceiraResponseDTO;
@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.util.List;
-import java.util.UUID;
 
 @Tag(name = "Contas Financeiras", description = "Gerenciamento de contas bancárias e carteiras do usuário (corrente, poupança, investimento etc.)")
 @RestController
@@ -67,7 +66,7 @@ public class ContaFinanceiraController {
     @ApiResponse(responseCode = "200", description = "Lista de contas retornada com sucesso")
     @GetMapping("/usuario/{usuarioId}")
     public ResponseEntity<List<ContaFinanceiraResponseDTO>> listarPorUsuario(
-            @Parameter(description = "UUID do usuário") @PathVariable UUID usuarioId) {
+            @Parameter(description = "ID do usuário") @PathVariable Long usuarioId) {
         List<ContaFinanceiraResponseDTO> response = listarUseCase.executar(usuarioId)
                 .stream().map(ContaFinanceiraResponseDTO::fromDomain).toList();
         return ResponseEntity.ok(response);
@@ -81,7 +80,7 @@ public class ContaFinanceiraController {
     })
     @GetMapping("/{id_contas}/{contas_code}")
     public ResponseEntity<ContaFinanceiraResponseDTO> buscarPorId(
-            @Parameter(description = "UUID da conta (id_contas)") @PathVariable("id_contas") UUID idContas,
+            @Parameter(description = "ID da conta (id_contas)") @PathVariable("id_contas") Long idContas,
             @Parameter(description = "Código alfanumérico de 6 caracteres (contas_code)") @PathVariable("contas_code") String contasCode) {
         return ResponseEntity.ok(ContaFinanceiraResponseDTO.fromDomain(buscarUseCase.executar(idContas, contasCode)));
     }
@@ -94,7 +93,7 @@ public class ContaFinanceiraController {
     })
     @DeleteMapping("/{id_contas}/{contas_code}")
     public ResponseEntity<Void> deletar(
-            @Parameter(description = "UUID da conta (id_contas)") @PathVariable("id_contas") UUID idContas,
+            @Parameter(description = "ID da conta (id_contas)") @PathVariable("id_contas") Long idContas,
             @Parameter(description = "Código alfanumérico de 6 caracteres (contas_code)") @PathVariable("contas_code") String contasCode) {
         deletarUseCase.executar(idContas, contasCode);
         return ResponseEntity.noContent().build();

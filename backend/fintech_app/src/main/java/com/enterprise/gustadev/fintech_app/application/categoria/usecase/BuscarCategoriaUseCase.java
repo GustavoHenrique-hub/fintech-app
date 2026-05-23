@@ -1,10 +1,9 @@
-package com.enterprise.gustadev.fintech_app.application.categoria.usecase;
+﻿package com.enterprise.gustadev.fintech_app.application.categoria.usecase;
 
 import com.enterprise.gustadev.fintech_app.domain.categoria.exception.CategoriaInvalidaException;
 import com.enterprise.gustadev.fintech_app.domain.categoria.model.Categoria;
 import com.enterprise.gustadev.fintech_app.domain.categoria.port.CategoriaRepositoryPort;
 
-import java.util.UUID;
 
 public class BuscarCategoriaUseCase {
 
@@ -14,7 +13,7 @@ public class BuscarCategoriaUseCase {
         this.repository = repository;
     }
 
-    public Categoria executar(UUID id, String code) {
+    public Categoria executar(Long id, String code) {
         return repository.buscarPorIdECode(id, code)
                 .orElseThrow(() -> new CategoriaInvalidaException("Categoria não encontrada: " + id));
     }

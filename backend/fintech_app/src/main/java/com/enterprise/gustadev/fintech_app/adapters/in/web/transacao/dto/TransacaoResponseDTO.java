@@ -1,24 +1,23 @@
-package com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto;
+﻿package com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto;
 
 import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 public record TransacaoResponseDTO(
-        UUID id,
+        Long id,
         String code,
-        UUID usuarioId,
-        UUID contaId,
-        UUID extratoId,
+        Long usuarioId,
+        Long contaId,
+        Long extratoId,
         String tipo,
         String descricaoUsuario,
         String descricaoNormalizada,
         BigDecimal valor,
         LocalDate dataTransacao,
-        UUID categoriaId,
+        Long categoriaId,
         String subcategoria,
         String estabelecimento,
         String origem,

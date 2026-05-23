@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.out.persistence.parserversao;
+﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.parserversao;
 
 import com.enterprise.gustadev.fintech_app.domain.parserversao.model.ParserVersao;
 import com.enterprise.gustadev.fintech_app.domain.parserversao.port.ParserVersaoRepositoryPort;
@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Component
 public class ParserVersaoRepositoryAdapter implements ParserVersaoRepositoryPort {
@@ -33,7 +32,7 @@ public class ParserVersaoRepositoryAdapter implements ParserVersaoRepositoryPort
     }
 
     @Override
-    public Optional<ParserVersao> buscarPorId(UUID id) {
+    public Optional<ParserVersao> buscarPorId(Long id) {
         return jpaRepository.findById(id).map(ParserVersaoEntity::toDomain);
     }
 
@@ -43,7 +42,7 @@ public class ParserVersaoRepositoryAdapter implements ParserVersaoRepositoryPort
     }
 
     @Override
-    public void deletarPorId(UUID id) {
+    public void deletarPorId(Long id) {
         jpaRepository.deleteById(id);
     }
 }

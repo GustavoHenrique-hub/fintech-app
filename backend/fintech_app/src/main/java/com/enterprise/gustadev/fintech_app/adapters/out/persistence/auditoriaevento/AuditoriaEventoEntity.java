@@ -1,4 +1,4 @@
-package com.enterprise.gustadev.fintech_app.adapters.out.persistence.auditoriaevento;
+﻿package com.enterprise.gustadev.fintech_app.adapters.out.persistence.auditoriaevento;
 
 import com.enterprise.gustadev.fintech_app.domain.auditoriaevento.model.AuditoriaEvento;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.AcaoAuditoria;
@@ -16,7 +16,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "auditoria_eventos")
@@ -26,20 +25,20 @@ import java.util.UUID;
 public class AuditoriaEventoEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "correlation_id", nullable = false)
-    private UUID correlationId;
+    private Long correlationId;
 
     @Column(name = "usuario_id")
-    private UUID usuarioId;
+    private Long usuarioId;
 
     @Column(nullable = false, length = 50)
     private String entidade;
 
     @Column(name = "entidade_id", nullable = false)
-    private UUID entidadeId;
+    private Long entidadeId;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 30)
