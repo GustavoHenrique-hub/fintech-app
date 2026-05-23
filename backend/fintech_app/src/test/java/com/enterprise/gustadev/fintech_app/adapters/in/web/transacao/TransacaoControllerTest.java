@@ -59,7 +59,7 @@ class TransacaoControllerTest {
 
     private Transacao transacaoCompleta(UUID id, UUID usuarioId, UUID contaId) {
         return new Transacao(id, usuarioId, contaId, null, null,
-                TipoTransacao.gasto, null, null, null,
+                TipoTransacao.GASTO, null, null, null,
                 new BigDecimal("150.00"), LocalDate.now(), null,
                 null, null, null, OrigemTransacao.manual,
                 StatusRevisaoTransacao.extraida, null, false,
