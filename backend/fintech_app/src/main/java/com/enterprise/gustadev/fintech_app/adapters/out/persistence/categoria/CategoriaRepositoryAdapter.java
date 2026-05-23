@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Component
 public class CategoriaRepositoryAdapter implements CategoriaRepositoryPort {
@@ -29,22 +28,22 @@ public class CategoriaRepositoryAdapter implements CategoriaRepositoryPort {
     }
 
     @Override
-    public List<Categoria> listarPorUsuario(UUID usuarioId) {
-        return jpaRepository.findByUsuarioId(usuarioId).stream().map(CategoriaEntity::toDomain).toList();
-    }
-
-    @Override
     public List<Categoria> listarPorTipo(TipoCategoria tipo) {
         return jpaRepository.findByTipo(tipo).stream().map(CategoriaEntity::toDomain).toList();
     }
 
     @Override
-    public Optional<Categoria> buscarPorId(UUID id) {
+    public Optional<Categoria> buscarPorId(Long id) {
         return jpaRepository.findById(id).map(CategoriaEntity::toDomain);
     }
 
     @Override
-    public void deletarPorId(UUID id) {
+    public Optional<Categoria> buscarPorIdECode(Long id, String code) {
+        return jpaRepository.findByIdAndCode(id, code).map(CategoriaEntity::toDomain);
+    }
+
+    @Override
+    public void deletarPorId(Long id) {
         jpaRepository.deleteById(id);
     }
 }

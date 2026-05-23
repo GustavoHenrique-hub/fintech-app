@@ -5,7 +5,6 @@ import com.enterprise.gustadev.fintech_app.domain.auditoriaevento.port.Auditoria
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.UUID;
 
 @Component
 public class AuditoriaEventoRepositoryAdapter implements AuditoriaEventoRepositoryPort {
@@ -22,13 +21,13 @@ public class AuditoriaEventoRepositoryAdapter implements AuditoriaEventoReposito
     }
 
     @Override
-    public List<AuditoriaEvento> listarPorUsuario(UUID usuarioId) {
+    public List<AuditoriaEvento> listarPorUsuario(Long usuarioId) {
         return jpaRepository.findByUsuarioIdOrderByCriadoEmDesc(usuarioId)
                 .stream().map(AuditoriaEventoEntity::toDomain).toList();
     }
 
     @Override
-    public List<AuditoriaEvento> listarPorCorrelation(UUID correlationId) {
+    public List<AuditoriaEvento> listarPorCorrelation(Long correlationId) {
         return jpaRepository.findByCorrelationId(correlationId)
                 .stream().map(AuditoriaEventoEntity::toDomain).toList();
     }

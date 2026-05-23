@@ -7,13 +7,14 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public record UsuarioRequestDTO(
-        String usercode,
         @NotBlank String cpf,
-        @NotBlank String rg,
         @NotBlank String nome,
-        @NotBlank String sobrenome,
         @NotBlank @Email String email,
         @NotBlank String senha,
+        String telefone,
+        Long telegramChatId,
+        Long whatsappChatId,
+        Boolean emailVerificado,
         @NotNull LocalDate dataNascimento
 ) {
 }

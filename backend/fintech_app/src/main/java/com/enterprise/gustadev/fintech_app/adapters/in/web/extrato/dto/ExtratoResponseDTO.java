@@ -4,12 +4,12 @@ import com.enterprise.gustadev.fintech_app.domain.extrato.model.Extrato;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 public record ExtratoResponseDTO(
-        UUID id,
-        UUID usuarioId,
-        UUID contaId,
+        Long id,
+        String code,
+        Long usuarioId,
+        Long contaId,
         String arquivoNome,
         String bancoDetectado,
         LocalDate periodoInicio,
@@ -23,6 +23,7 @@ public record ExtratoResponseDTO(
     public static ExtratoResponseDTO fromDomain(Extrato domain) {
         return new ExtratoResponseDTO(
                 domain.getId(),
+                domain.getCode(),
                 domain.getUsuarioId(),
                 domain.getContaId(),
                 domain.getArquivoNome(),

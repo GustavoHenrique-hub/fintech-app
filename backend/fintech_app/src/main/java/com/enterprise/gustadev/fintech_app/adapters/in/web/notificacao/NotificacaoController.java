@@ -6,6 +6,11 @@ import com.enterprise.gustadev.fintech_app.application.notificacao.usecase.Criar
 import com.enterprise.gustadev.fintech_app.application.notificacao.usecase.ListarNotificacoesUseCase;
 import com.enterprise.gustadev.fintech_app.domain.notificacao.model.Notificacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.CanalNotificacao;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.util.List;
-import java.util.UUID;
 
+@Tag(name = "Notificações", description = "Envio e listagem de notificações para os usuários (push, e-mail, SMS)")
 @RestController
 @RequestMapping("/notificacoes")
 public class NotificacaoController {
@@ -32,6 +37,11 @@ public class NotificacaoController {
         this.listarUseCase = listarUseCase;
     }
 
+    @Operation(summary = "Criar notificação", description = "Envia uma notificação para o usuário pelo canal especificado (PUSH, EMAIL, SMS).")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Notificação criada com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos na requisição")
+    })
     @PostMapping
     public ResponseEntity<NotificacaoResponseDTO> criar(@Valid @RequestBody CriarNotificacaoRequestDTO dto) {
         Notificacao notificacao = new Notificacao(
@@ -43,8 +53,11 @@ public class NotificacaoController {
         return ResponseEntity.created(URI.create("/notificacoes/" + response.id())).body(response);
     }
 
+    @Operation(summary = "Listar notificações do usuário", description = "Retorna todas as notificações enviadas para um usuário.")
+    @ApiResponse(responseCode = "200", description = "Lista de notificações retornada com sucesso")
     @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<List<NotificacaoResponseDTO>> listarPorUsuario(@PathVariable UUID usuarioId) {
+    public ResponseEntity<List<NotificacaoResponseDTO>> listarPorUsuario(
+            @Parameter(description = "ID do usuário") @PathVariable Long usuarioId) {
         return ResponseEntity.ok(listarUseCase.executar(usuarioId).stream()
                 .map(NotificacaoResponseDTO::fromDomain).toList());
     }

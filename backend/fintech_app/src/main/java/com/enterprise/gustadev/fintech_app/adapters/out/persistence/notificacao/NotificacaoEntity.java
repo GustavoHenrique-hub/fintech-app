@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "notificacoes")
@@ -25,11 +24,11 @@ import java.util.UUID;
 public class NotificacaoEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "usuario_id", nullable = false)
-    private UUID usuarioId;
+    private Long usuarioId;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)

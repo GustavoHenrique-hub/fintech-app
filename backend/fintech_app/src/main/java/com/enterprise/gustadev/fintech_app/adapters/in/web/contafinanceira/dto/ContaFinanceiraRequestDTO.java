@@ -5,10 +5,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 public record ContaFinanceiraRequestDTO(
-        @NotNull UUID usuarioId,
+        @NotNull Long usuarioId,
         @NotBlank String nome,
         @NotBlank String tipo,
         String banco,

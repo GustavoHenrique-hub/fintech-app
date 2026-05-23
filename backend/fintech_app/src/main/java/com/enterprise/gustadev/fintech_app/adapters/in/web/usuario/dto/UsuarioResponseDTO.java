@@ -8,22 +8,26 @@ public record UsuarioResponseDTO(
         Long id,
         String usercode,
         String cpf,
-        String rg,
         String nome,
-        String sobrenome,
         String email,
+        String telefone,
+        Long telegramChatId,
+        Long whatsappChatId,
+        Boolean emailVerificado,
         LocalDate dataNascimento
 ) {
     public static UsuarioResponseDTO fromDomain(Usuario usuario) {
         return new UsuarioResponseDTO(
-                usuario.getId(),
-                usuario.getUsercode(),
+                usuario.getIdUsuario(),
+                usuario.getUsuarioCode(),
                 usuario.getCpf(),
-                usuario.getRg(),
                 usuario.getNome(),
-                usuario.getSobrenome(),
                 usuario.getEmail(),
-                usuario.getDataNascimento()
+                usuario.getTelefone(),
+                usuario.getTelegramChatID(),
+                usuario.getWhatsappChatID(),
+                usuario.getEmailVerificado(),
+                usuario.getDtNascimento()
         );
     }
 }

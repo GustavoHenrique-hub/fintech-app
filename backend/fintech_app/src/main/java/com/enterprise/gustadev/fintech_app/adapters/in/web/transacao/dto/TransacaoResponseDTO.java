@@ -5,19 +5,19 @@ import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 public record TransacaoResponseDTO(
-        UUID id,
-        UUID usuarioId,
-        UUID contaId,
-        UUID extratoId,
+        Long id,
+        String code,
+        Long usuarioId,
+        Long contaId,
+        Long extratoId,
         String tipo,
         String descricaoUsuario,
         String descricaoNormalizada,
         BigDecimal valor,
         LocalDate dataTransacao,
-        UUID categoriaId,
+        Long categoriaId,
         String subcategoria,
         String estabelecimento,
         String origem,
@@ -29,6 +29,7 @@ public record TransacaoResponseDTO(
     public static TransacaoResponseDTO fromDomain(Transacao domain) {
         return new TransacaoResponseDTO(
                 domain.getId(),
+                domain.getCode(),
                 domain.getUsuarioId(),
                 domain.getContaId(),
                 domain.getExtratoId(),

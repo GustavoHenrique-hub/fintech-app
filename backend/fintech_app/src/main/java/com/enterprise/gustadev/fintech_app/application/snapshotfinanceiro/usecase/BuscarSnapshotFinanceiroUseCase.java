@@ -4,7 +4,6 @@ import com.enterprise.gustadev.fintech_app.domain.snapshotfinanceiro.model.Snaps
 import com.enterprise.gustadev.fintech_app.domain.snapshotfinanceiro.port.SnapshotFinanceiroRepositoryPort;
 
 import java.util.Optional;
-import java.util.UUID;
 
 public class BuscarSnapshotFinanceiroUseCase {
 
@@ -14,7 +13,7 @@ public class BuscarSnapshotFinanceiroUseCase {
         this.repository = repository;
     }
 
-    public Optional<SnapshotFinanceiro> executar(UUID usuarioId, UUID contaId, short ano, short mes) {
+    public Optional<SnapshotFinanceiro> executar(Long usuarioId, Long contaId, short ano, short mes) {
         return repository.buscarPorUsuarioContaAnoMes(usuarioId, contaId, ano, mes);
     }
 }

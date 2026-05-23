@@ -19,7 +19,6 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "transacoes")
@@ -29,20 +28,23 @@ import java.util.UUID;
 public class TransacaoEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "transacoes_code", unique = true, nullable = false, length = 6)
+    private String code;
 
     @Column(name = "usuario_id", nullable = false)
-    private UUID usuarioId;
+    private Long usuarioId;
 
     @Column(name = "conta_id", nullable = false)
-    private UUID contaId;
+    private Long contaId;
 
     @Column(name = "extrato_id")
-    private UUID extratoId;
+    private Long extratoId;
 
     @Column(name = "transacao_estorno_id")
-    private UUID transacaoEstornoId;
+    private Long transacaoEstornoId;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 10)
@@ -67,7 +69,7 @@ public class TransacaoEntity {
     private OffsetDateTime dataLancamento;
 
     @Column(name = "categoria_id")
-    private UUID categoriaId;
+    private Long categoriaId;
 
     @Column(length = 100)
     private String subcategoria;
@@ -110,6 +112,7 @@ public class TransacaoEntity {
     public static TransacaoEntity fromDomain(Transacao domain) {
         TransacaoEntity entity = new TransacaoEntity();
         entity.id = domain.getId();
+        entity.code = domain.getCode();
         entity.usuarioId = domain.getUsuarioId();
         entity.contaId = domain.getContaId();
         entity.extratoId = domain.getExtratoId();
@@ -138,10 +141,12 @@ public class TransacaoEntity {
     }
 
     public Transacao toDomain() {
-        return new Transacao(id, usuarioId, contaId, extratoId, transacaoEstornoId, tipo,
+        Transacao t = new Transacao(id, usuarioId, contaId, extratoId, transacaoEstornoId, tipo,
                 descricaoOriginal, descricaoUsuario, descricaoNormalizada, valor,
                 dataTransacao, dataLancamento, categoriaId, subcategoria, estabelecimento,
                 origem, statusRevisao, confiancaIa, recorrente, periodoRecorrencia,
                 observacao, deletedAt, versao, criadoEm, atualizadoEm);
+        t.setCode(code);
+        return t;
     }
 }

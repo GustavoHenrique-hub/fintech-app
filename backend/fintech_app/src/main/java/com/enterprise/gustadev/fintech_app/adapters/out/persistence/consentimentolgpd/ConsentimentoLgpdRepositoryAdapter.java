@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Component
 public class ConsentimentoLgpdRepositoryAdapter implements ConsentimentoLgpdRepositoryPort {
@@ -23,13 +22,13 @@ public class ConsentimentoLgpdRepositoryAdapter implements ConsentimentoLgpdRepo
     }
 
     @Override
-    public List<ConsentimentoLgpd> listarPorUsuario(UUID usuarioId) {
+    public List<ConsentimentoLgpd> listarPorUsuario(Long usuarioId) {
         return jpaRepository.findByUsuarioId(usuarioId).stream()
                 .map(ConsentimentoLgpdEntity::toDomain).toList();
     }
 
     @Override
-    public Optional<ConsentimentoLgpd> buscarPorId(UUID id) {
+    public Optional<ConsentimentoLgpd> buscarPorId(Long id) {
         return jpaRepository.findById(id).map(ConsentimentoLgpdEntity::toDomain);
     }
 }

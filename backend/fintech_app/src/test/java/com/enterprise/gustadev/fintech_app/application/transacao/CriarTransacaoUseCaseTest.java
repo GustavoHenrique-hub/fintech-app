@@ -14,7 +14,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -34,14 +33,14 @@ class CriarTransacaoUseCaseTest {
 
     @Test
     void executar_deveSalvarTransacao_quandoDadosValidos() {
-        UUID usuarioId = UUID.randomUUID();
-        UUID contaId = UUID.randomUUID();
+        Long usuarioId = 1L;
+        Long contaId = 1L;
         Transacao transacao = new Transacao(
-                usuarioId, contaId, TipoTransacao.gasto,
+                usuarioId, contaId, TipoTransacao.GASTO,
                 new BigDecimal("150.00"), LocalDate.now(), OrigemTransacao.manual
         );
-        Transacao salva = new Transacao(UUID.randomUUID(), usuarioId, contaId, null, null,
-                TipoTransacao.gasto, null, null, null, new BigDecimal("150.00"),
+        Transacao salva = new Transacao(1L, usuarioId, contaId, null, null,
+                TipoTransacao.GASTO, null, null, null, new BigDecimal("150.00"),
                 LocalDate.now(), null, null, null, null, OrigemTransacao.manual,
                 null, null, false, null, null, null, 1, null, null);
         when(repository.salvar(any())).thenReturn(salva);
@@ -56,7 +55,7 @@ class CriarTransacaoUseCaseTest {
     @Test
     void executar_naoDeveSalvar_quandoValorInvalido() {
         Transacao transacaoInvalida = new Transacao(
-                UUID.randomUUID(), UUID.randomUUID(), TipoTransacao.gasto,
+                1L, 1L, TipoTransacao.GASTO,
                 BigDecimal.ZERO, LocalDate.now(), OrigemTransacao.manual
         );
 

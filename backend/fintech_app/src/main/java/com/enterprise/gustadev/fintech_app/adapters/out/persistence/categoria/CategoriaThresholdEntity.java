@@ -11,7 +11,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.UUID;
 
 @Entity
 @Table(name = "categoria_thresholds")
@@ -21,11 +20,11 @@ import java.util.UUID;
 public class CategoriaThresholdEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "categoria_id", nullable = false, unique = true)
-    private UUID categoriaId;
+    private Long categoriaId;
 
     @Column(name = "threshold_auto", nullable = false)
     private short thresholdAuto = 70;

@@ -4,7 +4,6 @@ import com.enterprise.gustadev.fintech_app.domain.snapshotfinanceiro.model.Snaps
 import com.enterprise.gustadev.fintech_app.domain.snapshotfinanceiro.port.SnapshotFinanceiroRepositoryPort;
 
 import java.util.List;
-import java.util.UUID;
 
 public class ListarSnapshotsFinanceirosUseCase {
 
@@ -14,7 +13,7 @@ public class ListarSnapshotsFinanceirosUseCase {
         this.repository = repository;
     }
 
-    public List<SnapshotFinanceiro> executar(UUID usuarioId) {
+    public List<SnapshotFinanceiro> executar(Long usuarioId) {
         return repository.listarPorUsuario(usuarioId);
     }
 }

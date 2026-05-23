@@ -3,11 +3,10 @@ package com.enterprise.gustadev.fintech_app.adapters.in.web.notificacao.dto;
 import com.enterprise.gustadev.fintech_app.domain.notificacao.model.Notificacao;
 
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 public record NotificacaoResponseDTO(
-        UUID id,
-        UUID usuarioId,
+        Long id,
+        Long usuarioId,
         String canal,
         String tipo,
         String titulo,

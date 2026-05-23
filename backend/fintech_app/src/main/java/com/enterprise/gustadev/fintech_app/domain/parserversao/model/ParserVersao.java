@@ -6,13 +6,12 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Getter
 @Setter
 public class ParserVersao {
 
-    private UUID id;
+    private Long id;
     private String banco;
     private String versao;
     private boolean ativo;
@@ -22,7 +21,7 @@ public class ParserVersao {
     private String descricao;
     private OffsetDateTime depreciadoEm;
 
-    public ParserVersao(UUID id, String banco, String versao, boolean ativo,
+    public ParserVersao(Long id, String banco, String versao, boolean ativo,
                         BigDecimal scoreQualidade, int totalUsos, int totalErros,
                         String descricao, OffsetDateTime depreciadoEm) {
         this.id = id;

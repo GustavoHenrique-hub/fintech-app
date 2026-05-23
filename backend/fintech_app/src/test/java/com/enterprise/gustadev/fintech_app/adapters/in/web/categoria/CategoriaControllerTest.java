@@ -16,9 +16,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.List;
-import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -47,28 +47,26 @@ class CategoriaControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
-    private Categoria categoriaCompleta(UUID id) {
-        return new Categoria(id, "Alimentação", null, TipoCategoria.gasto, "🍔", "#FF5733", true, null, null);
+    private Categoria categoriaCompleta(Long id) {
+        return new Categoria(id, "Alimentação", TipoCategoria.gasto, "🍔", "#FF5733", true, null);
     }
 
     @Test
     void criar_deveRetornar201_quandoDadosValidos() throws Exception {
-        UUID usuarioId = UUID.randomUUID();
-        UUID categoriaId = UUID.randomUUID();
-        Categoria salva = new Categoria(categoriaId, "Pets", null, TipoCategoria.gasto, "🐶", "#FF0000", false, usuarioId, null);
+        Long categoriaId = 1L;
+        Categoria salva = new Categoria(categoriaId, "Pets", TipoCategoria.gasto, "🐶", "#FF0000", false, null);
         when(criarUseCase.executar(any())).thenReturn(salva);
 
         mockMvc.perform(post("/categorias")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
-                                  "usuarioId": "%s",
-                                  "nome": "Pets",
+                                  "nome_completo": "Pets",
                                   "tipo": "gasto",
                                   "icone": "🐶",
                                   "corHex": "#FF0000"
                                 }
-                                """.formatted(usuarioId)))
+                                """))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.nome").value("Pets"))
                 .andExpect(jsonPath("$.tipo").value("gasto"));
@@ -76,7 +74,7 @@ class CategoriaControllerTest {
 
     @Test
     void listarPadrao_deveRetornar200ComListaDeCategoriasPadrao() throws Exception {
-        when(listarUseCase.executarPadrao()).thenReturn(List.of(categoriaCompleta(UUID.randomUUID())));
+        when(listarUseCase.executarPadrao()).thenReturn(List.of(categoriaCompleta(1L)));
 
         mockMvc.perform(get("/categorias/padrao"))
                 .andExpect(status().isOk())
@@ -85,23 +83,12 @@ class CategoriaControllerTest {
     }
 
     @Test
-    void listarPorUsuario_deveRetornar200ComLista() throws Exception {
-        UUID usuarioId = UUID.randomUUID();
-        Categoria cat = new Categoria(UUID.randomUUID(), "Viagens", null, TipoCategoria.gasto, "✈", "#0000FF", false, usuarioId, null);
-        when(listarUseCase.executarPorUsuario(usuarioId)).thenReturn(List.of(cat));
-
-        mockMvc.perform(get("/categorias/usuario/{usuarioId}", usuarioId))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.length()").value(1));
-    }
-
-    @Test
     void buscarPorId_deveRetornar200ComCategoria() throws Exception {
-        UUID id = UUID.randomUUID();
-        when(buscarUseCase.executar(id)).thenReturn(categoriaCompleta(id));
+        Long id = 1L;
+        when(buscarUseCase.executar(any(), anyString())).thenReturn(categoriaCompleta(id));
 
-        mockMvc.perform(get("/categorias/{id}", id))
+        mockMvc.perform(get("/categorias/{id_categorias}/{categorias_code}", id, "ABC123"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(id.toString()));
+                .andExpect(jsonPath("$.id").value(id.intValue()));
     }
 }

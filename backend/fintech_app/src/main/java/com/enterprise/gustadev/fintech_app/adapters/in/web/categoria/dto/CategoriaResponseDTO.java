@@ -2,28 +2,25 @@ package com.enterprise.gustadev.fintech_app.adapters.in.web.categoria.dto;
 
 import com.enterprise.gustadev.fintech_app.domain.categoria.model.Categoria;
 
-import java.util.UUID;
 
 public record CategoriaResponseDTO(
-        UUID id,
+        Long id,
+        String code,
         String nome,
-        UUID categoriaPaiId,
         String tipo,
         String icone,
         String corHex,
-        boolean padrao,
-        UUID usuarioId
+        boolean padrao
 ) {
     public static CategoriaResponseDTO fromDomain(Categoria domain) {
         return new CategoriaResponseDTO(
                 domain.getId(),
+                domain.getCode(),
                 domain.getNome(),
-                domain.getCategoriaPaiId(),
                 domain.getTipo().name(),
                 domain.getIcone(),
                 domain.getCorHex(),
-                domain.isPadrao(),
-                domain.getUsuarioId()
+                domain.isPadrao()
         );
     }
 }

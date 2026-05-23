@@ -12,7 +12,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
@@ -29,8 +28,8 @@ class ListarContasFinanceirasUseCaseTest {
 
     @Test
     void executar_deveRetornarListaDeContas() {
-        UUID usuarioId = UUID.randomUUID();
-        ContaFinanceira conta = new ContaFinanceira(UUID.randomUUID(), usuarioId, "Nubank",
+        Long usuarioId = 1L;
+        ContaFinanceira conta = new ContaFinanceira(1L, usuarioId, "Nubank",
                 TipoConta.corrente, "Nubank", BigDecimal.TEN, false, true, null, null);
         when(repository.listarPorUsuario(usuarioId)).thenReturn(List.of(conta));
 
@@ -43,7 +42,7 @@ class ListarContasFinanceirasUseCaseTest {
 
     @Test
     void executar_deveRetornarListaVazia_quandoNaoHaContas() {
-        UUID usuarioId = UUID.randomUUID();
+        Long usuarioId = 1L;
         when(repository.listarPorUsuario(usuarioId)).thenReturn(List.of());
 
         List<ContaFinanceira> resultado = useCase.executar(usuarioId);

@@ -1,6 +1,7 @@
 package com.enterprise.gustadev.fintech_app.domain.usuario.model;
 
 import com.enterprise.gustadev.fintech_app.domain.usuario.exception.UsuarioInvalidoException;
+import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,44 +11,42 @@ import java.time.LocalDate;
 @Getter
 public class Usuario {
 
-    private Long id;
-    private String usercode;
+    private Long idUsuario;
+    private String usuarioCode;
     private String cpf;
-    private String rg;
     private String nome;
-    private String sobrenome;
     private String email;
     private String senha;
-    private LocalDate dataNascimento;
+    private String telefone;
+    private Long telegramChatID;
+    private Long whatsappChatID;
+    private Boolean emailVerificado;
+    private LocalDate dtNascimento;
 
-    public Usuario(Long id, String usercode, String cpf, String rg, String nome, String sobrenome, String email, String senha, LocalDate dataNascimento) {
-        this.id = id;
-        this.usercode = usercode;
+    public Usuario(Long idUsuario, String usuarioCode, String cpf, String nome, String email, String senha, String telefone, Long telegramChatID, Long whatsappChatID, Boolean emailVerificado, LocalDate dtNascimento) {
+        this.idUsuario = idUsuario;
+        this.usuarioCode = usuarioCode;
         this.cpf = cpf;
-        this.rg = rg;
         this.nome = nome;
-        this.sobrenome = sobrenome;
         this.email = email;
         this.senha = senha;
-        this.dataNascimento = dataNascimento;
+        this.telefone = telefone;
+        this.telegramChatID = telegramChatID;
+        this.whatsappChatID = whatsappChatID;
+        this.emailVerificado = emailVerificado;
+        this.dtNascimento = dtNascimento;
     }
 
-    public Usuario(String usercode, String cpf, String rg, String nome, String sobrenome, String email, String senha, LocalDate dataNascimento) {
-        this(null, usercode, cpf, rg, nome, sobrenome, email, senha, dataNascimento);
+    public Usuario(String cpf, String nome, String email, String senha, String telefone, Long telegramChatID, Long whatsappChatID, Boolean emailVerificado, LocalDate dtNascimento) {
+        this(null, null, cpf, nome, email, senha, telefone, telegramChatID, whatsappChatID, emailVerificado, dtNascimento);
     }
 
     public void validar() {
         if (cpf == null || cpf.isBlank()) {
             throw new UsuarioInvalidoException("CPF e obrigatorio");
         }
-        if (rg == null || rg.isBlank()) {
-            throw new UsuarioInvalidoException("RG e obrigatorio");
-        }
         if (nome == null || nome.isBlank()) {
             throw new UsuarioInvalidoException("Nome e obrigatorio");
-        }
-        if (sobrenome == null || sobrenome.isBlank()) {
-            throw new UsuarioInvalidoException("Sobrenome e obrigatorio");
         }
         if (email == null || email.isBlank() || !email.contains("@")) {
             throw new UsuarioInvalidoException("Email invalido");
@@ -55,7 +54,7 @@ public class Usuario {
         if (senha == null || senha.isBlank()) {
             throw new UsuarioInvalidoException("Senha e obrigatoria");
         }
-        if (dataNascimento == null) {
+        if (dtNascimento == null) {
             throw new UsuarioInvalidoException("Data de nascimento e obrigatoria");
         }
     }

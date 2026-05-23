@@ -4,7 +4,6 @@ import com.enterprise.gustadev.fintech_app.domain.extrato.exception.ExtratoInval
 import com.enterprise.gustadev.fintech_app.domain.extrato.model.Extrato;
 import com.enterprise.gustadev.fintech_app.domain.extrato.port.ExtratoRepositoryPort;
 
-import java.util.UUID;
 
 public class BuscarExtratoUseCase {
 
@@ -14,8 +13,8 @@ public class BuscarExtratoUseCase {
         this.repository = repository;
     }
 
-    public Extrato executar(UUID id) {
-        return repository.buscarPorId(id)
+    public Extrato executar(Long id, String code) {
+        return repository.buscarPorIdECode(id, code)
                 .orElseThrow(() -> new ExtratoInvalidoException("Extrato não encontrado: " + id));
     }
 }

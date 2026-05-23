@@ -5,7 +5,6 @@ import com.enterprise.gustadev.fintech_app.domain.categoria.port.CategoriaThresh
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Component
 public class CategoriaThresholdRepositoryAdapter implements CategoriaThresholdRepositoryPort {
@@ -22,12 +21,12 @@ public class CategoriaThresholdRepositoryAdapter implements CategoriaThresholdRe
     }
 
     @Override
-    public Optional<CategoriaThreshold> buscarPorCategoriaId(UUID categoriaId) {
+    public Optional<CategoriaThreshold> buscarPorCategoriaId(Long categoriaId) {
         return jpaRepository.findByCategoriaId(categoriaId).map(CategoriaThresholdEntity::toDomain);
     }
 
     @Override
-    public void deletarPorId(UUID id) {
+    public void deletarPorId(Long id) {
         jpaRepository.deleteById(id);
     }
 }

@@ -13,7 +13,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.util.Optional;
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -30,22 +29,24 @@ class BuscarContaFinanceiraUseCaseTest {
 
     @Test
     void executar_deveRetornarConta_quandoEncontrada() {
-        UUID id = UUID.randomUUID();
-        ContaFinanceira conta = new ContaFinanceira(id, UUID.randomUUID(), "Nubank",
+        Long id = 1L;
+        String code = "ABC123";
+        ContaFinanceira conta = new ContaFinanceira(id, 1L, "Nubank",
                 TipoConta.corrente, "Nubank", BigDecimal.TEN, false, true, null, null);
-        when(repository.buscarPorId(id)).thenReturn(Optional.of(conta));
+        when(repository.buscarPorIdECode(id, code)).thenReturn(Optional.of(conta));
 
-        ContaFinanceira resultado = useCase.executar(id);
+        ContaFinanceira resultado = useCase.executar(id, code);
 
         assertThat(resultado.getId()).isEqualTo(id);
     }
 
     @Test
     void executar_deveLancarExcecao_quandoNaoEncontrada() {
-        UUID id = UUID.randomUUID();
-        when(repository.buscarPorId(id)).thenReturn(Optional.empty());
+        Long id = 1L;
+        String code = "XYZ999";
+        when(repository.buscarPorIdECode(id, code)).thenReturn(Optional.empty());
 
-        assertThatThrownBy(() -> useCase.executar(id))
+        assertThatThrownBy(() -> useCase.executar(id, code))
                 .isInstanceOf(ContaFinanceiraInvalidaException.class)
                 .hasMessageContaining(id.toString());
     }

@@ -5,14 +5,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Getter
 @Setter
 public class Notificacao {
 
-    private UUID id;
-    private UUID usuarioId;
+    private Long id;
+    private Long usuarioId;
     private CanalNotificacao canal;
     private String tipo;
     private String titulo;
@@ -23,7 +22,7 @@ public class Notificacao {
     private short tentativas;
     private OffsetDateTime criadoEm;
 
-    public Notificacao(UUID id, UUID usuarioId, CanalNotificacao canal, String tipo,
+    public Notificacao(Long id, Long usuarioId, CanalNotificacao canal, String tipo,
                         String titulo, String mensagem, boolean enviada, OffsetDateTime enviadaEm,
                         String erro, short tentativas, OffsetDateTime criadoEm) {
         this.id = id;
@@ -39,7 +38,7 @@ public class Notificacao {
         this.criadoEm = criadoEm;
     }
 
-    public Notificacao(UUID usuarioId, CanalNotificacao canal, String tipo,
+    public Notificacao(Long usuarioId, CanalNotificacao canal, String tipo,
                         String titulo, String mensagem) {
         this(null, usuarioId, canal, tipo, titulo, mensagem, false, null, null, (short) 0, null);
     }

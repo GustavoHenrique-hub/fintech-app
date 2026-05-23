@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Component
 public class TransacaoRepositoryAdapter implements TransacaoRepositoryPort {
@@ -23,30 +22,35 @@ public class TransacaoRepositoryAdapter implements TransacaoRepositoryPort {
     }
 
     @Override
-    public List<Transacao> listarPorUsuario(UUID usuarioId) {
+    public List<Transacao> listarPorUsuario(Long usuarioId) {
         return jpaRepository.findByUsuarioIdAndDeletedAtIsNullOrderByDataTransacaoDesc(usuarioId)
                 .stream().map(TransacaoEntity::toDomain).toList();
     }
 
     @Override
-    public List<Transacao> listarPorConta(UUID contaId) {
+    public List<Transacao> listarPorConta(Long contaId) {
         return jpaRepository.findByContaIdAndDeletedAtIsNull(contaId)
                 .stream().map(TransacaoEntity::toDomain).toList();
     }
 
     @Override
-    public List<Transacao> listarPorExtrato(UUID extratoId) {
+    public List<Transacao> listarPorExtrato(Long extratoId) {
         return jpaRepository.findByExtratoIdAndDeletedAtIsNull(extratoId)
                 .stream().map(TransacaoEntity::toDomain).toList();
     }
 
     @Override
-    public Optional<Transacao> buscarPorId(UUID id) {
+    public Optional<Transacao> buscarPorId(Long id) {
         return jpaRepository.findById(id).map(TransacaoEntity::toDomain);
     }
 
     @Override
-    public void deletarPorId(UUID id) {
+    public Optional<Transacao> buscarPorIdECode(Long id, String code) {
+        return jpaRepository.findByIdAndCode(id, code).map(TransacaoEntity::toDomain);
+    }
+
+    @Override
+    public void deletarPorId(Long id) {
         jpaRepository.deleteById(id);
     }
 }

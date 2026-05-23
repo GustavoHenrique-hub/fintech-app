@@ -2,19 +2,20 @@ package com.enterprise.gustadev.fintech_app.domain.contafinanceira.model;
 
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.exception.ContaFinanceiraInvalidaException;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoConta;
+import com.enterprise.gustadev.fintech_app.domain.shared.util.CodeGenerator;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Getter
 @Setter
 public class ContaFinanceira {
 
-    private UUID id;
-    private UUID usuarioId;
+    private Long id;
+    private String code;
+    private Long usuarioId;
     private String nome;
     private TipoConta tipo;
     private String banco;
@@ -24,7 +25,7 @@ public class ContaFinanceira {
     private OffsetDateTime criadoEm;
     private OffsetDateTime atualizadoEm;
 
-    public ContaFinanceira(UUID id, UUID usuarioId, String nome, TipoConta tipo,
+    public ContaFinanceira(Long id, Long usuarioId, String nome, TipoConta tipo,
                            String banco, BigDecimal saldoInicial, boolean padrao,
                            boolean ativa, OffsetDateTime criadoEm, OffsetDateTime atualizadoEm) {
         this.id = id;
@@ -39,9 +40,10 @@ public class ContaFinanceira {
         this.atualizadoEm = atualizadoEm;
     }
 
-    public ContaFinanceira(UUID usuarioId, String nome, TipoConta tipo,
+    public ContaFinanceira(Long usuarioId, String nome, TipoConta tipo,
                            String banco, BigDecimal saldoInicial, boolean padrao) {
         this(null, usuarioId, nome, tipo, banco, saldoInicial, padrao, true, null, null);
+        this.code = CodeGenerator.gerar();
     }
 
     public void validar() {

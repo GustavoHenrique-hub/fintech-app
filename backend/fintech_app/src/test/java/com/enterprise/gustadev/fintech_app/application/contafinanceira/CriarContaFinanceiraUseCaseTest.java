@@ -12,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -33,9 +32,9 @@ class CriarContaFinanceiraUseCaseTest {
     @Test
     void executar_deveSalvarERetornarConta_quandoDadosValidos() {
         ContaFinanceira conta = new ContaFinanceira(
-                UUID.randomUUID(), "Nubank", TipoConta.corrente, "Nubank", new BigDecimal("1000.00"), false
+                1L, "Nubank", TipoConta.corrente, "Nubank", new BigDecimal("1000.00"), false
         );
-        UUID idGerado = UUID.randomUUID();
+        Long idGerado = 1L;
         ContaFinanceira contaSalva = new ContaFinanceira(idGerado, conta.getUsuarioId(), conta.getNome(),
                 conta.getTipo(), conta.getBanco(), conta.getSaldoInicial(), false, true, null, null);
         when(repository.salvar(any())).thenReturn(contaSalva);

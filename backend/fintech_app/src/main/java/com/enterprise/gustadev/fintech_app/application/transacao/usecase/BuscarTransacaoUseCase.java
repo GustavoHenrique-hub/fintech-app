@@ -4,7 +4,6 @@ import com.enterprise.gustadev.fintech_app.domain.transacao.exception.TransacaoI
 import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;
 import com.enterprise.gustadev.fintech_app.domain.transacao.port.TransacaoRepositoryPort;
 
-import java.util.UUID;
 
 public class BuscarTransacaoUseCase {
 
@@ -14,8 +13,8 @@ public class BuscarTransacaoUseCase {
         this.repository = repository;
     }
 
-    public Transacao executar(UUID id) {
-        return repository.buscarPorId(id)
+    public Transacao executar(Long id, String code) {
+        return repository.buscarPorIdECode(id, code)
                 .orElseThrow(() -> new TransacaoInvalidaException("Transação não encontrada: " + id));
     }
 }

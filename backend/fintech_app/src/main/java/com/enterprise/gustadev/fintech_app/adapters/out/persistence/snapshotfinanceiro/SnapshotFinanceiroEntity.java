@@ -13,7 +13,6 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "snapshots_financeiros")
@@ -23,14 +22,14 @@ import java.util.UUID;
 public class SnapshotFinanceiroEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "usuario_id", nullable = false)
-    private UUID usuarioId;
+    private Long usuarioId;
 
     @Column(name = "conta_id")
-    private UUID contaId;
+    private Long contaId;
 
     @Column(nullable = false)
     private short ano;

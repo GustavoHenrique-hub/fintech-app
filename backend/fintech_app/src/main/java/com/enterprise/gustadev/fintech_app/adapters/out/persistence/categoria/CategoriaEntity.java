@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "categorias")
@@ -25,14 +24,14 @@ import java.util.UUID;
 public class CategoriaEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "categorias_code", unique = true, nullable = false, length = 6)
+    private String code;
 
     @Column(nullable = false, length = 100)
     private String nome;
-
-    @Column(name = "categoria_pai_id")
-    private UUID categoriaPaiId;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 10)
@@ -47,28 +46,26 @@ public class CategoriaEntity {
     @Column
     private Boolean padrao = false;
 
-    @Column(name = "usuario_id")
-    private UUID usuarioId;
-
     @Column(name = "criado_em", nullable = false)
     private OffsetDateTime criadoEm;
 
     public static CategoriaEntity fromDomain(Categoria domain) {
         CategoriaEntity entity = new CategoriaEntity();
         entity.id = domain.getId();
+        entity.code = domain.getCode();
         entity.nome = domain.getNome();
-        entity.categoriaPaiId = domain.getCategoriaPaiId();
         entity.tipo = domain.getTipo();
         entity.icone = domain.getIcone();
         entity.corHex = domain.getCorHex();
         entity.padrao = domain.isPadrao();
-        entity.usuarioId = domain.getUsuarioId();
         entity.criadoEm = domain.getCriadoEm();
         return entity;
     }
 
     public Categoria toDomain() {
-        return new Categoria(id, nome, categoriaPaiId, tipo, icone, corHex,
-                padrao != null && padrao, usuarioId, criadoEm);
+        Categoria c = new Categoria(id, nome, tipo, icone, corHex,
+                padrao != null && padrao, criadoEm);
+        c.setCode(code);
+        return c;
     }
 }

@@ -16,7 +16,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "processamento_jobs")
@@ -26,11 +25,11 @@ import java.util.UUID;
 public class ProcessamentoJobEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "extrato_id")
-    private UUID extratoId;
+    private Long extratoId;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 30)
@@ -59,7 +58,7 @@ public class ProcessamentoJobEntity {
     private OffsetDateTime lockExpiresAt;
 
     @Column(name = "correlation_id")
-    private UUID correlationId;
+    private Long correlationId;
 
     @Column(name = "enfileirado_em", nullable = false)
     private OffsetDateTime enfileiradoEm;

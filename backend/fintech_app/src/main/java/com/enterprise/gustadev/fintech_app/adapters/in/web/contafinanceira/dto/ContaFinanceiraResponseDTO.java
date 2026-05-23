@@ -4,11 +4,11 @@ import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFin
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 public record ContaFinanceiraResponseDTO(
-        UUID id,
-        UUID usuarioId,
+        Long id,
+        String code,
+        Long usuarioId,
         String nome,
         String tipo,
         String banco,
@@ -20,6 +20,7 @@ public record ContaFinanceiraResponseDTO(
     public static ContaFinanceiraResponseDTO fromDomain(ContaFinanceira domain) {
         return new ContaFinanceiraResponseDTO(
                 domain.getId(),
+                domain.getCode(),
                 domain.getUsuarioId(),
                 domain.getNome(),
                 domain.getTipo().name(),
