@@ -40,7 +40,7 @@ public class ExtratoController {
         this.buscarUseCase = buscarUseCase;
     }
 
-    @Operation(summary = "Criar extrato", description = "Registra os metadados de um extrato bancário importado (nome, ID e hash do arquivo).")
+    @Operation(summary = "Criar extrato", description = "Registra os metadados de um extrato bancário importado (nome_completo, ID e hash do arquivo).")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Extrato criado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Dados inválidos na requisição")

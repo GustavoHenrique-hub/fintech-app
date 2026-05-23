@@ -14,6 +14,10 @@ public record UsuarioRequestDTO(
         @NotBlank String sobrenome,
         @NotBlank @Email String email,
         @NotBlank String senha,
+        String telefone,
+        Long telegramChatId,
+        Long whatsappChatId,
+        Boolean emailVerificado,
         @NotNull LocalDate dataNascimento
 ) {
 }

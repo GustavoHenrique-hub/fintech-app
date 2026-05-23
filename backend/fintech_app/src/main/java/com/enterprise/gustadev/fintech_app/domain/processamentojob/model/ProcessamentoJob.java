@@ -52,6 +52,6 @@ public class ProcessamentoJob {
 
     public ProcessamentoJob(Long extratoId, TipoJob tipo) {
         this(null, extratoId, tipo, StatusJob.enfileirado, (short) 0, (short) 3,
-             null, null, null, null, Long.randomUUID(), null, null, null, null);
+             null, null, null, null, null, null, null, null, null);
     }
 }

@@ -72,7 +72,7 @@ class ContaFinanceiraControllerTest {
                         .content("""
                                 {
                                   "usuarioId": "%s",
-                                  "nome": "Nubank",
+                                  "nome_completo": "Nubank",
                                   "tipo": "corrente",
                                   "banco": "Nubank",
                                   "saldoInicial": 1000.00,

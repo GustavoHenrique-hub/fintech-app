@@ -57,11 +57,13 @@ public class UsuarioController {
         Usuario usuario = new Usuario(
                 dto.usercode(),
                 dto.cpf(),
-                dto.rg(),
                 dto.nome(),
-                dto.sobrenome(),
                 dto.email(),
                 dto.senha(),
+                dto.telefone(),
+                dto.telegramChatId(),
+                dto.whatsappChatId(),
+                dto.emailVerificado(),
                 dto.dataNascimento()
         );
 

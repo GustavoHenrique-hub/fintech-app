@@ -61,7 +61,7 @@ class CategoriaControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
-                                  "nome": "Pets",
+                                  "nome_completo": "Pets",
                                   "tipo": "gasto",
                                   "icone": "🐶",
                                   "corHex": "#FF0000"
