@@ -37,8 +37,8 @@ public class Usuario {
         this.dtNascimento = dtNascimento;
     }
 
-    public Usuario(String usuarioCode, String cpf, String nome, String email, String senha, String telefone, Long telegramChatID, Long whatsappChatID, Boolean emailVerificado, LocalDate dtNascimento) {
-        this(null, usuarioCode, cpf, nome, email, senha, telefone, telegramChatID, whatsappChatID, emailVerificado, dtNascimento);
+    public Usuario(String cpf, String nome, String email, String senha, String telefone, Long telegramChatID, Long whatsappChatID, Boolean emailVerificado, LocalDate dtNascimento) {
+        this(null, null, cpf, nome, email, senha, telefone, telegramChatID, whatsappChatID, emailVerificado, dtNascimento);
     }
 
     public void validar() {

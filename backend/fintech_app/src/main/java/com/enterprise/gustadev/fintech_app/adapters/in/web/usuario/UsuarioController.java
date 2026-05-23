@@ -47,7 +47,7 @@ public class UsuarioController {
         this.deletarUseCase = deletarUseCase;
     }
 
-    @Operation(summary = "Criar usuário", description = "Cadastra um novo usuário no sistema com CPF, RG, e-mail e senha.")
+    @Operation(summary = "Criar usuário", description = "Cadastra um novo usuário no sistema com CPF, e-mail e senha.")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Usuário criado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Dados inválidos ou usuário já existente")
@@ -55,7 +55,6 @@ public class UsuarioController {
     @PostMapping
     public ResponseEntity<UsuarioResponseDTO> criar(@Valid @RequestBody UsuarioRequestDTO dto) {
         Usuario usuario = new Usuario(
-                dto.usercode(),
                 dto.cpf(),
                 dto.nome(),
                 dto.email(),
