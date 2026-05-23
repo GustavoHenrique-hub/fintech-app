@@ -6,6 +6,11 @@ import com.enterprise.gustadev.fintech_app.application.consentimentolgpd.usecase
 import com.enterprise.gustadev.fintech_app.application.consentimentolgpd.usecase.RegistrarConsentimentoLgpdUseCase;
 import com.enterprise.gustadev.fintech_app.domain.consentimentolgpd.model.ConsentimentoLgpd;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoConsentimentoLgpd;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +24,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
+@Tag(name = "Consentimentos LGPD", description = "Registro e consulta de consentimentos de privacidade conforme a LGPD")
 @RestController
 @RequestMapping("/consentimentos")
 public class ConsentimentoLgpdController {
@@ -32,6 +38,11 @@ public class ConsentimentoLgpdController {
         this.listarUseCase = listarUseCase;
     }
 
+    @Operation(summary = "Registrar consentimento LGPD", description = "Registra o consentimento ou revogação de privacidade de um usuário. Tipo deve ser um dos valores de TipoConsentimentoLgpd.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Consentimento registrado com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos na requisição")
+    })
     @PostMapping
     public ResponseEntity<ConsentimentoLgpdResponseDTO> registrar(@Valid @RequestBody ConsentimentoLgpdRequestDTO dto) {
         ConsentimentoLgpd consentimento = new ConsentimentoLgpd(
@@ -45,8 +56,11 @@ public class ConsentimentoLgpdController {
         return ResponseEntity.created(URI.create("/consentimentos/" + response.id())).body(response);
     }
 
+    @Operation(summary = "Listar consentimentos do usuário", description = "Retorna todo o histórico de consentimentos LGPD de um usuário.")
+    @ApiResponse(responseCode = "200", description = "Lista de consentimentos retornada com sucesso")
     @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<List<ConsentimentoLgpdResponseDTO>> listarPorUsuario(@PathVariable UUID usuarioId) {
+    public ResponseEntity<List<ConsentimentoLgpdResponseDTO>> listarPorUsuario(
+            @Parameter(description = "UUID do usuário") @PathVariable UUID usuarioId) {
         return ResponseEntity.ok(listarUseCase.executar(usuarioId).stream()
                 .map(ConsentimentoLgpdResponseDTO::fromDomain).toList());
     }
