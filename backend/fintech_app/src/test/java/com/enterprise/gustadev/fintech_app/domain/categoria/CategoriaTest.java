@@ -14,13 +14,13 @@ class CategoriaTest {
 
     @Test
     void validar_devePassar_quandoCategoriaPersonalizadaComUsuario() {
-        Categoria categoria = new Categoria(UUID.randomUUID(), "Pets", TipoCategoria.gasto, "🐶", "#FF0000");
+        Categoria categoria = new Categoria(UUID.randomUUID(), "Pets", TipoCategoria.GASTO, "🐶", "#FF0000");
         assertThatCode(categoria::validar).doesNotThrowAnyException();
     }
 
     @Test
     void validar_deveLancarExcecao_quandoNomeVazio() {
-        Categoria categoria = new Categoria(UUID.randomUUID(), "  ", TipoCategoria.gasto, null, null);
+        Categoria categoria = new Categoria(UUID.randomUUID(), "  ", TipoCategoria.GASTO, null, null);
         assertThatThrownBy(categoria::validar)
                 .isInstanceOf(CategoriaInvalidaException.class)
                 .hasMessageContaining("Nome");
@@ -36,7 +36,7 @@ class CategoriaTest {
 
     @Test
     void validar_deveLancarExcecao_quandoNaoPadraoEUsuarioIdNulo() {
-        Categoria categoria = new Categoria(null, "Pets", null, TipoCategoria.gasto, null, null, false, null, null);
+        Categoria categoria = new Categoria(null, "Pets", null, TipoCategoria.GASTO, null, null, false, null, null);
         assertThatThrownBy(categoria::validar)
                 .isInstanceOf(CategoriaInvalidaException.class)
                 .hasMessageContaining("UsuarioId");
@@ -44,7 +44,7 @@ class CategoriaTest {
 
     @Test
     void validar_devePassar_quandoCategoriaPadrao() {
-        Categoria categoria = new Categoria(null, "Alimentação", null, TipoCategoria.gasto, "🍽️", "#EF4444", true, null, null);
+        Categoria categoria = new Categoria(null, "Alimentação", null, TipoCategoria.GASTO, "🍽️", "#EF4444", true, null, null);
         assertThatCode(categoria::validar).doesNotThrowAnyException();
     }
 }

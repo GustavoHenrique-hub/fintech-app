@@ -48,14 +48,14 @@ class CategoriaControllerTest {
     }
 
     private Categoria categoriaCompleta(UUID id) {
-        return new Categoria(id, "Alimentação", null, TipoCategoria.gasto, "🍔", "#FF5733", true, null, null);
+        return new Categoria(id, "Alimentação", null, TipoCategoria.GASTO, "🍔", "#FF5733", true, null, null);
     }
 
     @Test
     void criar_deveRetornar201_quandoDadosValidos() throws Exception {
         UUID usuarioId = UUID.randomUUID();
         UUID categoriaId = UUID.randomUUID();
-        Categoria salva = new Categoria(categoriaId, "Pets", null, TipoCategoria.gasto, "🐶", "#FF0000", false, usuarioId, null);
+        Categoria salva = new Categoria(categoriaId, "Pets", null, TipoCategoria.GASTO, "🐶", "#FF0000", false, usuarioId, null);
         when(criarUseCase.executar(any())).thenReturn(salva);
 
         mockMvc.perform(post("/categorias")
@@ -64,14 +64,14 @@ class CategoriaControllerTest {
                                 {
                                   "usuarioId": "%s",
                                   "nome": "Pets",
-                                  "tipo": "gasto",
+                                  "tipo": "GASTO",
                                   "icone": "🐶",
                                   "corHex": "#FF0000"
                                 }
                                 """.formatted(usuarioId)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.nome").value("Pets"))
-                .andExpect(jsonPath("$.tipo").value("gasto"));
+                .andExpect(jsonPath("$.tipo").value("GASTO"));
     }
 
     @Test
@@ -87,7 +87,7 @@ class CategoriaControllerTest {
     @Test
     void listarPorUsuario_deveRetornar200ComLista() throws Exception {
         UUID usuarioId = UUID.randomUUID();
-        Categoria cat = new Categoria(UUID.randomUUID(), "Viagens", null, TipoCategoria.gasto, "✈", "#0000FF", false, usuarioId, null);
+        Categoria cat = new Categoria(UUID.randomUUID(), "Viagens", null, TipoCategoria.GASTO, "✈", "#0000FF", false, usuarioId, null);
         when(listarUseCase.executarPorUsuario(usuarioId)).thenReturn(List.of(cat));
 
         mockMvc.perform(get("/categorias/usuario/{usuarioId}", usuarioId))

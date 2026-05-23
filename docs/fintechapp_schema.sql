@@ -81,7 +81,7 @@ CREATE TABLE categorias (
     id               UUID         PRIMARY KEY DEFAULT gen_random_uuid(),
     nome             VARCHAR(100) NOT NULL,
     categoria_pai_id UUID         REFERENCES categorias(id),
-    tipo             VARCHAR(10)  NOT NULL CHECK (tipo IN ('receita','gasto','ambos')),
+    tipo             VARCHAR(10)  NOT NULL CHECK (tipo IN ('RECEITA','GASTO','AMBOS')),
     icone            VARCHAR(50),
     cor_hex          CHAR(7),
     padrao           BOOLEAN      DEFAULT FALSE,  -- TRUE = global imutável
@@ -141,7 +141,7 @@ CREATE TABLE transacoes (
     conta_id             UUID          NOT NULL REFERENCES contas_financeiras(id),
     extrato_id           UUID          REFERENCES extratos(id),
     transacao_estorno_id UUID          REFERENCES transacoes(id),        -- auto-referência
-    tipo                 VARCHAR(10)   NOT NULL CHECK (tipo IN ('receita','gasto')),
+    tipo                 VARCHAR(10)   NOT NULL CHECK (tipo IN ('RECEITA','GASTO')),
     descricao_original   TEXT,
     descricao_usuario    VARCHAR(255),
     descricao_normalizada VARCHAR(255),
@@ -420,89 +420,89 @@ INSERT INTO parser_versoes (banco, versao, ativo, score_qualidade, descricao) VA
 -- ── CATEGORIAS RAIZ ──────────────────────────────────────────
 INSERT INTO categorias (id, nome, tipo, icone, cor_hex, padrao) VALUES
   -- Receitas
-  ('00000000-0000-0000-0000-000000000001', 'Salário',           'receita', '💰', '#16A34A', TRUE),
-  ('00000000-0000-0000-0000-000000000002', 'Freelance',         'receita', '💻', '#0EA5E9', TRUE),
-  ('00000000-0000-0000-0000-000000000003', 'Investimentos',     'receita', '📈', '#7C3AED', TRUE),
-  ('00000000-0000-0000-0000-000000000004', 'Outras Receitas',   'receita', '➕', '#64748B', TRUE),
+  ('00000000-0000-0000-0000-000000000001', 'Salário',           'RECEITA', '💰', '#16A34A', TRUE),
+  ('00000000-0000-0000-0000-000000000002', 'Freelance',         'RECEITA', '💻', '#0EA5E9', TRUE),
+  ('00000000-0000-0000-0000-000000000003', 'Investimentos',     'RECEITA', '📈', '#7C3AED', TRUE),
+  ('00000000-0000-0000-0000-000000000004', 'Outras Receitas',   'RECEITA', '➕', '#64748B', TRUE),
 
   -- Gastos — nível raiz
-  ('00000000-0000-0000-0000-000000000010', 'Alimentação',       'gasto',   '🍽️', '#EF4444', TRUE),
-  ('00000000-0000-0000-0000-000000000011', 'Transporte',        'gasto',   '🚗', '#F97316', TRUE),
-  ('00000000-0000-0000-0000-000000000012', 'Moradia',           'gasto',   '🏠', '#FBBF24', TRUE),
-  ('00000000-0000-0000-0000-000000000013', 'Saúde',             'gasto',   '🏥', '#EC4899', TRUE),
-  ('00000000-0000-0000-0000-000000000014', 'Educação',          'gasto',   '📚', '#8B5CF6', TRUE),
-  ('00000000-0000-0000-0000-000000000015', 'Lazer',             'gasto',   '🎮', '#06B6D4', TRUE),
-  ('00000000-0000-0000-0000-000000000016', 'Vestuário',         'gasto',   '👗', '#F43F5E', TRUE),
-  ('00000000-0000-0000-0000-000000000017', 'Assinaturas',       'gasto',   '📱', '#6366F1', TRUE),
-  ('00000000-0000-0000-0000-000000000018', 'Financeiro',        'gasto',   '🏦', '#059669', TRUE),
-  ('00000000-0000-0000-0000-000000000019', 'Streaming',         'gasto',   '🎬', '#DC2626', TRUE),
-  ('00000000-0000-0000-0000-000000000020', 'Outros',            'ambos',   '📦', '#94A3B8', TRUE);
+  ('00000000-0000-0000-0000-000000000010', 'Alimentação',       'GASTO',   '🍽️', '#EF4444', TRUE),
+  ('00000000-0000-0000-0000-000000000011', 'Transporte',        'GASTO',   '🚗', '#F97316', TRUE),
+  ('00000000-0000-0000-0000-000000000012', 'Moradia',           'GASTO',   '🏠', '#FBBF24', TRUE),
+  ('00000000-0000-0000-0000-000000000013', 'Saúde',             'GASTO',   '🏥', '#EC4899', TRUE),
+  ('00000000-0000-0000-0000-000000000014', 'Educação',          'GASTO',   '📚', '#8B5CF6', TRUE),
+  ('00000000-0000-0000-0000-000000000015', 'Lazer',             'GASTO',   '🎮', '#06B6D4', TRUE),
+  ('00000000-0000-0000-0000-000000000016', 'Vestuário',         'GASTO',   '👗', '#F43F5E', TRUE),
+  ('00000000-0000-0000-0000-000000000017', 'Assinaturas',       'GASTO',   '📱', '#6366F1', TRUE),
+  ('00000000-0000-0000-0000-000000000018', 'Financeiro',        'GASTO',   '🏦', '#059669', TRUE),
+  ('00000000-0000-0000-0000-000000000019', 'Streaming',         'GASTO',   '🎬', '#DC2626', TRUE),
+  ('00000000-0000-0000-0000-000000000020', 'Outros',            'AMBOS',   '📦', '#94A3B8', TRUE);
 
 -- ── SUBCATEGORIAS — Alimentação ───────────────────────────────
 INSERT INTO categorias (id, nome, categoria_pai_id, tipo, icone, cor_hex, padrao) VALUES
-  ('00000000-0000-0000-0000-000000000101', 'Supermercado',  '00000000-0000-0000-0000-000000000010', 'gasto', '🛒', '#EF4444', TRUE),
-  ('00000000-0000-0000-0000-000000000102', 'Restaurante',   '00000000-0000-0000-0000-000000000010', 'gasto', '🍴', '#EF4444', TRUE),
-  ('00000000-0000-0000-0000-000000000103', 'Delivery',      '00000000-0000-0000-0000-000000000010', 'gasto', '🛵', '#EF4444', TRUE),
-  ('00000000-0000-0000-0000-000000000104', 'Padaria/Café',  '00000000-0000-0000-0000-000000000010', 'gasto', '☕', '#EF4444', TRUE),
-  ('00000000-0000-0000-0000-000000000105', 'Lanchonete',    '00000000-0000-0000-0000-000000000010', 'gasto', '🍔', '#EF4444', TRUE);
+  ('00000000-0000-0000-0000-000000000101', 'Supermercado',  '00000000-0000-0000-0000-000000000010', 'GASTO', '🛒', '#EF4444', TRUE),
+  ('00000000-0000-0000-0000-000000000102', 'Restaurante',   '00000000-0000-0000-0000-000000000010', 'GASTO', '🍴', '#EF4444', TRUE),
+  ('00000000-0000-0000-0000-000000000103', 'Delivery',      '00000000-0000-0000-0000-000000000010', 'GASTO', '🛵', '#EF4444', TRUE),
+  ('00000000-0000-0000-0000-000000000104', 'Padaria/Café',  '00000000-0000-0000-0000-000000000010', 'GASTO', '☕', '#EF4444', TRUE),
+  ('00000000-0000-0000-0000-000000000105', 'Lanchonete',    '00000000-0000-0000-0000-000000000010', 'GASTO', '🍔', '#EF4444', TRUE);
 
 -- ── SUBCATEGORIAS — Transporte ────────────────────────────────
 INSERT INTO categorias (id, nome, categoria_pai_id, tipo, icone, cor_hex, padrao) VALUES
-  ('00000000-0000-0000-0000-000000000111', 'Combustível',   '00000000-0000-0000-0000-000000000011', 'gasto', '⛽', '#F97316', TRUE),
-  ('00000000-0000-0000-0000-000000000112', 'Uber/99',       '00000000-0000-0000-0000-000000000011', 'gasto', '🚕', '#F97316', TRUE),
-  ('00000000-0000-0000-0000-000000000113', 'Transporte Público', '00000000-0000-0000-0000-000000000011', 'gasto', '🚌', '#F97316', TRUE),
-  ('00000000-0000-0000-0000-000000000114', 'Estacionamento','00000000-0000-0000-0000-000000000011', 'gasto', '🅿️', '#F97316', TRUE),
-  ('00000000-0000-0000-0000-000000000115', 'Manutenção',    '00000000-0000-0000-0000-000000000011', 'gasto', '🔧', '#F97316', TRUE);
+  ('00000000-0000-0000-0000-000000000111', 'Combustível',   '00000000-0000-0000-0000-000000000011', 'GASTO', '⛽', '#F97316', TRUE),
+  ('00000000-0000-0000-0000-000000000112', 'Uber/99',       '00000000-0000-0000-0000-000000000011', 'GASTO', '🚕', '#F97316', TRUE),
+  ('00000000-0000-0000-0000-000000000113', 'Transporte Público', '00000000-0000-0000-0000-000000000011', 'GASTO', '🚌', '#F97316', TRUE),
+  ('00000000-0000-0000-0000-000000000114', 'Estacionamento','00000000-0000-0000-0000-000000000011', 'GASTO', '🅿️', '#F97316', TRUE),
+  ('00000000-0000-0000-0000-000000000115', 'Manutenção',    '00000000-0000-0000-0000-000000000011', 'GASTO', '🔧', '#F97316', TRUE);
 
 -- ── SUBCATEGORIAS — Moradia ───────────────────────────────────
 INSERT INTO categorias (id, nome, categoria_pai_id, tipo, icone, cor_hex, padrao) VALUES
-  ('00000000-0000-0000-0000-000000000121', 'Aluguel',       '00000000-0000-0000-0000-000000000012', 'gasto', '🔑', '#FBBF24', TRUE),
-  ('00000000-0000-0000-0000-000000000122', 'Condomínio',    '00000000-0000-0000-0000-000000000012', 'gasto', '🏢', '#FBBF24', TRUE),
-  ('00000000-0000-0000-0000-000000000123', 'Energia',       '00000000-0000-0000-0000-000000000012', 'gasto', '💡', '#FBBF24', TRUE),
-  ('00000000-0000-0000-0000-000000000124', 'Água',          '00000000-0000-0000-0000-000000000012', 'gasto', '💧', '#FBBF24', TRUE),
-  ('00000000-0000-0000-0000-000000000125', 'Internet',      '00000000-0000-0000-0000-000000000012', 'gasto', '📶', '#FBBF24', TRUE),
-  ('00000000-0000-0000-0000-000000000126', 'Gás',           '00000000-0000-0000-0000-000000000012', 'gasto', '🔥', '#FBBF24', TRUE);
+  ('00000000-0000-0000-0000-000000000121', 'Aluguel',       '00000000-0000-0000-0000-000000000012', 'GASTO', '🔑', '#FBBF24', TRUE),
+  ('00000000-0000-0000-0000-000000000122', 'Condomínio',    '00000000-0000-0000-0000-000000000012', 'GASTO', '🏢', '#FBBF24', TRUE),
+  ('00000000-0000-0000-0000-000000000123', 'Energia',       '00000000-0000-0000-0000-000000000012', 'GASTO', '💡', '#FBBF24', TRUE),
+  ('00000000-0000-0000-0000-000000000124', 'Água',          '00000000-0000-0000-0000-000000000012', 'GASTO', '💧', '#FBBF24', TRUE),
+  ('00000000-0000-0000-0000-000000000125', 'Internet',      '00000000-0000-0000-0000-000000000012', 'GASTO', '📶', '#FBBF24', TRUE),
+  ('00000000-0000-0000-0000-000000000126', 'Gás',           '00000000-0000-0000-0000-000000000012', 'GASTO', '🔥', '#FBBF24', TRUE);
 
 -- ── SUBCATEGORIAS — Saúde ─────────────────────────────────────
 INSERT INTO categorias (id, nome, categoria_pai_id, tipo, icone, cor_hex, padrao) VALUES
-  ('00000000-0000-0000-0000-000000000131', 'Plano de Saúde','00000000-0000-0000-0000-000000000013', 'gasto', '🏥', '#EC4899', TRUE),
-  ('00000000-0000-0000-0000-000000000132', 'Farmácia',      '00000000-0000-0000-0000-000000000013', 'gasto', '💊', '#EC4899', TRUE),
-  ('00000000-0000-0000-0000-000000000133', 'Consultas',     '00000000-0000-0000-0000-000000000013', 'gasto', '👨‍⚕️', '#EC4899', TRUE),
-  ('00000000-0000-0000-0000-000000000134', 'Academia',      '00000000-0000-0000-0000-000000000013', 'gasto', '🏋️', '#EC4899', TRUE);
+  ('00000000-0000-0000-0000-000000000131', 'Plano de Saúde','00000000-0000-0000-0000-000000000013', 'GASTO', '🏥', '#EC4899', TRUE),
+  ('00000000-0000-0000-0000-000000000132', 'Farmácia',      '00000000-0000-0000-0000-000000000013', 'GASTO', '💊', '#EC4899', TRUE),
+  ('00000000-0000-0000-0000-000000000133', 'Consultas',     '00000000-0000-0000-0000-000000000013', 'GASTO', '👨‍⚕️', '#EC4899', TRUE),
+  ('00000000-0000-0000-0000-000000000134', 'Academia',      '00000000-0000-0000-0000-000000000013', 'GASTO', '🏋️', '#EC4899', TRUE);
 
 -- ── SUBCATEGORIAS — Educação ──────────────────────────────────
 INSERT INTO categorias (id, nome, categoria_pai_id, tipo, icone, cor_hex, padrao) VALUES
-  ('00000000-0000-0000-0000-000000000141', 'Mensalidade',   '00000000-0000-0000-0000-000000000014', 'gasto', '🎓', '#8B5CF6', TRUE),
-  ('00000000-0000-0000-0000-000000000142', 'Cursos Online', '00000000-0000-0000-0000-000000000014', 'gasto', '💡', '#8B5CF6', TRUE),
-  ('00000000-0000-0000-0000-000000000143', 'Livros',        '00000000-0000-0000-0000-000000000014', 'gasto', '📖', '#8B5CF6', TRUE);
+  ('00000000-0000-0000-0000-000000000141', 'Mensalidade',   '00000000-0000-0000-0000-000000000014', 'GASTO', '🎓', '#8B5CF6', TRUE),
+  ('00000000-0000-0000-0000-000000000142', 'Cursos Online', '00000000-0000-0000-0000-000000000014', 'GASTO', '💡', '#8B5CF6', TRUE),
+  ('00000000-0000-0000-0000-000000000143', 'Livros',        '00000000-0000-0000-0000-000000000014', 'GASTO', '📖', '#8B5CF6', TRUE);
 
 -- ── SUBCATEGORIAS — Lazer ─────────────────────────────────────
 INSERT INTO categorias (id, nome, categoria_pai_id, tipo, icone, cor_hex, padrao) VALUES
-  ('00000000-0000-0000-0000-000000000151', 'Cinema/Teatro', '00000000-0000-0000-0000-000000000015', 'gasto', '🎭', '#06B6D4', TRUE),
-  ('00000000-0000-0000-0000-000000000152', 'Jogos',         '00000000-0000-0000-0000-000000000015', 'gasto', '🕹️', '#06B6D4', TRUE),
-  ('00000000-0000-0000-0000-000000000153', 'Viagem',        '00000000-0000-0000-0000-000000000015', 'gasto', '✈️', '#06B6D4', TRUE),
-  ('00000000-0000-0000-0000-000000000154', 'Bares/Baladas', '00000000-0000-0000-0000-000000000015', 'gasto', '🍻', '#06B6D4', TRUE);
+  ('00000000-0000-0000-0000-000000000151', 'Cinema/Teatro', '00000000-0000-0000-0000-000000000015', 'GASTO', '🎭', '#06B6D4', TRUE),
+  ('00000000-0000-0000-0000-000000000152', 'Jogos',         '00000000-0000-0000-0000-000000000015', 'GASTO', '🕹️', '#06B6D4', TRUE),
+  ('00000000-0000-0000-0000-000000000153', 'Viagem',        '00000000-0000-0000-0000-000000000015', 'GASTO', '✈️', '#06B6D4', TRUE),
+  ('00000000-0000-0000-0000-000000000154', 'Bares/Baladas', '00000000-0000-0000-0000-000000000015', 'GASTO', '🍻', '#06B6D4', TRUE);
 
 -- ── SUBCATEGORIAS — Assinaturas ───────────────────────────────
 INSERT INTO categorias (id, nome, categoria_pai_id, tipo, icone, cor_hex, padrao) VALUES
-  ('00000000-0000-0000-0000-000000000171', 'Celular',       '00000000-0000-0000-0000-000000000017', 'gasto', '📲', '#6366F1', TRUE),
-  ('00000000-0000-0000-0000-000000000172', 'Softwares',     '00000000-0000-0000-0000-000000000017', 'gasto', '🖥️', '#6366F1', TRUE),
-  ('00000000-0000-0000-0000-000000000173', 'Clubes/Serviços','00000000-0000-0000-0000-000000000017','gasto', '🔄', '#6366F1', TRUE);
+  ('00000000-0000-0000-0000-000000000171', 'Celular',       '00000000-0000-0000-0000-000000000017', 'GASTO', '📲', '#6366F1', TRUE),
+  ('00000000-0000-0000-0000-000000000172', 'Softwares',     '00000000-0000-0000-0000-000000000017', 'GASTO', '🖥️', '#6366F1', TRUE),
+  ('00000000-0000-0000-0000-000000000173', 'Clubes/Serviços','00000000-0000-0000-0000-000000000017','GASTO', '🔄', '#6366F1', TRUE);
 
 -- ── SUBCATEGORIAS — Streaming ─────────────────────────────────
 INSERT INTO categorias (id, nome, categoria_pai_id, tipo, icone, cor_hex, padrao) VALUES
-  ('00000000-0000-0000-0000-000000000191', 'Netflix',       '00000000-0000-0000-0000-000000000019', 'gasto', '🎬', '#DC2626', TRUE),
-  ('00000000-0000-0000-0000-000000000192', 'Spotify',       '00000000-0000-0000-0000-000000000019', 'gasto', '🎵', '#DC2626', TRUE),
-  ('00000000-0000-0000-0000-000000000193', 'YouTube Premium','00000000-0000-0000-0000-000000000019','gasto', '▶️', '#DC2626', TRUE),
-  ('00000000-0000-0000-0000-000000000194', 'Disney+',       '00000000-0000-0000-0000-000000000019', 'gasto', '🏰', '#DC2626', TRUE),
-  ('00000000-0000-0000-0000-000000000195', 'Amazon Prime',  '00000000-0000-0000-0000-000000000019', 'gasto', '📦', '#DC2626', TRUE);
+  ('00000000-0000-0000-0000-000000000191', 'Netflix',       '00000000-0000-0000-0000-000000000019', 'GASTO', '🎬', '#DC2626', TRUE),
+  ('00000000-0000-0000-0000-000000000192', 'Spotify',       '00000000-0000-0000-0000-000000000019', 'GASTO', '🎵', '#DC2626', TRUE),
+  ('00000000-0000-0000-0000-000000000193', 'YouTube Premium','00000000-0000-0000-0000-000000000019','GASTO', '▶️', '#DC2626', TRUE),
+  ('00000000-0000-0000-0000-000000000194', 'Disney+',       '00000000-0000-0000-0000-000000000019', 'GASTO', '🏰', '#DC2626', TRUE),
+  ('00000000-0000-0000-0000-000000000195', 'Amazon Prime',  '00000000-0000-0000-0000-000000000019', 'GASTO', '📦', '#DC2626', TRUE);
 
 -- ── SUBCATEGORIAS — Financeiro ────────────────────────────────
 INSERT INTO categorias (id, nome, categoria_pai_id, tipo, icone, cor_hex, padrao) VALUES
-  ('00000000-0000-0000-0000-000000000181', 'Empréstimo',    '00000000-0000-0000-0000-000000000018', 'gasto', '💳', '#059669', TRUE),
-  ('00000000-0000-0000-0000-000000000182', 'Cartão Crédito','00000000-0000-0000-0000-000000000018', 'gasto', '💳', '#059669', TRUE),
-  ('00000000-0000-0000-0000-000000000183', 'Tarifas Bancárias','00000000-0000-0000-0000-000000000018','gasto','🏦','#059669', TRUE),
-  ('00000000-0000-0000-0000-000000000184', 'Seguro',        '00000000-0000-0000-0000-000000000018', 'gasto', '🛡️', '#059669', TRUE);
+  ('00000000-0000-0000-0000-000000000181', 'Empréstimo',    '00000000-0000-0000-0000-000000000018', 'GASTO', '💳', '#059669', TRUE),
+  ('00000000-0000-0000-0000-000000000182', 'Cartão Crédito','00000000-0000-0000-0000-000000000018', 'GASTO', '💳', '#059669', TRUE),
+  ('00000000-0000-0000-0000-000000000183', 'Tarifas Bancárias','00000000-0000-0000-0000-000000000018','GASTO','🏦','#059669', TRUE),
+  ('00000000-0000-0000-0000-000000000184', 'Seguro',        '00000000-0000-0000-0000-000000000018', 'GASTO', '🛡️', '#059669', TRUE);
 
 
 -- ── SEED: categoria_thresholds ────────────────────────────────
@@ -599,7 +599,7 @@ BEGIN
   ) VALUES
 
     -- Supermercado
-    (v_usuario_id, v_conta_nubank, v_extrato_id, 'gasto',
+    (v_usuario_id, v_conta_nubank, v_extrato_id, 'GASTO',
      'COMPRA 02/05 PAGUE MENOS SP',
      'COMPRA PAGUE MENOS SP',
      347.89, '2025-05-02',
@@ -607,7 +607,7 @@ BEGIN
      'pdf', 'confirmada', 92),
 
     -- Delivery
-    (v_usuario_id, v_conta_nubank, v_extrato_id, 'gasto',
+    (v_usuario_id, v_conta_nubank, v_extrato_id, 'GASTO',
      'COMPRA 04/05 IFOOD*RESTAURANTE SP',
      'IFOOD RESTAURANTE SP',
      58.90, '2025-05-04',
@@ -615,7 +615,7 @@ BEGIN
      'pdf', 'confirmada', 95),
 
     -- Uber
-    (v_usuario_id, v_conta_nubank, v_extrato_id, 'gasto',
+    (v_usuario_id, v_conta_nubank, v_extrato_id, 'GASTO',
      'COMPRA 05/05 UBER *TRIP SP',
      'UBER TRIP SP',
      34.70, '2025-05-05',
@@ -623,7 +623,7 @@ BEGIN
      'pdf', 'confirmada', 98),
 
     -- Streaming Netflix
-    (v_usuario_id, v_conta_nubank, v_extrato_id, 'gasto',
+    (v_usuario_id, v_conta_nubank, v_extrato_id, 'GASTO',
      'COMPRA 07/05 NETFLIX.COM SP',
      'NETFLIX COM SP',
      55.90, '2025-05-07',
@@ -631,7 +631,7 @@ BEGIN
      'pdf', 'confirmada', 99),
 
     -- Farmácia
-    (v_usuario_id, v_conta_nubank, v_extrato_id, 'gasto',
+    (v_usuario_id, v_conta_nubank, v_extrato_id, 'GASTO',
      'COMPRA 10/05 DROGA RAIA SP',
      'DROGA RAIA SP',
      89.50, '2025-05-10',
@@ -639,7 +639,7 @@ BEGIN
      'pdf', 'confirmada', 91),
 
     -- Conta de luz (manual)
-    (v_usuario_id, v_conta_itau, NULL, 'gasto',
+    (v_usuario_id, v_conta_itau, NULL, 'GASTO',
      NULL,
      'ENEL SP ENERGIA ELETRICA',
      180.00, '2025-05-12',
@@ -647,7 +647,7 @@ BEGIN
      'manual', 'confirmada', NULL),
 
     -- Pendente de revisão
-    (v_usuario_id, v_conta_nubank, v_extrato_id, 'gasto',
+    (v_usuario_id, v_conta_nubank, v_extrato_id, 'GASTO',
      'COMPRA 20/05 AMAZON MKTPLC SP',
      'AMAZON MKTPLC SP',
      215.00, '2025-05-20',
@@ -655,7 +655,7 @@ BEGIN
      'pdf', 'pendente_revisao', 45),
 
     -- Carteira — lanche
-    (v_usuario_id, v_conta_carteira, NULL, 'gasto',
+    (v_usuario_id, v_conta_carteira, NULL, 'GASTO',
      NULL,
      'LANCHONETE ESQUINA',
      22.00, '2025-05-22',
@@ -671,7 +671,7 @@ BEGIN
   ) VALUES
 
     -- Salário
-    (v_usuario_id, v_conta_itau, 'receita',
+    (v_usuario_id, v_conta_itau, 'RECEITA',
      'Salário Maio/2025',
      'SALARIO MAIO 2025',
      6800.00, '2025-05-05',
@@ -679,7 +679,7 @@ BEGIN
      TRUE, 'mensal'),
 
     -- Freelance
-    (v_usuario_id, v_conta_nubank, 'receita',
+    (v_usuario_id, v_conta_nubank, 'RECEITA',
      'Projeto Web — Cliente ABC',
      'PROJETO WEB CLIENTE ABC',
      1500.00, '2025-05-15',

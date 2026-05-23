@@ -30,7 +30,7 @@ class CriarCategoriaUseCaseTest {
 
     @Test
     void executar_deveSalvarCategoria_quandoDadosValidos() {
-        Categoria categoria = new Categoria(UUID.randomUUID(), "Pets", TipoCategoria.gasto, "🐶", "#FF0000");
+        Categoria categoria = new Categoria(UUID.randomUUID(), "Pets", TipoCategoria.GASTO, "🐶", "#FF0000");
         when(repository.salvar(any())).thenReturn(categoria);
 
         useCase.executar(categoria);
@@ -40,7 +40,7 @@ class CriarCategoriaUseCaseTest {
 
     @Test
     void executar_naoDeveSalvar_quandoNomeVazio() {
-        Categoria categoriaInvalida = new Categoria(UUID.randomUUID(), "  ", TipoCategoria.gasto, null, null);
+        Categoria categoriaInvalida = new Categoria(UUID.randomUUID(), "  ", TipoCategoria.GASTO, null, null);
 
         assertThatThrownBy(() -> useCase.executar(categoriaInvalida))
                 .isInstanceOf(CategoriaInvalidaException.class);
