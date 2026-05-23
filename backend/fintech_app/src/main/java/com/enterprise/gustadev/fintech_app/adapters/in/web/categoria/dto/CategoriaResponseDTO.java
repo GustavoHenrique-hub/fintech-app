@@ -6,6 +6,7 @@ import java.util.UUID;
 
 public record CategoriaResponseDTO(
         UUID id,
+        String code,
         String nome,
         String tipo,
         String icone,
@@ -15,6 +16,7 @@ public record CategoriaResponseDTO(
     public static CategoriaResponseDTO fromDomain(Categoria domain) {
         return new CategoriaResponseDTO(
                 domain.getId(),
+                domain.getCode(),
                 domain.getNome(),
                 domain.getTipo().name(),
                 domain.getIcone(),

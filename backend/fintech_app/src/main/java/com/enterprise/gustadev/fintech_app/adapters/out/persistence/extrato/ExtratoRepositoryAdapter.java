@@ -34,6 +34,11 @@ public class ExtratoRepositoryAdapter implements ExtratoRepositoryPort {
     }
 
     @Override
+    public Optional<Extrato> buscarPorIdECode(UUID id, String code) {
+        return jpaRepository.findByIdAndCode(id, code).map(ExtratoEntity::toDomain);
+    }
+
+    @Override
     public Optional<Extrato> buscarPorHash(String hashArquivo) {
         return jpaRepository.findByHashArquivo(hashArquivo).map(ExtratoEntity::toDomain);
     }

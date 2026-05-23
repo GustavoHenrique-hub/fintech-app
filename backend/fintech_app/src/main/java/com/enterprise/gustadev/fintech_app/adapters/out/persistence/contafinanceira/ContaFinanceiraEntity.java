@@ -29,6 +29,9 @@ public class ContaFinanceiraEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(name = "contas_code", unique = true, nullable = false, length = 6)
+    private String code;
+
     @Column(name = "usuario_id", nullable = false)
     private UUID usuarioId;
 
@@ -60,6 +63,8 @@ public class ContaFinanceiraEntity {
     public static ContaFinanceiraEntity fromDomain(ContaFinanceira domain) {
         ContaFinanceiraEntity entity = new ContaFinanceiraEntity();
         entity.id = domain.getId();
+        entity.code = domain.getCode() != null ? domain.getCode()
+                : UUID.randomUUID().toString().replace("-", "").substring(0, 6).toUpperCase();
         entity.usuarioId = domain.getUsuarioId();
         entity.nome = domain.getNome();
         entity.tipo = domain.getTipo();
@@ -73,7 +78,9 @@ public class ContaFinanceiraEntity {
     }
 
     public ContaFinanceira toDomain() {
-        return new ContaFinanceira(id, usuarioId, nome, tipo, banco, saldoInicial,
+        ContaFinanceira c = new ContaFinanceira(id, usuarioId, nome, tipo, banco, saldoInicial,
                 padrao != null && padrao, ativa != null && ativa, criadoEm, atualizadoEm);
+        c.setCode(code);
+        return c;
     }
 }

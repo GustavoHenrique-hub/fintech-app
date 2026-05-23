@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -80,7 +81,7 @@ class TransacaoControllerTest {
                                 {
                                   "usuarioId": "%s",
                                   "contaId": "%s",
-                                  "tipo": "gasto",
+                                  "tipo": "GASTO",
                                   "valor": 150.00,
                                   "dataTransacao": "%s",
                                   "origem": "manual"
@@ -88,7 +89,7 @@ class TransacaoControllerTest {
                                 """.formatted(usuarioId, contaId, LocalDate.now())))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.valor").value(150.00))
-                .andExpect(jsonPath("$.tipo").value("gasto"));
+                .andExpect(jsonPath("$.tipo").value("GASTO"));
     }
 
     @Test
@@ -116,10 +117,10 @@ class TransacaoControllerTest {
     @Test
     void buscarPorId_deveRetornar200ComTransacao() throws Exception {
         UUID id = UUID.randomUUID();
-        when(buscarUseCase.executar(id))
+        when(buscarUseCase.executar(any(), anyString()))
                 .thenReturn(transacaoCompleta(id, UUID.randomUUID(), UUID.randomUUID()));
 
-        mockMvc.perform(get("/transacoes/{id}", id))
+        mockMvc.perform(get("/transacoes/{id_transacoes}/{transacoes_code}", id, "ABC123"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(id.toString()));
     }
@@ -127,9 +128,9 @@ class TransacaoControllerTest {
     @Test
     void deletar_deveRetornar204() throws Exception {
         UUID id = UUID.randomUUID();
-        doNothing().when(deletarUseCase).executar(id);
+        doNothing().when(deletarUseCase).executar(any(), anyString());
 
-        mockMvc.perform(delete("/transacoes/{id}", id))
+        mockMvc.perform(delete("/transacoes/{id_transacoes}/{transacoes_code}", id, "ABC123"))
                 .andExpect(status().isNoContent());
     }
 }

@@ -14,8 +14,8 @@ public class BuscarMotivoCancelamentoUseCase {
         this.repository = repository;
     }
 
-    public MotivoCancelamento executar(UUID id) {
-        return repository.buscarPorId(id)
+    public MotivoCancelamento executar(UUID id, String code) {
+        return repository.buscarPorIdECode(id, code)
                 .orElseThrow(() -> new MotivoCancelamentoInvalidoException("Motivo de cancelamento não encontrado: " + id));
     }
 }

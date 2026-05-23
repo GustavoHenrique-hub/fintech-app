@@ -69,7 +69,7 @@ public class TransacaoController {
         transacao.setEstabelecimento(dto.estabelecimento());
         transacao.setObservacao(dto.observacao());
         TransacaoResponseDTO response = TransacaoResponseDTO.fromDomain(criarUseCase.executar(transacao));
-        return ResponseEntity.created(URI.create("/transacoes/" + response.id())).body(response);
+        return ResponseEntity.created(URI.create("/transacoes/" + response.id() + "/" + response.code())).body(response);
     }
 
     @Operation(summary = "Listar transações do usuário", description = "Retorna todas as transações de um usuário, independente da conta.")
@@ -99,26 +99,30 @@ public class TransacaoController {
                 .map(TransacaoResponseDTO::fromDomain).toList());
     }
 
-    @Operation(summary = "Buscar transação por ID", description = "Retorna os dados completos de uma transação pelo seu UUID.")
+    @Operation(summary = "Buscar transação por ID e código",
+            description = "Retorna a transação identificada pela chave composta (id_transacoes + transacoes_code).")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Transação encontrada"),
             @ApiResponse(responseCode = "404", description = "Transação não encontrada")
     })
-    @GetMapping("/{id}")
+    @GetMapping("/{id_transacoes}/{transacoes_code}")
     public ResponseEntity<TransacaoResponseDTO> buscarPorId(
-            @Parameter(description = "UUID da transação") @PathVariable UUID id) {
-        return ResponseEntity.ok(TransacaoResponseDTO.fromDomain(buscarUseCase.executar(id)));
+            @Parameter(description = "UUID da transação (id_transacoes)") @PathVariable("id_transacoes") UUID idTransacoes,
+            @Parameter(description = "Código alfanumérico de 6 caracteres (transacoes_code)") @PathVariable("transacoes_code") String transacoesCode) {
+        return ResponseEntity.ok(TransacaoResponseDTO.fromDomain(buscarUseCase.executar(idTransacoes, transacoesCode)));
     }
 
-    @Operation(summary = "Deletar transação", description = "Remove permanentemente uma transação pelo seu UUID.")
+    @Operation(summary = "Deletar transação",
+            description = "Remove permanentemente a transação identificada pela chave composta (id_transacoes + transacoes_code).")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Transação removida com sucesso"),
             @ApiResponse(responseCode = "404", description = "Transação não encontrada")
     })
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id_transacoes}/{transacoes_code}")
     public ResponseEntity<Void> deletar(
-            @Parameter(description = "UUID da transação") @PathVariable UUID id) {
-        deletarUseCase.executar(id);
+            @Parameter(description = "UUID da transação (id_transacoes)") @PathVariable("id_transacoes") UUID idTransacoes,
+            @Parameter(description = "Código alfanumérico de 6 caracteres (transacoes_code)") @PathVariable("transacoes_code") String transacoesCode) {
+        deletarUseCase.executar(idTransacoes, transacoesCode);
         return ResponseEntity.noContent().build();
     }
 }

@@ -10,4 +10,5 @@ public interface MotivoCancelamentoRepositoryPort {
     MotivoCancelamento salvar(MotivoCancelamento motivo);
     List<MotivoCancelamento> listarAtivos();
     Optional<MotivoCancelamento> buscarPorId(UUID id);
+    Optional<MotivoCancelamento> buscarPorIdECode(UUID id, String code);
 }

@@ -14,6 +14,7 @@ import java.util.UUID;
 public class ContaFinanceira {
 
     private UUID id;
+    private String code;
     private UUID usuarioId;
     private String nome;
     private TipoConta tipo;

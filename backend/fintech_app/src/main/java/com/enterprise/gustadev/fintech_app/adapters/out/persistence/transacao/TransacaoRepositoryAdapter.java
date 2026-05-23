@@ -46,6 +46,11 @@ public class TransacaoRepositoryAdapter implements TransacaoRepositoryPort {
     }
 
     @Override
+    public Optional<Transacao> buscarPorIdECode(UUID id, String code) {
+        return jpaRepository.findByIdAndCode(id, code).map(TransacaoEntity::toDomain);
+    }
+
+    @Override
     public void deletarPorId(UUID id) {
         jpaRepository.deleteById(id);
     }

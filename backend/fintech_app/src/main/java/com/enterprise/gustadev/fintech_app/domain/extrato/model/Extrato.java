@@ -15,6 +15,7 @@ import java.util.UUID;
 public class Extrato {
 
     private UUID id;
+    private String code;
     private UUID usuarioId;
     private UUID contaId;
     private String arquivoNome;

@@ -32,6 +32,9 @@ public class TransacaoEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(name = "transacoes_code", unique = true, nullable = false, length = 6)
+    private String code;
+
     @Column(name = "usuario_id", nullable = false)
     private UUID usuarioId;
 
@@ -110,6 +113,8 @@ public class TransacaoEntity {
     public static TransacaoEntity fromDomain(Transacao domain) {
         TransacaoEntity entity = new TransacaoEntity();
         entity.id = domain.getId();
+        entity.code = domain.getCode() != null ? domain.getCode()
+                : UUID.randomUUID().toString().replace("-", "").substring(0, 6).toUpperCase();
         entity.usuarioId = domain.getUsuarioId();
         entity.contaId = domain.getContaId();
         entity.extratoId = domain.getExtratoId();
@@ -138,10 +143,12 @@ public class TransacaoEntity {
     }
 
     public Transacao toDomain() {
-        return new Transacao(id, usuarioId, contaId, extratoId, transacaoEstornoId, tipo,
+        Transacao t = new Transacao(id, usuarioId, contaId, extratoId, transacaoEstornoId, tipo,
                 descricaoOriginal, descricaoUsuario, descricaoNormalizada, valor,
                 dataTransacao, dataLancamento, categoriaId, subcategoria, estabelecimento,
                 origem, statusRevisao, confiancaIa, recorrente, periodoRecorrencia,
                 observacao, deletedAt, versao, criadoEm, atualizadoEm);
+        t.setCode(code);
+        return t;
     }
 }

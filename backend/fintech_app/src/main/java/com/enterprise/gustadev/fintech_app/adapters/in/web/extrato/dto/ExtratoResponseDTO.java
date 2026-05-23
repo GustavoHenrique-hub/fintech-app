@@ -8,6 +8,7 @@ import java.util.UUID;
 
 public record ExtratoResponseDTO(
         UUID id,
+        String code,
         UUID usuarioId,
         UUID contaId,
         String arquivoNome,
@@ -23,6 +24,7 @@ public record ExtratoResponseDTO(
     public static ExtratoResponseDTO fromDomain(Extrato domain) {
         return new ExtratoResponseDTO(
                 domain.getId(),
+                domain.getCode(),
                 domain.getUsuarioId(),
                 domain.getContaId(),
                 domain.getArquivoNome(),

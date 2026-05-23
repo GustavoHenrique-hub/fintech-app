@@ -39,6 +39,11 @@ public class CategoriaRepositoryAdapter implements CategoriaRepositoryPort {
     }
 
     @Override
+    public Optional<Categoria> buscarPorIdECode(UUID id, String code) {
+        return jpaRepository.findByIdAndCode(id, code).map(CategoriaEntity::toDomain);
+    }
+
+    @Override
     public void deletarPorId(UUID id) {
         jpaRepository.deleteById(id);
     }

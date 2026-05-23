@@ -60,7 +60,7 @@ public class ContaFinanceiraController {
                 dto.banco(), dto.saldoInicial(), dto.padrao()
         );
         ContaFinanceiraResponseDTO response = ContaFinanceiraResponseDTO.fromDomain(criarUseCase.executar(conta));
-        return ResponseEntity.created(URI.create("/contas/" + response.id())).body(response);
+        return ResponseEntity.created(URI.create("/contas/" + response.id() + "/" + response.code())).body(response);
     }
 
     @Operation(summary = "Listar contas do usuário", description = "Retorna todas as contas financeiras cadastradas para um usuário.")
@@ -73,26 +73,30 @@ public class ContaFinanceiraController {
         return ResponseEntity.ok(response);
     }
 
-    @Operation(summary = "Buscar conta por ID", description = "Retorna os dados de uma conta financeira específica pelo seu UUID.")
+    @Operation(summary = "Buscar conta por ID e código",
+            description = "Retorna os dados de uma conta financeira identificada pela chave composta (id_contas + contas_code).")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Conta encontrada"),
             @ApiResponse(responseCode = "404", description = "Conta não encontrada")
     })
-    @GetMapping("/{id}")
+    @GetMapping("/{id_contas}/{contas_code}")
     public ResponseEntity<ContaFinanceiraResponseDTO> buscarPorId(
-            @Parameter(description = "UUID da conta") @PathVariable UUID id) {
-        return ResponseEntity.ok(ContaFinanceiraResponseDTO.fromDomain(buscarUseCase.executar(id)));
+            @Parameter(description = "UUID da conta (id_contas)") @PathVariable("id_contas") UUID idContas,
+            @Parameter(description = "Código alfanumérico de 6 caracteres (contas_code)") @PathVariable("contas_code") String contasCode) {
+        return ResponseEntity.ok(ContaFinanceiraResponseDTO.fromDomain(buscarUseCase.executar(idContas, contasCode)));
     }
 
-    @Operation(summary = "Deletar conta financeira", description = "Remove permanentemente uma conta financeira pelo seu UUID.")
+    @Operation(summary = "Deletar conta financeira",
+            description = "Remove permanentemente a conta identificada pela chave composta (id_contas + contas_code).")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Conta removida com sucesso"),
             @ApiResponse(responseCode = "404", description = "Conta não encontrada")
     })
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id_contas}/{contas_code}")
     public ResponseEntity<Void> deletar(
-            @Parameter(description = "UUID da conta") @PathVariable UUID id) {
-        deletarUseCase.executar(id);
+            @Parameter(description = "UUID da conta (id_contas)") @PathVariable("id_contas") UUID idContas,
+            @Parameter(description = "Código alfanumérico de 6 caracteres (contas_code)") @PathVariable("contas_code") String contasCode) {
+        deletarUseCase.executar(idContas, contasCode);
         return ResponseEntity.noContent().build();
     }
 }

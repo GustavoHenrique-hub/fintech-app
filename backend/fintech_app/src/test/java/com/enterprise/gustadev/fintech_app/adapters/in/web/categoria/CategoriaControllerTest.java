@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -85,9 +86,9 @@ class CategoriaControllerTest {
     @Test
     void buscarPorId_deveRetornar200ComCategoria() throws Exception {
         UUID id = UUID.randomUUID();
-        when(buscarUseCase.executar(id)).thenReturn(categoriaCompleta(id));
+        when(buscarUseCase.executar(any(), anyString())).thenReturn(categoriaCompleta(id));
 
-        mockMvc.perform(get("/categorias/{id}", id))
+        mockMvc.perform(get("/categorias/{id_categorias}/{categorias_code}", id, "ABC123"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(id.toString()));
     }

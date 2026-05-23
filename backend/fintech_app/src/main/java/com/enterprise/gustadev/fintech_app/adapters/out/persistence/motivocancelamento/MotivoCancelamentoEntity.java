@@ -28,6 +28,9 @@ public class MotivoCancelamentoEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(name = "motivos_cancelamento_code", unique = true, nullable = false, length = 6)
+    private String code;
+
     @Column(nullable = false, length = 255)
     private String descricao;
 
@@ -44,6 +47,8 @@ public class MotivoCancelamentoEntity {
     public static MotivoCancelamentoEntity fromDomain(MotivoCancelamento domain) {
         MotivoCancelamentoEntity entity = new MotivoCancelamentoEntity();
         entity.id = domain.getId();
+        entity.code = domain.getCode() != null ? domain.getCode()
+                : UUID.randomUUID().toString().replace("-", "").substring(0, 6).toUpperCase();
         entity.descricao = domain.getDescricao();
         entity.origemPermitida = domain.getOrigemPermitida();
         entity.ativo = domain.isAtivo();
@@ -52,6 +57,8 @@ public class MotivoCancelamentoEntity {
     }
 
     public MotivoCancelamento toDomain() {
-        return new MotivoCancelamento(id, descricao, origemPermitida, ativo, criadoEm);
+        MotivoCancelamento m = new MotivoCancelamento(id, descricao, origemPermitida, ativo, criadoEm);
+        m.setCode(code);
+        return m;
     }
 }

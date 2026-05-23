@@ -14,8 +14,8 @@ public class BuscarExtratoUseCase {
         this.repository = repository;
     }
 
-    public Extrato executar(UUID id) {
-        return repository.buscarPorId(id)
+    public Extrato executar(UUID id, String code) {
+        return repository.buscarPorIdECode(id, code)
                 .orElseThrow(() -> new ExtratoInvalidoException("Extrato não encontrado: " + id));
     }
 }

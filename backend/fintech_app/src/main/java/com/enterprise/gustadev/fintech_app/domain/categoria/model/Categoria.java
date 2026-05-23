@@ -13,6 +13,7 @@ import java.util.UUID;
 public class Categoria {
 
     private UUID id;
+    private String code;
     private String nome;
     private TipoCategoria tipo;
     private String icone;

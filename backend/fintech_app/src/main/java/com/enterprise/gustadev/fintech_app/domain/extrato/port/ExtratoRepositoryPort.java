@@ -10,6 +10,7 @@ public interface ExtratoRepositoryPort {
     Extrato salvar(Extrato extrato);
     List<Extrato> listarPorUsuario(UUID usuarioId);
     Optional<Extrato> buscarPorId(UUID id);
+    Optional<Extrato> buscarPorIdECode(UUID id, String code);
     Optional<Extrato> buscarPorHash(String hashArquivo);
     void deletarPorId(UUID id);
 }

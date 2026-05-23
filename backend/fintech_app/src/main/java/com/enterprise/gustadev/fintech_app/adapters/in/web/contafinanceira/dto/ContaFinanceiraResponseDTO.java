@@ -8,6 +8,7 @@ import java.util.UUID;
 
 public record ContaFinanceiraResponseDTO(
         UUID id,
+        String code,
         UUID usuarioId,
         String nome,
         String tipo,
@@ -20,6 +21,7 @@ public record ContaFinanceiraResponseDTO(
     public static ContaFinanceiraResponseDTO fromDomain(ContaFinanceira domain) {
         return new ContaFinanceiraResponseDTO(
                 domain.getId(),
+                domain.getCode(),
                 domain.getUsuarioId(),
                 domain.getNome(),
                 domain.getTipo().name(),

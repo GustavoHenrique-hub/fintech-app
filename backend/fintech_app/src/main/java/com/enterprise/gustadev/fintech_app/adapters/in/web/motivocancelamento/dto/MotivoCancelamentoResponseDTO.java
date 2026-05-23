@@ -6,6 +6,7 @@ import java.util.UUID;
 
 public record MotivoCancelamentoResponseDTO(
         UUID id,
+        String code,
         String descricao,
         String origemPermitida,
         boolean ativo
@@ -13,6 +14,7 @@ public record MotivoCancelamentoResponseDTO(
     public static MotivoCancelamentoResponseDTO fromDomain(MotivoCancelamento domain) {
         return new MotivoCancelamentoResponseDTO(
                 domain.getId(),
+                domain.getCode(),
                 domain.getDescricao(),
                 domain.getOrigemPermitida().name(),
                 domain.isAtivo()

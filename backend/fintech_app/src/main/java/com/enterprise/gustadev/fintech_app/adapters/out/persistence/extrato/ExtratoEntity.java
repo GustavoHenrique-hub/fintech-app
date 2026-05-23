@@ -30,6 +30,9 @@ public class ExtratoEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(name = "extratos_code", unique = true, nullable = false, length = 6)
+    private String code;
+
     @Column(name = "usuario_id", nullable = false)
     private UUID usuarioId;
 
@@ -88,6 +91,8 @@ public class ExtratoEntity {
     public static ExtratoEntity fromDomain(Extrato domain) {
         ExtratoEntity entity = new ExtratoEntity();
         entity.id = domain.getId();
+        entity.code = domain.getCode() != null ? domain.getCode()
+                : UUID.randomUUID().toString().replace("-", "").substring(0, 6).toUpperCase();
         entity.usuarioId = domain.getUsuarioId();
         entity.contaId = domain.getContaId();
         entity.arquivoNome = domain.getArquivoNome();
@@ -110,9 +115,11 @@ public class ExtratoEntity {
     }
 
     public Extrato toDomain() {
-        return new Extrato(id, usuarioId, contaId, arquivoNome, arquivoUuid, hashArquivo,
+        Extrato e = new Extrato(id, usuarioId, contaId, arquivoNome, arquivoUuid, hashArquivo,
                 bancoDetectado, parserVersaoId, scoreExtracao, periodoInicio, periodoFim,
                 status, totalLancamentos, lancamentosConfirmados, lancamentosPendentes,
                 lancamentosIgnorados, versao, criadoEm, atualizadoEm);
+        e.setCode(code);
+        return e;
     }
 }

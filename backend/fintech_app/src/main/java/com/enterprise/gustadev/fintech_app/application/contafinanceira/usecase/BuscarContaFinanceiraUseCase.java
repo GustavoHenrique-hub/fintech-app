@@ -14,8 +14,8 @@ public class BuscarContaFinanceiraUseCase {
         this.repository = repository;
     }
 
-    public ContaFinanceira executar(UUID id) {
-        return repository.buscarPorId(id)
+    public ContaFinanceira executar(UUID id, String code) {
+        return repository.buscarPorIdECode(id, code)
                 .orElseThrow(() -> new ContaFinanceiraInvalidaException("Conta financeira não encontrada: " + id));
     }
 }

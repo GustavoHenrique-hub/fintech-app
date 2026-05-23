@@ -14,8 +14,8 @@ public class BuscarCategoriaUseCase {
         this.repository = repository;
     }
 
-    public Categoria executar(UUID id) {
-        return repository.buscarPorId(id)
+    public Categoria executar(UUID id, String code) {
+        return repository.buscarPorIdECode(id, code)
                 .orElseThrow(() -> new CategoriaInvalidaException("Categoria não encontrada: " + id));
     }
 }

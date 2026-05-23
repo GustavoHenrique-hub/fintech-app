@@ -17,6 +17,7 @@ import java.util.UUID;
 public class Transacao {
 
     private UUID id;
+    private String code;
     private UUID usuarioId;
     private UUID contaId;
     private UUID extratoId;

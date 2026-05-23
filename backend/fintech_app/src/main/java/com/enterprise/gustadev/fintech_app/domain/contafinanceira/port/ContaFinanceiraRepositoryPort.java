@@ -10,5 +10,6 @@ public interface ContaFinanceiraRepositoryPort {
     ContaFinanceira salvar(ContaFinanceira conta);
     List<ContaFinanceira> listarPorUsuario(UUID usuarioId);
     Optional<ContaFinanceira> buscarPorId(UUID id);
+    Optional<ContaFinanceira> buscarPorIdECode(UUID id, String code);
     void deletarPorId(UUID id);
 }

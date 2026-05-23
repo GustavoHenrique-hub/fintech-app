@@ -13,6 +13,7 @@ import java.util.UUID;
 public class MotivoCancelamento {
 
     private UUID id;
+    private String code;
     private String descricao;
     private OrigemPermitidaCancelamento origemPermitida;
     private boolean ativo;

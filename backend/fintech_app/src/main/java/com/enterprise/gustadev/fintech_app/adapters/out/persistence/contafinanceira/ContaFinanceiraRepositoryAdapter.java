@@ -33,6 +33,11 @@ public class ContaFinanceiraRepositoryAdapter implements ContaFinanceiraReposito
     }
 
     @Override
+    public Optional<ContaFinanceira> buscarPorIdECode(UUID id, String code) {
+        return jpaRepository.findByIdAndCode(id, code).map(ContaFinanceiraEntity::toDomain);
+    }
+
+    @Override
     public void deletarPorId(UUID id) {
         jpaRepository.deleteById(id);
     }

@@ -28,6 +28,9 @@ public class CategoriaEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(name = "categorias_code", unique = true, nullable = false, length = 6)
+    private String code;
+
     @Column(nullable = false, length = 100)
     private String nome;
 
@@ -50,6 +53,8 @@ public class CategoriaEntity {
     public static CategoriaEntity fromDomain(Categoria domain) {
         CategoriaEntity entity = new CategoriaEntity();
         entity.id = domain.getId();
+        entity.code = domain.getCode() != null ? domain.getCode()
+                : UUID.randomUUID().toString().replace("-", "").substring(0, 6).toUpperCase();
         entity.nome = domain.getNome();
         entity.tipo = domain.getTipo();
         entity.icone = domain.getIcone();
@@ -60,7 +65,9 @@ public class CategoriaEntity {
     }
 
     public Categoria toDomain() {
-        return new Categoria(id, nome, tipo, icone, corHex,
+        Categoria c = new Categoria(id, nome, tipo, icone, corHex,
                 padrao != null && padrao, criadoEm);
+        c.setCode(code);
+        return c;
     }
 }

@@ -55,7 +55,7 @@ public class CategoriaController {
                 dto.icone(), dto.corHex()
         );
         CategoriaResponseDTO response = CategoriaResponseDTO.fromDomain(criarUseCase.executar(categoria));
-        return ResponseEntity.created(URI.create("/categorias/" + response.id())).body(response);
+        return ResponseEntity.created(URI.create("/categorias/" + response.id() + "/" + response.code())).body(response);
     }
 
     @Operation(summary = "Listar categorias padrão", description = "Retorna todas as categorias padrão do sistema.")
@@ -66,14 +66,16 @@ public class CategoriaController {
                 .map(CategoriaResponseDTO::fromDomain).toList());
     }
 
-    @Operation(summary = "Buscar categoria por ID")
+    @Operation(summary = "Buscar categoria por ID e código",
+            description = "Retorna a categoria correspondente à chave composta (id_categorias + categorias_code).")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Categoria encontrada"),
             @ApiResponse(responseCode = "404", description = "Categoria não encontrada")
     })
-    @GetMapping("/{id}")
+    @GetMapping("/{id_categorias}/{categorias_code}")
     public ResponseEntity<CategoriaResponseDTO> buscarPorId(
-            @Parameter(description = "UUID da categoria") @PathVariable UUID id) {
-        return ResponseEntity.ok(CategoriaResponseDTO.fromDomain(buscarUseCase.executar(id)));
+            @Parameter(description = "UUID da categoria (id_categorias)") @PathVariable("id_categorias") UUID idCategorias,
+            @Parameter(description = "Código alfanumérico de 6 caracteres (categorias_code)") @PathVariable("categorias_code") String categoriasCode) {
+        return ResponseEntity.ok(CategoriaResponseDTO.fromDomain(buscarUseCase.executar(idCategorias, categoriasCode)));
     }
 }

@@ -53,7 +53,7 @@ public class ExtratoController {
                 dto.arquivoNome(), dto.arquivoUuid(), dto.hashArquivo()
         );
         ExtratoResponseDTO response = ExtratoResponseDTO.fromDomain(criarUseCase.executar(extrato));
-        return ResponseEntity.created(URI.create("/extratos/" + response.id())).body(response);
+        return ResponseEntity.created(URI.create("/extratos/" + response.id() + "/" + response.code())).body(response);
     }
 
     @Operation(summary = "Listar extratos do usuário", description = "Retorna todos os extratos importados por um usuário.")
@@ -65,14 +65,16 @@ public class ExtratoController {
                 .map(ExtratoResponseDTO::fromDomain).toList());
     }
 
-    @Operation(summary = "Buscar extrato por ID", description = "Retorna os dados de um extrato específico pelo seu UUID.")
+    @Operation(summary = "Buscar extrato por ID e código",
+            description = "Retorna o extrato identificado pela chave composta (id_extratos + extratos_code).")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Extrato encontrado"),
             @ApiResponse(responseCode = "404", description = "Extrato não encontrado")
     })
-    @GetMapping("/{id}")
+    @GetMapping("/{id_extratos}/{extratos_code}")
     public ResponseEntity<ExtratoResponseDTO> buscarPorId(
-            @Parameter(description = "UUID do extrato") @PathVariable UUID id) {
-        return ResponseEntity.ok(ExtratoResponseDTO.fromDomain(buscarUseCase.executar(id)));
+            @Parameter(description = "UUID do extrato (id_extratos)") @PathVariable("id_extratos") UUID idExtratos,
+            @Parameter(description = "Código alfanumérico de 6 caracteres (extratos_code)") @PathVariable("extratos_code") String extratosCode) {
+        return ResponseEntity.ok(ExtratoResponseDTO.fromDomain(buscarUseCase.executar(idExtratos, extratosCode)));
     }
 }

@@ -14,8 +14,8 @@ public class BuscarTransacaoUseCase {
         this.repository = repository;
     }
 
-    public Transacao executar(UUID id) {
-        return repository.buscarPorId(id)
+    public Transacao executar(UUID id, String code) {
+        return repository.buscarPorIdECode(id, code)
                 .orElseThrow(() -> new TransacaoInvalidaException("Transação não encontrada: " + id));
     }
 }

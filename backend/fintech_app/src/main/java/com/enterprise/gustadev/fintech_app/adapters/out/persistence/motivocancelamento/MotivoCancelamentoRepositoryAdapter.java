@@ -32,4 +32,9 @@ public class MotivoCancelamentoRepositoryAdapter implements MotivoCancelamentoRe
     public Optional<MotivoCancelamento> buscarPorId(UUID id) {
         return jpaRepository.findById(id).map(MotivoCancelamentoEntity::toDomain);
     }
+
+    @Override
+    public Optional<MotivoCancelamento> buscarPorIdECode(UUID id, String code) {
+        return jpaRepository.findByIdAndCode(id, code).map(MotivoCancelamentoEntity::toDomain);
+    }
 }

@@ -9,4 +9,5 @@ import java.util.UUID;
 public interface ExtratoJpaRepository extends JpaRepository<ExtratoEntity, UUID> {
     List<ExtratoEntity> findByUsuarioIdOrderByCriadoEmDesc(UUID usuarioId);
     Optional<ExtratoEntity> findByHashArquivo(String hashArquivo);
+    Optional<ExtratoEntity> findByIdAndCode(UUID id, String code);
 }

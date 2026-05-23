@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -98,9 +99,9 @@ class ContaFinanceiraControllerTest {
     @Test
     void buscarPorId_deveRetornar200ComConta() throws Exception {
         UUID id = UUID.randomUUID();
-        when(buscarUseCase.executar(id)).thenReturn(contaCompleta(id, UUID.randomUUID()));
+        when(buscarUseCase.executar(any(), anyString())).thenReturn(contaCompleta(id, UUID.randomUUID()));
 
-        mockMvc.perform(get("/contas/{id}", id))
+        mockMvc.perform(get("/contas/{id_contas}/{contas_code}", id, "ABC123"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(id.toString()));
     }
@@ -108,9 +109,9 @@ class ContaFinanceiraControllerTest {
     @Test
     void deletar_deveRetornar204() throws Exception {
         UUID id = UUID.randomUUID();
-        doNothing().when(deletarUseCase).executar(id);
+        doNothing().when(deletarUseCase).executar(any(), anyString());
 
-        mockMvc.perform(delete("/contas/{id}", id))
+        mockMvc.perform(delete("/contas/{id_contas}/{contas_code}", id, "ABC123"))
                 .andExpect(status().isNoContent());
     }
 }

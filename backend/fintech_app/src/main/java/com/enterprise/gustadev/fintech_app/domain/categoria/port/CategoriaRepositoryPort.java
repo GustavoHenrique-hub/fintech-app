@@ -12,5 +12,6 @@ public interface CategoriaRepositoryPort {
     List<Categoria> listarPadrao();
     List<Categoria> listarPorTipo(TipoCategoria tipo);
     Optional<Categoria> buscarPorId(UUID id);
+    Optional<Categoria> buscarPorIdECode(UUID id, String code);
     void deletarPorId(UUID id);
 }

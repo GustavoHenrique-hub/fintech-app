@@ -9,6 +9,7 @@ import java.util.UUID;
 
 public record TransacaoResponseDTO(
         UUID id,
+        String code,
         UUID usuarioId,
         UUID contaId,
         UUID extratoId,
@@ -29,6 +30,7 @@ public record TransacaoResponseDTO(
     public static TransacaoResponseDTO fromDomain(Transacao domain) {
         return new TransacaoResponseDTO(
                 domain.getId(),
+                domain.getCode(),
                 domain.getUsuarioId(),
                 domain.getContaId(),
                 domain.getExtratoId(),

@@ -12,5 +12,6 @@ public interface TransacaoRepositoryPort {
     List<Transacao> listarPorConta(UUID contaId);
     List<Transacao> listarPorExtrato(UUID extratoId);
     Optional<Transacao> buscarPorId(UUID id);
+    Optional<Transacao> buscarPorIdECode(UUID id, String code);
     void deletarPorId(UUID id);
 }

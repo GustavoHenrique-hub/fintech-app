@@ -4,7 +4,9 @@ import com.enterprise.gustadev.fintech_app.adapters.in.web.motivocancelamento.dt
 import com.enterprise.gustadev.fintech_app.application.motivocancelamento.usecase.BuscarMotivoCancelamentoUseCase;
 import com.enterprise.gustadev.fintech_app.application.motivocancelamento.usecase.ListarMotivosCancelamentoUseCase;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,10 +39,16 @@ public class MotivoCancelamentoController {
                 .map(MotivoCancelamentoResponseDTO::fromDomain).toList());
     }
 
-    @Operation(summary = "Buscar motivo por ID")
-    @ApiResponse(responseCode = "200", description = "Motivo encontrado")
-    @GetMapping("/{id}")
-    public ResponseEntity<MotivoCancelamentoResponseDTO> buscar(@PathVariable UUID id) {
-        return ResponseEntity.ok(MotivoCancelamentoResponseDTO.fromDomain(buscarUseCase.executar(id)));
+    @Operation(summary = "Buscar motivo por ID e código",
+            description = "Retorna o motivo de cancelamento identificado pela chave composta (id_motivos + motivos_code).")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Motivo encontrado"),
+            @ApiResponse(responseCode = "404", description = "Motivo não encontrado")
+    })
+    @GetMapping("/{id_motivos}/{motivos_code}")
+    public ResponseEntity<MotivoCancelamentoResponseDTO> buscar(
+            @Parameter(description = "UUID do motivo de cancelamento (id_motivos)") @PathVariable("id_motivos") UUID idMotivos,
+            @Parameter(description = "Código alfanumérico de 6 caracteres (motivos_code)") @PathVariable("motivos_code") String motivosCode) {
+        return ResponseEntity.ok(MotivoCancelamentoResponseDTO.fromDomain(buscarUseCase.executar(idMotivos, motivosCode)));
     }
 }
