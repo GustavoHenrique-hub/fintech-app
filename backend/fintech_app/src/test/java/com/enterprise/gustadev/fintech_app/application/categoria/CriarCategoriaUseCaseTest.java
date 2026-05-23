@@ -11,8 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.UUID;
-
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
@@ -30,7 +28,7 @@ class CriarCategoriaUseCaseTest {
 
     @Test
     void executar_deveSalvarCategoria_quandoDadosValidos() {
-        Categoria categoria = new Categoria(UUID.randomUUID(), "Pets", TipoCategoria.GASTO, "🐶", "#FF0000");
+        Categoria categoria = new Categoria("Pets", TipoCategoria.gasto, "🐶", "#FF0000");
         when(repository.salvar(any())).thenReturn(categoria);
 
         useCase.executar(categoria);
@@ -40,7 +38,7 @@ class CriarCategoriaUseCaseTest {
 
     @Test
     void executar_naoDeveSalvar_quandoNomeVazio() {
-        Categoria categoriaInvalida = new Categoria(UUID.randomUUID(), "  ", TipoCategoria.GASTO, null, null);
+        Categoria categoriaInvalida = new Categoria("  ", TipoCategoria.gasto, null, null);
 
         assertThatThrownBy(() -> useCase.executar(categoriaInvalida))
                 .isInstanceOf(CategoriaInvalidaException.class);

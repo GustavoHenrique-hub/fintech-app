@@ -10,7 +10,6 @@ import java.util.UUID;
 public interface CategoriaRepositoryPort {
     Categoria salvar(Categoria categoria);
     List<Categoria> listarPadrao();
-    List<Categoria> listarPorUsuario(UUID usuarioId);
     List<Categoria> listarPorTipo(TipoCategoria tipo);
     Optional<Categoria> buscarPorId(UUID id);
     void deletarPorId(UUID id);

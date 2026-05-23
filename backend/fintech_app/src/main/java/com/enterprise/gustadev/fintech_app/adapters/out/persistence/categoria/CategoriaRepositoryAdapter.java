@@ -29,11 +29,6 @@ public class CategoriaRepositoryAdapter implements CategoriaRepositoryPort {
     }
 
     @Override
-    public List<Categoria> listarPorUsuario(UUID usuarioId) {
-        return jpaRepository.findByUsuarioId(usuarioId).stream().map(CategoriaEntity::toDomain).toList();
-    }
-
-    @Override
     public List<Categoria> listarPorTipo(TipoCategoria tipo) {
         return jpaRepository.findByTipo(tipo).stream().map(CategoriaEntity::toDomain).toList();
     }

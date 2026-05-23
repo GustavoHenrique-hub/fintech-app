@@ -25,7 +25,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
-@Tag(name = "Categorias", description = "Gerenciamento de categorias de transações (padrão do sistema e personalizadas por usuário)")
+@Tag(name = "Categorias", description = "Gerenciamento de categorias de transações")
 @RestController
 @RequestMapping("/categorias")
 public class CategoriaController {
@@ -42,7 +42,7 @@ public class CategoriaController {
         this.buscarUseCase = buscarUseCase;
     }
 
-    @Operation(summary = "Criar categoria", description = "Cria uma nova categoria personalizada para um usuário. Tipo deve ser um dos valores do enum TipoCategoria.")
+    @Operation(summary = "Criar categoria", description = "Cria uma nova categoria. Para vincular ao usuário use /categorias-do-usuario.")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Categoria criada com sucesso"),
             @ApiResponse(responseCode = "400", description = "Dados inválidos na requisição")
@@ -50,33 +50,23 @@ public class CategoriaController {
     @PostMapping
     public ResponseEntity<CategoriaResponseDTO> criar(@Valid @RequestBody CriarCategoriaRequestDTO dto) {
         Categoria categoria = new Categoria(
-                dto.usuarioId(), dto.nome(),
+                dto.nome(),
                 TipoCategoria.valueOf(dto.tipo()),
                 dto.icone(), dto.corHex()
         );
-        categoria.setCategoriaPaiId(dto.categoriaPaiId());
         CategoriaResponseDTO response = CategoriaResponseDTO.fromDomain(criarUseCase.executar(categoria));
         return ResponseEntity.created(URI.create("/categorias/" + response.id())).body(response);
     }
 
-    @Operation(summary = "Listar categorias padrão", description = "Retorna todas as categorias padrão do sistema, disponíveis para todos os usuários.")
-    @ApiResponse(responseCode = "200", description = "Lista de categorias padrão retornada com sucesso")
+    @Operation(summary = "Listar categorias padrão", description = "Retorna todas as categorias padrão do sistema.")
+    @ApiResponse(responseCode = "200", description = "Lista retornada com sucesso")
     @GetMapping("/padrao")
     public ResponseEntity<List<CategoriaResponseDTO>> listarPadrao() {
         return ResponseEntity.ok(listarUseCase.executarPadrao().stream()
                 .map(CategoriaResponseDTO::fromDomain).toList());
     }
 
-    @Operation(summary = "Listar categorias do usuário", description = "Retorna todas as categorias personalizadas criadas por um usuário específico.")
-    @ApiResponse(responseCode = "200", description = "Lista de categorias do usuário retornada com sucesso")
-    @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<List<CategoriaResponseDTO>> listarPorUsuario(
-            @Parameter(description = "UUID do usuário") @PathVariable UUID usuarioId) {
-        return ResponseEntity.ok(listarUseCase.executarPorUsuario(usuarioId).stream()
-                .map(CategoriaResponseDTO::fromDomain).toList());
-    }
-
-    @Operation(summary = "Buscar categoria por ID", description = "Retorna os dados de uma categoria específica pelo seu UUID.")
+    @Operation(summary = "Buscar categoria por ID")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Categoria encontrada"),
             @ApiResponse(responseCode = "404", description = "Categoria não encontrada")

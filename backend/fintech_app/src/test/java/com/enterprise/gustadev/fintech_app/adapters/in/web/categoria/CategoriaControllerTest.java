@@ -48,30 +48,28 @@ class CategoriaControllerTest {
     }
 
     private Categoria categoriaCompleta(UUID id) {
-        return new Categoria(id, "Alimentação", null, TipoCategoria.GASTO, "🍔", "#FF5733", true, null, null);
+        return new Categoria(id, "Alimentação", TipoCategoria.gasto, "🍔", "#FF5733", true, null);
     }
 
     @Test
     void criar_deveRetornar201_quandoDadosValidos() throws Exception {
-        UUID usuarioId = UUID.randomUUID();
         UUID categoriaId = UUID.randomUUID();
-        Categoria salva = new Categoria(categoriaId, "Pets", null, TipoCategoria.GASTO, "🐶", "#FF0000", false, usuarioId, null);
+        Categoria salva = new Categoria(categoriaId, "Pets", TipoCategoria.gasto, "🐶", "#FF0000", false, null);
         when(criarUseCase.executar(any())).thenReturn(salva);
 
         mockMvc.perform(post("/categorias")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
-                                  "usuarioId": "%s",
                                   "nome": "Pets",
-                                  "tipo": "GASTO",
+                                  "tipo": "gasto",
                                   "icone": "🐶",
                                   "corHex": "#FF0000"
                                 }
-                                """.formatted(usuarioId)))
+                                """))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.nome").value("Pets"))
-                .andExpect(jsonPath("$.tipo").value("GASTO"));
+                .andExpect(jsonPath("$.tipo").value("gasto"));
     }
 
     @Test
@@ -82,17 +80,6 @@ class CategoriaControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(1))
                 .andExpect(jsonPath("$[0].padrao").value(true));
-    }
-
-    @Test
-    void listarPorUsuario_deveRetornar200ComLista() throws Exception {
-        UUID usuarioId = UUID.randomUUID();
-        Categoria cat = new Categoria(UUID.randomUUID(), "Viagens", null, TipoCategoria.GASTO, "✈", "#0000FF", false, usuarioId, null);
-        when(listarUseCase.executarPorUsuario(usuarioId)).thenReturn(List.of(cat));
-
-        mockMvc.perform(get("/categorias/usuario/{usuarioId}", usuarioId))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.length()").value(1));
     }
 
     @Test

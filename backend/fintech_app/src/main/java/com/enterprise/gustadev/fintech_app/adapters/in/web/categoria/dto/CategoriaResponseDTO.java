@@ -7,23 +7,19 @@ import java.util.UUID;
 public record CategoriaResponseDTO(
         UUID id,
         String nome,
-        UUID categoriaPaiId,
         String tipo,
         String icone,
         String corHex,
-        boolean padrao,
-        UUID usuarioId
+        boolean padrao
 ) {
     public static CategoriaResponseDTO fromDomain(Categoria domain) {
         return new CategoriaResponseDTO(
                 domain.getId(),
                 domain.getNome(),
-                domain.getCategoriaPaiId(),
                 domain.getTipo().name(),
                 domain.getIcone(),
                 domain.getCorHex(),
-                domain.isPadrao(),
-                domain.getUsuarioId()
+                domain.isPadrao()
         );
     }
 }

@@ -31,9 +31,6 @@ public class CategoriaEntity {
     @Column(nullable = false, length = 100)
     private String nome;
 
-    @Column(name = "categoria_pai_id")
-    private UUID categoriaPaiId;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 10)
     private TipoCategoria tipo;
@@ -47,9 +44,6 @@ public class CategoriaEntity {
     @Column
     private Boolean padrao = false;
 
-    @Column(name = "usuario_id")
-    private UUID usuarioId;
-
     @Column(name = "criado_em", nullable = false)
     private OffsetDateTime criadoEm;
 
@@ -57,18 +51,16 @@ public class CategoriaEntity {
         CategoriaEntity entity = new CategoriaEntity();
         entity.id = domain.getId();
         entity.nome = domain.getNome();
-        entity.categoriaPaiId = domain.getCategoriaPaiId();
         entity.tipo = domain.getTipo();
         entity.icone = domain.getIcone();
         entity.corHex = domain.getCorHex();
         entity.padrao = domain.isPadrao();
-        entity.usuarioId = domain.getUsuarioId();
         entity.criadoEm = domain.getCriadoEm();
         return entity;
     }
 
     public Categoria toDomain() {
-        return new Categoria(id, nome, categoriaPaiId, tipo, icone, corHex,
-                padrao != null && padrao, usuarioId, criadoEm);
+        return new Categoria(id, nome, tipo, icone, corHex,
+                padrao != null && padrao, criadoEm);
     }
 }

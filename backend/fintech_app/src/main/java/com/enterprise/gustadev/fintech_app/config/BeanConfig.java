@@ -3,8 +3,14 @@ package com.enterprise.gustadev.fintech_app.config;
 import com.enterprise.gustadev.fintech_app.application.categoria.usecase.BuscarCategoriaUseCase;
 import com.enterprise.gustadev.fintech_app.application.categoria.usecase.CriarCategoriaUseCase;
 import com.enterprise.gustadev.fintech_app.application.categoria.usecase.ListarCategoriasUseCase;
-import com.enterprise.gustadev.fintech_app.application.classificacaolog.usecase.ListarClassificacaoLogsUseCase;
-import com.enterprise.gustadev.fintech_app.application.classificacaolog.usecase.RegistrarClassificacaoLogUseCase;
+import com.enterprise.gustadev.fintech_app.application.categoriapai.usecase.CriarCategoriaPaiUseCase;
+import com.enterprise.gustadev.fintech_app.application.categoriapai.usecase.ListarCategoriasPaiUseCase;
+import com.enterprise.gustadev.fintech_app.application.categoriadousuario.usecase.ListarCategoriasDoUsuarioUseCase;
+import com.enterprise.gustadev.fintech_app.application.categoriadousuario.usecase.VincularCategoriaUsuarioUseCase;
+import com.enterprise.gustadev.fintech_app.application.motivocancelamento.usecase.BuscarMotivoCancelamentoUseCase;
+import com.enterprise.gustadev.fintech_app.application.motivocancelamento.usecase.ListarMotivosCancelamentoUseCase;
+import com.enterprise.gustadev.fintech_app.application.transacaocancelada.usecase.CancelarTransacaoUseCase;
+import com.enterprise.gustadev.fintech_app.application.transacaocancelada.usecase.ListarTransacoesCanceladasUseCase;
 import com.enterprise.gustadev.fintech_app.application.consentimentolgpd.usecase.ListarConsentimentosLgpdUseCase;
 import com.enterprise.gustadev.fintech_app.application.consentimentolgpd.usecase.RegistrarConsentimentoLgpdUseCase;
 import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.BuscarContaFinanceiraUseCase;
@@ -19,8 +25,6 @@ import com.enterprise.gustadev.fintech_app.application.gasto.usecase.DeletarGast
 import com.enterprise.gustadev.fintech_app.application.gasto.usecase.ListarGastosUseCase;
 import com.enterprise.gustadev.fintech_app.application.notificacao.usecase.CriarNotificacaoUseCase;
 import com.enterprise.gustadev.fintech_app.application.notificacao.usecase.ListarNotificacoesUseCase;
-import com.enterprise.gustadev.fintech_app.application.regraclassificacao.usecase.CriarRegraClassificacaoUseCase;
-import com.enterprise.gustadev.fintech_app.application.regraclassificacao.usecase.ListarRegrasClassificacaoUseCase;
 import com.enterprise.gustadev.fintech_app.application.snapshotfinanceiro.usecase.BuscarSnapshotFinanceiroUseCase;
 import com.enterprise.gustadev.fintech_app.application.snapshotfinanceiro.usecase.ListarSnapshotsFinanceirosUseCase;
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.BuscarTransacaoUseCase;
@@ -32,13 +36,15 @@ import com.enterprise.gustadev.fintech_app.application.usuario.usecase.CriarUsua
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.DeletarUsuarioUseCase;
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.ListarUsuariosUseCase;
 import com.enterprise.gustadev.fintech_app.domain.categoria.port.CategoriaRepositoryPort;
-import com.enterprise.gustadev.fintech_app.domain.classificacaolog.port.ClassificacaoLogRepositoryPort;
+import com.enterprise.gustadev.fintech_app.domain.categoriapai.port.CategoriaPaiRepositoryPort;
+import com.enterprise.gustadev.fintech_app.domain.categoriadousuario.port.CategoriaDoUsuarioRepositoryPort;
+import com.enterprise.gustadev.fintech_app.domain.motivocancelamento.port.MotivoCancelamentoRepositoryPort;
+import com.enterprise.gustadev.fintech_app.domain.transacaocancelada.port.TransacaoCanceladaRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.consentimentolgpd.port.ConsentimentoLgpdRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.port.ContaFinanceiraRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.extrato.port.ExtratoRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.gasto.port.GastoRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.notificacao.port.NotificacaoRepositoryPort;
-import com.enterprise.gustadev.fintech_app.domain.regraclassificacao.port.RegraClassificacaoRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.snapshotfinanceiro.port.SnapshotFinanceiroRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.transacao.port.TransacaoRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.usuario.ports.UsuarioRepositoryPort;
@@ -159,26 +165,48 @@ public class BeanConfig {
         return new DeletarTransacaoUseCase(repository);
     }
 
-    // ── RegraClassificacao ───────────────────────────────────────────────
+    // ── CategoriaPai ─────────────────────────────────────────────────────
     @Bean
-    public CriarRegraClassificacaoUseCase criarRegraClassificacaoUseCase(RegraClassificacaoRepositoryPort repository) {
-        return new CriarRegraClassificacaoUseCase(repository);
+    public CriarCategoriaPaiUseCase criarCategoriaPaiUseCase(CategoriaPaiRepositoryPort repository) {
+        return new CriarCategoriaPaiUseCase(repository);
     }
 
     @Bean
-    public ListarRegrasClassificacaoUseCase listarRegrasClassificacaoUseCase(RegraClassificacaoRepositoryPort repository) {
-        return new ListarRegrasClassificacaoUseCase(repository);
+    public ListarCategoriasPaiUseCase listarCategoriasPaiUseCase(CategoriaPaiRepositoryPort repository) {
+        return new ListarCategoriasPaiUseCase(repository);
     }
 
-    // ── ClassificacaoLog ─────────────────────────────────────────────────
+    // ── CategoriaDoUsuario ───────────────────────────────────────────────
     @Bean
-    public RegistrarClassificacaoLogUseCase registrarClassificacaoLogUseCase(ClassificacaoLogRepositoryPort repository) {
-        return new RegistrarClassificacaoLogUseCase(repository);
+    public VincularCategoriaUsuarioUseCase vincularCategoriaUsuarioUseCase(CategoriaDoUsuarioRepositoryPort repository) {
+        return new VincularCategoriaUsuarioUseCase(repository);
     }
 
     @Bean
-    public ListarClassificacaoLogsUseCase listarClassificacaoLogsUseCase(ClassificacaoLogRepositoryPort repository) {
-        return new ListarClassificacaoLogsUseCase(repository);
+    public ListarCategoriasDoUsuarioUseCase listarCategoriasDoUsuarioUseCase(CategoriaDoUsuarioRepositoryPort repository) {
+        return new ListarCategoriasDoUsuarioUseCase(repository);
+    }
+
+    // ── MotivoCancelamento ───────────────────────────────────────────────
+    @Bean
+    public ListarMotivosCancelamentoUseCase listarMotivosCancelamentoUseCase(MotivoCancelamentoRepositoryPort repository) {
+        return new ListarMotivosCancelamentoUseCase(repository);
+    }
+
+    @Bean
+    public BuscarMotivoCancelamentoUseCase buscarMotivoCancelamentoUseCase(MotivoCancelamentoRepositoryPort repository) {
+        return new BuscarMotivoCancelamentoUseCase(repository);
+    }
+
+    // ── TransacaoCancelada ───────────────────────────────────────────────
+    @Bean
+    public CancelarTransacaoUseCase cancelarTransacaoUseCase(TransacaoCanceladaRepositoryPort repository) {
+        return new CancelarTransacaoUseCase(repository);
+    }
+
+    @Bean
+    public ListarTransacoesCanceladasUseCase listarTransacoesCanceladasUseCase(TransacaoCanceladaRepositoryPort repository) {
+        return new ListarTransacoesCanceladasUseCase(repository);
     }
 
     // ── SnapshotFinanceiro ───────────────────────────────────────────────

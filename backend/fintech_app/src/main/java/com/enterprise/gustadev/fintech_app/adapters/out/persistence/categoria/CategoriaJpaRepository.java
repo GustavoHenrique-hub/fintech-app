@@ -8,6 +8,5 @@ import java.util.UUID;
 
 public interface CategoriaJpaRepository extends JpaRepository<CategoriaEntity, UUID> {
     List<CategoriaEntity> findByPadraoTrue();
-    List<CategoriaEntity> findByUsuarioId(UUID usuarioId);
     List<CategoriaEntity> findByTipo(TipoCategoria tipo);
 }
