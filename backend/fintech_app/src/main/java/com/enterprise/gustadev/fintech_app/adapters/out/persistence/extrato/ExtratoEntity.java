@@ -90,8 +90,7 @@ public class ExtratoEntity {
     public static ExtratoEntity fromDomain(Extrato domain) {
         ExtratoEntity entity = new ExtratoEntity();
         entity.id = domain.getId();
-        entity.code = domain.getCode() != null ? domain.getCode()
-                : Long.toHexString(System.nanoTime()).substring(0, 6).toUpperCase();
+        entity.code = domain.getCode();
         entity.usuarioId = domain.getUsuarioId();
         entity.contaId = domain.getContaId();
         entity.arquivoNome = domain.getArquivoNome();

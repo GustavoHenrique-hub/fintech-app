@@ -112,8 +112,7 @@ public class TransacaoEntity {
     public static TransacaoEntity fromDomain(Transacao domain) {
         TransacaoEntity entity = new TransacaoEntity();
         entity.id = domain.getId();
-        entity.code = domain.getCode() != null ? domain.getCode()
-                : Long.toHexString(System.nanoTime()).substring(0, 6).toUpperCase();
+        entity.code = domain.getCode();
         entity.usuarioId = domain.getUsuarioId();
         entity.contaId = domain.getContaId();
         entity.extratoId = domain.getExtratoId();

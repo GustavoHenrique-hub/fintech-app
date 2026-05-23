@@ -52,8 +52,7 @@ public class CategoriaEntity {
     public static CategoriaEntity fromDomain(Categoria domain) {
         CategoriaEntity entity = new CategoriaEntity();
         entity.id = domain.getId();
-        entity.code = domain.getCode() != null ? domain.getCode()
-                : Long.toHexString(System.nanoTime()).substring(0, 6).toUpperCase();
+        entity.code = domain.getCode();
         entity.nome = domain.getNome();
         entity.tipo = domain.getTipo();
         entity.icone = domain.getIcone();

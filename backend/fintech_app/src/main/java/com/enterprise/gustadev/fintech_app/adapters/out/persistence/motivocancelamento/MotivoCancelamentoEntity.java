@@ -46,8 +46,7 @@ public class MotivoCancelamentoEntity {
     public static MotivoCancelamentoEntity fromDomain(MotivoCancelamento domain) {
         MotivoCancelamentoEntity entity = new MotivoCancelamentoEntity();
         entity.id = domain.getId();
-        entity.code = domain.getCode() != null ? domain.getCode()
-                : Long.toHexString(System.nanoTime()).substring(0, 6).toUpperCase();
+        entity.code = domain.getCode();
         entity.descricao = domain.getDescricao();
         entity.origemPermitida = domain.getOrigemPermitida();
         entity.ativo = domain.isAtivo();

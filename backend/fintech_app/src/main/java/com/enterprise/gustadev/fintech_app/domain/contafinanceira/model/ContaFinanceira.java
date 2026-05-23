@@ -2,6 +2,7 @@ package com.enterprise.gustadev.fintech_app.domain.contafinanceira.model;
 
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.exception.ContaFinanceiraInvalidaException;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoConta;
+import com.enterprise.gustadev.fintech_app.domain.shared.util.CodeGenerator;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -42,6 +43,7 @@ public class ContaFinanceira {
     public ContaFinanceira(Long usuarioId, String nome, TipoConta tipo,
                            String banco, BigDecimal saldoInicial, boolean padrao) {
         this(null, usuarioId, nome, tipo, banco, saldoInicial, padrao, true, null, null);
+        this.code = CodeGenerator.gerar();
     }
 
     public void validar() {

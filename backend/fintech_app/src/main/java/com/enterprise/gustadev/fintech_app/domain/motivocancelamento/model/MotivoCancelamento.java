@@ -2,6 +2,7 @@ package com.enterprise.gustadev.fintech_app.domain.motivocancelamento.model;
 
 import com.enterprise.gustadev.fintech_app.domain.motivocancelamento.exception.MotivoCancelamentoInvalidoException;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemPermitidaCancelamento;
+import com.enterprise.gustadev.fintech_app.domain.shared.util.CodeGenerator;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,6 +30,7 @@ public class MotivoCancelamento {
 
     public MotivoCancelamento(String descricao, OrigemPermitidaCancelamento origemPermitida) {
         this(null, descricao, origemPermitida, true, null);
+        this.code = CodeGenerator.gerar();
     }
 
     public void validar() {

@@ -3,6 +3,7 @@ package com.enterprise.gustadev.fintech_app.domain.transacao.model;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusRevisaoTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoTransacao;
+import com.enterprise.gustadev.fintech_app.domain.shared.util.CodeGenerator;
 import com.enterprise.gustadev.fintech_app.domain.transacao.exception.TransacaoInvalidaException;
 import lombok.Getter;
 import lombok.Setter;
@@ -83,6 +84,7 @@ public class Transacao {
              valor, dataTransacao, null, null, null, null, origem,
              StatusRevisaoTransacao.extraida, null, false, null, null, null,
              1, null, null);
+        this.code = CodeGenerator.gerar();
     }
 
     public void validar() {

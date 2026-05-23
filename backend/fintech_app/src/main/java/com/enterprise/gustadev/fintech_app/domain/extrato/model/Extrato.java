@@ -2,6 +2,7 @@ package com.enterprise.gustadev.fintech_app.domain.extrato.model;
 
 import com.enterprise.gustadev.fintech_app.domain.extrato.exception.ExtratoInvalidoException;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusExtrato;
+import com.enterprise.gustadev.fintech_app.domain.shared.util.CodeGenerator;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -65,6 +66,7 @@ public class Extrato {
         this(null, usuarioId, contaId, arquivoNome, arquivoUuid, hashArquivo, null,
              null, null, null, null, StatusExtrato.upload_recebido,
              0, 0, 0, 0, 1, null, null);
+        this.code = CodeGenerator.gerar();
     }
 
     public void validar() {

@@ -2,6 +2,7 @@ package com.enterprise.gustadev.fintech_app.domain.categoria.model;
 
 import com.enterprise.gustadev.fintech_app.domain.categoria.exception.CategoriaInvalidaException;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoCategoria;
+import com.enterprise.gustadev.fintech_app.domain.shared.util.CodeGenerator;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,6 +34,7 @@ public class Categoria {
 
     public Categoria(String nome, TipoCategoria tipo, String icone, String corHex) {
         this(null, nome, tipo, icone, corHex, false, null);
+        this.code = CodeGenerator.gerar();
     }
 
     public void validar() {

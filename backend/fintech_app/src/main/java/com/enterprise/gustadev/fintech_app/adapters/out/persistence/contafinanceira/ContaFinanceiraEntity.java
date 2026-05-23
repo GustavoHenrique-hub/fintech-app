@@ -62,8 +62,7 @@ public class ContaFinanceiraEntity {
     public static ContaFinanceiraEntity fromDomain(ContaFinanceira domain) {
         ContaFinanceiraEntity entity = new ContaFinanceiraEntity();
         entity.id = domain.getId();
-        entity.code = domain.getCode() != null ? domain.getCode()
-                : Long.toHexString(System.nanoTime()).substring(0, 6).toUpperCase();
+        entity.code = domain.getCode();
         entity.usuarioId = domain.getUsuarioId();
         entity.nome = domain.getNome();
         entity.tipo = domain.getTipo();
