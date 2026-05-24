@@ -1,11 +1,16 @@
 package com.enterprise.gustadev.fintech_app.adapters.out.persistence.categoriapai;
 
+import com.enterprise.gustadev.fintech_app.adapters.out.persistence.categoria.CategoriaEntity;
 import com.enterprise.gustadev.fintech_app.domain.categoriapai.model.CategoriaPai;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,8 +32,18 @@ public class CategoriaPaiEntity {
     @Column(name = "categoria_id", nullable = false)
     private Long categoriaId;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categoria_id", insertable = false, updatable = false,
+            foreignKey = @ForeignKey(name = "fk_categorias_pai_categoria"))
+    private CategoriaEntity categoria;
+
     @Column(name = "pai_id", nullable = false)
     private Long paiId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pai_id", insertable = false, updatable = false,
+            foreignKey = @ForeignKey(name = "fk_categorias_pai_pai"))
+    private CategoriaEntity pai;
 
     @Column(name = "criado_em", nullable = false)
     private OffsetDateTime criadoEm;

@@ -1,18 +1,40 @@
-# React + Vite
+# FinSight — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação web mobile-first de finanças pessoais (React + Vite + Tailwind, 100% JavaScript).
 
-Currently, two official plugins are available:
+## Scripts
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```powershell
+npm install     # instala dependências
+npm run dev     # sobe o dev server em http://localhost:8080
+npm run build   # gera o build de produção em dist/
+npm run preview # serve o build de produção localmente
+npm run lint    # roda o ESLint
+npm test        # roda os testes (Vitest)
+```
 
-## React Compiler
+## Estrutura
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+```
+src/
+├─ main.jsx              # bootstrap do React
+├─ App.jsx               # providers globais + roteamento
+├─ index.css             # tokens (CSS vars) + estilos base do Tailwind
+├─ pages/
+│  ├─ Index.jsx          # tela única que orquestra as abas do app
+│  └─ NotFound.jsx       # 404
+├─ components/
+│  ├─ finsight/          # componentes específicos do app
+│  │  ├─ PhoneFrame.jsx  # moldura responsiva (full-screen no mobile, moldura no desktop)
+│  │  ├─ TopBar.jsx
+│  │  ├─ BottomNav.jsx
+│  │  ├─ BalanceChart.jsx
+│  │  └─ screens/        # 5 telas: Overview, Analytics, Transactions, Profile, AddTransaction
+│  └─ ui/                # primitivas de UI (toast, tooltip, sonner)
+├─ hooks/                # use-toast, use-mobile
+└─ lib/utils.js          # helper `cn()` para classes do Tailwind
+```
 
-Note: This will impact Vite dev & build performances.
+## Paleta / Design system
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+A paleta vive em variáveis CSS HSL em [`src/index.css`](src/index.css) e é exposta ao Tailwind como tokens semânticos (`primary`, `success`, `surface-purple`, etc.) via [`tailwind.config.js`](tailwind.config.js). Trocar o tema é só editar essas variáveis.

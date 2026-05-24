@@ -5,8 +5,6 @@ import com.enterprise.gustadev.fintech_app.application.categoria.usecase.CriarCa
 import com.enterprise.gustadev.fintech_app.application.categoria.usecase.ListarCategoriasUseCase;
 import com.enterprise.gustadev.fintech_app.application.categoriapai.usecase.CriarCategoriaPaiUseCase;
 import com.enterprise.gustadev.fintech_app.application.categoriapai.usecase.ListarCategoriasPaiUseCase;
-import com.enterprise.gustadev.fintech_app.application.categoriadousuario.usecase.ListarCategoriasDoUsuarioUseCase;
-import com.enterprise.gustadev.fintech_app.application.categoriadousuario.usecase.VincularCategoriaUsuarioUseCase;
 import com.enterprise.gustadev.fintech_app.application.motivocancelamento.usecase.BuscarMotivoCancelamentoUseCase;
 import com.enterprise.gustadev.fintech_app.application.motivocancelamento.usecase.ListarMotivosCancelamentoUseCase;
 import com.enterprise.gustadev.fintech_app.application.transacaocancelada.usecase.CancelarTransacaoUseCase;
@@ -37,7 +35,6 @@ import com.enterprise.gustadev.fintech_app.application.usuario.usecase.DeletarUs
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.ListarUsuariosUseCase;
 import com.enterprise.gustadev.fintech_app.domain.categoria.port.CategoriaRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.categoriapai.port.CategoriaPaiRepositoryPort;
-import com.enterprise.gustadev.fintech_app.domain.categoriadousuario.port.CategoriaDoUsuarioRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.motivocancelamento.port.MotivoCancelamentoRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.transacaocancelada.port.TransacaoCanceladaRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.consentimentolgpd.port.ConsentimentoLgpdRepositoryPort;
@@ -174,17 +171,6 @@ public class BeanConfig {
     @Bean
     public ListarCategoriasPaiUseCase listarCategoriasPaiUseCase(CategoriaPaiRepositoryPort repository) {
         return new ListarCategoriasPaiUseCase(repository);
-    }
-
-    // ── CategoriaDoUsuario ───────────────────────────────────────────────
-    @Bean
-    public VincularCategoriaUsuarioUseCase vincularCategoriaUsuarioUseCase(CategoriaDoUsuarioRepositoryPort repository) {
-        return new VincularCategoriaUsuarioUseCase(repository);
-    }
-
-    @Bean
-    public ListarCategoriasDoUsuarioUseCase listarCategoriasDoUsuarioUseCase(CategoriaDoUsuarioRepositoryPort repository) {
-        return new ListarCategoriasDoUsuarioUseCase(repository);
     }
 
     // ── MotivoCancelamento ───────────────────────────────────────────────

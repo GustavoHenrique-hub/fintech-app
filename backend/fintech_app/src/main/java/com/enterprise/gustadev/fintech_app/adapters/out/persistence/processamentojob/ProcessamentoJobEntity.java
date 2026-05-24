@@ -1,5 +1,6 @@
 package com.enterprise.gustadev.fintech_app.adapters.out.persistence.processamentojob;
 
+import com.enterprise.gustadev.fintech_app.adapters.out.persistence.extrato.ExtratoEntity;
 import com.enterprise.gustadev.fintech_app.domain.processamentojob.model.ProcessamentoJob;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusJob;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoJob;
@@ -7,9 +8,13 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,6 +35,11 @@ public class ProcessamentoJobEntity {
 
     @Column(name = "extrato_id")
     private Long extratoId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "extrato_id", insertable = false, updatable = false,
+            foreignKey = @ForeignKey(name = "fk_processamento_jobs_extrato"))
+    private ExtratoEntity extrato;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 30)
