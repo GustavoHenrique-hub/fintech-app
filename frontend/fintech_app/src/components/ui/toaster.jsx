@@ -1,5 +1,5 @@
-// Renderiza a lista de toasts ativos. Lê o estado via useToast e cria
-// um <Toast /> para cada item — é o que conecta o store ao mundo visual.
+// Renderiza a lista de toasts ativos.
+// Lê do store via useToast e materializa cada item nas primitivas Radix.
 import { useToast } from "@/hooks/use-toast";
 import {
   Toast,
@@ -14,19 +14,17 @@ export function Toaster() {
   const { toasts } = useToast();
 
   return (
-    <ToastProvider>
-      {toasts.map(function ({ id, title, description, action, ...props }) {
-        return (
-          <Toast key={id} {...props}>
-            <div className="grid gap-1">
-              {title && <ToastTitle>{title}</ToastTitle>}
-              {description && <ToastDescription>{description}</ToastDescription>}
-            </div>
-            {action}
-            <ToastClose />
-          </Toast>
-        );
-      })}
+    // `duration` global: 5s = autodismiss da spec. Pode ser sobrescrito por toast.
+    <ToastProvider duration={5000} swipeDirection="right">
+      {toasts.map(({ id, title, description, action, variant, duration, ...props }) => (
+        <Toast key={id} variant={variant} duration={duration} {...props}>
+          {title && <ToastTitle>{title}</ToastTitle>}
+          {description && <ToastDescription>{description}</ToastDescription>}
+          {/* Ação inline opcional (ex.: botão "Desfazer"). Aparece à direita. */}
+          {action && <div className="mt-2">{action}</div>}
+          <ToastClose />
+        </Toast>
+      ))}
       <ToastViewport />
     </ToastProvider>
   );

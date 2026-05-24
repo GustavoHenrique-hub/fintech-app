@@ -1,13 +1,26 @@
-// Sistema de toasts (notificações temporárias) inspirado no react-hot-toast.
-// Mantém um "store" simples em memória usando padrão de reducer + observers,
-// sem precisar do Context API: qualquer componente chama `toast(...)` ou
-// `useToast()` para acessar o mesmo estado global.
+// Sistema de toasts da aplicação.
+//
+// Spec atendida:
+//  - Posicionamento canto inferior-direito (controlado pelo Viewport).
+//  - Variantes: success | error | warning | info (visual + ícone).
+//  - Auto-dismiss em 5s (cancelado se o usuário passar o mouse, via Radix).
+//  - Máx 3 toasts simultâneos (TOAST_LIMIT).
+//  - Suporta ação inline (ex.: "Desfazer") via { action: <Button> }.
+//
+// API:
+//   const { toast } = useToast();
+//   toast({ title: "Salvo", description: "...", variant: "success" });
+//   toast({ title: "Erro", variant: "error", action: <Button onClick={undo}>Desfazer</Button> });
+//
+// Padrão de implementação: store singleton em memória + reducer, sem Context.
+// Qualquer componente em qualquer ponto da árvore consegue disparar toasts
+// chamando `toast(...)` sem precisar de provider customizado.
 import * as React from "react";
 
-const TOAST_LIMIT = 1; // Quantos toasts podem aparecer simultaneamente.
-const TOAST_REMOVE_DELAY = 1000000; // Atraso (ms) entre fechar e desmontar.
+const TOAST_LIMIT = 3;          // máximo simultâneo
+const TOAST_AUTO_DISMISS = 5000;  // ms até começar a desmontar
+const TOAST_REMOVE_DELAY = 400;   // ms entre "fechar" e remover do DOM (animação)
 
-// Nomes de ações usadas pelo reducer abaixo.
 const actionTypes = {
   ADD_TOAST: "ADD_TOAST",
   UPDATE_TOAST: "UPDATE_TOAST",
@@ -16,35 +29,28 @@ const actionTypes = {
 };
 
 let count = 0;
-
-// Gera ids sequenciais únicos para cada toast.
 function genId() {
   count = (count + 1) % Number.MAX_SAFE_INTEGER;
   return count.toString();
 }
 
-// Mapa id -> timeoutId para evitar agendar a remoção do mesmo toast 2x.
+// Mapa id → timeout para evitar agendar a mesma remoção 2x.
 const toastTimeouts = new Map();
 
-// Agenda a remoção definitiva (depois de fechar) de um toast.
-const addToRemoveQueue = (toastId) => {
+const scheduleRemoval = (toastId) => {
   if (toastTimeouts.has(toastId)) return;
-
   const timeout = setTimeout(() => {
     toastTimeouts.delete(toastId);
     dispatch({ type: "REMOVE_TOAST", toastId });
   }, TOAST_REMOVE_DELAY);
-
   toastTimeouts.set(toastId, timeout);
 };
 
-// Reducer puro: recebe estado anterior + ação, devolve novo estado.
 export const reducer = (state, action) => {
   switch (action.type) {
     case "ADD_TOAST":
       return {
         ...state,
-        // Adiciona o novo no topo e respeita o limite máximo.
         toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT),
       };
 
@@ -58,15 +64,8 @@ export const reducer = (state, action) => {
 
     case "DISMISS_TOAST": {
       const { toastId } = action;
-
-      // Efeito colateral: agenda a remoção do(s) toast(s) afetado(s).
-      if (toastId) {
-        addToRemoveQueue(toastId);
-      } else {
-        state.toasts.forEach((toast) => addToRemoveQueue(toast.id));
-      }
-
-      // Apenas marca como fechado (open=false) — quem remove é o REMOVE_TOAST.
+      if (toastId) scheduleRemoval(toastId);
+      else state.toasts.forEach((t) => scheduleRemoval(t.id));
       return {
         ...state,
         toasts: state.toasts.map((t) =>
@@ -76,7 +75,6 @@ export const reducer = (state, action) => {
     }
 
     case "REMOVE_TOAST":
-      // Sem id remove todos; com id remove apenas o correspondente.
       if (action.toastId === undefined) return { ...state, toasts: [] };
       return {
         ...state,
@@ -88,11 +86,8 @@ export const reducer = (state, action) => {
   }
 };
 
-// Lista de callbacks que querem reagir a mudanças do estado (cada hook useToast
-// se registra/desregistra aqui).
+// Listeners de componentes que assinam o estado via useToast().
 const listeners = [];
-
-// Estado vive como variável de módulo — singleton.
 let memoryState = { toasts: [] };
 
 function dispatch(action) {
@@ -100,12 +95,13 @@ function dispatch(action) {
   listeners.forEach((listener) => listener(memoryState));
 }
 
-// API imperativa: `toast({ title, description })` dispara uma notificação.
-function toast({ ...props }) {
+// API imperativa: `toast({ title, description, variant, action })`.
+// Devolve { id, dismiss, update } pra controlar o toast depois.
+function toast({ variant = "info", duration = TOAST_AUTO_DISMISS, ...props }) {
   const id = genId();
 
-  const update = (props) =>
-    dispatch({ type: "UPDATE_TOAST", toast: { ...props, id } });
+  const update = (next) =>
+    dispatch({ type: "UPDATE_TOAST", toast: { ...next, id } });
   const dismiss = () => dispatch({ type: "DISMISS_TOAST", toastId: id });
 
   dispatch({
@@ -113,8 +109,11 @@ function toast({ ...props }) {
     toast: {
       ...props,
       id,
+      variant,
+      duration,
       open: true,
-      // Quando o Radix fecha o toast (clique no X, swipe...), também damos dismiss.
+      // Quando o Radix marca como fechado (X, swipe, escape, autodismiss),
+      // disparamos o DISMISS_TOAST para encadear o REMOVE depois da animação.
       onOpenChange: (open) => {
         if (!open) dismiss();
       },
@@ -124,7 +123,13 @@ function toast({ ...props }) {
   return { id, dismiss, update };
 }
 
-// Hook React: assina o store e devolve { toasts, toast, dismiss }.
+// Atalhos por variante — DX mais agradável que digitar a prop toda hora.
+toast.success = (props) => toast({ ...props, variant: "success" });
+toast.error = (props) => toast({ ...props, variant: "error" });
+toast.warning = (props) => toast({ ...props, variant: "warning" });
+toast.info = (props) => toast({ ...props, variant: "info" });
+
+// Hook React que assina o store e devolve { toasts, toast, dismiss }.
 function useToast() {
   const [state, setState] = React.useState(memoryState);
 
