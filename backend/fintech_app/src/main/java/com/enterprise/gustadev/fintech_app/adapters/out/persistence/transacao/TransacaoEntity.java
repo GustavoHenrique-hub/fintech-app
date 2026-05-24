@@ -1,5 +1,9 @@
 package com.enterprise.gustadev.fintech_app.adapters.out.persistence.transacao;
 
+import com.enterprise.gustadev.fintech_app.adapters.out.persistence.categoria.CategoriaEntity;
+import com.enterprise.gustadev.fintech_app.adapters.out.persistence.contafinanceira.ContaFinanceiraEntity;
+import com.enterprise.gustadev.fintech_app.adapters.out.persistence.extrato.ExtratoEntity;
+import com.enterprise.gustadev.fintech_app.adapters.out.persistence.usuario.UsuarioEntity;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusRevisaoTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoTransacao;
@@ -8,9 +12,13 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,14 +45,34 @@ public class TransacaoEntity {
     @Column(name = "usuario_id", nullable = false)
     private Long usuarioId;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id", insertable = false, updatable = false,
+            foreignKey = @ForeignKey(name = "fk_transacoes_usuario"))
+    private UsuarioEntity usuario;
+
     @Column(name = "conta_id", nullable = false)
     private Long contaId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "conta_id", insertable = false, updatable = false,
+            foreignKey = @ForeignKey(name = "fk_transacoes_conta"))
+    private ContaFinanceiraEntity conta;
 
     @Column(name = "extrato_id")
     private Long extratoId;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "extrato_id", insertable = false, updatable = false,
+            foreignKey = @ForeignKey(name = "fk_transacoes_extrato"))
+    private ExtratoEntity extrato;
+
     @Column(name = "transacao_estorno_id")
     private Long transacaoEstornoId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "transacao_estorno_id", insertable = false, updatable = false,
+            foreignKey = @ForeignKey(name = "fk_transacoes_estorno"))
+    private TransacaoEntity transacaoEstorno;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 10)
@@ -70,6 +98,11 @@ public class TransacaoEntity {
 
     @Column(name = "categoria_id")
     private Long categoriaId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categoria_id", insertable = false, updatable = false,
+            foreignKey = @ForeignKey(name = "fk_transacoes_categoria"))
+    private CategoriaEntity categoria;
 
     @Column(length = 100)
     private String subcategoria;

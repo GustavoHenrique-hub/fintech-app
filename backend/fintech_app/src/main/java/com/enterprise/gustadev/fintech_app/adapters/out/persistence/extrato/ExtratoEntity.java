@@ -1,14 +1,21 @@
 package com.enterprise.gustadev.fintech_app.adapters.out.persistence.extrato;
 
+import com.enterprise.gustadev.fintech_app.adapters.out.persistence.contafinanceira.ContaFinanceiraEntity;
+import com.enterprise.gustadev.fintech_app.adapters.out.persistence.parserversao.ParserVersaoEntity;
+import com.enterprise.gustadev.fintech_app.adapters.out.persistence.usuario.UsuarioEntity;
 import com.enterprise.gustadev.fintech_app.domain.extrato.model.Extrato;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusExtrato;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,8 +42,18 @@ public class ExtratoEntity {
     @Column(name = "usuario_id", nullable = false)
     private Long usuarioId;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id", insertable = false, updatable = false,
+            foreignKey = @ForeignKey(name = "fk_extratos_usuario"))
+    private UsuarioEntity usuario;
+
     @Column(name = "conta_id", nullable = false)
     private Long contaId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "conta_id", insertable = false, updatable = false,
+            foreignKey = @ForeignKey(name = "fk_extratos_conta"))
+    private ContaFinanceiraEntity conta;
 
     @Column(name = "arquivo_nome", length = 255)
     private String arquivoNome;
@@ -52,6 +69,11 @@ public class ExtratoEntity {
 
     @Column(name = "parser_versao_id")
     private Long parserVersaoId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parser_versao_id", insertable = false, updatable = false,
+            foreignKey = @ForeignKey(name = "fk_extratos_parser_versao"))
+    private ParserVersaoEntity parserVersao;
 
     @Column(name = "score_extracao", precision = 4, scale = 3)
     private BigDecimal scoreExtracao;

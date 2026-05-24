@@ -1,14 +1,19 @@
 package com.enterprise.gustadev.fintech_app.adapters.out.persistence.consentimentolgpd;
 
+import com.enterprise.gustadev.fintech_app.adapters.out.persistence.usuario.UsuarioEntity;
 import com.enterprise.gustadev.fintech_app.domain.consentimentolgpd.model.ConsentimentoLgpd;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoConsentimentoLgpd;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,6 +34,11 @@ public class ConsentimentoLgpdEntity {
 
     @Column(name = "usuario_id", nullable = false)
     private Long usuarioId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id", insertable = false, updatable = false,
+            foreignKey = @ForeignKey(name = "fk_consentimentos_lgpd_usuario"))
+    private UsuarioEntity usuario;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 50)
