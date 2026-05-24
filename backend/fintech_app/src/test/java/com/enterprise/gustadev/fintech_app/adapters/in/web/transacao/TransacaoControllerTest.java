@@ -62,7 +62,7 @@ class TransacaoControllerTest {
                 TipoTransacao.GASTO, null, null, null,
                 new BigDecimal("150.00"), LocalDate.now(), null,
                 null, null, null, OrigemTransacao.manual,
-                StatusRevisaoTransacao.extraida, null, false,
+                StatusRevisaoTransacao.EXTRAIDA, null, false,
                 null, null, null, 1, null, null);
     }
 

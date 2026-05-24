@@ -116,7 +116,7 @@ public class TransacaoEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status_revisao", nullable = false, length = 30)
-    private StatusRevisaoTransacao statusRevisao = StatusRevisaoTransacao.extraida;
+    private StatusRevisaoTransacao statusRevisao = StatusRevisaoTransacao.EXTRAIDA;
 
     @Column(name = "confianca_ia")
     private Short confiancaIa;

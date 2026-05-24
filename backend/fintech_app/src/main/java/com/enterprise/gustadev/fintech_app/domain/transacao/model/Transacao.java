@@ -82,7 +82,7 @@ public class Transacao {
                      BigDecimal valor, LocalDate dataTransacao, OrigemTransacao origem) {
         this(null, usuarioId, contaId, null, null, tipo, null, null, null,
              valor, dataTransacao, null, null, null, null, origem,
-             StatusRevisaoTransacao.extraida, null, false, null, null, null,
+             StatusRevisaoTransacao.EXTRAIDA, null, false, null, null, null,
              1, null, null);
         this.code = CodeGenerator.gerar();
     }
