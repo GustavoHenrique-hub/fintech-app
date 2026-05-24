@@ -3,9 +3,8 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
-import { componentTagger } from "lovable-tagger";
 
-export default defineConfig(({ mode }) => ({
+export default defineConfig(() => ({
   server: {
     // "::" escuta em todas as interfaces (IPv4 + IPv6).
     host: "::",
@@ -15,9 +14,7 @@ export default defineConfig(({ mode }) => ({
       overlay: false,
     },
   },
-  // O plugin "lovable-tagger" só é útil em desenvolvimento; em produção
-  // o filter(Boolean) remove o `false` da lista de plugins.
-  plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
+  plugins: [react()],
   resolve: {
     alias: {
       // Permite imports como "@/components/..." em vez de caminhos relativos longos.
