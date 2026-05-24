@@ -4,6 +4,7 @@ import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;
 import com.enterprise.gustadev.fintech_app.domain.transacao.port.TransacaoRepositoryPort;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +37,14 @@ public class TransacaoRepositoryAdapter implements TransacaoRepositoryPort {
     @Override
     public List<Transacao> listarPorExtrato(Long extratoId) {
         return jpaRepository.findByExtratoIdAndDeletedAtIsNull(extratoId)
+                .stream().map(TransacaoEntity::toDomain).toList();
+    }
+
+    @Override
+    public List<Transacao> listarPorUsuarioNoPeriodoComCategoriaEConta(
+            Long usuarioId, LocalDate inicio, LocalDate fim) {
+        return jpaRepository
+                .buscarPorUsuarioNoPeriodoComCategoriaEConta(usuarioId, inicio, fim)
                 .stream().map(TransacaoEntity::toDomain).toList();
     }
 
