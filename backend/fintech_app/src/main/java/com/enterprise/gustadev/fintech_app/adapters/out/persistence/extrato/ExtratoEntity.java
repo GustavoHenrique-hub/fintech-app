@@ -55,6 +55,14 @@ public class ExtratoEntity {
             foreignKey = @ForeignKey(name = "fk_extratos_conta"))
     private ContaFinanceiraEntity conta;
 
+    @Column(name = "transacao_id")
+    private Long transacaoId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "transacao_id", insertable = false, updatable = false,
+            foreignKey = @ForeignKey(name = "fk_extratos_transacao"))
+    private com.enterprise.gustadev.fintech_app.adapters.out.persistence.transacao.TransacaoEntity transacao;
+
     @Column(name = "arquivo_nome", length = 255)
     private String arquivoNome;
 
@@ -115,6 +123,7 @@ public class ExtratoEntity {
         entity.code = domain.getCode();
         entity.usuarioId = domain.getUsuarioId();
         entity.contaId = domain.getContaId();
+        entity.transacaoId = domain.getTransacaoId();
         entity.arquivoNome = domain.getArquivoNome();
         entity.arquivoUuid = domain.getArquivoUuid();
         entity.hashArquivo = domain.getHashArquivo();
@@ -135,7 +144,7 @@ public class ExtratoEntity {
     }
 
     public Extrato toDomain() {
-        Extrato e = new Extrato(id, usuarioId, contaId, arquivoNome, arquivoUuid, hashArquivo,
+        Extrato e = new Extrato(id, usuarioId, contaId, transacaoId, arquivoNome, arquivoUuid, hashArquivo,
                 bancoDetectado, parserVersaoId, scoreExtracao, periodoInicio, periodoFim,
                 status, totalLancamentos, lancamentosConfirmados, lancamentosPendentes,
                 lancamentosIgnorados, versao, criadoEm, atualizadoEm);

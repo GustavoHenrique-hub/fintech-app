@@ -71,8 +71,8 @@ class ContaFinanceiraControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
-                                  "usuarioId": "%s",
-                                  "nome_completo": "Nubank",
+                                  "usuarioId": %s,
+                                  "nome": "Nubank",
                                   "tipo": "corrente",
                                   "banco": "Nubank",
                                   "saldoInicial": 1000.00,

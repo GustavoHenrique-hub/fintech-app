@@ -3,8 +3,6 @@ package com.enterprise.gustadev.fintech_app.config;
 import com.enterprise.gustadev.fintech_app.application.categoria.usecase.BuscarCategoriaUseCase;
 import com.enterprise.gustadev.fintech_app.application.categoria.usecase.CriarCategoriaUseCase;
 import com.enterprise.gustadev.fintech_app.application.categoria.usecase.ListarCategoriasUseCase;
-import com.enterprise.gustadev.fintech_app.application.categoriapai.usecase.CriarCategoriaPaiUseCase;
-import com.enterprise.gustadev.fintech_app.application.categoriapai.usecase.ListarCategoriasPaiUseCase;
 import com.enterprise.gustadev.fintech_app.application.motivocancelamento.usecase.BuscarMotivoCancelamentoUseCase;
 import com.enterprise.gustadev.fintech_app.application.motivocancelamento.usecase.ListarMotivosCancelamentoUseCase;
 import com.enterprise.gustadev.fintech_app.application.transacaocancelada.usecase.CancelarTransacaoUseCase;
@@ -18,9 +16,6 @@ import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.L
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.BuscarExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.CriarExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.ListarExtratosUseCase;
-import com.enterprise.gustadev.fintech_app.application.gasto.usecase.CriarGastoUseCase;
-import com.enterprise.gustadev.fintech_app.application.gasto.usecase.DeletarGastoUseCase;
-import com.enterprise.gustadev.fintech_app.application.gasto.usecase.ListarGastosUseCase;
 import com.enterprise.gustadev.fintech_app.application.notificacao.usecase.CriarNotificacaoUseCase;
 import com.enterprise.gustadev.fintech_app.application.notificacao.usecase.ListarNotificacoesUseCase;
 import com.enterprise.gustadev.fintech_app.application.snapshotfinanceiro.usecase.BuscarSnapshotFinanceiroUseCase;
@@ -34,13 +29,11 @@ import com.enterprise.gustadev.fintech_app.application.usuario.usecase.CriarUsua
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.DeletarUsuarioUseCase;
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.ListarUsuariosUseCase;
 import com.enterprise.gustadev.fintech_app.domain.categoria.port.CategoriaRepositoryPort;
-import com.enterprise.gustadev.fintech_app.domain.categoriapai.port.CategoriaPaiRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.motivocancelamento.port.MotivoCancelamentoRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.transacaocancelada.port.TransacaoCanceladaRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.consentimentolgpd.port.ConsentimentoLgpdRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.port.ContaFinanceiraRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.extrato.port.ExtratoRepositoryPort;
-import com.enterprise.gustadev.fintech_app.domain.gasto.port.GastoRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.notificacao.port.NotificacaoRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.snapshotfinanceiro.port.SnapshotFinanceiroRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.transacao.port.TransacaoRepositoryPort;
@@ -50,22 +43,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class BeanConfig {
-
-    // ── Gasto (legado) ──────────────────────────────────────────────────
-    @Bean
-    public CriarGastoUseCase criarGastoUseCase(GastoRepositoryPort repository) {
-        return new CriarGastoUseCase(repository);
-    }
-
-    @Bean
-    public ListarGastosUseCase listarGastosUseCase(GastoRepositoryPort repository) {
-        return new ListarGastosUseCase(repository);
-    }
-
-    @Bean
-    public DeletarGastoUseCase deletarGastoUseCase(GastoRepositoryPort repository) {
-        return new DeletarGastoUseCase(repository);
-    }
 
     // ── Usuario ─────────────────────────────────────────────────────────
     @Bean
@@ -160,17 +137,6 @@ public class BeanConfig {
     @Bean
     public DeletarTransacaoUseCase deletarTransacaoUseCase(TransacaoRepositoryPort repository) {
         return new DeletarTransacaoUseCase(repository);
-    }
-
-    // ── CategoriaPai ─────────────────────────────────────────────────────
-    @Bean
-    public CriarCategoriaPaiUseCase criarCategoriaPaiUseCase(CategoriaPaiRepositoryPort repository) {
-        return new CriarCategoriaPaiUseCase(repository);
-    }
-
-    @Bean
-    public ListarCategoriasPaiUseCase listarCategoriasPaiUseCase(CategoriaPaiRepositoryPort repository) {
-        return new ListarCategoriasPaiUseCase(repository);
     }
 
     // ── MotivoCancelamento ───────────────────────────────────────────────

@@ -23,7 +23,7 @@ public class TransacaoCanceladaRepositoryAdapter implements TransacaoCanceladaRe
 
     @Override
     public List<TransacaoCancelada> listarPorUsuario(Long usuarioId) {
-        return jpaRepository.findByUsuarioId(usuarioId).stream()
+        return jpaRepository.findByTransacaoUsuarioId(usuarioId).stream()
                 .map(TransacaoCanceladaEntity::toDomain).toList();
     }
 

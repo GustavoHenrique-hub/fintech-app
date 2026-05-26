@@ -20,8 +20,4 @@ public class ListarTransacoesUseCase {
     public List<Transacao> executarPorConta(Long contaId) {
         return repository.listarPorConta(contaId);
     }
-
-    public List<Transacao> executarPorExtrato(Long extratoId) {
-        return repository.listarPorExtrato(extratoId);
-    }
 }

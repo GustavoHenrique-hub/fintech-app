@@ -30,7 +30,7 @@ class ListarTransacoesUseCaseTest {
 
     private Transacao criarTransacao(Long usuarioId, Long contaId) {
         return new Transacao(usuarioId, contaId, TipoTransacao.GASTO,
-                new BigDecimal("50.00"), LocalDate.now(), OrigemTransacao.manual);
+                new BigDecimal("50.00"), LocalDate.now(), 1L, OrigemTransacao.manual);
     }
 
     @Test
@@ -57,14 +57,4 @@ class ListarTransacoesUseCaseTest {
         verify(repository).listarPorConta(contaId);
     }
 
-    @Test
-    void executarPorExtrato_deveRetornarTransacoesDoExtrato() {
-        Long extratoId = 1L;
-        when(repository.listarPorExtrato(extratoId)).thenReturn(List.of());
-
-        List<Transacao> resultado = useCase.executarPorExtrato(extratoId);
-
-        assertThat(resultado).isEmpty();
-        verify(repository).listarPorExtrato(extratoId);
-    }
 }

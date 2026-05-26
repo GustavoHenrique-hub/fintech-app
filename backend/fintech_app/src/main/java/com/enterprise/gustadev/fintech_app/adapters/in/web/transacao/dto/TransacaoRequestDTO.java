@@ -10,14 +10,11 @@ import java.time.LocalDate;
 public record TransacaoRequestDTO(
         @NotNull Long usuarioId,
         @NotNull Long contaId,
-        Long extratoId,
         @NotBlank String tipo,
-        String descricaoOriginal,
-        String descricaoUsuario,
+        String descricao,
         @NotNull @DecimalMin("0.01") BigDecimal valor,
         @NotNull LocalDate dataTransacao,
-        Long categoriaId,
-        String subcategoria,
+        @NotNull Long categoriaId,
         String estabelecimento,
         @NotBlank String origem,
         String observacao

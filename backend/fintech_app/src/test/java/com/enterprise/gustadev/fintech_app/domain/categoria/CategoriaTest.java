@@ -12,13 +12,13 @@ class CategoriaTest {
 
     @Test
     void validar_devePassar_quandoDadosValidos() {
-        Categoria categoria = new Categoria("Pets", TipoCategoria.gasto, "🐶", "#FF0000");
+        Categoria categoria = new Categoria("Pets", TipoCategoria.GASTO, "🐶", "#FF0000");
         assertThatCode(categoria::validar).doesNotThrowAnyException();
     }
 
     @Test
     void validar_deveLancarExcecao_quandoNomeVazio() {
-        Categoria categoria = new Categoria("  ", TipoCategoria.gasto, null, null);
+        Categoria categoria = new Categoria("  ", TipoCategoria.GASTO, null, null);
         assertThatThrownBy(categoria::validar)
                 .isInstanceOf(CategoriaInvalidaException.class)
                 .hasMessageContaining("Nome");
@@ -34,7 +34,7 @@ class CategoriaTest {
 
     @Test
     void validar_devePassar_quandoCategoriaPadrao() {
-        Categoria categoria = new Categoria(null, "Alimentação", TipoCategoria.gasto, "🍽️", "#EF4444", true, null);
+        Categoria categoria = new Categoria(null, "Alimentação", TipoCategoria.GASTO, "🍽️", "#EF4444", true, null);
         assertThatCode(categoria::validar).doesNotThrowAnyException();
     }
 }

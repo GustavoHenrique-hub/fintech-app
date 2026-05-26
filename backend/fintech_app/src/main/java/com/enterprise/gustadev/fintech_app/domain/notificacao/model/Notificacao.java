@@ -40,6 +40,6 @@ public class Notificacao {
 
     public Notificacao(Long usuarioId, CanalNotificacao canal, String tipo,
                         String titulo, String mensagem) {
-        this(null, usuarioId, canal, tipo, titulo, mensagem, false, null, null, (short) 0, null);
+        this(null, usuarioId, canal, tipo, titulo, mensagem, false, null, null, (short) 0, OffsetDateTime.now());
     }
 }

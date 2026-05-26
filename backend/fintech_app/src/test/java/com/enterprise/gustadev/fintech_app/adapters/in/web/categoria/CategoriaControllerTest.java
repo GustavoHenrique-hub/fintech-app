@@ -48,28 +48,28 @@ class CategoriaControllerTest {
     }
 
     private Categoria categoriaCompleta(Long id) {
-        return new Categoria(id, "Alimentação", TipoCategoria.gasto, "🍔", "#FF5733", true, null);
+        return new Categoria(id, "Alimentação", TipoCategoria.GASTO, "🍔", "#FF5733", true, null);
     }
 
     @Test
     void criar_deveRetornar201_quandoDadosValidos() throws Exception {
         Long categoriaId = 1L;
-        Categoria salva = new Categoria(categoriaId, "Pets", TipoCategoria.gasto, "🐶", "#FF0000", false, null);
+        Categoria salva = new Categoria(categoriaId, "Pets", TipoCategoria.GASTO, "🐶", "#FF0000", false, null);
         when(criarUseCase.executar(any())).thenReturn(salva);
 
         mockMvc.perform(post("/categorias")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
-                                  "nome_completo": "Pets",
-                                  "tipo": "gasto",
+                                  "nome": "Pets",
+                                  "tipo": "GASTO",
                                   "icone": "🐶",
                                   "corHex": "#FF0000"
                                 }
                                 """))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.nome").value("Pets"))
-                .andExpect(jsonPath("$.tipo").value("gasto"));
+                .andExpect(jsonPath("$.tipo").value("GASTO"));
     }
 
     @Test

@@ -41,7 +41,7 @@ public class TransacaoCanceladaController {
     public ResponseEntity<TransacaoCanceladaResponseDTO> cancelar(
             @Valid @RequestBody CancelarTransacaoRequestDTO dto) {
         TransacaoCancelada dominio = new TransacaoCancelada(
-                dto.transacaoId(), dto.usuarioId(), dto.contaId(), dto.motivoId(),
+                dto.transacaoId(), dto.motivoId(),
                 CanceladoPor.valueOf(dto.canceladoPor()),
                 dto.valorOriginal(), dto.observacao(), dto.ipOrigem()
         );

@@ -42,7 +42,7 @@ public class ContaFinanceira {
 
     public ContaFinanceira(Long usuarioId, String nome, TipoConta tipo,
                            String banco, BigDecimal saldoInicial, boolean padrao) {
-        this(null, usuarioId, nome, tipo, banco, saldoInicial, padrao, true, null, null);
+        this(null, usuarioId, nome, tipo, banco, saldoInicial, padrao, true, OffsetDateTime.now(), null);
         this.code = CodeGenerator.gerar();
     }
 
