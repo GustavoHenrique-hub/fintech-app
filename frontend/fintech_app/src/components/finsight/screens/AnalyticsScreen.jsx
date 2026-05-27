@@ -141,13 +141,14 @@ export const AnalyticsScreen = () => {
   const totalGastosCat = fatias.reduce((acc, f) => acc + f.total, 0);
 
   return (
-    <div className="flex-1 overflow-y-auto px-4 pt-4 pb-6 space-y-5 no-scrollbar">
+    <div className="flex-1 min-h-0 overflow-y-auto px-4 sm:px-5 lg:px-8 pt-4 lg:pt-8 pb-6 lg:pb-10 no-scrollbar">
+     <div className="max-w-6xl mx-auto w-full space-y-5 lg:space-y-7">
       {/* Header */}
       <div>
-        <h1 className="text-[22px] font-extrabold tracking-tight text-foreground leading-tight">
+        <h1 className="text-[22px] lg:text-[28px] font-extrabold tracking-tight text-foreground leading-tight">
           Análises
         </h1>
-        <p className="text-[12px] text-muted-foreground mt-0.5">
+        <p className="text-[12px] lg:text-[13px] text-muted-foreground mt-0.5">
           Acompanhe seu comportamento financeiro
         </p>
       </div>
@@ -192,8 +193,9 @@ export const AnalyticsScreen = () => {
         })}
       </section>
 
+      <div className="grid lg:grid-cols-2 gap-5 lg:gap-6">
       {/* Gráfico Income vs Expenses (mensal). */}
-      <section className="card-soft p-4">
+      <section className="card-soft p-4 lg:p-6">
         <div className="flex items-center justify-between">
           <div>
             <p className="section-label">Receitas vs Gastos</p>
@@ -214,7 +216,7 @@ export const AnalyticsScreen = () => {
       </section>
 
       {/* Donut: gastos por categoria. */}
-      <section className="card-soft p-4">
+      <section className="card-soft p-4 lg:p-6">
         <p className="section-label">Gastos por categoria</p>
         <div className="flex items-center gap-4 mt-3">
           <div className="relative shrink-0">
@@ -241,6 +243,7 @@ export const AnalyticsScreen = () => {
           </div>
         </div>
       </section>
+      </div>
 
       {/* Acuracidade da classificação — usa ConfidenceBar */}
       <section className="card-soft p-4 space-y-3">
@@ -262,7 +265,7 @@ export const AnalyticsScreen = () => {
       {/* Smart insights */}
       <section>
         <p className="section-label mb-2">Recomendações</p>
-        <div className="space-y-2">
+        <div className="grid lg:grid-cols-3 gap-2 lg:gap-3">
           {[
             {
               icon: Lightbulb,
@@ -301,6 +304,7 @@ export const AnalyticsScreen = () => {
           })}
         </div>
       </section>
+     </div>
     </div>
   );
 };

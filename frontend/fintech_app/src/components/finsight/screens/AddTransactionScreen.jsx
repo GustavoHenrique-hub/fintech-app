@@ -95,12 +95,13 @@ export const AddTransactionScreen = () => {
   };
 
   return (
-    <div className="flex-1 overflow-y-auto px-4 pt-4 pb-6 no-scrollbar">
+    <div className="flex-1 min-h-0 overflow-y-auto px-4 sm:px-5 lg:px-8 pt-4 lg:pt-8 pb-6 lg:pb-10 no-scrollbar">
+     <div className="max-w-2xl mx-auto w-full">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-[20px] font-extrabold tracking-tight text-foreground">Nova transação</h1>
-          <p className="text-[11.5px] text-muted-foreground mt-0.5">
+          <h1 className="text-[20px] lg:text-[28px] font-extrabold tracking-tight text-foreground">Nova transação</h1>
+          <p className="text-[11.5px] lg:text-[13px] text-muted-foreground mt-0.5">
             Registre uma receita ou gasto manual
           </p>
         </div>
@@ -175,8 +176,8 @@ export const AddTransactionScreen = () => {
         )}
       </div>
 
-      {/* Detalhes (Data + Descrição) */}
-      <div className="mt-5 space-y-3">
+      {/* Detalhes (Data + Descrição) — em sm+ ficam lado a lado. */}
+      <div className="mt-5 grid sm:grid-cols-2 gap-3">
         <div>
           <label className="section-label">Data</label>
           <div className="mt-1.5">
@@ -210,6 +211,7 @@ export const AddTransactionScreen = () => {
           Salvar como rascunho
         </Button>
       </div>
+     </div>
     </div>
   );
 };

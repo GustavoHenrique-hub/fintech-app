@@ -79,13 +79,14 @@ export const ProfileScreen = () => {
   };
 
   return (
-    <div className="flex-1 overflow-y-auto px-4 pt-4 pb-6 space-y-5 no-scrollbar">
+    <div className="flex-1 min-h-0 overflow-y-auto px-4 sm:px-5 lg:px-8 pt-4 lg:pt-8 pb-6 lg:pb-10 no-scrollbar">
+     <div className="max-w-5xl mx-auto w-full space-y-5 lg:space-y-7">
       {/* Header */}
       <div>
-        <h1 className="text-[22px] font-extrabold tracking-tight text-foreground leading-tight">
+        <h1 className="text-[22px] lg:text-[28px] font-extrabold tracking-tight text-foreground leading-tight">
           Perfil
         </h1>
-        <p className="text-[12px] text-muted-foreground mt-0.5">Conta e preferências</p>
+        <p className="text-[12px] lg:text-[13px] text-muted-foreground mt-0.5">Conta e preferências</p>
       </div>
 
       {/* Card do usuário */}
@@ -114,7 +115,8 @@ export const ProfileScreen = () => {
         </div>
       </section>
 
-      {/* Conta */}
+      {/* Conta + Preferências em 2 colunas no desktop. */}
+      <div className="grid lg:grid-cols-2 gap-5 lg:gap-6">
       <section>
         <p className="section-label mb-1.5">Conta</p>
         <div className="card-soft divide-y divide-border">
@@ -167,7 +169,10 @@ export const ProfileScreen = () => {
           <Row icon={Languages} iconBg="bg-surface-yellow" iconColor="text-foreground" label="Idioma" value="Português (BR)" />
         </div>
       </section>
+      </div>
 
+      {/* Segurança + Card upgrade em 2 colunas no desktop. */}
+      <div className="grid lg:grid-cols-2 gap-5 lg:gap-6">
       {/* Segurança */}
       <section>
         <p className="section-label mb-1.5">Segurança</p>
@@ -201,6 +206,7 @@ export const ProfileScreen = () => {
         </div>
         <Button className="w-full mt-3" size="sm">Fazer upgrade para Empresarial</Button>
       </section>
+      </div>
 
       {/* Ações da conta */}
       <section>
@@ -254,6 +260,7 @@ export const ProfileScreen = () => {
           FinSight v2.4.0 · Build 2026.04 · Usuário {usuario.usercode}
         </p>
       </section>
+     </div>
     </div>
   );
 };

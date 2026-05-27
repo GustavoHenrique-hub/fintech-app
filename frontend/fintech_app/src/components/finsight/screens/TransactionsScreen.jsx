@@ -86,13 +86,14 @@ export const TransactionsScreen = () => {
   };
 
   return (
-    <div className="flex-1 overflow-y-auto pb-6 no-scrollbar">
+    <div className="flex-1 min-h-0 overflow-y-auto pb-6 lg:pb-10 no-scrollbar">
       {/* Header sticky */}
-      <div className="sticky top-0 z-10 bg-background/95 backdrop-blur border-b border-border px-4 pt-4 pb-3">
+      <div className="sticky top-0 z-10 bg-background/95 backdrop-blur border-b border-border px-4 sm:px-5 lg:px-8 pt-4 lg:pt-8 pb-3 lg:pb-5">
+       <div className="max-w-5xl mx-auto w-full">
         <div className="flex items-start justify-between">
           <div>
-            <h1 className="text-[20px] font-extrabold tracking-tight text-foreground">Transações</h1>
-            <p className="text-[11.5px] text-muted-foreground mt-0.5">
+            <h1 className="text-[20px] lg:text-[28px] font-extrabold tracking-tight text-foreground">Transações</h1>
+            <p className="text-[11.5px] lg:text-[13px] text-muted-foreground mt-0.5">
               {transacoesFiltradas.length} {transacoesFiltradas.length === 1 ? "item" : "itens"} · Últimos 30 dias
             </p>
           </div>
@@ -141,10 +142,12 @@ export const TransactionsScreen = () => {
             </button>
           ))}
         </div>
+       </div>
       </div>
 
       {/* Lista agrupada (ou EmptyState quando vazio) */}
-      <div className="px-4 mt-3 space-y-4">
+      <div className="px-4 sm:px-5 lg:px-8 mt-3 lg:mt-5">
+       <div className="max-w-5xl mx-auto w-full space-y-4 lg:space-y-5">
         {semResultados ? (
           <EmptyState
             icon={Inbox}
@@ -236,6 +239,7 @@ export const TransactionsScreen = () => {
             Carregar mais
           </Button>
         )}
+       </div>
       </div>
     </div>
   );

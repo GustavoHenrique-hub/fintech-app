@@ -43,22 +43,25 @@ export const OverviewScreen = () => {
   const primeiroNome = usuarioAtual.nome.split(" ")[0];
 
   return (
-    <div className="flex-1 overflow-y-auto px-4 pt-4 pb-6 space-y-5 no-scrollbar">
+    <div className="flex-1 min-h-0 overflow-y-auto px-4 sm:px-5 lg:px-8 pt-4 lg:pt-8 pb-6 lg:pb-10 no-scrollbar">
+     <div className="max-w-6xl mx-auto w-full space-y-5 lg:space-y-7">
       {/* ── Saudação + data ─────────────────────────────────────────── */}
       <div className="flex items-end justify-between">
         <div>
-          <p className="text-[12px] text-muted-foreground font-medium">Olá, {primeiroNome}</p>
-          <h1 className="text-[22px] font-extrabold tracking-tight text-foreground leading-tight mt-0.5">
+          <p className="text-[12px] lg:text-[13px] text-muted-foreground font-medium">Olá, {primeiroNome}</p>
+          <h1 className="text-[22px] lg:text-[28px] font-extrabold tracking-tight text-foreground leading-tight mt-0.5">
             Visão geral
           </h1>
         </div>
-        <button className="text-[11.5px] font-semibold text-primary hover:underline">
+        <button className="text-[11.5px] lg:text-[13px] font-semibold text-primary hover:underline">
           {new Date().toLocaleDateString("pt-BR", { day: "2-digit", month: "short", year: "numeric" })}
         </button>
       </div>
 
+      {/* Linha 1 (lg+): Hero balance (col-span-2) + KPIs verticais (col-span-1). */}
+      <div className="grid lg:grid-cols-3 gap-5 lg:gap-6">
       {/* ── Card hero do saldo ─────────────────────────────────────── */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-[hsl(265_70%_55%)] text-primary-foreground p-5 shadow-xl shadow-primary/25">
+      <section className="lg:col-span-2 relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-[hsl(265_70%_55%)] text-primary-foreground p-5 lg:p-7 shadow-xl shadow-primary/25">
         {/* Bolhas decorativas (blur) — só visual. */}
         <div className="absolute -top-16 -right-12 w-48 h-48 rounded-full bg-white/10 blur-3xl" />
         <div className="absolute bottom-0 right-0 w-28 h-28 rounded-full bg-accent/40 blur-2xl" />
@@ -77,7 +80,7 @@ export const OverviewScreen = () => {
                 {saldoOculto ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
               </button>
             </div>
-            <p className="text-[32px] font-extrabold tracking-tight mt-1 leading-none tabular-nums">
+            <p className="text-[32px] lg:text-[40px] font-extrabold tracking-tight mt-1 leading-none tabular-nums">
               {saldoOculto ? "R$ ••••••" : `R$ ${formatNumeroBR(snapshotAtual.saldoFinal)}`}
             </p>
             <p className="text-[11.5px] opacity-80 mt-1.5">
@@ -103,8 +106,37 @@ export const OverviewScreen = () => {
         </div>
       </section>
 
+      {/* KPIs verticais (col-span-1 em lg+) — em mobile/tablet aparecem em grid abaixo. */}
+      <section className="grid grid-cols-3 lg:grid-cols-1 gap-2 lg:gap-3 lg:col-span-1">
+        {[
+          { label: "Receitas",  value: snapshotAtual.totalReceitas, up: true,  icon: ArrowUpRight,    bg: "bg-surface-green",  color: "text-success" },
+          { label: "Gastos",    value: snapshotAtual.totalGastos,   up: false, icon: ArrowDownLeft,   bg: "bg-surface-pink",   color: "text-destructive" },
+          { label: "Economia",  value: snapshotAtual.totalReceitas - snapshotAtual.totalGastos, up: true, icon: PiggyBank, bg: "bg-surface-purple", color: "text-primary" },
+        ].map((k) => {
+          const Icon = k.icon;
+          const Trend = k.up ? TrendingUp : TrendingDown;
+          return (
+            <div key={k.label} className="card-soft p-3 lg:p-4 hover:shadow-md transition-shadow">
+              <div className={`w-7 h-7 lg:w-9 lg:h-9 rounded-lg lg:rounded-xl ${k.bg} ${k.color} flex items-center justify-center`}>
+                <Icon className="w-3.5 h-3.5 lg:w-4 lg:h-4" strokeWidth={2.5} />
+              </div>
+              <p className="text-[10.5px] lg:text-[11.5px] text-muted-foreground font-semibold mt-2">{k.label}</p>
+              <p className="text-[13px] lg:text-[18px] font-extrabold text-foreground mt-0.5 tracking-tight tabular-nums">
+                {formatBRL(k.value)}
+              </p>
+              <div className={`flex items-center gap-0.5 mt-1 text-[10px] lg:text-[11px] font-bold ${k.up ? "text-success" : "text-destructive"}`}>
+                <Trend className="w-2.5 h-2.5" strokeWidth={3} />
+                {k.up ? "+" : "−"}
+                {Math.abs(((k.value / (snapshotAtual.totalReceitas || 1)) * 100)).toFixed(1)}%
+              </div>
+            </div>
+          );
+        })}
+      </section>
+      </div>
+
       {/* ── Atalhos rápidos ────────────────────────────────────────── */}
-      <section className="grid grid-cols-4 gap-2">
+      <section className="grid grid-cols-4 gap-2 lg:gap-4 lg:max-w-md">
         {[
           { icon: Send, label: "Transferir", color: "bg-surface-purple text-primary" },
           { icon: Plus, label: "Receber", color: "bg-surface-green text-success" },
@@ -150,34 +182,6 @@ export const OverviewScreen = () => {
         </div>
       </section>
 
-      {/* ── KPIs do mês (vindos do snapshot) ───────────────────────── */}
-      <section className="grid grid-cols-3 gap-2">
-        {[
-          { label: "Receitas",  value: snapshotAtual.totalReceitas, up: true,  icon: ArrowUpRight,    bg: "bg-surface-green",  color: "text-success" },
-          { label: "Gastos",    value: snapshotAtual.totalGastos,   up: false, icon: ArrowDownLeft,   bg: "bg-surface-pink",   color: "text-destructive" },
-          { label: "Economia",  value: snapshotAtual.totalReceitas - snapshotAtual.totalGastos, up: true, icon: PiggyBank, bg: "bg-surface-purple", color: "text-primary" },
-        ].map((k) => {
-          const Icon = k.icon;
-          const Trend = k.up ? TrendingUp : TrendingDown;
-          return (
-            <div key={k.label} className="card-soft p-3 hover:shadow-md transition-shadow">
-              <div className={`w-7 h-7 rounded-lg ${k.bg} ${k.color} flex items-center justify-center`}>
-                <Icon className="w-3.5 h-3.5" strokeWidth={2.5} />
-              </div>
-              <p className="text-[10.5px] text-muted-foreground font-semibold mt-2">{k.label}</p>
-              <p className="text-[13px] font-extrabold text-foreground mt-0.5 tracking-tight tabular-nums">
-                {formatBRL(k.value)}
-              </p>
-              <div className={`flex items-center gap-0.5 mt-1 text-[10px] font-bold ${k.up ? "text-success" : "text-destructive"}`}>
-                <Trend className="w-2.5 h-2.5" strokeWidth={3} />
-                {k.up ? "+" : "−"}
-                {Math.abs(((k.value / (snapshotAtual.totalReceitas || 1)) * 100)).toFixed(1)}%
-              </div>
-            </div>
-          );
-        })}
-      </section>
-
       {/* ── Atividade recente ──────────────────────────────────────── */}
       <section>
         <div className="flex items-center justify-between mb-2">
@@ -217,6 +221,7 @@ export const OverviewScreen = () => {
           })}
         </div>
       </section>
+     </div>
     </div>
   );
 };

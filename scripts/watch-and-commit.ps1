@@ -1,4 +1,4 @@
-$REPO    = "C:\Users\gusta\OneDrive\Documentos\FACULDADE\Fintech APP\fintech-app"
+$REPO    = "C:\Users\02.2025\Documents\Codar\fintech-app"
 $SCRIPT  = "$REPO\scripts\auto-commit.ps1"
 $DEBOUNCE = 30  # segundos de silencio antes de commitar apos ultima mudanca
 
@@ -41,7 +41,7 @@ try {
         if ($global:lastChange -and ((Get-Date) - $global:lastChange).TotalSeconds -ge $DEBOUNCE) {
             $global:lastChange = $null
             Write-Host "[watcher] Mudancas detectadas, executando auto-commit..."
-            & powershell -ExecutionPolicy Bypass -NonInteractive -File $SCRIPT -Source "watcher"
+            & (Join-Path $PSHOME "powershell.exe") -ExecutionPolicy Bypass -NonInteractive -File $SCRIPT -Source "watcher"
         }
     }
 } finally {

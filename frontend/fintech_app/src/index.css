@@ -56,14 +56,24 @@
     @apply border-border;
   }
 
-  html, body, #root {
-    @apply h-full;
+  html {
+    height: -webkit-fill-available;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body, #root {
+    /* 100dvh respeita a barra de URL dinâmica do Chrome Android / Safari iOS;
+       o fallback em vh é necessário para navegadores antigos. */
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-feature-settings: 'cv11', 'ss01';
+    /* Evita pull-to-refresh acidental em Chrome Android quando rolando o topo. */
+    overscroll-behavior-y: none;
   }
 }
 
