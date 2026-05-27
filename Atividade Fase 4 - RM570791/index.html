@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5" />
+    <meta name="theme-color" content="#7C5CFA" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0c0d10" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="format-detection" content="telephone=no" />
+    <title>FinSight — Visão geral</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Configura o Tailwind para usar as mesmas variáveis CSS de cor do
+      // design system do React (definidas em styles.css). Assim os utilitários
+      // `bg-primary`, `text-success`, `bg-surface-purple`, etc. continuam válidos.
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              border: "hsl(var(--border))",
+              input: "hsl(var(--input))",
+              ring: "hsl(var(--ring))",
+              background: "hsl(var(--background))",
+              foreground: "hsl(var(--foreground))",
+              primary: {
+                DEFAULT: "hsl(var(--primary))",
+                foreground: "hsl(var(--primary-foreground))",
+              },
+              secondary: {
+                DEFAULT: "hsl(var(--secondary))",
+                foreground: "hsl(var(--secondary-foreground))",
+              },
+              destructive: {
+                DEFAULT: "hsl(var(--destructive))",
+                foreground: "hsl(var(--destructive-foreground))",
+              },
+              muted: {
+                DEFAULT: "hsl(var(--muted))",
+                foreground: "hsl(var(--muted-foreground))",
+              },
+              accent: {
+                DEFAULT: "hsl(var(--accent))",
+                foreground: "hsl(var(--accent-foreground))",
+              },
+              success: {
+                DEFAULT: "hsl(var(--success))",
+                foreground: "hsl(var(--success-foreground))",
+              },
+              card: {
+                DEFAULT: "hsl(var(--card))",
+                foreground: "hsl(var(--card-foreground))",
+              },
+              surface: {
+                yellow: "hsl(var(--surface-yellow))",
+                purple: "hsl(var(--surface-purple))",
+                pink: "hsl(var(--surface-pink))",
+                green: "hsl(var(--surface-green))",
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body class="bg-background text-foreground antialiased">
+    <div class="min-h-[100dvh] bg-background lg:flex">
+      <h1 class="sr-only">FinSight — Visão geral</h1>
+
+      <!-- ╔══════════════════════════════════════════════════════════════════╗
+           ║ Sidebar (somente desktop ≥ lg)                                   ║
+           ╚══════════════════════════════════════════════════════════════════╝ -->
+      <aside class="hidden lg:flex sticky top-0 h-[100dvh] w-64 shrink-0 flex-col border-r border-border bg-card/60 backdrop-blur px-4 py-6">
+        <div class="flex items-center gap-2 px-2">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-sm shadow-primary/30">
+            <i data-lucide="wallet" class="w-[18px] h-[18px] text-primary-foreground" stroke-width="2.5"></i>
+          </div>
+          <span class="font-extrabold text-[17px] tracking-tight text-foreground">FinSight</span>
+        </div>
+
+        <button
+          data-action="add"
+          class="mt-6 inline-flex items-center justify-center gap-2 h-10 rounded-xl bg-gradient-to-br from-primary to-accent text-primary-foreground text-[13px] font-bold shadow-md shadow-primary/30 hover:opacity-95 active:scale-[0.98] transition-all"
+        >
+          <i data-lucide="plus" class="w-4 h-4" stroke-width="2.75"></i>
+          Nova transação
+        </button>
+
+        <nav class="mt-6 flex flex-col gap-1" data-side-nav>
+          <button data-nav="home" class="nav-item is-active flex items-center gap-3 px-3 h-10 rounded-xl text-[13.5px] font-semibold transition-colors">
+            <i data-lucide="home" class="w-[18px] h-[18px]" stroke-width="2.5"></i>
+            Visão geral
+          </button>
+          <button data-nav="analytics" class="nav-item flex items-center gap-3 px-3 h-10 rounded-xl text-[13.5px] font-semibold transition-colors">
+            <i data-lucide="bar-chart-3" class="w-[18px] h-[18px]" stroke-width="2"></i>
+            Análises
+          </button>
+          <button data-nav="payments" class="nav-item flex items-center gap-3 px-3 h-10 rounded-xl text-[13.5px] font-semibold transition-colors">
+            <i data-lucide="arrow-left-right" class="w-[18px] h-[18px]" stroke-width="2"></i>
+            Transações
+          </button>
+          <button data-nav="profile" class="nav-item flex items-center gap-3 px-3 h-10 rounded-xl text-[13.5px] font-semibold transition-colors">
+            <i data-lucide="user" class="w-[18px] h-[18px]" stroke-width="2"></i>
+            Perfil
+          </button>
+        </nav>
+
+        <div class="mt-auto flex items-center gap-3 p-3 rounded-2xl bg-secondary/60">
+          <div class="w-9 h-9 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-[12px] font-bold text-primary-foreground shrink-0">
+            AS
+          </div>
+          <div class="min-w-0">
+            <p class="text-[12.5px] font-semibold text-foreground truncate">Alex Morgan Silva</p>
+            <p class="text-[10.5px] text-muted-foreground truncate">alex.morgan@finsight.app</p>
+          </div>
+        </div>
+      </aside>
+
+      <!-- ╔══════════════════════════════════════════════════════════════════╗
+           ║ Coluna principal (TopBar + main + BottomNav)                     ║
+           ╚══════════════════════════════════════════════════════════════════╝ -->
+      <div class="flex flex-col min-h-[100dvh] flex-1 min-w-0">
+        <!-- TopBar -->
+        <header
+          class="sticky top-0 z-30 px-4 sm:px-5 pb-3 bg-card/95 backdrop-blur-md border-b border-border/60"
+          style="padding-top: calc(env(safe-area-inset-top, 0px) + 0.75rem);"
+        >
+          <div class="flex items-center gap-2 sm:gap-3 lg:gap-4 max-w-7xl mx-auto w-full">
+            <div class="flex items-center gap-1.5 shrink-0 lg:hidden">
+              <div class="w-7 h-7 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-sm shadow-primary/30">
+                <i data-lucide="wallet" class="w-[15px] h-[15px] text-primary-foreground" stroke-width="2.5"></i>
+              </div>
+              <span class="font-extrabold text-[15px] tracking-tight text-foreground">FinSight</span>
+            </div>
+
+            <div class="flex-1 mx-1 relative max-w-xl">
+              <i data-lucide="search" class="w-3.5 h-3.5 lg:w-4 lg:h-4 text-muted-foreground absolute left-2.5 lg:left-3 top-1/2 -translate-y-1/2 pointer-events-none" stroke-width="2.25"></i>
+              <input
+                placeholder="Buscar"
+                aria-label="Buscar"
+                class="w-full bg-secondary/70 rounded-full pl-7 lg:pl-9 pr-2.5 py-1.5 sm:py-2 lg:py-2.5 text-[12px] sm:text-[13px] lg:text-[14px] outline-none placeholder:text-muted-foreground focus:bg-secondary focus:ring-2 focus:ring-primary/30 transition-all"
+              />
+            </div>
+
+            <button class="hidden xs:inline-flex items-center gap-1 px-2.5 lg:px-3 py-1.5 lg:py-2 rounded-full bg-accent text-accent-foreground text-[11.5px] lg:text-[12.5px] font-bold shadow-sm hover:opacity-90 active:scale-95 transition-all">
+              <i data-lucide="sparkles" class="w-3 h-3 lg:w-3.5 lg:h-3.5" stroke-width="2.5"></i>
+              Premium
+            </button>
+
+            <button class="relative w-8 h-8 lg:w-9 lg:h-9 rounded-full bg-secondary flex items-center justify-center hover:bg-muted active:scale-95 transition-all" aria-label="Notificações">
+              <i data-lucide="bell" class="w-[15px] h-[15px] lg:w-[17px] lg:h-[17px] text-foreground" stroke-width="2.25"></i>
+              <span class="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-destructive rounded-full ring-2 ring-card"></span>
+            </button>
+
+            <div class="lg:hidden w-8 h-8 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-[11px] font-bold text-primary-foreground shrink-0 shadow-sm" aria-label="Avatar de Alex Morgan Silva">
+              AS
+            </div>
+          </div>
+        </header>
+
+        <!-- Conteúdo da Home (Visão geral) -->
+        <main class="flex-1 min-h-0 flex flex-col overflow-hidden">
+          <div class="flex-1 min-h-0 overflow-y-auto px-4 sm:px-5 lg:px-8 pt-4 lg:pt-6 pb-6 lg:pb-8 no-scrollbar">
+            <div class="max-w-6xl mx-auto w-full space-y-5 lg:space-y-4">
+
+              <!-- Saudação + data -->
+              <div class="flex items-end justify-between">
+                <div>
+                  <p class="text-[12px] lg:text-[13px] text-muted-foreground font-medium">Olá, Alex</p>
+                  <h2 class="text-[22px] lg:text-[28px] font-extrabold tracking-tight text-foreground leading-tight mt-0.5">
+                    Visão geral
+                  </h2>
+                </div>
+                <button class="text-[11.5px] lg:text-[13px] font-semibold text-primary hover:underline" id="data-atual">
+                  <!-- Preenchido pelo script.js -->
+                </button>
+              </div>
+
+              <!-- Card hero do saldo (full width) -->
+              <section class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-[hsl(265_70%_55%)] text-primary-foreground p-5 lg:p-6 shadow-xl shadow-primary/25">
+                <div class="absolute -top-16 -right-12 w-48 h-48 rounded-full bg-white/10 blur-3xl"></div>
+                <div class="absolute bottom-0 right-0 w-28 h-28 rounded-full bg-accent/40 blur-2xl"></div>
+
+                <div class="relative flex items-start justify-between">
+                  <div>
+                    <div class="flex items-center gap-1.5">
+                      <p class="text-[10.5px] uppercase tracking-[0.12em] opacity-80 font-semibold">Saldo Atual</p>
+                      <button id="toggle-saldo" class="opacity-70 hover:opacity-100 transition-opacity" aria-label="Ocultar saldo">
+                        <i data-lucide="eye" id="ico-saldo" class="w-3 h-3"></i>
+                      </button>
+                    </div>
+                    <p id="saldo-valor" class="text-[32px] lg:text-[40px] font-extrabold tracking-tight mt-1 leading-none tabular-nums">R$ 19.349,60</p>
+                    <p class="text-[11.5px] opacity-80 mt-1.5">
+                      Disponível ·
+                      <span id="saldo-disponivel" class="font-semibold">R$ 18.149,60</span>
+                    </p>
+                  </div>
+                  <button class="flex items-center gap-1 bg-white/15 hover:bg-white/25 backdrop-blur rounded-full px-2.5 py-1 text-[11px] font-semibold transition-colors max-w-[140px]">
+                    <span class="truncate">Nubank</span>
+                    <i data-lucide="chevron-down" class="w-3 h-3 shrink-0" stroke-width="2.5"></i>
+                  </button>
+                </div>
+
+                <div class="relative flex items-center gap-1.5 mt-3">
+                  <span class="inline-flex items-center gap-0.5 bg-success/90 rounded-full px-1.5 py-0.5 text-[10px] font-bold">
+                    <i data-lucide="trending-up" class="w-2.5 h-2.5" stroke-width="3"></i> 65.9%
+                  </span>
+                  <span class="text-[10.5px] opacity-80">vs receita do mês</span>
+                </div>
+              </section>
+
+              <!-- KPIs (3 colunas horizontais) -->
+              <section class="grid grid-cols-3 gap-2 lg:gap-4">
+                <div class="card-soft p-3 lg:p-4 hover:shadow-md transition-shadow">
+                  <div class="w-7 h-7 lg:w-9 lg:h-9 rounded-lg lg:rounded-xl bg-surface-green text-success flex items-center justify-center">
+                    <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 lg:w-4 lg:h-4" stroke-width="2.5"></i>
+                  </div>
+                  <p class="text-[10.5px] lg:text-[12px] text-muted-foreground font-semibold mt-2">Receitas</p>
+                  <p class="text-[13px] lg:text-[20px] font-extrabold text-foreground mt-0.5 tracking-tight tabular-nums">R$ 8.420,00</p>
+                  <div class="flex items-center gap-0.5 mt-1 text-[10px] lg:text-[11.5px] font-bold text-success">
+                    <i data-lucide="trending-up" class="w-2.5 h-2.5" stroke-width="3"></i>
+                    +100.0%
+                  </div>
+                </div>
+
+                <div class="card-soft p-3 lg:p-4 hover:shadow-md transition-shadow">
+                  <div class="w-7 h-7 lg:w-9 lg:h-9 rounded-lg lg:rounded-xl bg-surface-pink text-destructive flex items-center justify-center">
+                    <i data-lucide="arrow-down-left" class="w-3.5 h-3.5 lg:w-4 lg:h-4" stroke-width="2.5"></i>
+                  </div>
+                  <p class="text-[10.5px] lg:text-[12px] text-muted-foreground font-semibold mt-2">Gastos</p>
+                  <p class="text-[13px] lg:text-[20px] font-extrabold text-foreground mt-0.5 tracking-tight tabular-nums">R$ 2.870,40</p>
+                  <div class="flex items-center gap-0.5 mt-1 text-[10px] lg:text-[11.5px] font-bold text-destructive">
+                    <i data-lucide="trending-down" class="w-2.5 h-2.5" stroke-width="3"></i>
+                    −34.1%
+                  </div>
+                </div>
+
+                <div class="card-soft p-3 lg:p-4 hover:shadow-md transition-shadow">
+                  <div class="w-7 h-7 lg:w-9 lg:h-9 rounded-lg lg:rounded-xl bg-surface-purple text-primary flex items-center justify-center">
+                    <i data-lucide="piggy-bank" class="w-3.5 h-3.5 lg:w-4 lg:h-4" stroke-width="2.5"></i>
+                  </div>
+                  <p class="text-[10.5px] lg:text-[12px] text-muted-foreground font-semibold mt-2">Economia</p>
+                  <p class="text-[13px] lg:text-[20px] font-extrabold text-foreground mt-0.5 tracking-tight tabular-nums">R$ 5.549,60</p>
+                  <div class="flex items-center gap-0.5 mt-1 text-[10px] lg:text-[11.5px] font-bold text-success">
+                    <i data-lucide="trending-up" class="w-2.5 h-2.5" stroke-width="3"></i>
+                    +65.9%
+                  </div>
+                </div>
+              </section>
+
+              <!-- Atalhos rápidos -->
+              <section class="grid grid-cols-4 gap-2 lg:gap-3 lg:max-w-xl">
+                <button class="flex flex-col items-center gap-1.5 active:scale-95 transition-transform group">
+                  <div class="w-12 h-12 rounded-2xl bg-surface-purple text-primary flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
+                    <i data-lucide="send" class="w-[18px] h-[18px]" stroke-width="2.25"></i>
+                  </div>
+                  <span class="text-[10.5px] font-semibold text-foreground">Transferir</span>
+                </button>
+                <button class="flex flex-col items-center gap-1.5 active:scale-95 transition-transform group">
+                  <div class="w-12 h-12 rounded-2xl bg-surface-green text-success flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
+                    <i data-lucide="plus" class="w-[18px] h-[18px]" stroke-width="2.25"></i>
+                  </div>
+                  <span class="text-[10.5px] font-semibold text-foreground">Receber</span>
+                </button>
+                <button class="flex flex-col items-center gap-1.5 active:scale-95 transition-transform group">
+                  <div class="w-12 h-12 rounded-2xl bg-surface-yellow text-foreground flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
+                    <i data-lucide="arrow-down-left" class="w-[18px] h-[18px]" stroke-width="2.25"></i>
+                  </div>
+                  <span class="text-[10.5px] font-semibold text-foreground">Cobrar</span>
+                </button>
+                <button class="flex flex-col items-center gap-1.5 active:scale-95 transition-transform group">
+                  <div class="w-12 h-12 rounded-2xl bg-surface-pink text-destructive flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
+                    <i data-lucide="credit-card" class="w-[18px] h-[18px]" stroke-width="2.25"></i>
+                  </div>
+                  <span class="text-[10.5px] font-semibold text-foreground">Pagar</span>
+                </button>
+              </section>
+
+              <!-- Card do gráfico -->
+              <section class="card-soft p-4">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="section-label">Saldo nos últimos dias</p>
+                    <p class="text-[12.5px] text-muted-foreground mt-0.5">7 dias · vs período anterior</p>
+                  </div>
+                  <div class="inline-flex bg-secondary rounded-full p-0.5" data-range-group>
+                    <button data-range="Semana" class="range-btn is-active px-3 py-1 text-[11.5px] font-semibold rounded-full transition-all">Semana</button>
+                    <button data-range="Mês"    class="range-btn px-3 py-1 text-[11.5px] font-semibold rounded-full transition-all">Mês</button>
+                    <button data-range="Ano"    class="range-btn px-3 py-1 text-[11.5px] font-semibold rounded-full transition-all">Ano</button>
+                  </div>
+                </div>
+
+                <div class="mt-3">
+                  <!-- Gráfico de saldo: SVG controlado via script.js -->
+                  <div class="w-full">
+                    <div class="flex justify-between text-[9px] text-muted-foreground/70 font-medium mb-1 px-0.5">
+                      <span>R$15k</span>
+                      <span id="chart-active-value" class="text-primary font-bold">R$14,87k</span>
+                    </div>
+                    <div class="w-full h-[130px] relative">
+                      <svg id="balance-chart" viewBox="0 0 320 130" class="w-full h-full overflow-visible" preserveAspectRatio="none">
+                        <defs>
+                          <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%"   stop-color="hsl(var(--primary))" stop-opacity="0.3" />
+                            <stop offset="100%" stop-color="hsl(var(--primary))" stop-opacity="0" />
+                          </linearGradient>
+                          <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%"   stop-color="hsl(var(--primary))" />
+                            <stop offset="100%" stop-color="hsl(var(--accent))" />
+                          </linearGradient>
+                        </defs>
+                        <!-- Conteúdo (linhas-guia, paths e hover) preenchido pelo script.js -->
+                      </svg>
+                    </div>
+                    <div id="chart-labels" class="flex justify-between text-[9.5px] text-muted-foreground font-medium mt-1.5 px-0.5"></div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Atividade recente -->
+              <section>
+                <div class="flex items-center justify-between mb-2">
+                  <p class="section-label">Atividade recente</p>
+                  <button class="text-[12px] font-semibold text-muted-foreground hover:text-foreground transition-colors">Ver tudo</button>
+                </div>
+                <div class="card-soft divide-y divide-border">
+                  <div class="flex items-center gap-3 px-3.5 py-2.5 row-press">
+                    <div class="w-8 h-8 rounded-full flex items-center justify-center shrink-0" style="background-color: #B7691E22;">
+                      <i data-lucide="coffee" class="w-4 h-4" stroke-width="2.25" style="color: #B7691E;"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <p class="text-[13px] font-semibold text-foreground truncate">Café da manhã</p>
+                      <p class="text-[11px] text-muted-foreground">Café/Padaria · Hoje</p>
+                    </div>
+                    <p class="text-[13px] font-bold tabular-nums text-destructive">−R$ 32,50</p>
+                  </div>
+
+                  <div class="flex items-center gap-3 px-3.5 py-2.5 row-press">
+                    <div class="w-8 h-8 rounded-full flex items-center justify-center shrink-0" style="background-color: #E67E2222;">
+                      <i data-lucide="shopping-cart" class="w-4 h-4" stroke-width="2.25" style="color: #E67E22;"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <p class="text-[13px] font-semibold text-foreground truncate">Mercado Verde</p>
+                      <p class="text-[11px] text-muted-foreground">Mercado · Hoje</p>
+                    </div>
+                    <p class="text-[13px] font-bold tabular-nums text-destructive">−R$ 248,20</p>
+                  </div>
+
+                  <div class="flex items-center gap-3 px-3.5 py-2.5 row-press">
+                    <div class="w-8 h-8 rounded-full flex items-center justify-center shrink-0" style="background-color: #16A08522;">
+                      <i data-lucide="briefcase" class="w-4 h-4" stroke-width="2.25" style="color: #16A085;"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <p class="text-[13px] font-semibold text-foreground truncate">Salário Acme Corp</p>
+                      <p class="text-[11px] text-muted-foreground">Salário · Ontem</p>
+                    </div>
+                    <p class="text-[13px] font-bold tabular-nums text-success">+R$ 8.420,00</p>
+                  </div>
+                </div>
+              </section>
+
+            </div>
+          </div>
+        </main>
+
+        <!-- BottomNav (escondido em desktop ≥ lg) -->
+        <nav
+          class="lg:hidden sticky bottom-0 z-30 border-t border-border/70 bg-card/95 backdrop-blur-md px-2 pt-2"
+          style="padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 0.75rem);"
+          data-bottom-nav
+        >
+          <button
+            data-action="add"
+            aria-label="Add transaction"
+            class="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent text-primary-foreground flex items-center justify-center shadow-lg shadow-primary/40 ring-4 ring-card active:scale-95 hover:scale-105 transition-transform z-10"
+          >
+            <i data-lucide="plus" class="w-5 h-5" stroke-width="2.75"></i>
+          </button>
+
+          <div class="grid grid-cols-4">
+            <button data-nav="home" class="bottom-item is-active flex flex-col items-center gap-0.5 py-1 transition-all active:scale-95">
+              <div class="pill flex items-center justify-center w-9 h-6 rounded-full transition-all">
+                <i data-lucide="home" class="w-[19px] h-[19px] transition-colors"></i>
+              </div>
+              <span class="label text-[10.5px] font-semibold transition-colors">Home</span>
+            </button>
+            <button data-nav="analytics" class="bottom-item flex flex-col items-center gap-0.5 py-1 transition-all active:scale-95">
+              <div class="pill flex items-center justify-center w-9 h-6 rounded-full transition-all">
+                <i data-lucide="bar-chart-3" class="w-[19px] h-[19px] transition-colors"></i>
+              </div>
+              <span class="label text-[10.5px] font-semibold transition-colors">Analytics</span>
+            </button>
+            <button data-nav="payments" class="bottom-item flex flex-col items-center gap-0.5 py-1 transition-all active:scale-95 ml-3">
+              <div class="pill flex items-center justify-center w-9 h-6 rounded-full transition-all">
+                <i data-lucide="arrow-left-right" class="w-[19px] h-[19px] transition-colors"></i>
+              </div>
+              <span class="label text-[10.5px] font-semibold transition-colors">Payments</span>
+            </button>
+            <button data-nav="profile" class="bottom-item flex flex-col items-center gap-0.5 py-1 transition-all active:scale-95">
+              <div class="pill flex items-center justify-center w-9 h-6 rounded-full transition-all">
+                <i data-lucide="user" class="w-[19px] h-[19px] transition-colors"></i>
+              </div>
+              <span class="label text-[10.5px] font-semibold transition-colors">Profile</span>
+            </button>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="script.js" defer></script>
+  </body>
+</html>
