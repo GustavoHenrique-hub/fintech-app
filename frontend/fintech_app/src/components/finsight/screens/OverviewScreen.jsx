@@ -43,8 +43,8 @@ export const OverviewScreen = () => {
   const primeiroNome = usuarioAtual.nome.split(" ")[0];
 
   return (
-    <div className="flex-1 min-h-0 overflow-y-auto px-4 sm:px-5 lg:px-8 pt-4 lg:pt-8 pb-6 lg:pb-10 no-scrollbar">
-     <div className="max-w-6xl mx-auto w-full space-y-5 lg:space-y-7">
+    <div className="flex-1 min-h-0 overflow-y-auto px-4 sm:px-5 lg:px-8 pt-4 lg:pt-6 pb-6 lg:pb-8 no-scrollbar">
+     <div className="max-w-6xl mx-auto w-full space-y-5 lg:space-y-4">
       {/* ── Saudação + data ─────────────────────────────────────────── */}
       <div className="flex items-end justify-between">
         <div>
@@ -58,10 +58,8 @@ export const OverviewScreen = () => {
         </button>
       </div>
 
-      {/* Linha 1 (lg+): Hero balance (col-span-2) + KPIs verticais (col-span-1). */}
-      <div className="grid lg:grid-cols-3 gap-5 lg:gap-6">
-      {/* ── Card hero do saldo ─────────────────────────────────────── */}
-      <section className="lg:col-span-2 relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-[hsl(265_70%_55%)] text-primary-foreground p-5 lg:p-7 shadow-xl shadow-primary/25">
+      {/* ── Card hero do saldo (largura total) ─────────────────────── */}
+      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-[hsl(265_70%_55%)] text-primary-foreground p-5 lg:p-6 shadow-xl shadow-primary/25">
         {/* Bolhas decorativas (blur) — só visual. */}
         <div className="absolute -top-16 -right-12 w-48 h-48 rounded-full bg-white/10 blur-3xl" />
         <div className="absolute bottom-0 right-0 w-28 h-28 rounded-full bg-accent/40 blur-2xl" />
@@ -106,8 +104,8 @@ export const OverviewScreen = () => {
         </div>
       </section>
 
-      {/* KPIs verticais (col-span-1 em lg+) — em mobile/tablet aparecem em grid abaixo. */}
-      <section className="grid grid-cols-3 lg:grid-cols-1 gap-2 lg:gap-3 lg:col-span-1">
+      {/* KPIs horizontais (3 colunas em qualquer tamanho ≥ md). */}
+      <section className="grid grid-cols-3 gap-2 lg:gap-4">
         {[
           { label: "Receitas",  value: snapshotAtual.totalReceitas, up: true,  icon: ArrowUpRight,    bg: "bg-surface-green",  color: "text-success" },
           { label: "Gastos",    value: snapshotAtual.totalGastos,   up: false, icon: ArrowDownLeft,   bg: "bg-surface-pink",   color: "text-destructive" },
@@ -120,11 +118,11 @@ export const OverviewScreen = () => {
               <div className={`w-7 h-7 lg:w-9 lg:h-9 rounded-lg lg:rounded-xl ${k.bg} ${k.color} flex items-center justify-center`}>
                 <Icon className="w-3.5 h-3.5 lg:w-4 lg:h-4" strokeWidth={2.5} />
               </div>
-              <p className="text-[10.5px] lg:text-[11.5px] text-muted-foreground font-semibold mt-2">{k.label}</p>
-              <p className="text-[13px] lg:text-[18px] font-extrabold text-foreground mt-0.5 tracking-tight tabular-nums">
+              <p className="text-[10.5px] lg:text-[12px] text-muted-foreground font-semibold mt-2">{k.label}</p>
+              <p className="text-[13px] lg:text-[20px] font-extrabold text-foreground mt-0.5 tracking-tight tabular-nums">
                 {formatBRL(k.value)}
               </p>
-              <div className={`flex items-center gap-0.5 mt-1 text-[10px] lg:text-[11px] font-bold ${k.up ? "text-success" : "text-destructive"}`}>
+              <div className={`flex items-center gap-0.5 mt-1 text-[10px] lg:text-[11.5px] font-bold ${k.up ? "text-success" : "text-destructive"}`}>
                 <Trend className="w-2.5 h-2.5" strokeWidth={3} />
                 {k.up ? "+" : "−"}
                 {Math.abs(((k.value / (snapshotAtual.totalReceitas || 1)) * 100)).toFixed(1)}%
@@ -133,10 +131,9 @@ export const OverviewScreen = () => {
           );
         })}
       </section>
-      </div>
 
       {/* ── Atalhos rápidos ────────────────────────────────────────── */}
-      <section className="grid grid-cols-4 gap-2 lg:gap-4 lg:max-w-md">
+      <section className="grid grid-cols-4 gap-2 lg:gap-3 lg:max-w-xl">
         {[
           { icon: Send, label: "Transferir", color: "bg-surface-purple text-primary" },
           { icon: Plus, label: "Receber", color: "bg-surface-green text-success" },
