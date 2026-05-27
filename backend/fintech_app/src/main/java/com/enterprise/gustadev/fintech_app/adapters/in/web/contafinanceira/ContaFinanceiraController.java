@@ -26,7 +26,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.net.URI;
 import java.util.List;
 
-@Tag(name = "Contas Financeiras", description = "Gerenciamento de contas bancárias e carteiras do usuário (corrente, poupança, investimento etc.)")
+@Tag(name = "Contas Financeiras",
+        description = "Gerenciamento das contas bancárias e carteiras do usuário. " +
+                "Cada conta vincula um usuário (`usuarioId`) a um banco previamente cadastrado " +
+                "(`bancoId` + `bancoCode`). Um usuário pode ter várias contas em vários bancos, " +
+                "e um banco pode ser usado por várias contas de diferentes usuários.")
 @RestController
 @RequestMapping("/contas")
 public class ContaFinanceiraController {
@@ -46,10 +50,14 @@ public class ContaFinanceiraController {
         this.deletarUseCase = deletarUseCase;
     }
 
-    @Operation(summary = "Criar conta financeira", description = "Cadastra uma nova conta bancária ou carteira para o usuário. Tipo deve ser um dos valores de TipoConta.")
+    @Operation(summary = "Criar conta financeira",
+            description = "Cadastra uma nova conta bancária ou carteira do usuário vinculando-a a um banco. " +
+                    "Pré-requisitos: o `usuarioId` deve existir em `/usuarios` e o par `bancoId` + `bancoCode` " +
+                    "deve corresponder a um banco existente em `/bancos`. " +
+                    "O campo `tipo` deve ser um dos valores de `TipoConta` (ex.: `corrente`, `poupanca`, `investimento`).")
     @ApiResponses({
-            @ApiResponse(responseCode = "201", description = "Conta criada com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Dados inválidos na requisição")
+            @ApiResponse(responseCode = "201", description = "Conta criada com sucesso e vinculada ao usuário/banco"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos (ex.: bancoId/bancoCode ausentes ou inconsistentes)")
     })
     @PostMapping
     public ResponseEntity<ContaFinanceiraResponseDTO> criar(@Valid @RequestBody ContaFinanceiraRequestDTO dto) {
@@ -63,18 +71,21 @@ public class ContaFinanceiraController {
         return ResponseEntity.created(URI.create("/contas/" + response.id() + "/" + response.code())).body(response);
     }
 
-    @Operation(summary = "Listar contas do usuário", description = "Retorna todas as contas financeiras cadastradas para um usuário.")
+    @Operation(summary = "Listar contas do usuário",
+            description = "Retorna todas as contas financeiras de um usuário, com o respectivo banco vinculado " +
+                    "(`bancoId` + `bancoCode`). Útil para montar a tela de visão geral de contas.")
     @ApiResponse(responseCode = "200", description = "Lista de contas retornada com sucesso")
     @GetMapping("/usuario/{usuarioId}")
     public ResponseEntity<List<ContaFinanceiraResponseDTO>> listarPorUsuario(
-            @Parameter(description = "ID do usuário") @PathVariable Long usuarioId) {
+            @Parameter(description = "ID do usuário dono das contas") @PathVariable Long usuarioId) {
         List<ContaFinanceiraResponseDTO> response = listarUseCase.executar(usuarioId)
                 .stream().map(ContaFinanceiraResponseDTO::fromDomain).toList();
         return ResponseEntity.ok(response);
     }
 
     @Operation(summary = "Buscar conta por ID e código",
-            description = "Retorna os dados de uma conta financeira identificada pela chave composta (id_contas + contas_code).")
+            description = "Retorna os dados de uma conta financeira identificada pela chave composta " +
+                    "(`id_contas` + `contas_code`), incluindo o banco vinculado.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Conta encontrada"),
             @ApiResponse(responseCode = "404", description = "Conta não encontrada")
@@ -87,7 +98,8 @@ public class ContaFinanceiraController {
     }
 
     @Operation(summary = "Deletar conta financeira",
-            description = "Remove permanentemente a conta identificada pela chave composta (id_contas + contas_code).")
+            description = "Remove permanentemente a conta identificada pela chave composta (`id_contas` + `contas_code`). " +
+                    "O banco vinculado não é afetado.")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Conta removida com sucesso"),
             @ApiResponse(responseCode = "404", description = "Conta não encontrada")
