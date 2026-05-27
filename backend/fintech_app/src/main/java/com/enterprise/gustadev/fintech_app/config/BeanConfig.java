@@ -1,5 +1,9 @@
 package com.enterprise.gustadev.fintech_app.config;
 
+import com.enterprise.gustadev.fintech_app.application.banco.usecase.BuscarBancoUseCase;
+import com.enterprise.gustadev.fintech_app.application.banco.usecase.CriarBancoUseCase;
+import com.enterprise.gustadev.fintech_app.application.banco.usecase.DeletarBancoUseCase;
+import com.enterprise.gustadev.fintech_app.application.banco.usecase.ListarBancosUseCase;
 import com.enterprise.gustadev.fintech_app.application.categoria.usecase.BuscarCategoriaUseCase;
 import com.enterprise.gustadev.fintech_app.application.categoria.usecase.CriarCategoriaUseCase;
 import com.enterprise.gustadev.fintech_app.application.categoria.usecase.ListarCategoriasUseCase;
@@ -28,6 +32,7 @@ import com.enterprise.gustadev.fintech_app.application.usuario.usecase.BuscarUsu
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.CriarUsuarioUseCase;
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.DeletarUsuarioUseCase;
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.ListarUsuariosUseCase;
+import com.enterprise.gustadev.fintech_app.domain.banco.port.BancoRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.categoria.port.CategoriaRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.motivocancelamento.port.MotivoCancelamentoRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.transacaocancelada.port.TransacaoCanceladaRepositoryPort;
@@ -84,6 +89,27 @@ public class BeanConfig {
     @Bean
     public DeletarContaFinanceiraUseCase deletarContaFinanceiraUseCase(ContaFinanceiraRepositoryPort repository) {
         return new DeletarContaFinanceiraUseCase(repository);
+    }
+
+    // ── Banco ────────────────────────────────────────────────────────────
+    @Bean
+    public CriarBancoUseCase criarBancoUseCase(BancoRepositoryPort repository) {
+        return new CriarBancoUseCase(repository);
+    }
+
+    @Bean
+    public ListarBancosUseCase listarBancosUseCase(BancoRepositoryPort repository) {
+        return new ListarBancosUseCase(repository);
+    }
+
+    @Bean
+    public BuscarBancoUseCase buscarBancoUseCase(BancoRepositoryPort repository) {
+        return new BuscarBancoUseCase(repository);
+    }
+
+    @Bean
+    public DeletarBancoUseCase deletarBancoUseCase(BancoRepositoryPort repository) {
+        return new DeletarBancoUseCase(repository);
     }
 
     // ── Categoria ────────────────────────────────────────────────────────

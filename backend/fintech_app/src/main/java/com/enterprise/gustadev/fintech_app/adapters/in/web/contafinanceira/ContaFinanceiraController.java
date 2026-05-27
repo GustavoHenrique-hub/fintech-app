@@ -54,9 +54,10 @@ public class ContaFinanceiraController {
     @PostMapping
     public ResponseEntity<ContaFinanceiraResponseDTO> criar(@Valid @RequestBody ContaFinanceiraRequestDTO dto) {
         ContaFinanceira conta = new ContaFinanceira(
-                dto.usuarioId(), dto.nome(),
+                dto.usuarioId(),
                 TipoConta.valueOf(dto.tipo()),
-                dto.banco(), dto.saldoInicial(), dto.padrao()
+                dto.bancoId(), dto.bancoCode(),
+                dto.saldoInicial(), dto.padrao()
         );
         ContaFinanceiraResponseDTO response = ContaFinanceiraResponseDTO.fromDomain(criarUseCase.executar(conta));
         return ResponseEntity.created(URI.create("/contas/" + response.id() + "/" + response.code())).body(response);
