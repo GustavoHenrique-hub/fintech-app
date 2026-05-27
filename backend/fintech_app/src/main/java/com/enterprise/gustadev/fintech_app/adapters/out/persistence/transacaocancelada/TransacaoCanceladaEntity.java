@@ -1,9 +1,7 @@
 package com.enterprise.gustadev.fintech_app.adapters.out.persistence.transacaocancelada;
 
-import com.enterprise.gustadev.fintech_app.adapters.out.persistence.contafinanceira.ContaFinanceiraEntity;
 import com.enterprise.gustadev.fintech_app.adapters.out.persistence.motivocancelamento.MotivoCancelamentoEntity;
 import com.enterprise.gustadev.fintech_app.adapters.out.persistence.transacao.TransacaoEntity;
-import com.enterprise.gustadev.fintech_app.adapters.out.persistence.usuario.UsuarioEntity;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.CanceladoPor;
 import com.enterprise.gustadev.fintech_app.domain.transacaocancelada.model.TransacaoCancelada;
 import jakarta.persistence.Column;
@@ -44,22 +42,6 @@ public class TransacaoCanceladaEntity {
             foreignKey = @ForeignKey(name = "fk_transacoes_canceladas_transacao"))
     private TransacaoEntity transacao;
 
-    @Column(name = "usuario_id", nullable = false)
-    private Long usuarioId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id", insertable = false, updatable = false,
-            foreignKey = @ForeignKey(name = "fk_transacoes_canceladas_usuario"))
-    private UsuarioEntity usuario;
-
-    @Column(name = "conta_id", nullable = false)
-    private Long contaId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "conta_id", insertable = false, updatable = false,
-            foreignKey = @ForeignKey(name = "fk_transacoes_canceladas_conta"))
-    private ContaFinanceiraEntity conta;
-
     @Column(name = "motivo_id", nullable = false)
     private Long motivoId;
 
@@ -88,8 +70,6 @@ public class TransacaoCanceladaEntity {
         TransacaoCanceladaEntity entity = new TransacaoCanceladaEntity();
         entity.id = domain.getId();
         entity.transacaoId = domain.getTransacaoId();
-        entity.usuarioId = domain.getUsuarioId();
-        entity.contaId = domain.getContaId();
         entity.motivoId = domain.getMotivoId();
         entity.canceladoPor = domain.getCanceladoPor();
         entity.valorOriginal = domain.getValorOriginal();
@@ -100,7 +80,7 @@ public class TransacaoCanceladaEntity {
     }
 
     public TransacaoCancelada toDomain() {
-        return new TransacaoCancelada(id, transacaoId, usuarioId, contaId, motivoId,
+        return new TransacaoCancelada(id, transacaoId, motivoId,
                 canceladoPor, valorOriginal, observacao, ipOrigem, canceladoEm);
     }
 }

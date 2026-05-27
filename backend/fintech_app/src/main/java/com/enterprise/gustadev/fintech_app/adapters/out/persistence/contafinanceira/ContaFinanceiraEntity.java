@@ -1,5 +1,6 @@
 package com.enterprise.gustadev.fintech_app.adapters.out.persistence.contafinanceira;
 
+import com.enterprise.gustadev.fintech_app.adapters.out.persistence.banco.BancoEntity;
 import com.enterprise.gustadev.fintech_app.adapters.out.persistence.usuario.UsuarioEntity;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoConta;
@@ -13,6 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -44,15 +46,27 @@ public class ContaFinanceiraEntity {
             foreignKey = @ForeignKey(name = "fk_contas_financeiras_usuario"))
     private UsuarioEntity usuario;
 
-    @Column(nullable = false, length = 100)
-    private String nome;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private TipoConta tipo;
 
-    @Column(length = 100)
-    private String banco;
+    @Column(name = "banco_id", nullable = false)
+    private Long bancoId;
+
+    @Column(name = "banco_code", nullable = false, length = 6)
+    private String bancoCode;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumns(
+            value = {
+                    @JoinColumn(name = "banco_id", referencedColumnName = "banco_id",
+                            insertable = false, updatable = false),
+                    @JoinColumn(name = "banco_code", referencedColumnName = "banco_code",
+                            insertable = false, updatable = false)
+            },
+            foreignKey = @ForeignKey(name = "fk_contas_financeiras_banco")
+    )
+    private BancoEntity banco;
 
     @Column(name = "saldo_inicial", nullable = false, precision = 15, scale = 2)
     private BigDecimal saldoInicial = BigDecimal.ZERO;
@@ -74,9 +88,9 @@ public class ContaFinanceiraEntity {
         entity.id = domain.getId();
         entity.code = domain.getCode();
         entity.usuarioId = domain.getUsuarioId();
-        entity.nome = domain.getNome();
         entity.tipo = domain.getTipo();
-        entity.banco = domain.getBanco();
+        entity.bancoId = domain.getBancoId();
+        entity.bancoCode = domain.getBancoCode();
         entity.saldoInicial = domain.getSaldoInicial();
         entity.padrao = domain.isPadrao();
         entity.ativa = domain.isAtiva();
@@ -86,7 +100,7 @@ public class ContaFinanceiraEntity {
     }
 
     public ContaFinanceira toDomain() {
-        ContaFinanceira c = new ContaFinanceira(id, usuarioId, nome, tipo, banco, saldoInicial,
+        ContaFinanceira c = new ContaFinanceira(id, usuarioId, tipo, bancoId, bancoCode, saldoInicial,
                 padrao != null && padrao, ativa != null && ativa, criadoEm, atualizadoEm);
         c.setCode(code);
         return c;

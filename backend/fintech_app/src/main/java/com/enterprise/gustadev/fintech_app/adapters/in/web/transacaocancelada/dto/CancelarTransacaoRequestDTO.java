@@ -8,8 +8,6 @@ import java.math.BigDecimal;
 
 public record CancelarTransacaoRequestDTO(
         @NotNull Long transacaoId,
-        @NotNull Long usuarioId,
-        @NotNull Long contaId,
         @NotNull Long motivoId,
         @NotBlank String canceladoPor,
         @NotNull @Positive BigDecimal valorOriginal,

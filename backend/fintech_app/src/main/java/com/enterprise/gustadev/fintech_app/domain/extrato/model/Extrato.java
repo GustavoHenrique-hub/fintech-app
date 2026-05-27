@@ -18,6 +18,7 @@ public class Extrato {
     private String code;
     private Long usuarioId;
     private Long contaId;
+    private Long transacaoId;
     private String arquivoNome;
     private String arquivoUuid;
     private String hashArquivo;
@@ -35,7 +36,7 @@ public class Extrato {
     private OffsetDateTime criadoEm;
     private OffsetDateTime atualizadoEm;
 
-    public Extrato(Long id, Long usuarioId, Long contaId, String arquivoNome,
+    public Extrato(Long id, Long usuarioId, Long contaId, Long transacaoId, String arquivoNome,
                    String arquivoUuid, String hashArquivo, String bancoDetectado,
                    Long parserVersaoId, BigDecimal scoreExtracao, LocalDate periodoInicio,
                    LocalDate periodoFim, StatusExtrato status, int totalLancamentos,
@@ -44,6 +45,7 @@ public class Extrato {
         this.id = id;
         this.usuarioId = usuarioId;
         this.contaId = contaId;
+        this.transacaoId = transacaoId;
         this.arquivoNome = arquivoNome;
         this.arquivoUuid = arquivoUuid;
         this.hashArquivo = hashArquivo;
@@ -63,9 +65,9 @@ public class Extrato {
     }
 
     public Extrato(Long usuarioId, Long contaId, String arquivoNome, String arquivoUuid, String hashArquivo) {
-        this(null, usuarioId, contaId, arquivoNome, arquivoUuid, hashArquivo, null,
+        this(null, usuarioId, contaId, null, arquivoNome, arquivoUuid, hashArquivo, null,
              null, null, null, null, StatusExtrato.upload_recebido,
-             0, 0, 0, 0, 1, null, null);
+             0, 0, 0, 0, 1, OffsetDateTime.now(), null);
         this.code = CodeGenerator.gerar();
     }
 

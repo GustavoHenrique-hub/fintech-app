@@ -7,15 +7,15 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class ContaFinanceiraTest {
 
     @Test
     void validar_devePassar_quandoDadosCorretos() {
         ContaFinanceira conta = new ContaFinanceira(
-                1L, "Nubank Conta", TipoConta.corrente, "Nubank", BigDecimal.ZERO, false
+                1L, TipoConta.corrente, 10L, "BNK001", BigDecimal.ZERO, false
         );
         assertThatCode(conta::validar).doesNotThrowAnyException();
     }
@@ -23,7 +23,7 @@ class ContaFinanceiraTest {
     @Test
     void validar_deveLancarExcecao_quandoUsuarioIdNulo() {
         ContaFinanceira conta = new ContaFinanceira(
-                null, "Conta", TipoConta.corrente, null, BigDecimal.ZERO, false
+                null, TipoConta.corrente, 10L, "BNK001", BigDecimal.ZERO, false
         );
         assertThatThrownBy(conta::validar)
                 .isInstanceOf(ContaFinanceiraInvalidaException.class)
@@ -31,19 +31,9 @@ class ContaFinanceiraTest {
     }
 
     @Test
-    void validar_deveLancarExcecao_quandoNomeVazio() {
-        ContaFinanceira conta = new ContaFinanceira(
-                1L, "  ", TipoConta.corrente, null, BigDecimal.ZERO, false
-        );
-        assertThatThrownBy(conta::validar)
-                .isInstanceOf(ContaFinanceiraInvalidaException.class)
-                .hasMessageContaining("Nome");
-    }
-
-    @Test
     void validar_deveLancarExcecao_quandoTipoNulo() {
         ContaFinanceira conta = new ContaFinanceira(
-                1L, "Conta", null, null, BigDecimal.ZERO, false
+                1L, null, 10L, "BNK001", BigDecimal.ZERO, false
         );
         assertThatThrownBy(conta::validar)
                 .isInstanceOf(ContaFinanceiraInvalidaException.class)
@@ -51,9 +41,29 @@ class ContaFinanceiraTest {
     }
 
     @Test
+    void validar_deveLancarExcecao_quandoBancoIdNulo() {
+        ContaFinanceira conta = new ContaFinanceira(
+                1L, TipoConta.corrente, null, "BNK001", BigDecimal.ZERO, false
+        );
+        assertThatThrownBy(conta::validar)
+                .isInstanceOf(ContaFinanceiraInvalidaException.class)
+                .hasMessageContaining("BancoId");
+    }
+
+    @Test
+    void validar_deveLancarExcecao_quandoBancoCodeVazio() {
+        ContaFinanceira conta = new ContaFinanceira(
+                1L, TipoConta.corrente, 10L, "  ", BigDecimal.ZERO, false
+        );
+        assertThatThrownBy(conta::validar)
+                .isInstanceOf(ContaFinanceiraInvalidaException.class)
+                .hasMessageContaining("BancoCode");
+    }
+
+    @Test
     void validar_deveLancarExcecao_quandoSaldoInicialNulo() {
         ContaFinanceira conta = new ContaFinanceira(
-                1L, "Conta", TipoConta.corrente, null, null, false
+                1L, TipoConta.corrente, 10L, "BNK001", null, false
         );
         assertThatThrownBy(conta::validar)
                 .isInstanceOf(ContaFinanceiraInvalidaException.class)

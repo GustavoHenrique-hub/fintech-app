@@ -10,6 +10,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 
 import Index from "./pages/Index.jsx";
 import NotFound from "./pages/NotFound.jsx";
+import ComponentsShowcase from "./pages/ComponentsShowcase.jsx";
 
 // Uma única instância do QueryClient é criada fora do componente
 // para que ela não seja recriada a cada render — caso contrário o cache do
@@ -27,6 +28,8 @@ const App = () => (
         <Routes>
           {/* Rota principal: renderiza a tela mobile da aplicação. */}
           <Route path="/" element={<Index />} />
+          {/* Showcase dos componentes do design system. */}
+          <Route path="/components" element={<ComponentsShowcase />} />
           {/* IMPORTANTE: rotas customizadas devem ficar ACIMA do catch-all "*". */}
           <Route path="*" element={<NotFound />} />
         </Routes>

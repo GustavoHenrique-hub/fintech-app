@@ -58,13 +58,10 @@ public class TransacaoController {
                 dto.usuarioId(), dto.contaId(),
                 TipoTransacao.valueOf(dto.tipo()),
                 dto.valor(), dto.dataTransacao(),
+                dto.categoriaId(),
                 OrigemTransacao.valueOf(dto.origem())
         );
-        transacao.setExtratoId(dto.extratoId());
-        transacao.setDescricaoOriginal(dto.descricaoOriginal());
-        transacao.setDescricaoUsuario(dto.descricaoUsuario());
-        transacao.setCategoriaId(dto.categoriaId());
-        transacao.setSubcategoria(dto.subcategoria());
+        transacao.setDescricao(dto.descricao());
         transacao.setEstabelecimento(dto.estabelecimento());
         transacao.setObservacao(dto.observacao());
         TransacaoResponseDTO response = TransacaoResponseDTO.fromDomain(criarUseCase.executar(transacao));
@@ -86,15 +83,6 @@ public class TransacaoController {
     public ResponseEntity<List<TransacaoResponseDTO>> listarPorConta(
             @Parameter(description = "ID da conta") @PathVariable Long contaId) {
         return ResponseEntity.ok(listarUseCase.executarPorConta(contaId).stream()
-                .map(TransacaoResponseDTO::fromDomain).toList());
-    }
-
-    @Operation(summary = "Listar transações por extrato", description = "Retorna todas as transações importadas de um extrato bancário específico.")
-    @ApiResponse(responseCode = "200", description = "Lista de transações retornada com sucesso")
-    @GetMapping("/extrato/{extratoId}")
-    public ResponseEntity<List<TransacaoResponseDTO>> listarPorExtrato(
-            @Parameter(description = "ID do extrato") @PathVariable Long extratoId) {
-        return ResponseEntity.ok(listarUseCase.executarPorExtrato(extratoId).stream()
                 .map(TransacaoResponseDTO::fromDomain).toList());
     }
 

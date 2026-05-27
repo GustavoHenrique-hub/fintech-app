@@ -14,8 +14,6 @@ public class TransacaoCancelada {
 
     private Long id;
     private Long transacaoId;
-    private Long usuarioId;
-    private Long contaId;
     private Long motivoId;
     private CanceladoPor canceladoPor;
     private BigDecimal valorOriginal;
@@ -23,13 +21,11 @@ public class TransacaoCancelada {
     private String ipOrigem;
     private OffsetDateTime canceladoEm;
 
-    public TransacaoCancelada(Long id, Long transacaoId, Long usuarioId, Long contaId,
-                               Long motivoId, CanceladoPor canceladoPor, BigDecimal valorOriginal,
+    public TransacaoCancelada(Long id, Long transacaoId, Long motivoId,
+                               CanceladoPor canceladoPor, BigDecimal valorOriginal,
                                String observacao, String ipOrigem, OffsetDateTime canceladoEm) {
         this.id = id;
         this.transacaoId = transacaoId;
-        this.usuarioId = usuarioId;
-        this.contaId = contaId;
         this.motivoId = motivoId;
         this.canceladoPor = canceladoPor;
         this.valorOriginal = valorOriginal;
@@ -38,22 +34,14 @@ public class TransacaoCancelada {
         this.canceladoEm = canceladoEm;
     }
 
-    public TransacaoCancelada(Long transacaoId, Long usuarioId, Long contaId,
-                               Long motivoId, CanceladoPor canceladoPor, BigDecimal valorOriginal,
-                               String observacao, String ipOrigem) {
-        this(null, transacaoId, usuarioId, contaId, motivoId, canceladoPor,
-                valorOriginal, observacao, ipOrigem, null);
+    public TransacaoCancelada(Long transacaoId, Long motivoId, CanceladoPor canceladoPor,
+                               BigDecimal valorOriginal, String observacao, String ipOrigem) {
+        this(null, transacaoId, motivoId, canceladoPor, valorOriginal, observacao, ipOrigem, null);
     }
 
     public void validar() {
         if (transacaoId == null) {
             throw new TransacaoCanceladaInvalidaException("transacaoId é obrigatório");
-        }
-        if (usuarioId == null) {
-            throw new TransacaoCanceladaInvalidaException("usuarioId é obrigatório");
-        }
-        if (contaId == null) {
-            throw new TransacaoCanceladaInvalidaException("contaId é obrigatório");
         }
         if (motivoId == null) {
             throw new TransacaoCanceladaInvalidaException("motivoId é obrigatório");

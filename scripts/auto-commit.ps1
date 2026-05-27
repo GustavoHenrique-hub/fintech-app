@@ -2,7 +2,7 @@ param(
     [string]$Source = "manual"
 )
 
-$REPO   = "C:\Users\gusta\OneDrive\Documentos\FACULDADE\Fintech APP\fintech-app"
+$REPO   = "C:\Users\02.2025\Documents\Codar\fintech-app"
 $REMOTE = "origin"
 $TARGET = "dev"
 $BASE   = "main"

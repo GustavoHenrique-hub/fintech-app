@@ -38,7 +38,7 @@ public class ConsentimentoLgpd {
 
     public ConsentimentoLgpd(Long usuarioId, TipoConsentimentoLgpd tipo,
                               String versaoPolitica, boolean consentido, String ipOrigem) {
-        this(null, usuarioId, tipo, versaoPolitica, consentido, ipOrigem, null, null, null);
+        this(null, usuarioId, tipo, versaoPolitica, consentido, ipOrigem, OffsetDateTime.now(), null, null);
     }
 
     public void validar() {

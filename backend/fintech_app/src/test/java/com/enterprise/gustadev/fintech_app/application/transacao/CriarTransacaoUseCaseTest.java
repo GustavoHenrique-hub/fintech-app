@@ -2,6 +2,7 @@ package com.enterprise.gustadev.fintech_app.application.transacao;
 
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.CriarTransacaoUseCase;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;
+import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusRevisaoTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoTransacao;
 import com.enterprise.gustadev.fintech_app.domain.transacao.exception.TransacaoInvalidaException;
 import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;
@@ -37,12 +38,12 @@ class CriarTransacaoUseCaseTest {
         Long contaId = 1L;
         Transacao transacao = new Transacao(
                 usuarioId, contaId, TipoTransacao.GASTO,
-                new BigDecimal("150.00"), LocalDate.now(), OrigemTransacao.manual
+                new BigDecimal("150.00"), LocalDate.now(), 1L, OrigemTransacao.manual
         );
-        Transacao salva = new Transacao(1L, usuarioId, contaId, null, null,
-                TipoTransacao.GASTO, null, null, null, new BigDecimal("150.00"),
-                LocalDate.now(), null, null, null, null, OrigemTransacao.manual,
-                null, null, false, null, null, null, 1, null, null);
+        Transacao salva = new Transacao(1L, usuarioId, contaId, "N",
+                TipoTransacao.GASTO, null, new BigDecimal("150.00"),
+                LocalDate.now(), 1L, null, OrigemTransacao.manual,
+                StatusRevisaoTransacao.EXTRAIDA, null, false, null, null, null, 1, null, null);
         when(repository.salvar(any())).thenReturn(salva);
 
         Transacao resultado = useCase.executar(transacao);
@@ -56,7 +57,7 @@ class CriarTransacaoUseCaseTest {
     void executar_naoDeveSalvar_quandoValorInvalido() {
         Transacao transacaoInvalida = new Transacao(
                 1L, 1L, TipoTransacao.GASTO,
-                BigDecimal.ZERO, LocalDate.now(), OrigemTransacao.manual
+                BigDecimal.ZERO, LocalDate.now(), 1L, OrigemTransacao.manual
         );
 
         assertThatThrownBy(() -> useCase.executar(transacaoInvalida))

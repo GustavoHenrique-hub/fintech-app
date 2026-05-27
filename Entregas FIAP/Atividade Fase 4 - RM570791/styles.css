@@ -1,0 +1,149 @@
+/* =============================================================================
+ * styles.css — FinSight (Home / Visão Geral)
+ *
+ * Cobre dois propósitos:
+ *   1. Define os tokens do design system como variáveis CSS (cores HSL).
+ *      O Tailwind (via CDN, configurado no index.html) lê esses tokens para
+ *      gerar utilitários como bg-primary, text-success, bg-surface-purple, etc.
+ *   2. Define as utility classes customizadas que não estão no Tailwind:
+ *      .card-soft, .no-scrollbar, .section-label, .row-press, e os estados
+ *      "ativos" da SideNav, BottomNav e do segmented control de período.
+ *
+ * Estilização principal: Tailwind CSS (via CDN). Este arquivo complementa.
+ * ========================================================================== */
+
+/* ── Design tokens (cores em HSL, sem o wrapper `hsl()`) ────────────────── */
+:root {
+  --background: 0 0% 98%;
+  --foreground: 240 6% 10%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 240 6% 10%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 6% 10%;
+
+  --primary: 250 75% 63%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 240 5% 96%;
+  --secondary-foreground: 240 6% 10%;
+
+  --muted: 240 5% 96%;
+  --muted-foreground: 240 4% 42%;
+
+  --accent: 48 86% 70%;
+  --accent-foreground: 240 6% 10%;
+
+  --destructive: 6 78% 57%;
+  --destructive-foreground: 0 0% 100%;
+
+  --success: 145 63% 49%;
+  --success-foreground: 0 0% 100%;
+
+  --info: 211 100% 50%;
+
+  --border: 240 6% 92%;
+  --input: 240 6% 92%;
+  --ring: 250 75% 63%;
+
+  --radius: 1rem;
+
+  /* Soft pastel surfaces (chips e pílulas de categoria). */
+  --surface-yellow: 48 86% 88%;
+  --surface-purple: 250 75% 94%;
+  --surface-pink: 6 78% 94%;
+  --surface-green: 145 63% 92%;
+
+  /* Shadows tokenizadas. */
+  --shadow-card: 0 1px 2px hsl(240 6% 10% / 0.04), 0 4px 16px hsl(240 6% 10% / 0.04);
+  --shadow-soft: 0 1px 3px hsl(240 6% 10% / 0.06);
+}
+
+/* ── Base ──────────────────────────────────────────────────────────────── */
+* {
+  border-color: hsl(var(--border));
+}
+
+html {
+  height: -webkit-fill-available;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-feature-settings: "cv11", "ss01";
+  /* Evita pull-to-refresh acidental no Chrome Android quando rolando o topo. */
+  overscroll-behavior-y: none;
+}
+
+/* ── Utility classes customizadas ──────────────────────────────────────── */
+.card-soft {
+  background-color: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 1rem;
+  box-shadow: var(--shadow-card);
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: hsl(var(--muted-foreground));
+}
+
+.row-press {
+  transition: background-color 150ms, transform 150ms;
+}
+.row-press:hover {
+  background-color: hsl(var(--secondary) / 0.6);
+}
+.row-press:active {
+  transform: scale(0.985);
+}
+
+/* ── SideNav (desktop): estado ativo do item ───────────────────────────── */
+.nav-item {
+  color: hsl(var(--muted-foreground));
+}
+.nav-item:hover {
+  background-color: hsl(var(--secondary));
+  color: hsl(var(--foreground));
+}
+.nav-item.is-active {
+  background-color: hsl(var(--primary) / 0.12);
+  color: hsl(var(--primary));
+}
+.nav-item.is-active svg {
+  stroke-width: 2.5;
+}
+
+/* ── BottomNav (mobile): estado ativo do item ──────────────────────────── */
+.bottom-item .pill { background-color: transparent; }
+.bottom-item .label,
+.bottom-item svg { color: hsl(var(--muted-foreground)); }
+
+.bottom-item.is-active .pill { background-color: hsl(var(--primary) / 0.15); }
+.bottom-item.is-active .label,
+.bottom-item.is-active svg { color: hsl(var(--primary)); stroke-width: 2.5; }
+
+/* ── Range segmented control (Semana / Mês / Ano) ──────────────────────── */
+.range-btn {
+  color: hsl(var(--muted-foreground));
+}
+.range-btn.is-active {
+  background-color: hsl(var(--card));
+  color: hsl(var(--foreground));
+  box-shadow: var(--shadow-soft);
+}
+
+/* ── Breakpoint utilitário "xs" usado em alguns elementos do TopBar ────── */
+@media (min-width: 480px) {
+  .xs\:inline-flex { display: inline-flex !important; }
+}

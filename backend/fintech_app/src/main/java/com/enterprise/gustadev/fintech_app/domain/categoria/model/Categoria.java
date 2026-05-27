@@ -33,7 +33,7 @@ public class Categoria {
     }
 
     public Categoria(String nome, TipoCategoria tipo, String icone, String corHex) {
-        this(null, nome, tipo, icone, corHex, false, null);
+        this(null, nome, tipo, icone, corHex, false, OffsetDateTime.now());
         this.code = CodeGenerator.gerar();
     }
 

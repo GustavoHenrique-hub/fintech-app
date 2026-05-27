@@ -19,7 +19,7 @@ class TransacaoTest {
         Transacao transacao = new Transacao(
                 1L, 1L,
                 TipoTransacao.GASTO, new BigDecimal("50.00"),
-                LocalDate.now(), OrigemTransacao.manual
+                LocalDate.now(), 1L, OrigemTransacao.manual
         );
         assertThatCode(transacao::validar).doesNotThrowAnyException();
     }
@@ -29,7 +29,7 @@ class TransacaoTest {
         Transacao transacao = new Transacao(
                 null, 1L,
                 TipoTransacao.GASTO, new BigDecimal("50.00"),
-                LocalDate.now(), OrigemTransacao.manual
+                LocalDate.now(), 1L, OrigemTransacao.manual
         );
         assertThatThrownBy(transacao::validar)
                 .isInstanceOf(TransacaoInvalidaException.class)
@@ -41,7 +41,7 @@ class TransacaoTest {
         Transacao transacao = new Transacao(
                 1L, 1L,
                 TipoTransacao.GASTO, BigDecimal.ZERO,
-                LocalDate.now(), OrigemTransacao.manual
+                LocalDate.now(), 1L, OrigemTransacao.manual
         );
         assertThatThrownBy(transacao::validar)
                 .isInstanceOf(TransacaoInvalidaException.class)
@@ -53,7 +53,7 @@ class TransacaoTest {
         Transacao transacao = new Transacao(
                 1L, 1L,
                 TipoTransacao.GASTO, new BigDecimal("-10.00"),
-                LocalDate.now(), OrigemTransacao.manual
+                LocalDate.now(), 1L, OrigemTransacao.manual
         );
         assertThatThrownBy(transacao::validar)
                 .isInstanceOf(TransacaoInvalidaException.class)
@@ -65,7 +65,7 @@ class TransacaoTest {
         Transacao transacao = new Transacao(
                 1L, 1L,
                 TipoTransacao.RECEITA, new BigDecimal("100.00"),
-                null, OrigemTransacao.manual
+                null, 1L, OrigemTransacao.manual
         );
         assertThatThrownBy(transacao::validar)
                 .isInstanceOf(TransacaoInvalidaException.class)
@@ -77,7 +77,7 @@ class TransacaoTest {
         Transacao transacao = new Transacao(
                 1L, 1L,
                 TipoTransacao.RECEITA, new BigDecimal("100.00"),
-                LocalDate.now(), null
+                LocalDate.now(), 1L, null
         );
         assertThatThrownBy(transacao::validar)
                 .isInstanceOf(TransacaoInvalidaException.class)

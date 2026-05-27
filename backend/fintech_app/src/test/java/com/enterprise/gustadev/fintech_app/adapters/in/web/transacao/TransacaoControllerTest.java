@@ -58,11 +58,10 @@ class TransacaoControllerTest {
     }
 
     private Transacao transacaoCompleta(Long id, Long usuarioId, Long contaId) {
-        return new Transacao(id, usuarioId, contaId, null, null,
-                TipoTransacao.GASTO, null, null, null,
-                new BigDecimal("150.00"), LocalDate.now(), null,
-                null, null, null, OrigemTransacao.manual,
-                StatusRevisaoTransacao.extraida, null, false,
+        return new Transacao(id, usuarioId, contaId, "N",
+                TipoTransacao.GASTO, null, new BigDecimal("150.00"),
+                LocalDate.now(), 1L, null, OrigemTransacao.manual,
+                StatusRevisaoTransacao.EXTRAIDA, null, false,
                 null, null, null, 1, null, null);
     }
 
@@ -83,6 +82,7 @@ class TransacaoControllerTest {
                                   "tipo": "GASTO",
                                   "valor": 150.00,
                                   "dataTransacao": "%s",
+                                  "categoriaId": 1,
                                   "origem": "manual"
                                 }
                                 """.formatted(usuarioId, contaId, LocalDate.now())))

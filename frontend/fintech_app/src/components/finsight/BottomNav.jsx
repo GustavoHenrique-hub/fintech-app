@@ -16,7 +16,10 @@ const items = [
 
 export const BottomNav = ({ active, onChange, onAdd }) => {
   return (
-    <nav className="relative border-t border-border/70 bg-card/95 backdrop-blur-md px-2 pt-2 pb-3">
+    <nav
+      className="lg:hidden sticky bottom-0 z-30 border-t border-border/70 bg-card/95 backdrop-blur-md px-2 pt-2"
+      style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 0.75rem)" }}
+    >
       {/* Botão "+" central — posicionado por cima da barra usando absolute. */}
       {onAdd && (
         <button

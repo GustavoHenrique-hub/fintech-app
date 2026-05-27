@@ -1,77 +1,109 @@
-// TransactionsScreen: lista de transações agrupadas por dia.
-// Recursos:
-//  - Header sticky (busca + chips de filtro permanecem fixos durante o scroll)
-//  - Busca por texto (filtra pelo nome)
-//  - Filtro por tipo (All / Income / Expenses / Subscriptions)
-//  - Grupos colapsam automaticamente quando ficam vazios após filtrar
-import { useState } from "react";
+// TransactionsScreen: lista de transações vindas do backend, agrupadas por dia.
+//
+// Onde plugar com o backend:
+//   - GET /transacoes/usuario/{id}  → TransacaoResponseDTO[]
+//   - GET /categorias               → CategoriaResponseDTO[]  (para o mapa de ícones/nomes)
+//
+// Features na tela:
+//   - Busca por descrição/estabelecimento (case+acento insensitive)
+//   - Filtros por tipo (Todas, Receitas, Gastos, Recorrentes)
+//   - Status de revisão visível com StatusBadge
+//   - Confiança da IA com ConfidenceBar quando pendente de revisão
+//   - EmptyState quando filtros não casam
+import { useState, useMemo } from "react";
+import { SlidersHorizontal, Search, ChevronDown, Inbox, X } from "lucide-react";
+
+import { transacoes, categoriasPorId } from "@/mocks";
 import {
-  ShoppingCart, Briefcase, Wifi, Coffee, Car, Zap,
-  SlidersHorizontal, Search, ChevronDown,
-} from "lucide-react";
+  formatBRL, formatBRLSigned, formatDataRelativa, formatHora,
+} from "@/lib/format";
+import { getIconeCategoria } from "@/lib/categoria-icones";
+import { Button } from "@/components/ui/button";
+import { StatusBadge } from "@/components/ui/status-badge";
+import { ConfidenceBar } from "@/components/ui/confidence-bar";
+import { EmptyState } from "@/components/ui/empty-state";
 
-const filters = ["All", "Income", "Expenses", "Subscriptions"];
-
-// Dados mockados: cada grupo representa uma janela temporal (Hoje, Ontem, etc.).
-const txns = [
-  {
-    group: "Today · Apr 24",
-    items: [
-      { icon: Coffee, name: "Blue Bottle Coffee", category: "Dining",    date: "8:42 AM",  amount: -6.5,  bg: "bg-surface-pink",   color: "text-destructive", type: "expense" },
-      { icon: ShoppingCart, name: "Green Market", category: "Groceries", date: "11:20 AM", amount: -48.2, bg: "bg-surface-purple", color: "text-primary",     type: "expense" },
-    ],
-  },
-  {
-    group: "Yesterday · Apr 23",
-    items: [
-      { icon: Briefcase, name: "Acme Corp", category: "Salary",    date: "9:00 AM", amount: 3200.0, bg: "bg-surface-green",  color: "text-success",     type: "income" },
-      { icon: Car,       name: "Uber",      category: "Transport", date: "6:15 PM", amount: -14.3,  bg: "bg-surface-yellow", color: "text-foreground",  type: "expense" },
-    ],
-  },
-  {
-    group: "Earlier this week",
-    items: [
-      { icon: Wifi, name: "Streamly",  category: "Subscription", date: "Apr 18", amount: -12.99, bg: "bg-surface-purple", color: "text-primary",     type: "subscription" },
-      { icon: Zap,  name: "Power Co.", category: "Utilities",    date: "Apr 17", amount: -84.4,  bg: "bg-surface-pink",   color: "text-destructive", type: "expense" },
-    ],
-  },
+// Os 4 filtros disponíveis. `tipo` mapeia para o atributo do DTO.
+const filtros = [
+  { key: "todas",       label: "Todas" },
+  { key: "receitas",    label: "Receitas" },
+  { key: "gastos",      label: "Gastos" },
+  { key: "recorrentes", label: "Recorrentes" },
 ];
 
+// Remove acentos pra busca tolerante.
+function normalize(s) {
+  return (s ?? "")
+    .toString()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "");
+}
+
 export const TransactionsScreen = () => {
-  const [active, setActive] = useState("All");
+  const [filtroAtivo, setFiltroAtivo] = useState("todas");
   const [query, setQuery] = useState("");
 
-  // Predicado de filtragem aplicado a cada item.
-  const filterFn = (t) => {
-    // Busca por nome (case-insensitive).
-    if (query && !t.name.toLowerCase().includes(query.toLowerCase())) return false;
-    if (active === "All") return true;
-    if (active === "Income") return t.type === "income";
-    if (active === "Expenses") return t.type === "expense";
-    if (active === "Subscriptions") return t.type === "subscription";
-    return true;
+  // Aplica filtros + busca. useMemo para evitar recalcular toda render.
+  const transacoesFiltradas = useMemo(() => {
+    const q = normalize(query);
+    return transacoes.filter((t) => {
+      // Filtro de tipo
+      if (filtroAtivo === "receitas" && t.tipo !== "RECEITA") return false;
+      if (filtroAtivo === "gastos" && t.tipo !== "GASTO") return false;
+      if (filtroAtivo === "recorrentes" && !t.recorrente) return false;
+
+      // Busca textual
+      if (!q) return true;
+      const haystack = [t.descricaoUsuario, t.descricaoNormalizada, t.estabelecimento]
+        .filter(Boolean)
+        .map(normalize)
+        .join(" ");
+      return haystack.includes(q);
+    });
+  }, [filtroAtivo, query]);
+
+  // Agrupa por dataTransacao (LocalDate). Map preserva ordem de inserção.
+  const grupos = useMemo(() => {
+    const ordenadas = [...transacoesFiltradas].sort((a, b) =>
+      a.dataTransacao < b.dataTransacao ? 1 : -1,
+    );
+    const map = new Map();
+    for (const t of ordenadas) {
+      const key = t.dataTransacao;
+      if (!map.has(key)) map.set(key, []);
+      map.get(key).push(t);
+    }
+    return Array.from(map.entries());
+  }, [transacoesFiltradas]);
+
+  const semResultados = grupos.length === 0;
+  const algumFiltroAtivo = filtroAtivo !== "todas" || query.length > 0;
+
+  const limparFiltros = () => {
+    setFiltroAtivo("todas");
+    setQuery("");
   };
 
-  // Mostra um pontinho no botão "Filter" quando há filtro ativo.
-  const activeFilters = active !== "All" || query;
-
   return (
-    <div className="flex-1 overflow-y-auto pb-6 no-scrollbar">
-      {/* ── Header sticky ───────────────────────────────────────────── */}
-      <div className="sticky top-0 z-10 bg-background/95 backdrop-blur border-b border-border px-4 pt-4 pb-3">
+    <div className="flex-1 min-h-0 overflow-y-auto pb-6 lg:pb-10 no-scrollbar">
+      {/* Header sticky */}
+      <div className="sticky top-0 z-10 bg-background/95 backdrop-blur border-b border-border px-4 sm:px-5 lg:px-8 pt-4 lg:pt-8 pb-3 lg:pb-5">
+       <div className="max-w-5xl mx-auto w-full">
         <div className="flex items-start justify-between">
           <div>
-            <h1 className="text-[20px] font-extrabold tracking-tight text-foreground">Transactions</h1>
-            <p className="text-[11.5px] text-muted-foreground mt-0.5">42 items · Last 30 days</p>
+            <h1 className="text-[20px] lg:text-[28px] font-extrabold tracking-tight text-foreground">Transações</h1>
+            <p className="text-[11.5px] lg:text-[13px] text-muted-foreground mt-0.5">
+              {transacoesFiltradas.length} {transacoesFiltradas.length === 1 ? "item" : "itens"} · Últimos 30 dias
+            </p>
           </div>
-          <button className="flex items-center gap-1 px-2.5 py-1.5 rounded-full border border-border text-[11.5px] font-semibold bg-card hover:bg-secondary transition-colors">
-            <SlidersHorizontal className="w-3 h-3" strokeWidth={2.5} />
-            Filter
-            {activeFilters && <span className="w-1.5 h-1.5 bg-primary rounded-full" />}
-          </button>
+          <Button variant="secondary" size="sm" leftIcon={SlidersHorizontal}>
+            Filtros
+            {algumFiltroAtivo && <span className="w-1.5 h-1.5 bg-primary rounded-full" />}
+          </Button>
         </div>
 
-        {/* Campo de busca controlado pelo state `query`. */}
+        {/* Campo de busca */}
         <div className="relative mt-3">
           <Search
             className="w-3.5 h-3.5 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2"
@@ -80,81 +112,134 @@ export const TransactionsScreen = () => {
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search transactions..."
-            className="w-full bg-secondary rounded-full pl-8 pr-3 py-2 text-[12.5px] outline-none placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/30 transition-all"
+            placeholder="Buscar transações..."
+            className="w-full bg-secondary rounded-full pl-8 pr-8 py-2 text-[12.5px] outline-none placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/30 transition-all"
           />
+          {query && (
+            <button
+              onClick={() => setQuery("")}
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+              aria-label="Limpar busca"
+            >
+              <X className="w-3.5 h-3.5" strokeWidth={2.25} />
+            </button>
+          )}
         </div>
 
-        {/* Chips de filtro. `overflow-x-auto` permite scroll lateral em telas estreitas. */}
+        {/* Chips de filtro */}
         <div className="flex gap-1.5 mt-3 overflow-x-auto no-scrollbar -mx-4 px-4">
-          {filters.map((f) => (
+          {filtros.map((f) => (
             <button
-              key={f}
-              onClick={() => setActive(f)}
+              key={f.key}
+              onClick={() => setFiltroAtivo(f.key)}
               className={`px-3 py-1 rounded-full text-[11.5px] font-semibold whitespace-nowrap border transition-all active:scale-95 ${
-                active === f
+                filtroAtivo === f.key
                   ? "bg-primary border-transparent text-primary-foreground shadow-sm shadow-primary/20"
                   : "bg-card border-border text-foreground hover:bg-secondary"
               }`}
             >
-              {f}
+              {f.label}
             </button>
           ))}
         </div>
+       </div>
       </div>
 
-      {/* ── Lista agrupada ──────────────────────────────────────────── */}
-      <div className="px-4 mt-3 space-y-4">
-        {txns.map(({ group, items }) => {
-          const filtered = items.filter(filterFn);
-          // Esconde o grupo inteiro quando nada passa pelo filtro.
-          if (!filtered.length) return null;
-          return (
-            <div key={group}>
-              <p className="section-label mb-1.5">{group}</p>
+      {/* Lista agrupada (ou EmptyState quando vazio) */}
+      <div className="px-4 sm:px-5 lg:px-8 mt-3 lg:mt-5">
+       <div className="max-w-5xl mx-auto w-full space-y-4 lg:space-y-5">
+        {semResultados ? (
+          <EmptyState
+            icon={Inbox}
+            title={algumFiltroAtivo ? "Nenhuma transação encontrada" : "Nenhuma transação ainda"}
+            description={
+              algumFiltroAtivo
+                ? "Tente ajustar os filtros ou limpar a busca."
+                : "Importe um extrato ou crie uma transação manualmente."
+            }
+            action={
+              algumFiltroAtivo ? (
+                <Button variant="secondary" onClick={limparFiltros}>Limpar filtros</Button>
+              ) : (
+                <Button>Nova transação</Button>
+              )
+            }
+          />
+        ) : (
+          grupos.map(([data, items]) => (
+            <div key={data}>
+              <p className="section-label mb-1.5">{formatDataRelativa(data)}</p>
               <div className="card-soft divide-y divide-border">
-                {filtered.map((t, i) => {
-                  const Icon = t.icon;
-                  const positive = t.amount > 0;
+                {items.map((t) => {
+                  const categoria = categoriasPorId[t.categoriaId];
+                  const Icone = getIconeCategoria(categoria?.icone);
+                  const positivo = t.tipo === "RECEITA";
+                  // Mostra ConfidenceBar quando a IA classificou mas a transação
+                  // ainda não foi revisada manualmente.
+                  const mostrarConfianca =
+                    t.statusRevisao === "PENDENTE_REVISAO" ||
+                    t.statusRevisao === "CLASSIFICADA" ||
+                    t.statusRevisao === "EXTRAIDA";
+
                   return (
                     <button
-                      key={i}
-                      className="w-full flex items-center gap-3 px-3.5 py-3 text-left row-press"
+                      key={t.id}
+                      className="w-full flex flex-col gap-2 px-3.5 py-3 text-left row-press"
                     >
-                      <div className={`w-10 h-10 rounded-full ${t.bg} flex items-center justify-center shrink-0`}>
-                        <Icon className={`w-[17px] h-[17px] ${t.color}`} strokeWidth={2.25} />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="font-semibold text-[13.5px] text-foreground truncate leading-tight">
-                          {t.name}
-                        </p>
-                        <p className="text-[11px] text-muted-foreground mt-0.5">
-                          {t.category} · {t.date}
-                        </p>
-                      </div>
-                      <div className="text-right">
-                        <p
-                          className={`text-[13.5px] font-extrabold tabular-nums ${
-                            positive ? "text-success" : "text-foreground"
-                          }`}
+                      <div className="flex items-center gap-3">
+                        <div
+                          className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
+                          style={{ backgroundColor: `${categoria?.corHex ?? "#94a3b8"}22` }}
                         >
-                          {/* Sinal "+" para crédito, "−" (traço longo) para débito. */}
-                          {positive ? "+" : "−"}${Math.abs(t.amount).toFixed(2)}
-                        </p>
-                        <p className="text-[10px] text-muted-foreground mt-0.5">USD</p>
+                          <Icone
+                            className="w-[17px] h-[17px]"
+                            strokeWidth={2.25}
+                            style={{ color: categoria?.corHex ?? "var(--foreground)" }}
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-semibold text-[13.5px] text-foreground truncate leading-tight">
+                            {t.descricaoUsuario ?? t.estabelecimento ?? t.descricaoNormalizada}
+                          </p>
+                          <p className="text-[11px] text-muted-foreground mt-0.5 truncate">
+                            {categoria?.nome ?? "Sem categoria"} · {formatHora(t.criadoEm)}
+                            {t.recorrente && " · Recorrente"}
+                          </p>
+                        </div>
+                        <div className="text-right shrink-0">
+                          <p className={`text-[13.5px] font-extrabold tabular-nums ${positivo ? "text-success" : "text-foreground"}`}>
+                            {formatBRLSigned(positivo ? t.valor : -t.valor)}
+                          </p>
+                          <p className="text-[10px] text-muted-foreground mt-0.5">BRL</p>
+                        </div>
+                      </div>
+
+                      {/* Linha inferior: status + confiança quando relevante. */}
+                      <div className="flex items-center gap-2 pl-[52px]">
+                        <StatusBadge kind="revisao" value={t.statusRevisao} />
+                        {mostrarConfianca && (
+                          <div className="flex-1 max-w-[140px]">
+                            <ConfidenceBar
+                              value={t.confiancaIa}
+                              showQualitative={false}
+                            />
+                          </div>
+                        )}
                       </div>
                     </button>
                   );
                 })}
               </div>
             </div>
-          );
-        })}
+          ))
+        )}
 
-        {/* Botão "Carregar mais" — visual apenas (não está paginando ainda). */}
-        <button className="w-full py-2.5 mt-2 rounded-xl border border-border bg-card text-[12.5px] font-semibold text-muted-foreground hover:bg-secondary transition-colors flex items-center justify-center gap-1">
-          Load more <ChevronDown className="w-3.5 h-3.5" strokeWidth={2.5} />
-        </button>
+        {!semResultados && (
+          <Button variant="secondary" className="w-full" rightIcon={ChevronDown}>
+            Carregar mais
+          </Button>
+        )}
+       </div>
       </div>
     </div>
   );

@@ -28,7 +28,7 @@ class CriarCategoriaUseCaseTest {
 
     @Test
     void executar_deveSalvarCategoria_quandoDadosValidos() {
-        Categoria categoria = new Categoria("Pets", TipoCategoria.gasto, "🐶", "#FF0000");
+        Categoria categoria = new Categoria("Pets", TipoCategoria.GASTO, "🐶", "#FF0000");
         when(repository.salvar(any())).thenReturn(categoria);
 
         useCase.executar(categoria);
@@ -38,7 +38,7 @@ class CriarCategoriaUseCaseTest {
 
     @Test
     void executar_naoDeveSalvar_quandoNomeVazio() {
-        Categoria categoriaInvalida = new Categoria("  ", TipoCategoria.gasto, null, null);
+        Categoria categoriaInvalida = new Categoria("  ", TipoCategoria.GASTO, null, null);
 
         assertThatThrownBy(() -> useCase.executar(categoriaInvalida))
                 .isInstanceOf(CategoriaInvalidaException.class);

@@ -2,7 +2,6 @@ package com.enterprise.gustadev.fintech_app.adapters.out.persistence.transacao;
 
 import com.enterprise.gustadev.fintech_app.adapters.out.persistence.categoria.CategoriaEntity;
 import com.enterprise.gustadev.fintech_app.adapters.out.persistence.contafinanceira.ContaFinanceiraEntity;
-import com.enterprise.gustadev.fintech_app.adapters.out.persistence.extrato.ExtratoEntity;
 import com.enterprise.gustadev.fintech_app.adapters.out.persistence.usuario.UsuarioEntity;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusRevisaoTransacao;
@@ -58,34 +57,15 @@ public class TransacaoEntity {
             foreignKey = @ForeignKey(name = "fk_transacoes_conta"))
     private ContaFinanceiraEntity conta;
 
-    @Column(name = "extrato_id")
-    private Long extratoId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "extrato_id", insertable = false, updatable = false,
-            foreignKey = @ForeignKey(name = "fk_transacoes_extrato"))
-    private ExtratoEntity extrato;
-
-    @Column(name = "transacao_estorno_id")
-    private Long transacaoEstornoId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "transacao_estorno_id", insertable = false, updatable = false,
-            foreignKey = @ForeignKey(name = "fk_transacoes_estorno"))
-    private TransacaoEntity transacaoEstorno;
+    @Column(name = "ind_estorno", nullable = false, length = 1)
+    private String indEstorno = "N";
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 10)
     private TipoTransacao tipo;
 
-    @Column(name = "descricao_original", columnDefinition = "TEXT")
-    private String descricaoOriginal;
-
-    @Column(name = "descricao_usuario", length = 255)
-    private String descricaoUsuario;
-
-    @Column(name = "descricao_normalizada", length = 255)
-    private String descricaoNormalizada;
+    @Column(columnDefinition = "TEXT")
+    private String descricao;
 
     @Column(nullable = false, precision = 15, scale = 2)
     private BigDecimal valor;
@@ -93,19 +73,13 @@ public class TransacaoEntity {
     @Column(name = "data_transacao", nullable = false)
     private LocalDate dataTransacao;
 
-    @Column(name = "data_lancamento", nullable = false)
-    private OffsetDateTime dataLancamento;
-
-    @Column(name = "categoria_id")
+    @Column(name = "categoria_id", nullable = false)
     private Long categoriaId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoria_id", insertable = false, updatable = false,
             foreignKey = @ForeignKey(name = "fk_transacoes_categoria"))
     private CategoriaEntity categoria;
-
-    @Column(length = 100)
-    private String subcategoria;
 
     @Column(length = 255)
     private String estabelecimento;
@@ -116,7 +90,7 @@ public class TransacaoEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status_revisao", nullable = false, length = 30)
-    private StatusRevisaoTransacao statusRevisao = StatusRevisaoTransacao.extraida;
+    private StatusRevisaoTransacao statusRevisao = StatusRevisaoTransacao.EXTRAIDA;
 
     @Column(name = "confianca_ia")
     private Short confiancaIa;
@@ -124,8 +98,8 @@ public class TransacaoEntity {
     @Column
     private boolean recorrente = false;
 
-    @Column(name = "periodo_recorrencia", length = 20)
-    private String periodoRecorrencia;
+    @Column(name = "periodo_recorrencia")
+    private LocalDate periodoRecorrencia;
 
     @Column(columnDefinition = "TEXT")
     private String observacao;
@@ -148,17 +122,12 @@ public class TransacaoEntity {
         entity.code = domain.getCode();
         entity.usuarioId = domain.getUsuarioId();
         entity.contaId = domain.getContaId();
-        entity.extratoId = domain.getExtratoId();
-        entity.transacaoEstornoId = domain.getTransacaoEstornoId();
+        entity.indEstorno = domain.getIndEstorno();
         entity.tipo = domain.getTipo();
-        entity.descricaoOriginal = domain.getDescricaoOriginal();
-        entity.descricaoUsuario = domain.getDescricaoUsuario();
-        entity.descricaoNormalizada = domain.getDescricaoNormalizada();
+        entity.descricao = domain.getDescricao();
         entity.valor = domain.getValor();
         entity.dataTransacao = domain.getDataTransacao();
-        entity.dataLancamento = domain.getDataLancamento();
         entity.categoriaId = domain.getCategoriaId();
-        entity.subcategoria = domain.getSubcategoria();
         entity.estabelecimento = domain.getEstabelecimento();
         entity.origem = domain.getOrigem();
         entity.statusRevisao = domain.getStatusRevisao();
@@ -174,9 +143,8 @@ public class TransacaoEntity {
     }
 
     public Transacao toDomain() {
-        Transacao t = new Transacao(id, usuarioId, contaId, extratoId, transacaoEstornoId, tipo,
-                descricaoOriginal, descricaoUsuario, descricaoNormalizada, valor,
-                dataTransacao, dataLancamento, categoriaId, subcategoria, estabelecimento,
+        Transacao t = new Transacao(id, usuarioId, contaId, indEstorno, tipo,
+                descricao, valor, dataTransacao, categoriaId, estabelecimento,
                 origem, statusRevisao, confiancaIa, recorrente, periodoRecorrencia,
                 observacao, deletedAt, versao, criadoEm, atualizadoEm);
         t.setCode(code);

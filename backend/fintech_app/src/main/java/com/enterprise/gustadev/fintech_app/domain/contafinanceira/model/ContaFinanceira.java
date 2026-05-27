@@ -16,23 +16,23 @@ public class ContaFinanceira {
     private Long id;
     private String code;
     private Long usuarioId;
-    private String nome;
     private TipoConta tipo;
-    private String banco;
+    private Long bancoId;
+    private String bancoCode;
     private BigDecimal saldoInicial;
     private boolean padrao;
     private boolean ativa;
     private OffsetDateTime criadoEm;
     private OffsetDateTime atualizadoEm;
 
-    public ContaFinanceira(Long id, Long usuarioId, String nome, TipoConta tipo,
-                           String banco, BigDecimal saldoInicial, boolean padrao,
+    public ContaFinanceira(Long id, Long usuarioId, TipoConta tipo,
+                           Long bancoId, String bancoCode, BigDecimal saldoInicial, boolean padrao,
                            boolean ativa, OffsetDateTime criadoEm, OffsetDateTime atualizadoEm) {
         this.id = id;
         this.usuarioId = usuarioId;
-        this.nome = nome;
         this.tipo = tipo;
-        this.banco = banco;
+        this.bancoId = bancoId;
+        this.bancoCode = bancoCode;
         this.saldoInicial = saldoInicial;
         this.padrao = padrao;
         this.ativa = ativa;
@@ -40,9 +40,9 @@ public class ContaFinanceira {
         this.atualizadoEm = atualizadoEm;
     }
 
-    public ContaFinanceira(Long usuarioId, String nome, TipoConta tipo,
-                           String banco, BigDecimal saldoInicial, boolean padrao) {
-        this(null, usuarioId, nome, tipo, banco, saldoInicial, padrao, true, null, null);
+    public ContaFinanceira(Long usuarioId, TipoConta tipo,
+                           Long bancoId, String bancoCode, BigDecimal saldoInicial, boolean padrao) {
+        this(null, usuarioId, tipo, bancoId, bancoCode, saldoInicial, padrao, true, OffsetDateTime.now(), null);
         this.code = CodeGenerator.gerar();
     }
 
@@ -50,11 +50,14 @@ public class ContaFinanceira {
         if (usuarioId == null) {
             throw new ContaFinanceiraInvalidaException("UsuarioId é obrigatório");
         }
-        if (nome == null || nome.isBlank()) {
-            throw new ContaFinanceiraInvalidaException("Nome é obrigatório");
-        }
         if (tipo == null) {
             throw new ContaFinanceiraInvalidaException("Tipo é obrigatório");
+        }
+        if (bancoId == null) {
+            throw new ContaFinanceiraInvalidaException("BancoId é obrigatório");
+        }
+        if (bancoCode == null || bancoCode.isBlank()) {
+            throw new ContaFinanceiraInvalidaException("BancoCode é obrigatório");
         }
         if (saldoInicial == null) {
             throw new ContaFinanceiraInvalidaException("Saldo inicial é obrigatório");

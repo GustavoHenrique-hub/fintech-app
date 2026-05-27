@@ -11,7 +11,6 @@ import java.util.Optional;
 public interface TransacaoJpaRepository extends JpaRepository<TransacaoEntity, Long> {
     List<TransacaoEntity> findByUsuarioIdAndDeletedAtIsNullOrderByDataTransacaoDesc(Long usuarioId);
     List<TransacaoEntity> findByContaIdAndDeletedAtIsNull(Long contaId);
-    List<TransacaoEntity> findByExtratoIdAndDeletedAtIsNull(Long extratoId);
     Optional<TransacaoEntity> findByIdAndCode(Long id, String code);
 
     @Query("""

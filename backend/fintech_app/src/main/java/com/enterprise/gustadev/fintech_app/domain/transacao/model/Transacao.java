@@ -20,51 +20,40 @@ public class Transacao {
     private String code;
     private Long usuarioId;
     private Long contaId;
-    private Long extratoId;
-    private Long transacaoEstornoId;
+    private String indEstorno;
     private TipoTransacao tipo;
-    private String descricaoOriginal;
-    private String descricaoUsuario;
-    private String descricaoNormalizada;
+    private String descricao;
     private BigDecimal valor;
     private LocalDate dataTransacao;
-    private OffsetDateTime dataLancamento;
     private Long categoriaId;
-    private String subcategoria;
     private String estabelecimento;
     private OrigemTransacao origem;
     private StatusRevisaoTransacao statusRevisao;
     private Short confiancaIa;
     private boolean recorrente;
-    private String periodoRecorrencia;
+    private LocalDate periodoRecorrencia;
     private String observacao;
     private OffsetDateTime deletedAt;
     private int versao;
     private OffsetDateTime criadoEm;
     private OffsetDateTime atualizadoEm;
 
-    public Transacao(Long id, Long usuarioId, Long contaId, Long extratoId,
-                     Long transacaoEstornoId, TipoTransacao tipo, String descricaoOriginal,
-                     String descricaoUsuario, String descricaoNormalizada, BigDecimal valor,
-                     LocalDate dataTransacao, OffsetDateTime dataLancamento, Long categoriaId,
-                     String subcategoria, String estabelecimento, OrigemTransacao origem,
-                     StatusRevisaoTransacao statusRevisao, Short confiancaIa, boolean recorrente,
-                     String periodoRecorrencia, String observacao, OffsetDateTime deletedAt,
-                     int versao, OffsetDateTime criadoEm, OffsetDateTime atualizadoEm) {
+    public Transacao(Long id, Long usuarioId, Long contaId, String indEstorno,
+                     TipoTransacao tipo, String descricao, BigDecimal valor,
+                     LocalDate dataTransacao, Long categoriaId, String estabelecimento,
+                     OrigemTransacao origem, StatusRevisaoTransacao statusRevisao,
+                     Short confiancaIa, boolean recorrente, LocalDate periodoRecorrencia,
+                     String observacao, OffsetDateTime deletedAt, int versao,
+                     OffsetDateTime criadoEm, OffsetDateTime atualizadoEm) {
         this.id = id;
         this.usuarioId = usuarioId;
         this.contaId = contaId;
-        this.extratoId = extratoId;
-        this.transacaoEstornoId = transacaoEstornoId;
+        this.indEstorno = indEstorno;
         this.tipo = tipo;
-        this.descricaoOriginal = descricaoOriginal;
-        this.descricaoUsuario = descricaoUsuario;
-        this.descricaoNormalizada = descricaoNormalizada;
+        this.descricao = descricao;
         this.valor = valor;
         this.dataTransacao = dataTransacao;
-        this.dataLancamento = dataLancamento;
         this.categoriaId = categoriaId;
-        this.subcategoria = subcategoria;
         this.estabelecimento = estabelecimento;
         this.origem = origem;
         this.statusRevisao = statusRevisao;
@@ -79,11 +68,12 @@ public class Transacao {
     }
 
     public Transacao(Long usuarioId, Long contaId, TipoTransacao tipo,
-                     BigDecimal valor, LocalDate dataTransacao, OrigemTransacao origem) {
-        this(null, usuarioId, contaId, null, null, tipo, null, null, null,
-             valor, dataTransacao, null, null, null, null, origem,
-             StatusRevisaoTransacao.extraida, null, false, null, null, null,
-             1, null, null);
+                     BigDecimal valor, LocalDate dataTransacao, Long categoriaId,
+                     OrigemTransacao origem) {
+        this(null, usuarioId, contaId, "N", tipo, null,
+             valor, dataTransacao, categoriaId, null, origem,
+             StatusRevisaoTransacao.EXTRAIDA, null, false, null, null, null,
+             1, OffsetDateTime.now(), null);
         this.code = CodeGenerator.gerar();
     }
 
@@ -105,6 +95,9 @@ public class Transacao {
         }
         if (origem == null) {
             throw new TransacaoInvalidaException("Origem é obrigatória");
+        }
+        if (categoriaId == null) {
+            throw new TransacaoInvalidaException("CategoriaId é obrigatório");
         }
     }
 }

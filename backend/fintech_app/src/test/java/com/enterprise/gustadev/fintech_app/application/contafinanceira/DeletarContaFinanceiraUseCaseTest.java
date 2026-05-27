@@ -29,8 +29,8 @@ class DeletarContaFinanceiraUseCaseTest {
     void executar_deveDelegarDeletarAoRepository() {
         Long id = 1L;
         String code = "ABC123";
-        ContaFinanceira conta = new ContaFinanceira(id, 1L, "Nubank",
-                TipoConta.corrente, "Nubank", BigDecimal.TEN, false, true, null, null);
+        ContaFinanceira conta = new ContaFinanceira(id, 1L,
+                TipoConta.corrente, 10L, "BNK001", BigDecimal.TEN, false, true, null, null);
         when(repository.buscarPorIdECode(id, code)).thenReturn(Optional.of(conta));
 
         useCase.executar(id, code);
