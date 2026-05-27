@@ -55,54 +55,80 @@ class ContaFinanceiraControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
-    private ContaFinanceira contaCompleta(Long id, Long usuarioId) {
-        return new ContaFinanceira(id, usuarioId, "Nubank", TipoConta.corrente,
-                "Nubank", new BigDecimal("1000.00"), true, true,
+    private ContaFinanceira contaCompleta(Long id, Long usuarioId, Long bancoId, String bancoCode) {
+        return new ContaFinanceira(id, usuarioId, TipoConta.corrente,
+                bancoId, bancoCode, new BigDecimal("1000.00"), true, true,
                 OffsetDateTime.now(), null);
     }
 
     @Test
-    void criar_deveRetornar201_quandoDadosValidos() throws Exception {
+    void criar_deveRetornar201_eVincularUsuarioAoBanco_quandoDadosValidos() throws Exception {
         Long usuarioId = 1L;
-        Long contaId = 1L;
-        when(criarUseCase.executar(any())).thenReturn(contaCompleta(contaId, usuarioId));
+        Long bancoId = 10L;
+        String bancoCode = "NUBANK";
+        when(criarUseCase.executar(any())).thenReturn(contaCompleta(1L, usuarioId, bancoId, bancoCode));
 
         mockMvc.perform(post("/contas")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
-                                  "usuarioId": %s,
-                                  "nome": "Nubank",
+                                  "usuarioId": %d,
                                   "tipo": "corrente",
-                                  "banco": "Nubank",
+                                  "bancoId": %d,
+                                  "bancoCode": "%s",
                                   "saldoInicial": 1000.00,
                                   "padrao": true
                                 }
-                                """.formatted(usuarioId)))
+                                """.formatted(usuarioId, bancoId, bancoCode)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.nome").value("Nubank"))
+                .andExpect(jsonPath("$.usuarioId").value(usuarioId.intValue()))
+                .andExpect(jsonPath("$.bancoId").value(bancoId.intValue()))
+                .andExpect(jsonPath("$.bancoCode").value(bancoCode))
                 .andExpect(jsonPath("$.tipo").value("corrente"));
     }
 
     @Test
-    void listarPorUsuario_deveRetornar200ComLista() throws Exception {
+    void criar_deveRetornar400_quandoBancoIdAusente() throws Exception {
+        mockMvc.perform(post("/contas")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "usuarioId": 1,
+                                  "tipo": "corrente",
+                                  "bancoCode": "NUBANK",
+                                  "saldoInicial": 1000.00,
+                                  "padrao": true
+                                }
+                                """))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void listarPorUsuario_deveRetornar200ComContasDeMultiplosBancos() throws Exception {
         Long usuarioId = 1L;
         when(listarUseCase.executar(usuarioId))
-                .thenReturn(List.of(contaCompleta(1L, usuarioId)));
+                .thenReturn(List.of(
+                        contaCompleta(1L, usuarioId, 10L, "NUBANK"),
+                        contaCompleta(2L, usuarioId, 20L, "ITAU01")
+                ));
 
         mockMvc.perform(get("/contas/usuario/{usuarioId}", usuarioId))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.length()").value(1));
+                .andExpect(jsonPath("$.length()").value(2))
+                .andExpect(jsonPath("$[0].bancoCode").value("NUBANK"))
+                .andExpect(jsonPath("$[1].bancoCode").value("ITAU01"));
     }
 
     @Test
     void buscarPorId_deveRetornar200ComConta() throws Exception {
         Long id = 1L;
-        when(buscarUseCase.executar(any(), anyString())).thenReturn(contaCompleta(id, 1L));
+        when(buscarUseCase.executar(any(), anyString()))
+                .thenReturn(contaCompleta(id, 1L, 10L, "NUBANK"));
 
         mockMvc.perform(get("/contas/{id_contas}/{contas_code}", id, "ABC123"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(id.intValue()));
+                .andExpect(jsonPath("$.id").value(id.intValue()))
+                .andExpect(jsonPath("$.bancoCode").value("NUBANK"));
     }
 
     @Test

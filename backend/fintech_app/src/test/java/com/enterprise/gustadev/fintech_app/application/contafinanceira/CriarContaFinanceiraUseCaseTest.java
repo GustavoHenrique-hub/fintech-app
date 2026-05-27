@@ -32,24 +32,26 @@ class CriarContaFinanceiraUseCaseTest {
     @Test
     void executar_deveSalvarERetornarConta_quandoDadosValidos() {
         ContaFinanceira conta = new ContaFinanceira(
-                1L, "Nubank", TipoConta.corrente, "Nubank", new BigDecimal("1000.00"), false
+                1L, TipoConta.corrente, 10L, "BNK001", new BigDecimal("1000.00"), false
         );
         Long idGerado = 1L;
-        ContaFinanceira contaSalva = new ContaFinanceira(idGerado, conta.getUsuarioId(), conta.getNome(),
-                conta.getTipo(), conta.getBanco(), conta.getSaldoInicial(), false, true, null, null);
+        ContaFinanceira contaSalva = new ContaFinanceira(idGerado, conta.getUsuarioId(),
+                conta.getTipo(), conta.getBancoId(), conta.getBancoCode(),
+                conta.getSaldoInicial(), false, true, null, null);
         when(repository.salvar(any())).thenReturn(contaSalva);
 
         ContaFinanceira resultado = useCase.executar(conta);
 
         assertThat(resultado.getId()).isEqualTo(idGerado);
-        assertThat(resultado.getNome()).isEqualTo("Nubank");
+        assertThat(resultado.getBancoId()).isEqualTo(10L);
+        assertThat(resultado.getBancoCode()).isEqualTo("BNK001");
         verify(repository).salvar(conta);
     }
 
     @Test
     void executar_naoDeveChamarRepository_quandoDadosInvalidos() {
         ContaFinanceira contaInvalida = new ContaFinanceira(
-                null, "  ", TipoConta.corrente, null, BigDecimal.ZERO, false
+                null, TipoConta.corrente, null, null, BigDecimal.ZERO, false
         );
 
         assertThatThrownBy(() -> useCase.executar(contaInvalida))

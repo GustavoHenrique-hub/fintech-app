@@ -27,16 +27,19 @@ class ListarContasFinanceirasUseCaseTest {
     private ListarContasFinanceirasUseCase useCase;
 
     @Test
-    void executar_deveRetornarListaDeContas() {
+    void executar_deveRetornarContasDoUsuarioComBancosDistintos() {
         Long usuarioId = 1L;
-        ContaFinanceira conta = new ContaFinanceira(1L, usuarioId, "Nubank",
-                TipoConta.corrente, "Nubank", BigDecimal.TEN, false, true, null, null);
-        when(repository.listarPorUsuario(usuarioId)).thenReturn(List.of(conta));
+        ContaFinanceira contaNubank = new ContaFinanceira(1L, usuarioId,
+                TipoConta.corrente, 10L, "NUBANK", BigDecimal.TEN, false, true, null, null);
+        ContaFinanceira contaItau = new ContaFinanceira(2L, usuarioId,
+                TipoConta.poupanca, 20L, "ITAU01", BigDecimal.ONE, false, true, null, null);
+        when(repository.listarPorUsuario(usuarioId)).thenReturn(List.of(contaNubank, contaItau));
 
         List<ContaFinanceira> resultado = useCase.executar(usuarioId);
 
-        assertThat(resultado).hasSize(1);
-        assertThat(resultado.get(0).getNome()).isEqualTo("Nubank");
+        assertThat(resultado).hasSize(2);
+        assertThat(resultado).extracting(ContaFinanceira::getBancoCode)
+                .containsExactlyInAnyOrder("NUBANK", "ITAU01");
         verify(repository).listarPorUsuario(usuarioId);
     }
 
