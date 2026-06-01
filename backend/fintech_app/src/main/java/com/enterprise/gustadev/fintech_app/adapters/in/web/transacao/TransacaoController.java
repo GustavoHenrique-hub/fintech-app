@@ -32,13 +32,15 @@ public class TransacaoController {
     private final EstornarTransacaoUseCase estornarUseCase;
 
     public TransacaoController(CriarTransacaoUseCase criarUseCase,
-                                ListarTransacoesUseCase listarUseCase,
-                                BuscarTransacaoUseCase buscarUseCase,
-                                DeletarTransacaoUseCase deletarUseCase) {
+                               ListarTransacoesUseCase listarUseCase,
+                               BuscarTransacaoUseCase buscarUseCase,
+                               DeletarTransacaoUseCase deletarUseCase,
+                               EstornarTransacaoUseCase estornarUseCase) {
         this.criarUseCase = criarUseCase;
         this.listarUseCase = listarUseCase;
         this.buscarUseCase = buscarUseCase;
         this.deletarUseCase = deletarUseCase;
+        this.estornarUseCase = estornarUseCase;
     }
 
     @Operation(summary = "Criar transação", description = "Registra uma nova transação financeira. Os campos tipo e origem devem conter valores válidos dos enums TipoTransacao e OrigemTransacao.")
