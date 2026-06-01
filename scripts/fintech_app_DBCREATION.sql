@@ -1,6 +1,6 @@
 -- ============================================================
 --  FINAPP — DDL para Oracle SQL Developer Data Modeler
---  Extraído do log Hibernate: 2026-05-26 15:16:14
+--  Extraído do log Hibernate: 2026-05-27 13:06:45
 --  RDBMS alvo: SQL Server 2012
 --
 --  Como importar:
@@ -13,6 +13,7 @@
 
 -- ═══════════════════════════════════════════════════════════════
 --  TABELAS
+--  Ordem respeita dependências de FK
 -- ═══════════════════════════════════════════════════════════════
 
 -- ─────────────────────────────────────────────
@@ -34,6 +35,22 @@ CREATE TABLE usuarios (
 );
 
 -- ─────────────────────────────────────────────
+--  BANCO  ← nova tabela
+--  Representa as instituições financeiras.
+--  Separada de contas_financeiras para normalização:
+--  nome e identidade visual do banco não dependem da conta.
+-- ─────────────────────────────────────────────
+CREATE TABLE banco (
+    banco_id    BIGINT        IDENTITY(1,1) NOT NULL,
+    banco_code  VARCHAR(6)    NOT NULL,
+    cor_hex     VARCHAR(7),
+    descricao   VARCHAR(255),
+    icone       VARCHAR(50),
+    nome        VARCHAR(100)  NOT NULL,
+    CONSTRAINT PK_banco PRIMARY KEY (banco_id)
+);
+
+-- ─────────────────────────────────────────────
 --  PARSER_VERSOES
 -- ─────────────────────────────────────────────
 CREATE TABLE parser_versoes (
@@ -51,7 +68,6 @@ CREATE TABLE parser_versoes (
 
 -- ─────────────────────────────────────────────
 --  CATEGORIAS
---  ATENÇÃO: tipo agora em MAIÚSCULO
 -- ─────────────────────────────────────────────
 CREATE TABLE categorias (
     id              BIGINT       IDENTITY(1,1) NOT NULL,
@@ -80,26 +96,6 @@ CREATE TABLE categoria_thresholds (
 );
 
 -- ─────────────────────────────────────────────
---  CONTAS_FINANCEIRAS
--- ─────────────────────────────────────────────
-CREATE TABLE contas_financeiras (
-    id            BIGINT        IDENTITY(1,1) NOT NULL,
-    ativa         BIT,
-    atualizado_em DATETIME2(6),
-    banco         VARCHAR(100),
-    contas_code   VARCHAR(6)    NOT NULL,
-    criado_em     DATETIME2(6)  NOT NULL,
-    nome          VARCHAR(100)  NOT NULL,
-    padrao        BIT,
-    saldo_inicial NUMERIC(15,2) NOT NULL,
-    tipo          VARCHAR(20)   NOT NULL
-                      CONSTRAINT CK_contas_tipo
-                      CHECK (tipo IN ('corrente','poupanca','cartao','dinheiro','investimento')),
-    usuario_id    BIGINT        NOT NULL,
-    CONSTRAINT PK_contas_financeiras PRIMARY KEY (id)
-);
-
--- ─────────────────────────────────────────────
 --  MOTIVOS_CANCELAMENTO
 -- ─────────────────────────────────────────────
 CREATE TABLE motivos_cancelamento (
@@ -115,52 +111,69 @@ CREATE TABLE motivos_cancelamento (
 );
 
 -- ─────────────────────────────────────────────
+--  CONTAS_FINANCEIRAS
+--  ATENÇÃO — banco agora é FK para tabela banco:
+--    + banco_id  BIGINT NOT NULL
+--    + banco_code VARCHAR(6) NOT NULL
+--    - banco VARCHAR(100)  (removido)
+--    - nome  VARCHAR(100)  (removido)
+-- ─────────────────────────────────────────────
+CREATE TABLE contas_financeiras (
+    id            BIGINT        IDENTITY(1,1) NOT NULL,
+    ativa         BIT,
+    atualizado_em DATETIME2(6),
+    banco_code    VARCHAR(6)    NOT NULL,
+    banco_id      BIGINT        NOT NULL,
+    contas_code   VARCHAR(6)    NOT NULL,
+    criado_em     DATETIME2(6)  NOT NULL,
+    padrao        BIT,
+    saldo_inicial NUMERIC(15,2) NOT NULL,
+    tipo          VARCHAR(20)   NOT NULL
+                      CONSTRAINT CK_contas_tipo
+                      CHECK (tipo IN ('corrente','poupanca','cartao','dinheiro','investimento')),
+    usuario_id    BIGINT        NOT NULL,
+    CONSTRAINT PK_contas_financeiras PRIMARY KEY (id)
+);
+
+-- ─────────────────────────────────────────────
 --  TRANSACOES
---  ATENÇÃO — mudanças vs versão anterior:
---    + descricao TEXT        (unifica as 3 descrições anteriores)
---    + ind_estorno VARCHAR(1) NOT NULL  (substitui transacao_estorno_id)
---    ~ categoria_id: agora NOT NULL
---    ~ periodo_recorrencia: agora DATE
---    - data_lancamento, descricao_normalizada, descricao_original,
---      descricao_usuario, extrato_id, transacao_estorno_id removidos
 -- ─────────────────────────────────────────────
 CREATE TABLE transacoes (
-    id                   BIGINT        IDENTITY(1,1) NOT NULL,
-    atualizado_em        DATETIME2(6),
-    categoria_id         BIGINT        NOT NULL,
-    transacoes_code      VARCHAR(6)    NOT NULL,
-    confianca_ia         SMALLINT,
-    conta_id             BIGINT        NOT NULL,
-    criado_em            DATETIME2(6)  NOT NULL,
-    data_transacao       DATE          NOT NULL,
-    deleted_at           DATETIME2(6),
-    descricao            NVARCHAR(MAX),
-    estabelecimento      VARCHAR(255),
-    ind_estorno          VARCHAR(1)    NOT NULL,
-    observacao           NVARCHAR(MAX),
-    origem               VARCHAR(20)   NOT NULL
-                             CONSTRAINT CK_transacoes_origem
-                             CHECK (origem IN ('manual','pdf','api')),
-    periodo_recorrencia  DATE,
-    recorrente           BIT,
-    status_revisao       VARCHAR(30)   NOT NULL
-                             CONSTRAINT CK_transacoes_status
-                             CHECK (status_revisao IN (
-                                 'EXTRAIDA','CLASSIFICADA','PENDENTE_REVISAO',
-                                 'CONFIRMADA','IGNORADA','ARQUIVADA'
-                             )),
-    tipo                 VARCHAR(10)   NOT NULL
-                             CONSTRAINT CK_transacoes_tipo
-                             CHECK (tipo IN ('RECEITA','GASTO')),
-    usuario_id           BIGINT        NOT NULL,
-    valor                NUMERIC(15,2) NOT NULL,
-    versao               INT           NOT NULL,
+    id                  BIGINT        IDENTITY(1,1) NOT NULL,
+    atualizado_em       DATETIME2(6),
+    categoria_id        BIGINT        NOT NULL,
+    transacoes_code     VARCHAR(6)    NOT NULL,
+    confianca_ia        SMALLINT,
+    conta_id            BIGINT        NOT NULL,
+    criado_em           DATETIME2(6)  NOT NULL,
+    data_transacao      DATE          NOT NULL,
+    deleted_at          DATETIME2(6),
+    descricao           NVARCHAR(MAX),
+    estabelecimento     VARCHAR(255),
+    ind_estorno         VARCHAR(1)    NOT NULL,
+    observacao          NVARCHAR(MAX),
+    origem              VARCHAR(20)   NOT NULL
+                            CONSTRAINT CK_transacoes_origem
+                            CHECK (origem IN ('manual','pdf','api')),
+    periodo_recorrencia DATE,
+    recorrente          BIT,
+    status_revisao      VARCHAR(30)   NOT NULL
+                            CONSTRAINT CK_transacoes_status
+                            CHECK (status_revisao IN (
+                                'EXTRAIDA','CLASSIFICADA','PENDENTE_REVISAO',
+                                'CONFIRMADA','IGNORADA','ARQUIVADA'
+                            )),
+    tipo                VARCHAR(10)   NOT NULL
+                            CONSTRAINT CK_transacoes_tipo
+                            CHECK (tipo IN ('RECEITA','GASTO')),
+    usuario_id          BIGINT        NOT NULL,
+    valor               NUMERIC(15,2) NOT NULL,
+    versao              INT           NOT NULL,
     CONSTRAINT PK_transacoes PRIMARY KEY (id)
 );
 
 -- ─────────────────────────────────────────────
 --  EXTRATOS
---  ATENÇÃO — nova coluna: transacao_id BIGINT
 -- ─────────────────────────────────────────────
 CREATE TABLE extratos (
     id                      BIGINT        IDENTITY(1,1) NOT NULL,
@@ -197,7 +210,6 @@ CREATE TABLE extratos (
 
 -- ─────────────────────────────────────────────
 --  TRANSACOES_CANCELADAS
---  ATENÇÃO — removidos: conta_id, usuario_id
 -- ─────────────────────────────────────────────
 CREATE TABLE transacoes_canceladas (
     id             BIGINT        IDENTITY(1,1) NOT NULL,
@@ -336,6 +348,8 @@ CREATE TABLE auditoria_eventos (
 -- ═══════════════════════════════════════════════════════════════
 --  UNIQUE CONSTRAINTS
 -- ═══════════════════════════════════════════════════════════════
+ALTER TABLE banco                ADD CONSTRAINT UKn0l94yd6ajyneu3i162sf5vsu UNIQUE (banco_code, banco_id);
+ALTER TABLE banco                ADD CONSTRAINT UK8ys89xdt6jo2d2x3d8ahhq6x5 UNIQUE (banco_code);
 ALTER TABLE categoria_thresholds ADD CONSTRAINT UKhof89v3ea15cfy69fhfvgv6op UNIQUE (categoria_id);
 ALTER TABLE categorias           ADD CONSTRAINT UKk73kpeiqdy6n11qojlj39hose UNIQUE (categorias_code);
 ALTER TABLE contas_financeiras   ADD CONSTRAINT UKq6yk4e2ao66xqitn12j3hbt19 UNIQUE (contas_code);
@@ -348,8 +362,7 @@ ALTER TABLE usuarios             ADD CONSTRAINT UKh8plsiwilrerynftorecsi633 UNIQ
 
 
 -- ═══════════════════════════════════════════════════════════════
---  FOREIGN KEYS
---  Nomes e referências extraídos diretamente do log Hibernate.
+--  FOREIGN KEYS  (nomes e referências extraídos do log Hibernate)
 -- ═══════════════════════════════════════════════════════════════
 
 ALTER TABLE auditoria_eventos
@@ -363,6 +376,11 @@ ALTER TABLE categoria_thresholds
 ALTER TABLE consentimentos_lgpd
     ADD CONSTRAINT fk_consentimentos_lgpd_usuario
     FOREIGN KEY (usuario_id) REFERENCES usuarios (id_usuario);
+
+-- FK composta: conta → banco via (banco_code, banco_id)
+ALTER TABLE contas_financeiras
+    ADD CONSTRAINT fk_contas_financeiras_banco
+    FOREIGN KEY (banco_code, banco_id) REFERENCES banco (banco_code, banco_id);
 
 ALTER TABLE contas_financeiras
     ADD CONSTRAINT fk_contas_financeiras_usuario
