@@ -16,7 +16,7 @@ public class EstornarTransacaoUseCase {
     public Transacao executar(Long id, String code, Long userId, String userCode, Long contaId, String contaCode) {
 
         try {
-            repository.buscarTransacao
+            repository.buscarTransacao(id, code, userId, userCode, contaId, contaCode);
 
         }catch (TransacaoInvalidaException e){
 
