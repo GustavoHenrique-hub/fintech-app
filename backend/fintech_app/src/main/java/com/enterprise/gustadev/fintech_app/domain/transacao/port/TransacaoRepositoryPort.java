@@ -10,9 +10,9 @@ public interface TransacaoRepositoryPort {
     Transacao salvar(Transacao transacao);
     List<Transacao> listarPorUsuario(Long usuarioId);
     List<Transacao> listarPorConta(Long contaId);
-    List<Transacao> listarPorUsuarioNoPeriodoComCategoriaEConta(
-            Long usuarioId, LocalDate inicio, LocalDate fim);
+    List<Transacao> listarPorUsuarioNoPeriodoComCategoriaEConta(Long usuarioId, LocalDate inicio, LocalDate fim);
     Optional<Transacao> buscarPorId(Long id);
     Optional<Transacao> buscarPorIdECode(Long id, String code);
     void deletarPorId(Long id);
+    Transacao estornaTransacao(Transacao transacao);
 }
