@@ -19,7 +19,9 @@ public class Transacao {
     private Long id;
     private String code;
     private Long usuarioId;
+    private String usuarioCode;
     private Long contaId;
+    private String contaCode;
     private String indEstorno;
     private TipoTransacao tipo;
     private String descricao;
