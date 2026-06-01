@@ -9,7 +9,8 @@
       "Bash(./mvnw test *)",
       "Bash(./mvnw -q -DskipTests compile)",
       "Bash(./mvnw -DskipTests compile)",
-      "Bash(./mvnw -DskipTests clean compile)"
+      "Bash(./mvnw -DskipTests clean compile)",
+      "Bash(gh pr *)"
     ]
   }
 }
