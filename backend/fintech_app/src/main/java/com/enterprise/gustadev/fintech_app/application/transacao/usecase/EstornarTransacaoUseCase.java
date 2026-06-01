@@ -26,7 +26,7 @@ public class EstornarTransacaoUseCase {
         try {
             if(transacaoParaEditar.isPresent()){
                 Transacao transacao = transacaoParaEditar.get();
-                transacao.setIndEstorno(transacao.getIndEstorno());
+                transacao.setIndEstorno("");
 
                 response.put("message", "Transação Estornada");
                 return ResponseEntity.ok(response);

@@ -9,6 +9,7 @@ import com.enterprise.gustadev.fintech_app.application.categoria.usecase.CriarCa
 import com.enterprise.gustadev.fintech_app.application.categoria.usecase.ListarCategoriasUseCase;
 import com.enterprise.gustadev.fintech_app.application.motivocancelamento.usecase.BuscarMotivoCancelamentoUseCase;
 import com.enterprise.gustadev.fintech_app.application.motivocancelamento.usecase.ListarMotivosCancelamentoUseCase;
+import com.enterprise.gustadev.fintech_app.application.transacao.usecase.*;
 import com.enterprise.gustadev.fintech_app.application.transacaocancelada.usecase.CancelarTransacaoUseCase;
 import com.enterprise.gustadev.fintech_app.application.transacaocancelada.usecase.ListarTransacoesCanceladasUseCase;
 import com.enterprise.gustadev.fintech_app.application.consentimentolgpd.usecase.ListarConsentimentosLgpdUseCase;
@@ -24,10 +25,6 @@ import com.enterprise.gustadev.fintech_app.application.notificacao.usecase.Criar
 import com.enterprise.gustadev.fintech_app.application.notificacao.usecase.ListarNotificacoesUseCase;
 import com.enterprise.gustadev.fintech_app.application.snapshotfinanceiro.usecase.BuscarSnapshotFinanceiroUseCase;
 import com.enterprise.gustadev.fintech_app.application.snapshotfinanceiro.usecase.ListarSnapshotsFinanceirosUseCase;
-import com.enterprise.gustadev.fintech_app.application.transacao.usecase.BuscarTransacaoUseCase;
-import com.enterprise.gustadev.fintech_app.application.transacao.usecase.CriarTransacaoUseCase;
-import com.enterprise.gustadev.fintech_app.application.transacao.usecase.DeletarTransacaoUseCase;
-import com.enterprise.gustadev.fintech_app.application.transacao.usecase.ListarTransacoesUseCase;
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.BuscarUsuarioUseCase;
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.CriarUsuarioUseCase;
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.DeletarUsuarioUseCase;
@@ -163,6 +160,11 @@ public class BeanConfig {
     @Bean
     public DeletarTransacaoUseCase deletarTransacaoUseCase(TransacaoRepositoryPort repository) {
         return new DeletarTransacaoUseCase(repository);
+    }
+
+    @Bean
+    public EstornarTransacaoUseCase estornarTransacaoUseCase(TransacaoRepositoryPort repository) {
+        return new EstornarTransacaoUseCase(repository);
     }
 
     // ── MotivoCancelamento ───────────────────────────────────────────────

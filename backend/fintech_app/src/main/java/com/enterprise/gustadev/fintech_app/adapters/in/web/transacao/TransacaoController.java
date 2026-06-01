@@ -109,6 +109,11 @@ public class TransacaoController {
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(summary = "Estornar transação", description = "")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Transação criada com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos na requisição")
+    })
     @PatchMapping("/estornar")
     public ResponseEntity<Map<String, String>> estornar(
             @Parameter(description = "ID da transação (id_transacao)") @RequestBody Long transacaoId,
