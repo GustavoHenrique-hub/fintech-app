@@ -14,6 +14,14 @@ public class EstornarTransacaoUseCase {
     }
 
     public Transacao executar(Long id, String code, Long userId, String userCode, Long contaId, String contaCode) {
+
+        try {
+            repository.buscarTransacao
+
+        }catch (TransacaoInvalidaException e){
+
+        }
+
         return repository.buscarPorIdECode(id, code)
                 .orElseThrow(() -> new TransacaoInvalidaException("Transação não encontrada: " + id));
     }

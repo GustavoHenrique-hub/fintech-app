@@ -15,4 +15,5 @@ public interface TransacaoRepositoryPort {
     Optional<Transacao> buscarPorIdECode(Long id, String code);
     void deletarPorId(Long id);
     Transacao estornaTransacao(Transacao transacao);
+    Optional<Transacao> buscarTransacao(Long id, String code, Long usuarioId, String usuarioCode, Long contaId, String contaCode);
 }

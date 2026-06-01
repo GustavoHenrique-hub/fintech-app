@@ -61,4 +61,9 @@ public class TransacaoRepositoryAdapter implements TransacaoRepositoryPort {
     public Transacao estornaTransacao(Transacao transacao) {
         return jpaRepository.save(TransacaoEntity.fromDomain(transacao)).toDomain();
     }
+
+    @Override
+    public Optional<Transacao> buscarTransacao(){
+        return jpaRepository.
+    }
 }
