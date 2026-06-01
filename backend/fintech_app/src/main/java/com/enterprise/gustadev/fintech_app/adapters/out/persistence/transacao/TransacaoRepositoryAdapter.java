@@ -64,6 +64,6 @@ public class TransacaoRepositoryAdapter implements TransacaoRepositoryPort {
 
     @Override
     public Optional<Transacao> buscarTransacao(){
-        return jpaRepository.
+        return jpaRepository.findAll();
     }
 }

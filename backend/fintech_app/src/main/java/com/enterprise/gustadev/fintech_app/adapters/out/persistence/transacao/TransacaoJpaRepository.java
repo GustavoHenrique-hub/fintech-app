@@ -26,4 +26,8 @@ public interface TransacaoJpaRepository extends JpaRepository<TransacaoEntity, L
             @Param("usuarioId") Long usuarioId,
             @Param("inicio") LocalDate inicio,
             @Param("fim") LocalDate fim);
+
+    @Query("" ,nativeQuery = true)
 }
+
+
