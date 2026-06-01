@@ -2,10 +2,7 @@ package com.enterprise.gustadev.fintech_app.adapters.in.web.transacao;
 
 import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.TransacaoRequestDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.TransacaoResponseDTO;
-import com.enterprise.gustadev.fintech_app.application.transacao.usecase.BuscarTransacaoUseCase;
-import com.enterprise.gustadev.fintech_app.application.transacao.usecase.CriarTransacaoUseCase;
-import com.enterprise.gustadev.fintech_app.application.transacao.usecase.DeletarTransacaoUseCase;
-import com.enterprise.gustadev.fintech_app.application.transacao.usecase.ListarTransacoesUseCase;
+import com.enterprise.gustadev.fintech_app.application.transacao.usecase.*;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoTransacao;
 import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;
@@ -21,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 @Tag(name = "Transações", description = "Registro e consulta de transações financeiras (débito, crédito, transferência)")
 @RestController
@@ -31,6 +29,7 @@ public class TransacaoController {
     private final ListarTransacoesUseCase listarUseCase;
     private final BuscarTransacaoUseCase buscarUseCase;
     private final DeletarTransacaoUseCase deletarUseCase;
+    private final EstornarTransacaoUseCase estornarUseCase;
 
     public TransacaoController(CriarTransacaoUseCase criarUseCase,
                                 ListarTransacoesUseCase listarUseCase,
@@ -109,7 +108,13 @@ public class TransacaoController {
     }
 
     @PatchMapping("/estornar")
-    public ResponseEntity<Void> estornar(@RequestBody("id_transacao")){
-
+    public ResponseEntity<Map<String, String>> estornar(
+            @Parameter(description = "ID da transação (id_transacao)") @RequestBody Long transacaoId,
+            @RequestBody String transacoeCode,
+            @RequestBody Long usuarioId,
+            @RequestBody String usuarioCode,
+            @RequestBody Long contaId,
+            @RequestBody String contaCode) {
+        return estornarUseCase.executar(transacaoId, transacoeCode, usuarioId, usuarioCode, contaId, contaCode);
     }
 }
