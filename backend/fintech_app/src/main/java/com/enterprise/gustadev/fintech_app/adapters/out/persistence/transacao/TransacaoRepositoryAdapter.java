@@ -67,15 +67,15 @@ public class TransacaoRepositoryAdapter implements TransacaoRepositoryPort {
     }
 
     @Override
-    @Transactional
-    public Transacao estornaTransacao(Transacao transacao) {
-        return persistir(transacao);
-    }
-
-    @Override
     public Optional<Transacao> buscarTransacao(Long id, String code, Long usuarioId, String usuarioCode, Long contaId, String contaCode){
         return jpaRepository
                 .buscarParaEstorno(id, code, usuarioId, usuarioCode, contaId, contaCode)
+                .map(TransacaoEntity::toDomain);
+    }
+
+    @Override
+    public Optional<Transacao> buscarEstornoDe(Long transacaoEstornadaId) {
+        return jpaRepository.findByTransacaoEstornadaId(transacaoEstornadaId)
                 .map(TransacaoEntity::toDomain);
     }
 

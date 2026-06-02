@@ -18,7 +18,8 @@
       "Bash(mvn -DskipTests clean compile)",
       "Bash(./mvnw -q compile)",
       "Bash(./mvnw -q test-compile)",
-      "Bash(./mvnw -q test -Dtest='Transacao*Test,*TransacaoUseCaseTest')"
+      "Bash(./mvnw -q test -Dtest='Transacao*Test,*TransacaoUseCaseTest')",
+      "Bash(grep -E \"Tests run: [0-9]+, Failures.*Skipped: [0-9]+$|BUILD\")"
     ]
   }
 }

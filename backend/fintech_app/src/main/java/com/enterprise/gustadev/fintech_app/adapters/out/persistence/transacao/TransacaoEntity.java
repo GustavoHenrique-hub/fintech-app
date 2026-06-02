@@ -121,6 +121,9 @@ public class TransacaoEntity {
     @Column(name = "atualizado_em")
     private OffsetDateTime atualizadoEm;
 
+    @Column(name = "transacao_estornada_id")
+    private Long transacaoEstornadaId;
+
     /**
      * Mapeia apenas os campos escalares. As associações {@code usuario} e {@code conta}
      * são gravadas pelo adapter com referências gerenciadas (EntityManager) para evitar
@@ -147,6 +150,7 @@ public class TransacaoEntity {
         entity.versao = domain.getVersao();
         entity.criadoEm = domain.getCriadoEm();
         entity.atualizadoEm = domain.getAtualizadoEm();
+        entity.transacaoEstornadaId = domain.getTransacaoEstornadaId();
         return entity;
     }
 
@@ -156,6 +160,7 @@ public class TransacaoEntity {
                 origem, statusRevisao, confiancaIa, recorrente, periodoRecorrencia,
                 observacao, deletedAt, versao, criadoEm, atualizadoEm);
         t.setCode(code);
+        t.setTransacaoEstornadaId(transacaoEstornadaId);
         return t;
     }
 }

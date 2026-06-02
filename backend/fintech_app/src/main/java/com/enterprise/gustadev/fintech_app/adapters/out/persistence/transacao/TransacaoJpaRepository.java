@@ -24,6 +24,9 @@ public interface TransacaoJpaRepository extends JpaRepository<TransacaoEntity, L
     @EntityGraph(attributePaths = {"usuario", "conta"})
     Optional<TransacaoEntity> findById(Long id);
 
+    @EntityGraph(attributePaths = {"usuario", "conta"})
+    Optional<TransacaoEntity> findByTransacaoEstornadaId(Long transacaoEstornadaId);
+
     @Query("""
         SELECT DISTINCT t FROM TransacaoEntity t
         LEFT JOIN FETCH t.categoria c

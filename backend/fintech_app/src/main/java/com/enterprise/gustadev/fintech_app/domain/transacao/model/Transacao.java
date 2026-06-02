@@ -39,6 +39,8 @@ public class Transacao {
     private int versao;
     private OffsetDateTime criadoEm;
     private OffsetDateTime atualizadoEm;
+    /** Quando preenchido, esta linha é um estorno e aponta para o id da transação original revertida. */
+    private Long transacaoEstornadaId;
 
     public Transacao(Long id, Usuario usuario, ContaFinanceira conta, String indEstorno,
                      TipoTransacao tipo, String descricao, BigDecimal valor,
@@ -79,15 +81,26 @@ public class Transacao {
         this.code = CodeGenerator.gerar();
     }
 
-    public void estornar() {
+    /**
+     * Cria uma nova transação de estorno (cópia idêntica desta, com indEstorno='S'),
+     * sem alterar a transação original. A nova linha recebe novo code e aponta para
+     * o id da original via transacaoEstornadaId. A persistência insere uma nova linha.
+     */
+    public Transacao criarEstorno() {
         if ("S".equals(indEstorno)) {
-            return;
+            throw new TransacaoInvalidaException("Não é possível estornar uma transação que já é um estorno");
         }
         if (deletedAt != null) {
             throw new TransacaoInvalidaException("Transação deletada não pode ser estornada");
         }
-        this.indEstorno = "S";
-        this.atualizadoEm = OffsetDateTime.now();
+        Transacao estorno = new Transacao(
+                null, usuario, conta, "S", tipo, descricao, valor, dataTransacao,
+                categoriaId, estabelecimento, origem, statusRevisao, confiancaIa,
+                recorrente, periodoRecorrencia, observacao, null, 1,
+                OffsetDateTime.now(), null);
+        estorno.code = CodeGenerator.gerar();
+        estorno.transacaoEstornadaId = this.id;
+        return estorno;
     }
 
     public void validar() {
