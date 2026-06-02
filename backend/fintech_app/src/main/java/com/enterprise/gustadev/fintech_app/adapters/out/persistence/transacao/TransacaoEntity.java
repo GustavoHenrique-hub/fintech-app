@@ -101,7 +101,7 @@ public class TransacaoEntity {
     private Short confiancaIa;
 
     @Column
-    private boolean recorrente = false;
+    private Boolean recorrente = false;
 
     @Column(name = "periodo_recorrencia")
     private LocalDate periodoRecorrencia;
@@ -157,7 +157,7 @@ public class TransacaoEntity {
     public Transacao toDomain() {
         Transacao t = new Transacao(id, usuario.toDomain(), conta.toDomain(), indEstorno, tipo,
                 descricao, valor, dataTransacao, categoriaId, estabelecimento,
-                origem, statusRevisao, confiancaIa, recorrente, periodoRecorrencia,
+                origem, statusRevisao, confiancaIa, recorrente != null && recorrente, periodoRecorrencia,
                 observacao, deletedAt, versao, criadoEm, atualizadoEm);
         t.setCode(code);
         t.setTransacaoEstornadaId(transacaoEstornadaId);
