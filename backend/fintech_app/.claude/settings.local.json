@@ -15,7 +15,8 @@
       "mcp__ide__getDiagnostics",
       "Bash(mvn -q -DskipTests compile)",
       "Bash(mvn -DskipTests compile)",
-      "Bash(mvn -DskipTests clean compile)"
+      "Bash(mvn -DskipTests clean compile)",
+      "Bash(./mvnw -q compile)"
     ]
   }
 }
