@@ -19,7 +19,9 @@ public class Transacao {
     private Long id;
     private String code;
     private Long usuarioId;
+    private String usuarioCode;
     private Long contaId;
+    private String contaCode;
     private String indEstorno;
     private TipoTransacao tipo;
     private String descricao;
@@ -75,6 +77,17 @@ public class Transacao {
              StatusRevisaoTransacao.EXTRAIDA, null, false, null, null, null,
              1, OffsetDateTime.now(), null);
         this.code = CodeGenerator.gerar();
+    }
+
+    public void estornar() {
+        if ("S".equals(indEstorno)) {
+            return;
+        }
+        if (deletedAt != null) {
+            throw new TransacaoInvalidaException("Transação deletada não pode ser estornada");
+        }
+        this.indEstorno = "S";
+        this.atualizadoEm = OffsetDateTime.now();
     }
 
     public void validar() {

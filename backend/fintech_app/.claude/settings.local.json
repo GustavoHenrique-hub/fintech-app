@@ -9,7 +9,13 @@
       "Bash(./mvnw test *)",
       "Bash(./mvnw -q -DskipTests compile)",
       "Bash(./mvnw -DskipTests compile)",
-      "Bash(./mvnw -DskipTests clean compile)"
+      "Bash(./mvnw -DskipTests clean compile)",
+      "Bash(gh pr *)",
+      "Bash(where gh *)",
+      "mcp__ide__getDiagnostics",
+      "Bash(mvn -q -DskipTests compile)",
+      "Bash(mvn -DskipTests compile)",
+      "Bash(mvn -DskipTests clean compile)"
     ]
   }
 }
