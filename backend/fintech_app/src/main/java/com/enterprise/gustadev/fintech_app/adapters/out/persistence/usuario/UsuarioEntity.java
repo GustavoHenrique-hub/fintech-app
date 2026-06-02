@@ -20,9 +20,10 @@ public class UsuarioEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_usuario")
     private Long idUsuario;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "usuario_code", nullable = false, unique = true)
     private String usuarioCode;
 
     @Column(nullable = false, unique = true)

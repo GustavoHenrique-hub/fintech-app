@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface TransacaoCanceladaJpaRepository extends JpaRepository<TransacaoCanceladaEntity, Long> {
 
-    @Query("SELECT tc FROM TransacaoCanceladaEntity tc JOIN tc.transacao t WHERE t.usuarioId = :usuarioId")
+    @Query("SELECT tc FROM TransacaoCanceladaEntity tc JOIN tc.transacao t WHERE t.usuario.idUsuario = :usuarioId")
     List<TransacaoCanceladaEntity> findByTransacaoUsuarioId(@Param("usuarioId") Long usuarioId);
 
     Optional<TransacaoCanceladaEntity> findByTransacaoId(Long transacaoId);

@@ -33,6 +33,7 @@ public class ContaFinanceiraEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "contas_code", unique = true, nullable = false, length = 6)
