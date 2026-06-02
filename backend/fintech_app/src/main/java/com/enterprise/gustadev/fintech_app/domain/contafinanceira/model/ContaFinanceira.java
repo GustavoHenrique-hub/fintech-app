@@ -46,6 +46,12 @@ public class ContaFinanceira {
         this.code = CodeGenerator.gerar();
     }
 
+    /** Referência por identidade (id + code), usada quando só a chave da conta é conhecida. */
+    public ContaFinanceira(Long id, String code) {
+        this.id = id;
+        this.code = code;
+    }
+
     public void validar() {
         if (usuarioId == null) {
             throw new ContaFinanceiraInvalidaException("UsuarioId é obrigatório");

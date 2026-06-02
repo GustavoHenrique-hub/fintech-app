@@ -4,10 +4,12 @@ import com.enterprise.gustadev.fintech_app.application.transacao.usecase.BuscarT
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.CriarTransacaoUseCase;
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.DeletarTransacaoUseCase;
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.ListarTransacoesUseCase;
+import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusRevisaoTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoTransacao;
 import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;
+import com.enterprise.gustadev.fintech_app.domain.usuario.model.Usuario;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -58,7 +60,7 @@ class TransacaoControllerTest {
     }
 
     private Transacao transacaoCompleta(Long id, Long usuarioId, Long contaId) {
-        return new Transacao(id, usuarioId, contaId, "N",
+        return new Transacao(id, new Usuario(usuarioId, "U1"), new ContaFinanceira(contaId, "C1"), "N",
                 TipoTransacao.GASTO, null, new BigDecimal("150.00"),
                 LocalDate.now(), 1L, null, OrigemTransacao.manual,
                 StatusRevisaoTransacao.EXTRAIDA, null, false,
@@ -78,7 +80,9 @@ class TransacaoControllerTest {
                         .content("""
                                 {
                                   "usuarioId": "%s",
+                                  "usuarioCode": "U1",
                                   "contaId": "%s",
+                                  "contaCode": "C1",
                                   "tipo": "GASTO",
                                   "valor": 150.00,
                                   "dataTransacao": "%s",

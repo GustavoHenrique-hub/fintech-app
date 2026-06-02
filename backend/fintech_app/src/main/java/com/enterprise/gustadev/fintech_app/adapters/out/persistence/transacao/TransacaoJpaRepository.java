@@ -1,5 +1,6 @@
 package com.enterprise.gustadev.fintech_app.adapters.out.persistence.transacao;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -9,15 +10,26 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TransacaoJpaRepository extends JpaRepository<TransacaoEntity, Long> {
-    List<TransacaoEntity> findByUsuarioIdAndDeletedAtIsNullOrderByDataTransacaoDesc(Long usuarioId);
-    List<TransacaoEntity> findByContaIdAndDeletedAtIsNull(Long contaId);
+
+    @EntityGraph(attributePaths = {"usuario", "conta"})
+    List<TransacaoEntity> findByUsuario_IdUsuarioAndDeletedAtIsNullOrderByDataTransacaoDesc(Long usuarioId);
+
+    @EntityGraph(attributePaths = {"usuario", "conta"})
+    List<TransacaoEntity> findByConta_IdAndDeletedAtIsNull(Long contaId);
+
+    @EntityGraph(attributePaths = {"usuario", "conta"})
     Optional<TransacaoEntity> findByIdAndCode(Long id, String code);
+
+    @Override
+    @EntityGraph(attributePaths = {"usuario", "conta"})
+    Optional<TransacaoEntity> findById(Long id);
 
     @Query("""
         SELECT DISTINCT t FROM TransacaoEntity t
         LEFT JOIN FETCH t.categoria c
+        JOIN FETCH t.usuario u
         JOIN FETCH t.conta co
-        WHERE t.usuarioId = :usuarioId
+        WHERE u.idUsuario = :usuarioId
           AND t.dataTransacao BETWEEN :inicio AND :fim
           AND t.deletedAt IS NULL
         ORDER BY t.dataTransacao DESC
@@ -33,9 +45,9 @@ public interface TransacaoJpaRepository extends JpaRepository<TransacaoEntity, L
       JOIN FETCH t.conta c
       WHERE t.id = :id
         AND t.code = :code
-        AND t.usuarioId = :usuarioId
+        AND u.idUsuario = :usuarioId
         AND u.usuarioCode = :usuarioCode
-        AND t.contaId = :contaId
+        AND c.id = :contaId
         AND c.code = :contaCode
         AND t.deletedAt IS NULL
   """)
@@ -48,5 +60,3 @@ public interface TransacaoJpaRepository extends JpaRepository<TransacaoEntity, L
             @Param("contaCode") String contaCode);
 
 }
-
-

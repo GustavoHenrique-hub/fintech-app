@@ -45,10 +45,8 @@ public class TransacaoEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns(
             value = {
-                    @JoinColumn(name = "usuario_id", referencedColumnName = "id_usuario",
-                            insertable = false, updatable = false),
-                    @JoinColumn(name = "usuario_code", referencedColumnName = "usuario_code",
-                            insertable = false, updatable = false)
+                    @JoinColumn(name = "usuario_id", referencedColumnName = "id_usuario"),
+                    @JoinColumn(name = "usuario_code", referencedColumnName = "usuario_code")
             },
             foreignKey = @ForeignKey(name = "fk_transacoes_usuario")
     )
@@ -57,10 +55,8 @@ public class TransacaoEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns(
             value = {
-                    @JoinColumn(name = "conta_id", referencedColumnName = "id",
-                            insertable = false, updatable = false),
-                    @JoinColumn(name = "conta_code", referencedColumnName = "contas_code",
-                            insertable = false, updatable = false)
+                    @JoinColumn(name = "conta_id", referencedColumnName = "id"),
+                    @JoinColumn(name = "conta_code", referencedColumnName = "contas_code")
             },
             foreignKey = @ForeignKey(name = "fk_transacoes_conta")
     )
@@ -125,12 +121,15 @@ public class TransacaoEntity {
     @Column(name = "atualizado_em")
     private OffsetDateTime atualizadoEm;
 
+    /**
+     * Mapeia apenas os campos escalares. As associações {@code usuario} e {@code conta}
+     * são gravadas pelo adapter com referências gerenciadas (EntityManager) para evitar
+     * tentar persistir instâncias transientes de UsuarioEntity/ContaFinanceiraEntity.
+     */
     public static TransacaoEntity fromDomain(Transacao domain) {
         TransacaoEntity entity = new TransacaoEntity();
         entity.id = domain.getId();
         entity.code = domain.getCode();
-        entity.usuario = UsuarioEntity.fromDomain(domain.getUsuario());
-        entity.conta = ContaFinanceiraEntity.fromDomain(domain.getConta());
         entity.indEstorno = domain.getIndEstorno();
         entity.tipo = domain.getTipo();
         entity.descricao = domain.getDescricao();
@@ -157,8 +156,6 @@ public class TransacaoEntity {
                 origem, statusRevisao, confiancaIa, recorrente, periodoRecorrencia,
                 observacao, deletedAt, versao, criadoEm, atualizadoEm);
         t.setCode(code);
-        t.setUsuario(usuario.toDomain());
-        t.setConta(conta.toDomain());
         return t;
     }
 }

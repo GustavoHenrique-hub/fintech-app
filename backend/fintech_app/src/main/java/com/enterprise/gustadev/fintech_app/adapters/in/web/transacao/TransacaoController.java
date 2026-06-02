@@ -4,9 +4,11 @@ import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.Estorna
 import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.TransacaoRequestDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.TransacaoResponseDTO;
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.*;
+import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoTransacao;
 import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;
+import com.enterprise.gustadev.fintech_app.domain.usuario.model.Usuario;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -49,15 +51,15 @@ public class TransacaoController {
     })
     @PostMapping
     public ResponseEntity<TransacaoResponseDTO> criar(@Valid @RequestBody TransacaoRequestDTO dto) {
+        Usuario usuario = new Usuario(dto.usuarioId(), dto.usuarioCode());
+        ContaFinanceira conta = new ContaFinanceira(dto.contaId(), dto.contaCode());
         Transacao transacao = new Transacao(
-                dto.usuarioId(), dto.contaId(),
+                usuario, conta,
                 TipoTransacao.valueOf(dto.tipo()),
                 dto.valor(), dto.dataTransacao(),
                 dto.categoriaId(),
                 OrigemTransacao.valueOf(dto.origem())
         );
-        transacao.setUsuarioCode(dto.usuarioCode());
-        transacao.setContaCode(dto.contaCode());
         transacao.setDescricao(dto.descricao());
         transacao.setEstabelecimento(dto.estabelecimento());
         transacao.setObservacao(dto.observacao());

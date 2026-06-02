@@ -1,8 +1,13 @@
 package com.enterprise.gustadev.fintech_app.adapters.out.persistence.transacao;
 
+import com.enterprise.gustadev.fintech_app.adapters.out.persistence.contafinanceira.ContaFinanceiraEntity;
+import com.enterprise.gustadev.fintech_app.adapters.out.persistence.usuario.UsuarioEntity;
 import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;
 import com.enterprise.gustadev.fintech_app.domain.transacao.port.TransacaoRepositoryPort;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -13,24 +18,28 @@ public class TransacaoRepositoryAdapter implements TransacaoRepositoryPort {
 
     private final TransacaoJpaRepository jpaRepository;
 
+    @PersistenceContext
+    private EntityManager entityManager;
+
     public TransacaoRepositoryAdapter(TransacaoJpaRepository jpaRepository) {
         this.jpaRepository = jpaRepository;
     }
 
     @Override
+    @Transactional
     public Transacao salvar(Transacao transacao) {
-        return jpaRepository.save(TransacaoEntity.fromDomain(transacao)).toDomain();
+        return persistir(transacao);
     }
 
     @Override
     public List<Transacao> listarPorUsuario(Long usuarioId) {
-        return jpaRepository.findByUsuarioIdAndDeletedAtIsNullOrderByDataTransacaoDesc(usuarioId)
+        return jpaRepository.findByUsuario_IdUsuarioAndDeletedAtIsNullOrderByDataTransacaoDesc(usuarioId)
                 .stream().map(TransacaoEntity::toDomain).toList();
     }
 
     @Override
     public List<Transacao> listarPorConta(Long contaId) {
-        return jpaRepository.findByContaIdAndDeletedAtIsNull(contaId)
+        return jpaRepository.findByConta_IdAndDeletedAtIsNull(contaId)
                 .stream().map(TransacaoEntity::toDomain).toList();
     }
 
@@ -58,8 +67,9 @@ public class TransacaoRepositoryAdapter implements TransacaoRepositoryPort {
     }
 
     @Override
+    @Transactional
     public Transacao estornaTransacao(Transacao transacao) {
-        return jpaRepository.save(TransacaoEntity.fromDomain(transacao)).toDomain();
+        return persistir(transacao);
     }
 
     @Override
@@ -67,5 +77,19 @@ public class TransacaoRepositoryAdapter implements TransacaoRepositoryPort {
         return jpaRepository
                 .buscarParaEstorno(id, code, usuarioId, usuarioCode, contaId, contaCode)
                 .map(TransacaoEntity::toDomain);
+    }
+
+    /**
+     * Persiste a transação ligando usuário e conta por referências gerenciadas
+     * (resolvidas via EntityManager a partir da chave do domínio), evitando que o
+     * Hibernate tente persistir instâncias transientes das entidades associadas.
+     */
+    private Transacao persistir(Transacao transacao) {
+        TransacaoEntity entity = TransacaoEntity.fromDomain(transacao);
+        entity.setUsuario(entityManager.getReference(
+                UsuarioEntity.class, transacao.getUsuario().getIdUsuario()));
+        entity.setConta(entityManager.getReference(
+                ContaFinanceiraEntity.class, transacao.getConta().getId()));
+        return jpaRepository.save(entity).toDomain();
     }
 }
