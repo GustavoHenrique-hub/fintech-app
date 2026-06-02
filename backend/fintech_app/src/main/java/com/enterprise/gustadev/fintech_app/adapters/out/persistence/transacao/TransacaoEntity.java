@@ -42,12 +42,6 @@ public class TransacaoEntity {
     @Column(name = "transacoes_code", unique = true, nullable = false, length = 6)
     private String code;
 
-    @Column(name = "usuario_id", nullable = false)
-    private Long usuarioId;
-
-    @Column(name = "usuario_code", nullable = false)
-    private String usuarioCode;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns(
             value = {
@@ -59,12 +53,6 @@ public class TransacaoEntity {
             foreignKey = @ForeignKey(name = "fk_transacoes_usuario")
     )
     private UsuarioEntity usuario;
-
-    @Column(name = "conta_id", nullable = false)
-    private Long contaId;
-
-    @Column(name = "conta_code", nullable = false, length = 6)
-    private String contaCode;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns(
@@ -141,10 +129,8 @@ public class TransacaoEntity {
         TransacaoEntity entity = new TransacaoEntity();
         entity.id = domain.getId();
         entity.code = domain.getCode();
-        entity.usuarioId = domain.getUsuarioId();
-        entity.usuarioCode = domain.getUsuarioCode();
-        entity.contaId = domain.getContaId();
-        entity.contaCode = domain.getContaCode();
+        entity.usuario = UsuarioEntity.fromDomain(domain.getUsuario());
+        entity.conta = ContaFinanceiraEntity.fromDomain(domain.getConta());
         entity.indEstorno = domain.getIndEstorno();
         entity.tipo = domain.getTipo();
         entity.descricao = domain.getDescricao();
@@ -166,13 +152,13 @@ public class TransacaoEntity {
     }
 
     public Transacao toDomain() {
-        Transacao t = new Transacao(id, usuarioId, contaId, indEstorno, tipo,
+        Transacao t = new Transacao(id, usuario.toDomain(), conta.toDomain(), indEstorno, tipo,
                 descricao, valor, dataTransacao, categoriaId, estabelecimento,
                 origem, statusRevisao, confiancaIa, recorrente, periodoRecorrencia,
                 observacao, deletedAt, versao, criadoEm, atualizadoEm);
         t.setCode(code);
-        t.setUsuarioCode(usuarioCode);
-        t.setContaCode(contaCode);
+        t.setUsuario(usuario.toDomain());
+        t.setConta(conta.toDomain());
         return t;
     }
 }

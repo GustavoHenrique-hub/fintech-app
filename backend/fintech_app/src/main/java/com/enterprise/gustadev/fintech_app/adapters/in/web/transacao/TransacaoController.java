@@ -56,6 +56,8 @@ public class TransacaoController {
                 dto.categoriaId(),
                 OrigemTransacao.valueOf(dto.origem())
         );
+        transacao.setUsuarioCode(dto.usuarioCode());
+        transacao.setContaCode(dto.contaCode());
         transacao.setDescricao(dto.descricao());
         transacao.setEstabelecimento(dto.estabelecimento());
         transacao.setObservacao(dto.observacao());

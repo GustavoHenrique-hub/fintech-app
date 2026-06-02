@@ -29,8 +29,8 @@ public interface TransacaoJpaRepository extends JpaRepository<TransacaoEntity, L
 
     @Query("""
       SELECT t FROM TransacaoEntity t
-      JOIN t.usuario u
-      JOIN t.conta c
+      JOIN FETCH t.usuario u
+      JOIN FETCH t.conta c
       WHERE t.id = :id
         AND t.code = :code
         AND t.usuarioId = :usuarioId

@@ -1,10 +1,12 @@
 package com.enterprise.gustadev.fintech_app.domain.transacao.model;
 
+import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusRevisaoTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.util.CodeGenerator;
 import com.enterprise.gustadev.fintech_app.domain.transacao.exception.TransacaoInvalidaException;
+import com.enterprise.gustadev.fintech_app.domain.usuario.model.Usuario;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,10 +20,8 @@ public class Transacao {
 
     private Long id;
     private String code;
-    private Long usuarioId;
-    private String usuarioCode;
-    private Long contaId;
-    private String contaCode;
+    private Usuario usuario;
+    private ContaFinanceira conta;
     private String indEstorno;
     private TipoTransacao tipo;
     private String descricao;
@@ -40,7 +40,7 @@ public class Transacao {
     private OffsetDateTime criadoEm;
     private OffsetDateTime atualizadoEm;
 
-    public Transacao(Long id, Long usuarioId, Long contaId, String indEstorno,
+    public Transacao(Long id, Usuario usuario, ContaFinanceira conta, String indEstorno,
                      TipoTransacao tipo, String descricao, BigDecimal valor,
                      LocalDate dataTransacao, Long categoriaId, String estabelecimento,
                      OrigemTransacao origem, StatusRevisaoTransacao statusRevisao,
@@ -48,8 +48,8 @@ public class Transacao {
                      String observacao, OffsetDateTime deletedAt, int versao,
                      OffsetDateTime criadoEm, OffsetDateTime atualizadoEm) {
         this.id = id;
-        this.usuarioId = usuarioId;
-        this.contaId = contaId;
+        this.usuario = usuario;
+        this.conta = conta;
         this.indEstorno = indEstorno;
         this.tipo = tipo;
         this.descricao = descricao;
@@ -69,10 +69,10 @@ public class Transacao {
         this.atualizadoEm = atualizadoEm;
     }
 
-    public Transacao(Long usuarioId, Long contaId, TipoTransacao tipo,
+    public Transacao(Usuario usuario, ContaFinanceira conta, TipoTransacao tipo,
                      BigDecimal valor, LocalDate dataTransacao, Long categoriaId,
                      OrigemTransacao origem) {
-        this(null, usuarioId, contaId, "N", tipo, null,
+        this(null, usuario, conta, "N", tipo, null,
              valor, dataTransacao, categoriaId, null, origem,
              StatusRevisaoTransacao.EXTRAIDA, null, false, null, null, null,
              1, OffsetDateTime.now(), null);
@@ -91,11 +91,11 @@ public class Transacao {
     }
 
     public void validar() {
-        if (usuarioId == null) {
-            throw new TransacaoInvalidaException("UsuarioId é obrigatório");
+        if (usuario == null) {
+            throw new TransacaoInvalidaException("Usuario é obrigatório");
         }
-        if (contaId == null) {
-            throw new TransacaoInvalidaException("ContaId é obrigatório");
+        if (conta == null) {
+            throw new TransacaoInvalidaException("Conta é obrigatório");
         }
         if (tipo == null) {
             throw new TransacaoInvalidaException("Tipo é obrigatório");
