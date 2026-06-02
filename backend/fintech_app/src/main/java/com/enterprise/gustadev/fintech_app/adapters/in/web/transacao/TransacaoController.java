@@ -1,11 +1,9 @@
 package com.enterprise.gustadev.fintech_app.adapters.in.web.transacao;
 
+import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.EstornarTransacaoRequestDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.TransacaoRequestDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.TransacaoResponseDTO;
-import com.enterprise.gustadev.fintech_app.application.transacao.usecase.BuscarTransacaoUseCase;
-import com.enterprise.gustadev.fintech_app.application.transacao.usecase.CriarTransacaoUseCase;
-import com.enterprise.gustadev.fintech_app.application.transacao.usecase.DeletarTransacaoUseCase;
-import com.enterprise.gustadev.fintech_app.application.transacao.usecase.ListarTransacoesUseCase;
+import com.enterprise.gustadev.fintech_app.application.transacao.usecase.*;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoTransacao;
 import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;
@@ -16,13 +14,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
@@ -36,15 +28,18 @@ public class TransacaoController {
     private final ListarTransacoesUseCase listarUseCase;
     private final BuscarTransacaoUseCase buscarUseCase;
     private final DeletarTransacaoUseCase deletarUseCase;
+    private final EstornarTransacaoUseCase estornarUseCase;
 
     public TransacaoController(CriarTransacaoUseCase criarUseCase,
-                                ListarTransacoesUseCase listarUseCase,
-                                BuscarTransacaoUseCase buscarUseCase,
-                                DeletarTransacaoUseCase deletarUseCase) {
+                               ListarTransacoesUseCase listarUseCase,
+                               BuscarTransacaoUseCase buscarUseCase,
+                               DeletarTransacaoUseCase deletarUseCase,
+                               EstornarTransacaoUseCase estornarUseCase) {
         this.criarUseCase = criarUseCase;
         this.listarUseCase = listarUseCase;
         this.buscarUseCase = buscarUseCase;
         this.deletarUseCase = deletarUseCase;
+        this.estornarUseCase = estornarUseCase;
     }
 
     @Operation(summary = "Criar transação", description = "Registra uma nova transação financeira. Os campos tipo e origem devem conter valores válidos dos enums TipoTransacao e OrigemTransacao.")
@@ -111,5 +106,24 @@ public class TransacaoController {
             @Parameter(description = "Código alfanumérico de 6 caracteres (transacoes_code)") @PathVariable("transacoes_code") String transacoesCode) {
         deletarUseCase.executar(idTransacoes, transacoesCode);
         return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Estornar transação",
+            description = "Marca a transação identificada pela chave composta como indEstorno='S'. Operação idempotente: chamar novamente em uma transação já estornada retorna 200 sem nova alteração.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Transação estornada com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos na requisição"),
+            @ApiResponse(responseCode = "404", description = "Transação não encontrada")
+    })
+    @PatchMapping("/{id_transacoes}/{transacoes_code}/estornar")
+    public ResponseEntity<TransacaoResponseDTO> estornar(
+            @Parameter(description = "ID da transação (id_transacoes)") @PathVariable("id_transacoes") Long idTransacoes,
+            @Parameter(description = "Código alfanumérico de 6 caracteres (transacoes_code)") @PathVariable("transacoes_code") String transacoesCode,
+            @Valid @RequestBody EstornarTransacaoRequestDTO dto) {
+        Transacao estornada = estornarUseCase.executar(
+                idTransacoes, transacoesCode,
+                dto.usuarioId(), dto.usuarioCode(),
+                dto.contaId(), dto.contaCode());
+        return ResponseEntity.ok(TransacaoResponseDTO.fromDomain(estornada));
     }
 }

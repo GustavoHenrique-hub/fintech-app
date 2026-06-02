@@ -56,4 +56,16 @@ public class TransacaoRepositoryAdapter implements TransacaoRepositoryPort {
     public void deletarPorId(Long id) {
         jpaRepository.deleteById(id);
     }
+
+    @Override
+    public Transacao estornaTransacao(Transacao transacao) {
+        return jpaRepository.save(TransacaoEntity.fromDomain(transacao)).toDomain();
+    }
+
+    @Override
+    public Optional<Transacao> buscarTransacao(Long id, String code, Long usuarioId, String usuarioCode, Long contaId, String contaCode){
+        return jpaRepository
+                .buscarParaEstorno(id, code, usuarioId, usuarioCode, contaId, contaCode)
+                .map(TransacaoEntity::toDomain);
+    }
 }

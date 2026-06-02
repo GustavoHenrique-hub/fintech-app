@@ -26,4 +26,27 @@ public interface TransacaoJpaRepository extends JpaRepository<TransacaoEntity, L
             @Param("usuarioId") Long usuarioId,
             @Param("inicio") LocalDate inicio,
             @Param("fim") LocalDate fim);
+
+    @Query("""
+      SELECT t FROM TransacaoEntity t
+      JOIN t.usuario u
+      JOIN t.conta c
+      WHERE t.id = :id
+        AND t.code = :code
+        AND t.usuarioId = :usuarioId
+        AND u.usuarioCode = :usuarioCode
+        AND t.contaId = :contaId
+        AND c.code = :contaCode
+        AND t.deletedAt IS NULL
+  """)
+    Optional<TransacaoEntity> buscarParaEstorno(
+            @Param("id") Long id,
+            @Param("code") String code,
+            @Param("usuarioId") Long usuarioId,
+            @Param("usuarioCode") String usuarioCode,
+            @Param("contaId") Long contaId,
+            @Param("contaCode") String contaCode);
+
 }
+
+
