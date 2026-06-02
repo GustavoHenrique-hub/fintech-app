@@ -37,7 +37,6 @@ public interface TransacaoJpaRepository extends JpaRepository<TransacaoEntity, L
         AND u.usuarioCode = :usuarioCode
         AND t.contaId = :contaId
         AND c.code = :contaCode
-        AND t.indEstorno = 'N'
         AND t.deletedAt IS NULL
   """)
     Optional<TransacaoEntity> buscarParaEstorno(

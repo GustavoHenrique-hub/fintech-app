@@ -1,5 +1,6 @@
 package com.enterprise.gustadev.fintech_app.adapters.in.web.transacao;
 
+import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.EstornarTransacaoRequestDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.TransacaoRequestDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.TransacaoResponseDTO;
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.*;
@@ -12,13 +13,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Map;
 
 @Tag(name = "Transações", description = "Registro e consulta de transações financeiras (débito, crédito, transferência)")
 @RestController
@@ -109,19 +108,22 @@ public class TransacaoController {
         return ResponseEntity.noContent().build();
     }
 
-    @Operation(summary = "Estornar transação", description = "")
+    @Operation(summary = "Estornar transação",
+            description = "Marca a transação identificada pela chave composta como indEstorno='S'. Operação idempotente: chamar novamente em uma transação já estornada retorna 200 sem nova alteração.")
     @ApiResponses({
-            @ApiResponse(responseCode = "201", description = "Transação criada com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Dados inválidos na requisição")
+            @ApiResponse(responseCode = "200", description = "Transação estornada com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos na requisição"),
+            @ApiResponse(responseCode = "404", description = "Transação não encontrada")
     })
-    @PatchMapping("/estornar")
-    public ResponseEntity<Map<String, String>> estornar(
-            @Parameter(description = "ID da transação (id_transacao)") @RequestBody Long transacaoId,
-            @RequestBody String transacoeCode,
-            @RequestBody Long usuarioId,
-            @RequestBody String usuarioCode,
-            @RequestBody Long contaId,
-            @RequestBody String contaCode) {
-        return estornarUseCase.executar(transacaoId, transacoeCode, usuarioId, usuarioCode, contaId, contaCode);
+    @PatchMapping("/{id_transacoes}/{transacoes_code}/estornar")
+    public ResponseEntity<TransacaoResponseDTO> estornar(
+            @Parameter(description = "ID da transação (id_transacoes)") @PathVariable("id_transacoes") Long idTransacoes,
+            @Parameter(description = "Código alfanumérico de 6 caracteres (transacoes_code)") @PathVariable("transacoes_code") String transacoesCode,
+            @Valid @RequestBody EstornarTransacaoRequestDTO dto) {
+        Transacao estornada = estornarUseCase.executar(
+                idTransacoes, transacoesCode,
+                dto.usuarioId(), dto.usuarioCode(),
+                dto.contaId(), dto.contaCode());
+        return ResponseEntity.ok(TransacaoResponseDTO.fromDomain(estornada));
     }
 }

@@ -79,6 +79,17 @@ public class Transacao {
         this.code = CodeGenerator.gerar();
     }
 
+    public void estornar() {
+        if ("S".equals(indEstorno)) {
+            return;
+        }
+        if (deletedAt != null) {
+            throw new TransacaoInvalidaException("Transação deletada não pode ser estornada");
+        }
+        this.indEstorno = "S";
+        this.atualizadoEm = OffsetDateTime.now();
+    }
+
     public void validar() {
         if (usuarioId == null) {
             throw new TransacaoInvalidaException("UsuarioId é obrigatório");
