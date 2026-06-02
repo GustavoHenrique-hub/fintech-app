@@ -16,7 +16,9 @@
       "Bash(mvn -q -DskipTests compile)",
       "Bash(mvn -DskipTests compile)",
       "Bash(mvn -DskipTests clean compile)",
-      "Bash(./mvnw -q compile)"
+      "Bash(./mvnw -q compile)",
+      "Bash(./mvnw -q test-compile)",
+      "Bash(./mvnw -q test -Dtest='Transacao*Test,*TransacaoUseCaseTest')"
     ]
   }
 }
