@@ -35,7 +35,6 @@ public class Transacao {
     private boolean recorrente;
     private LocalDate periodoRecorrencia;
     private String observacao;
-    private OffsetDateTime deletedAt;
     private OffsetDateTime estornadoAt;
     private int versao;
     private OffsetDateTime criadoEm;
@@ -48,7 +47,7 @@ public class Transacao {
                      LocalDate dataTransacao, Long categoriaId, String estabelecimento,
                      OrigemTransacao origem, StatusRevisaoTransacao statusRevisao,
                      Short confiancaIa, boolean recorrente, LocalDate periodoRecorrencia,
-                     String observacao, OffsetDateTime deletedAt, int versao,
+                     String observacao, int versao,
                      OffsetDateTime criadoEm, OffsetDateTime atualizadoEm, OffsetDateTime estornadoAt) {
         this.id = id;
         this.usuario = usuario;
@@ -66,7 +65,6 @@ public class Transacao {
         this.recorrente = recorrente;
         this.periodoRecorrencia = periodoRecorrencia;
         this.observacao = observacao;
-        this.deletedAt = deletedAt;
         this.estornadoAt = estornadoAt;
         this.versao = versao;
         this.criadoEm = criadoEm;
@@ -90,9 +88,6 @@ public class Transacao {
     public Transacao criarEstorno() {
         if ("S".equals(indEstorno)) {
             throw new TransacaoInvalidaException("Não é possível estornar uma transação que já é um estorno");
-        }
-        if (deletedAt != null) {
-            throw new TransacaoInvalidaException("Transação deletada não pode ser estornada");
         }
         this.estornadoAt = OffsetDateTime.now();
         Transacao estorno = new Transacao(
