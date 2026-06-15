@@ -25,7 +25,7 @@ export const TopBar = () => {
         </div>
 
         {/* Busca: ocupa o espaço restante. Mais larga em desktop. */}
-        <div className="flex-1 mx-1 relative max-w-xl">
+        <div className="flex flex-col mx-1 relative max-w-xl">
           <Search
             className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-muted-foreground absolute left-2.5 lg:left-3 top-1/2 -translate-y-1/2"
             strokeWidth={2.25}
