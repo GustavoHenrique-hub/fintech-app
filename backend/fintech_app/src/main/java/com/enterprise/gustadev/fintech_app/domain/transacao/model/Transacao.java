@@ -76,7 +76,7 @@ public class Transacao {
                      OrigemTransacao origem) {
         this(null, usuario, conta, "N", tipo, null,
              valor, dataTransacao, categoriaId, null, origem,
-             StatusRevisaoTransacao.EXTRAIDA, null, false, null, null, null,
+             StatusRevisaoTransacao.EXTRAIDA, null, false, null, null,
              1, OffsetDateTime.now(), null, null);
         this.code = CodeGenerator.gerar();
     }
@@ -93,7 +93,7 @@ public class Transacao {
         Transacao estorno = new Transacao(
                 null, usuario, conta, "S", tipo, descricao, valor, dataTransacao,
                 categoriaId, estabelecimento, origem, statusRevisao, confiancaIa,
-                recorrente, periodoRecorrencia, observacao, null, 1,
+                recorrente, periodoRecorrencia, observacao, 1,
                 OffsetDateTime.now(), null, null);
         estorno.code = CodeGenerator.gerar();
         estorno.transacaoEstornadaId = this.id;
