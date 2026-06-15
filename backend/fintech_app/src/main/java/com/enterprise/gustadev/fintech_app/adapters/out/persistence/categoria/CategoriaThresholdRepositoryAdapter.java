@@ -25,8 +25,4 @@ public class CategoriaThresholdRepositoryAdapter implements CategoriaThresholdRe
         return jpaRepository.findByCategoriaId(categoriaId).map(CategoriaThresholdEntity::toDomain);
     }
 
-    @Override
-    public void deletarPorId(Long id) {
-        jpaRepository.deleteById(id);
-    }
 }

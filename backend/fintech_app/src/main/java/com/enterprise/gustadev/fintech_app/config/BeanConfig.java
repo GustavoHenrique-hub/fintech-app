@@ -2,7 +2,6 @@ package com.enterprise.gustadev.fintech_app.config;
 
 import com.enterprise.gustadev.fintech_app.application.banco.usecase.BuscarBancoUseCase;
 import com.enterprise.gustadev.fintech_app.application.banco.usecase.CriarBancoUseCase;
-import com.enterprise.gustadev.fintech_app.application.banco.usecase.DeletarBancoUseCase;
 import com.enterprise.gustadev.fintech_app.application.banco.usecase.ListarBancosUseCase;
 import com.enterprise.gustadev.fintech_app.application.categoria.usecase.BuscarCategoriaUseCase;
 import com.enterprise.gustadev.fintech_app.application.categoria.usecase.CriarCategoriaUseCase;
@@ -16,18 +15,18 @@ import com.enterprise.gustadev.fintech_app.application.consentimentolgpd.usecase
 import com.enterprise.gustadev.fintech_app.application.consentimentolgpd.usecase.RegistrarConsentimentoLgpdUseCase;
 import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.BuscarContaFinanceiraUseCase;
 import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.CriarContaFinanceiraUseCase;
-import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.DeletarContaFinanceiraUseCase;
 import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.ListarContasFinanceirasUseCase;
+import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.RemoverContaFinanceiraUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.BuscarExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.CriarExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.ListarExtratosUseCase;
+import com.enterprise.gustadev.fintech_app.application.extrato.usecase.RemoverExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.notificacao.usecase.CriarNotificacaoUseCase;
 import com.enterprise.gustadev.fintech_app.application.notificacao.usecase.ListarNotificacoesUseCase;
 import com.enterprise.gustadev.fintech_app.application.snapshotfinanceiro.usecase.BuscarSnapshotFinanceiroUseCase;
 import com.enterprise.gustadev.fintech_app.application.snapshotfinanceiro.usecase.ListarSnapshotsFinanceirosUseCase;
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.BuscarUsuarioUseCase;
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.CriarUsuarioUseCase;
-import com.enterprise.gustadev.fintech_app.application.usuario.usecase.DeletarUsuarioUseCase;
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.ListarUsuariosUseCase;
 import com.enterprise.gustadev.fintech_app.domain.banco.port.BancoRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.categoria.port.CategoriaRepositoryPort;
@@ -62,11 +61,6 @@ public class BeanConfig {
         return new BuscarUsuarioUseCase(repository);
     }
 
-    @Bean
-    public DeletarUsuarioUseCase deletarUsuarioUseCase(UsuarioRepositoryPort repository) {
-        return new DeletarUsuarioUseCase(repository);
-    }
-
     // ── ContaFinanceira ──────────────────────────────────────────────────
     @Bean
     public CriarContaFinanceiraUseCase criarContaFinanceiraUseCase(ContaFinanceiraRepositoryPort repository) {
@@ -84,8 +78,8 @@ public class BeanConfig {
     }
 
     @Bean
-    public DeletarContaFinanceiraUseCase deletarContaFinanceiraUseCase(ContaFinanceiraRepositoryPort repository) {
-        return new DeletarContaFinanceiraUseCase(repository);
+    public RemoverContaFinanceiraUseCase removerContaFinanceiraUseCase(ContaFinanceiraRepositoryPort repository) {
+        return new RemoverContaFinanceiraUseCase(repository);
     }
 
     // ── Banco ────────────────────────────────────────────────────────────
@@ -102,11 +96,6 @@ public class BeanConfig {
     @Bean
     public BuscarBancoUseCase buscarBancoUseCase(BancoRepositoryPort repository) {
         return new BuscarBancoUseCase(repository);
-    }
-
-    @Bean
-    public DeletarBancoUseCase deletarBancoUseCase(BancoRepositoryPort repository) {
-        return new DeletarBancoUseCase(repository);
     }
 
     // ── Categoria ────────────────────────────────────────────────────────
@@ -141,6 +130,11 @@ public class BeanConfig {
         return new BuscarExtratoUseCase(repository);
     }
 
+    @Bean
+    public RemoverExtratoUseCase removerExtratoUseCase(ExtratoRepositoryPort repository) {
+        return new RemoverExtratoUseCase(repository);
+    }
+
     // ── Transacao ────────────────────────────────────────────────────────
     @Bean
     public CriarTransacaoUseCase criarTransacaoUseCase(TransacaoRepositoryPort repository) {
@@ -155,11 +149,6 @@ public class BeanConfig {
     @Bean
     public BuscarTransacaoUseCase buscarTransacaoUseCase(TransacaoRepositoryPort repository) {
         return new BuscarTransacaoUseCase(repository);
-    }
-
-    @Bean
-    public DeletarTransacaoUseCase deletarTransacaoUseCase(TransacaoRepositoryPort repository) {
-        return new DeletarTransacaoUseCase(repository);
     }
 
     @Bean

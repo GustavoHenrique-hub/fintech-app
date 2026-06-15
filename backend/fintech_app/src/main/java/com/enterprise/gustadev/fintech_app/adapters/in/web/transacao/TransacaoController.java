@@ -3,7 +3,10 @@ package com.enterprise.gustadev.fintech_app.adapters.in.web.transacao;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.EstornarTransacaoRequestDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.TransacaoRequestDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.TransacaoResponseDTO;
-import com.enterprise.gustadev.fintech_app.application.transacao.usecase.*;
+import com.enterprise.gustadev.fintech_app.application.transacao.usecase.BuscarTransacaoUseCase;
+import com.enterprise.gustadev.fintech_app.application.transacao.usecase.CriarTransacaoUseCase;
+import com.enterprise.gustadev.fintech_app.application.transacao.usecase.EstornarTransacaoUseCase;
+import com.enterprise.gustadev.fintech_app.application.transacao.usecase.ListarTransacoesUseCase;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoTransacao;
@@ -29,18 +32,15 @@ public class TransacaoController {
     private final CriarTransacaoUseCase criarUseCase;
     private final ListarTransacoesUseCase listarUseCase;
     private final BuscarTransacaoUseCase buscarUseCase;
-    private final DeletarTransacaoUseCase deletarUseCase;
     private final EstornarTransacaoUseCase estornarUseCase;
 
     public TransacaoController(CriarTransacaoUseCase criarUseCase,
                                ListarTransacoesUseCase listarUseCase,
                                BuscarTransacaoUseCase buscarUseCase,
-                               DeletarTransacaoUseCase deletarUseCase,
                                EstornarTransacaoUseCase estornarUseCase) {
         this.criarUseCase = criarUseCase;
         this.listarUseCase = listarUseCase;
         this.buscarUseCase = buscarUseCase;
-        this.deletarUseCase = deletarUseCase;
         this.estornarUseCase = estornarUseCase;
     }
 
@@ -96,20 +96,6 @@ public class TransacaoController {
             @Parameter(description = "ID da transação (id_transacoes)") @PathVariable("id_transacoes") Long idTransacoes,
             @Parameter(description = "Código alfanumérico de 6 caracteres (transacoes_code)") @PathVariable("transacoes_code") String transacoesCode) {
         return ResponseEntity.ok(TransacaoResponseDTO.fromDomain(buscarUseCase.executar(idTransacoes, transacoesCode)));
-    }
-
-    @Operation(summary = "Deletar transação",
-            description = "Remove permanentemente a transação identificada pela chave composta (id_transacoes + transacoes_code).")
-    @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Transação removida com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Transação não encontrada")
-    })
-    @DeleteMapping("/{id_transacoes}/{transacoes_code}")
-    public ResponseEntity<Void> deletar(
-            @Parameter(description = "ID da transação (id_transacoes)") @PathVariable("id_transacoes") Long idTransacoes,
-            @Parameter(description = "Código alfanumérico de 6 caracteres (transacoes_code)") @PathVariable("transacoes_code") String transacoesCode) {
-        deletarUseCase.executar(idTransacoes, transacoesCode);
-        return ResponseEntity.noContent().build();
     }
 
     @Operation(summary = "Estornar transação",

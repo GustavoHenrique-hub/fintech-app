@@ -4,8 +4,8 @@ import com.enterprise.gustadev.fintech_app.adapters.in.web.contafinanceira.dto.C
 import com.enterprise.gustadev.fintech_app.adapters.in.web.contafinanceira.dto.ContaFinanceiraResponseDTO;
 import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.BuscarContaFinanceiraUseCase;
 import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.CriarContaFinanceiraUseCase;
-import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.DeletarContaFinanceiraUseCase;
 import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.ListarContasFinanceirasUseCase;
+import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.RemoverContaFinanceiraUseCase;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoConta;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,8 +15,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,16 +38,16 @@ public class ContaFinanceiraController {
     private final CriarContaFinanceiraUseCase criarUseCase;
     private final ListarContasFinanceirasUseCase listarUseCase;
     private final BuscarContaFinanceiraUseCase buscarUseCase;
-    private final DeletarContaFinanceiraUseCase deletarUseCase;
+    private final RemoverContaFinanceiraUseCase removerUseCase;
 
     public ContaFinanceiraController(CriarContaFinanceiraUseCase criarUseCase,
                                       ListarContasFinanceirasUseCase listarUseCase,
                                       BuscarContaFinanceiraUseCase buscarUseCase,
-                                      DeletarContaFinanceiraUseCase deletarUseCase) {
+                                      RemoverContaFinanceiraUseCase removerUseCase) {
         this.criarUseCase = criarUseCase;
         this.listarUseCase = listarUseCase;
         this.buscarUseCase = buscarUseCase;
-        this.deletarUseCase = deletarUseCase;
+        this.removerUseCase = removerUseCase;
     }
 
     @Operation(summary = "Criar conta financeira",
@@ -90,6 +90,19 @@ public class ContaFinanceiraController {
             @ApiResponse(responseCode = "200", description = "Conta encontrada"),
             @ApiResponse(responseCode = "404", description = "Conta não encontrada")
     })
+    @Operation(summary = "Remover conta financeira (soft delete)",
+            description = "Marca a conta como removida (ind_delete='S') e inativa (ativa=false) sem apagar o registro.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Conta removida com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Conta não encontrada")
+    })
+    @PatchMapping("/{id_contas}/{contas_code}/remover")
+    public ResponseEntity<ContaFinanceiraResponseDTO> remover(
+            @Parameter(description = "ID da conta (id_contas)") @PathVariable("id_contas") Long idContas,
+            @Parameter(description = "Código alfanumérico de 6 caracteres (contas_code)") @PathVariable("contas_code") String contasCode) {
+        return ResponseEntity.ok(ContaFinanceiraResponseDTO.fromDomain(removerUseCase.executar(idContas, contasCode)));
+    }
+
     @GetMapping("/{id_contas}/{contas_code}")
     public ResponseEntity<ContaFinanceiraResponseDTO> buscarPorId(
             @Parameter(description = "ID da conta (id_contas)") @PathVariable("id_contas") Long idContas,
@@ -97,18 +110,4 @@ public class ContaFinanceiraController {
         return ResponseEntity.ok(ContaFinanceiraResponseDTO.fromDomain(buscarUseCase.executar(idContas, contasCode)));
     }
 
-    @Operation(summary = "Deletar conta financeira",
-            description = "Remove permanentemente a conta identificada pela chave composta (`id_contas` + `contas_code`). " +
-                    "O banco vinculado não é afetado.")
-    @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Conta removida com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Conta não encontrada")
-    })
-    @DeleteMapping("/{id_contas}/{contas_code}")
-    public ResponseEntity<Void> deletar(
-            @Parameter(description = "ID da conta (id_contas)") @PathVariable("id_contas") Long idContas,
-            @Parameter(description = "Código alfanumérico de 6 caracteres (contas_code)") @PathVariable("contas_code") String contasCode) {
-        deletarUseCase.executar(idContas, contasCode);
-        return ResponseEntity.noContent().build();
-    }
 }

@@ -36,8 +36,4 @@ public class BancoRepositoryAdapter implements BancoRepositoryPort {
         return jpaRepository.findByIdAndCode(id, code).map(BancoEntity::toDomain);
     }
 
-    @Override
-    public void deletarPorId(Long id) {
-        jpaRepository.deleteById(id);
-    }
 }

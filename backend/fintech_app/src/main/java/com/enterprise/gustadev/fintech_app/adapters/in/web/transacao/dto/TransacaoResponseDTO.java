@@ -24,7 +24,8 @@ public record TransacaoResponseDTO(
         String statusRevisao,
         Short confiancaIa,
         boolean recorrente,
-        OffsetDateTime criadoEm
+        OffsetDateTime criadoEm,
+        OffsetDateTime estornadoAt
 ) {
     public static TransacaoResponseDTO fromDomain(Transacao domain) {
         return new TransacaoResponseDTO(
@@ -45,7 +46,8 @@ public record TransacaoResponseDTO(
                 domain.getStatusRevisao().name(),
                 domain.getConfiancaIa(),
                 domain.isRecorrente(),
-                domain.getCriadoEm()
+                domain.getCriadoEm(),
+                domain.getEstornadoAt()
         );
     }
 }

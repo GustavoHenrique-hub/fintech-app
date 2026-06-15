@@ -5,6 +5,7 @@ import com.enterprise.gustadev.fintech_app.adapters.in.web.extrato.dto.ExtratoRe
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.BuscarExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.CriarExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.ListarExtratosUseCase;
+import com.enterprise.gustadev.fintech_app.application.extrato.usecase.RemoverExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.domain.extrato.model.Extrato;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -14,6 +15,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,13 +33,16 @@ public class ExtratoController {
     private final CriarExtratoUseCase criarUseCase;
     private final ListarExtratosUseCase listarUseCase;
     private final BuscarExtratoUseCase buscarUseCase;
+    private final RemoverExtratoUseCase removerUseCase;
 
     public ExtratoController(CriarExtratoUseCase criarUseCase,
                               ListarExtratosUseCase listarUseCase,
-                              BuscarExtratoUseCase buscarUseCase) {
+                              BuscarExtratoUseCase buscarUseCase,
+                              RemoverExtratoUseCase removerUseCase) {
         this.criarUseCase = criarUseCase;
         this.listarUseCase = listarUseCase;
         this.buscarUseCase = buscarUseCase;
+        this.removerUseCase = removerUseCase;
     }
 
     @Operation(summary = "Criar extrato", description = "Registra os metadados de um extrato bancário importado (nome_completo, ID e hash do arquivo).")
@@ -62,6 +67,19 @@ public class ExtratoController {
             @Parameter(description = "ID do usuário") @PathVariable Long usuarioId) {
         return ResponseEntity.ok(listarUseCase.executar(usuarioId).stream()
                 .map(ExtratoResponseDTO::fromDomain).toList());
+    }
+
+    @Operation(summary = "Remover extrato (soft delete)",
+            description = "Marca o extrato como removido (ind_delete='S') sem apagar o registro.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Extrato removido com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Extrato não encontrado")
+    })
+    @PatchMapping("/{id_extratos}/{extratos_code}/remover")
+    public ResponseEntity<ExtratoResponseDTO> remover(
+            @Parameter(description = "ID do extrato (id_extratos)") @PathVariable("id_extratos") Long idExtratos,
+            @Parameter(description = "Código alfanumérico de 6 caracteres (extratos_code)") @PathVariable("extratos_code") String extratosCode) {
+        return ResponseEntity.ok(ExtratoResponseDTO.fromDomain(removerUseCase.executar(idExtratos, extratosCode)));
     }
 
     @Operation(summary = "Buscar extrato por ID e código",

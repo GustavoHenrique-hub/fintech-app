@@ -42,8 +42,4 @@ public class CategoriaRepositoryAdapter implements CategoriaRepositoryPort {
         return jpaRepository.findByIdAndCode(id, code).map(CategoriaEntity::toDomain);
     }
 
-    @Override
-    public void deletarPorId(Long id) {
-        jpaRepository.deleteById(id);
-    }
 }

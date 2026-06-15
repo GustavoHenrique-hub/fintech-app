@@ -24,10 +24,13 @@ public class ContaFinanceira {
     private boolean ativa;
     private OffsetDateTime criadoEm;
     private OffsetDateTime atualizadoEm;
+    private String indDelete;
+    private OffsetDateTime deletedAt;
 
     public ContaFinanceira(Long id, Long usuarioId, TipoConta tipo,
                            Long bancoId, String bancoCode, BigDecimal saldoInicial, boolean padrao,
-                           boolean ativa, OffsetDateTime criadoEm, OffsetDateTime atualizadoEm) {
+                           boolean ativa, OffsetDateTime criadoEm, OffsetDateTime atualizadoEm,
+                           String indDelete, OffsetDateTime deletedAt) {
         this.id = id;
         this.usuarioId = usuarioId;
         this.tipo = tipo;
@@ -38,12 +41,23 @@ public class ContaFinanceira {
         this.ativa = ativa;
         this.criadoEm = criadoEm;
         this.atualizadoEm = atualizadoEm;
+        this.indDelete = indDelete != null ? indDelete : "N";
+        this.deletedAt = deletedAt;
     }
 
     public ContaFinanceira(Long usuarioId, TipoConta tipo,
                            Long bancoId, String bancoCode, BigDecimal saldoInicial, boolean padrao) {
-        this(null, usuarioId, tipo, bancoId, bancoCode, saldoInicial, padrao, true, OffsetDateTime.now(), null);
+        this(null, usuarioId, tipo, bancoId, bancoCode, saldoInicial, padrao, true, OffsetDateTime.now(), null, "N", null);
         this.code = CodeGenerator.gerar();
+    }
+
+    public void remover() {
+        if ("S".equals(indDelete)) {
+            throw new ContaFinanceiraInvalidaException("Conta financeira já foi removida");
+        }
+        this.indDelete = "S";
+        this.deletedAt = OffsetDateTime.now();
+        this.ativa = false;
     }
 
     /** Referência por identidade (id + code), usada quando só a chave da conta é conhecida. */

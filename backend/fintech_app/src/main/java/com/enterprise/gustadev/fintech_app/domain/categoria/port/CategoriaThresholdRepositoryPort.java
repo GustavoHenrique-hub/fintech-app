@@ -7,5 +7,4 @@ import java.util.Optional;
 public interface CategoriaThresholdRepositoryPort {
     CategoriaThreshold salvar(CategoriaThreshold threshold);
     Optional<CategoriaThreshold> buscarPorCategoriaId(Long categoriaId);
-    void deletarPorId(Long id);
 }

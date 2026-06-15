@@ -13,5 +13,4 @@ public interface UsuarioRepositoryPort {
 
     Optional<Usuario> buscarPorId(Long id);
 
-    void deletarPorId(Long id);
 }

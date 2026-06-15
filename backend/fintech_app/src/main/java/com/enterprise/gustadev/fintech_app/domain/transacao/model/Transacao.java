@@ -36,6 +36,7 @@ public class Transacao {
     private LocalDate periodoRecorrencia;
     private String observacao;
     private OffsetDateTime deletedAt;
+    private OffsetDateTime estornadoAt;
     private int versao;
     private OffsetDateTime criadoEm;
     private OffsetDateTime atualizadoEm;
@@ -48,7 +49,7 @@ public class Transacao {
                      OrigemTransacao origem, StatusRevisaoTransacao statusRevisao,
                      Short confiancaIa, boolean recorrente, LocalDate periodoRecorrencia,
                      String observacao, OffsetDateTime deletedAt, int versao,
-                     OffsetDateTime criadoEm, OffsetDateTime atualizadoEm) {
+                     OffsetDateTime criadoEm, OffsetDateTime atualizadoEm, OffsetDateTime estornadoAt) {
         this.id = id;
         this.usuario = usuario;
         this.conta = conta;
@@ -66,6 +67,7 @@ public class Transacao {
         this.periodoRecorrencia = periodoRecorrencia;
         this.observacao = observacao;
         this.deletedAt = deletedAt;
+        this.estornadoAt = estornadoAt;
         this.versao = versao;
         this.criadoEm = criadoEm;
         this.atualizadoEm = atualizadoEm;
@@ -77,14 +79,13 @@ public class Transacao {
         this(null, usuario, conta, "N", tipo, null,
              valor, dataTransacao, categoriaId, null, origem,
              StatusRevisaoTransacao.EXTRAIDA, null, false, null, null, null,
-             1, OffsetDateTime.now(), null);
+             1, OffsetDateTime.now(), null, null);
         this.code = CodeGenerator.gerar();
     }
 
     /**
-     * Cria uma nova transação de estorno (cópia idêntica desta, com indEstorno='S'),
-     * sem alterar a transação original. A nova linha recebe novo code e aponta para
-     * o id da original via transacaoEstornadaId. A persistência insere uma nova linha.
+     * Cria uma nova transação de estorno (cópia idêntica desta, com indEstorno='S').
+     * Marca esta transação como estornada (estornadoAt) e cria nova linha com indEstorno='S'.
      */
     public Transacao criarEstorno() {
         if ("S".equals(indEstorno)) {
@@ -93,11 +94,12 @@ public class Transacao {
         if (deletedAt != null) {
             throw new TransacaoInvalidaException("Transação deletada não pode ser estornada");
         }
+        this.estornadoAt = OffsetDateTime.now();
         Transacao estorno = new Transacao(
                 null, usuario, conta, "S", tipo, descricao, valor, dataTransacao,
                 categoriaId, estabelecimento, origem, statusRevisao, confiancaIa,
                 recorrente, periodoRecorrencia, observacao, null, 1,
-                OffsetDateTime.now(), null);
+                OffsetDateTime.now(), null, null);
         estorno.code = CodeGenerator.gerar();
         estorno.transacaoEstornadaId = this.id;
         return estorno;

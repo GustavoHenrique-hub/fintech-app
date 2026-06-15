@@ -36,8 +36,4 @@ public class ContaFinanceiraRepositoryAdapter implements ContaFinanceiraReposito
         return jpaRepository.findByIdAndCode(id, code).map(ContaFinanceiraEntity::toDomain);
     }
 
-    @Override
-    public void deletarPorId(Long id) {
-        jpaRepository.deleteById(id);
-    }
 }

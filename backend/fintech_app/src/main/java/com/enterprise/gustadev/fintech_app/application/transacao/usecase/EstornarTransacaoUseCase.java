@@ -21,9 +21,11 @@ public class EstornarTransacaoUseCase {
                 .orElseThrow(() -> new TransacaoNaoEncontradaException(
                         "Transação não encontrada para estorno: id=" + id + ", code=" + code));
 
-        // Idempotência: se já existe um estorno para esta transação, retorna o existente
-        // em vez de inserir um duplicado.
         return repository.buscarEstornoDe(original.getId())
-                .orElseGet(() -> repository.salvar(original.criarEstorno()));
+                .orElseGet(() -> {
+                    Transacao estorno = original.criarEstorno();
+                    repository.salvar(original);
+                    return repository.salvar(estorno);
+                });
     }
 }

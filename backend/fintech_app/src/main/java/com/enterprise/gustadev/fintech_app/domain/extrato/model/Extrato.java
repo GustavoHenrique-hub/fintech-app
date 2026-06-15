@@ -35,13 +35,16 @@ public class Extrato {
     private int versao;
     private OffsetDateTime criadoEm;
     private OffsetDateTime atualizadoEm;
+    private String indDelete;
+    private OffsetDateTime deletedAt;
 
     public Extrato(Long id, Long usuarioId, Long contaId, Long transacaoId, String arquivoNome,
                    String arquivoUuid, String hashArquivo, String bancoDetectado,
                    Long parserVersaoId, BigDecimal scoreExtracao, LocalDate periodoInicio,
                    LocalDate periodoFim, StatusExtrato status, int totalLancamentos,
                    int lancamentosConfirmados, int lancamentosPendentes, int lancamentosIgnorados,
-                   int versao, OffsetDateTime criadoEm, OffsetDateTime atualizadoEm) {
+                   int versao, OffsetDateTime criadoEm, OffsetDateTime atualizadoEm,
+                   String indDelete, OffsetDateTime deletedAt) {
         this.id = id;
         this.usuarioId = usuarioId;
         this.contaId = contaId;
@@ -62,13 +65,23 @@ public class Extrato {
         this.versao = versao;
         this.criadoEm = criadoEm;
         this.atualizadoEm = atualizadoEm;
+        this.indDelete = indDelete != null ? indDelete : "N";
+        this.deletedAt = deletedAt;
     }
 
     public Extrato(Long usuarioId, Long contaId, String arquivoNome, String arquivoUuid, String hashArquivo) {
         this(null, usuarioId, contaId, null, arquivoNome, arquivoUuid, hashArquivo, null,
              null, null, null, null, StatusExtrato.upload_recebido,
-             0, 0, 0, 0, 1, OffsetDateTime.now(), null);
+             0, 0, 0, 0, 1, OffsetDateTime.now(), null, "N", null);
         this.code = CodeGenerator.gerar();
+    }
+
+    public void remover() {
+        if ("S".equals(indDelete)) {
+            throw new ExtratoInvalidoException("Extrato já foi removido");
+        }
+        this.indDelete = "S";
+        this.deletedAt = OffsetDateTime.now();
     }
 
     public void validar() {

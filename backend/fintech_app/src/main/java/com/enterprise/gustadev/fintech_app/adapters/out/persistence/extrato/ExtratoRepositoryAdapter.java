@@ -42,8 +42,4 @@ public class ExtratoRepositoryAdapter implements ExtratoRepositoryPort {
         return jpaRepository.findByHashArquivo(hashArquivo).map(ExtratoEntity::toDomain);
     }
 
-    @Override
-    public void deletarPorId(Long id) {
-        jpaRepository.deleteById(id);
-    }
 }

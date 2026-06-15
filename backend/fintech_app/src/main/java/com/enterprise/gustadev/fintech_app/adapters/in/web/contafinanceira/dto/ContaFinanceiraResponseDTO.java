@@ -17,7 +17,9 @@ public record ContaFinanceiraResponseDTO(
         @Schema(description = "Saldo inicial registrado", example = "1500.00") BigDecimal saldoInicial,
         @Schema(description = "Indica se é a conta padrão do usuário") boolean padrao,
         @Schema(description = "Indica se a conta está ativa") boolean ativa,
-        @Schema(description = "Data/hora de criação") OffsetDateTime criadoEm
+        @Schema(description = "Indicador de remoção lógica (S=removida, N=ativa)") String indDelete,
+        @Schema(description = "Data/hora de criação") OffsetDateTime criadoEm,
+        @Schema(description = "Data/hora da remoção lógica") OffsetDateTime deletedAt
 ) {
     public static ContaFinanceiraResponseDTO fromDomain(ContaFinanceira domain) {
         return new ContaFinanceiraResponseDTO(
@@ -30,7 +32,9 @@ public record ContaFinanceiraResponseDTO(
                 domain.getSaldoInicial(),
                 domain.isPadrao(),
                 domain.isAtiva(),
-                domain.getCriadoEm()
+                domain.getIndDelete(),
+                domain.getCriadoEm(),
+                domain.getDeletedAt()
         );
     }
 }

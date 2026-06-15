@@ -11,5 +11,4 @@ public interface ExtratoRepositoryPort {
     Optional<Extrato> buscarPorId(Long id);
     Optional<Extrato> buscarPorIdECode(Long id, String code);
     Optional<Extrato> buscarPorHash(String hashArquivo);
-    void deletarPorId(Long id);
 }

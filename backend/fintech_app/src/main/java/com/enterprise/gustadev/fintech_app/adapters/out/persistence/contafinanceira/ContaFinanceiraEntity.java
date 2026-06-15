@@ -84,6 +84,12 @@ public class ContaFinanceiraEntity {
     @Column(name = "atualizado_em")
     private OffsetDateTime atualizadoEm;
 
+    @Column(name = "ind_delete", nullable = false, length = 1)
+    private String indDelete = "N";
+
+    @Column(name = "deleted_at")
+    private OffsetDateTime deletedAt;
+
     public static ContaFinanceiraEntity fromDomain(ContaFinanceira domain) {
         ContaFinanceiraEntity entity = new ContaFinanceiraEntity();
         entity.id = domain.getId();
@@ -97,12 +103,15 @@ public class ContaFinanceiraEntity {
         entity.ativa = domain.isAtiva();
         entity.criadoEm = domain.getCriadoEm();
         entity.atualizadoEm = domain.getAtualizadoEm();
+        entity.indDelete = domain.getIndDelete() != null ? domain.getIndDelete() : "N";
+        entity.deletedAt = domain.getDeletedAt();
         return entity;
     }
 
     public ContaFinanceira toDomain() {
         ContaFinanceira c = new ContaFinanceira(id, usuarioId, tipo, bancoId, bancoCode, saldoInicial,
-                padrao != null && padrao, ativa != null && ativa, criadoEm, atualizadoEm);
+                padrao != null && padrao, ativa != null && ativa, criadoEm, atualizadoEm,
+                indDelete, deletedAt);
         c.setCode(code);
         return c;
     }

@@ -11,5 +11,4 @@ public interface ParserVersaoRepositoryPort {
     List<ParserVersao> listarAtivos();
     Optional<ParserVersao> buscarPorId(Long id);
     Optional<ParserVersao> buscarPorBancoEVersao(String banco, String versao);
-    void deletarPorId(Long id);
 }

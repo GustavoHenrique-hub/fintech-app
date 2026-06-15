@@ -10,5 +10,4 @@ public interface ContaFinanceiraRepositoryPort {
     List<ContaFinanceira> listarPorUsuario(Long usuarioId);
     Optional<ContaFinanceira> buscarPorId(Long id);
     Optional<ContaFinanceira> buscarPorIdECode(Long id, String code);
-    void deletarPorId(Long id);
 }

@@ -4,7 +4,6 @@ import com.enterprise.gustadev.fintech_app.adapters.in.web.banco.dto.BancoReques
 import com.enterprise.gustadev.fintech_app.adapters.in.web.banco.dto.BancoResponseDTO;
 import com.enterprise.gustadev.fintech_app.application.banco.usecase.BuscarBancoUseCase;
 import com.enterprise.gustadev.fintech_app.application.banco.usecase.CriarBancoUseCase;
-import com.enterprise.gustadev.fintech_app.application.banco.usecase.DeletarBancoUseCase;
 import com.enterprise.gustadev.fintech_app.application.banco.usecase.ListarBancosUseCase;
 import com.enterprise.gustadev.fintech_app.domain.banco.model.Banco;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,7 +13,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,16 +35,13 @@ public class BancoController {
     private final CriarBancoUseCase criarUseCase;
     private final ListarBancosUseCase listarUseCase;
     private final BuscarBancoUseCase buscarUseCase;
-    private final DeletarBancoUseCase deletarUseCase;
 
     public BancoController(CriarBancoUseCase criarUseCase,
                            ListarBancosUseCase listarUseCase,
-                           BuscarBancoUseCase buscarUseCase,
-                           DeletarBancoUseCase deletarUseCase) {
+                           BuscarBancoUseCase buscarUseCase) {
         this.criarUseCase = criarUseCase;
         this.listarUseCase = listarUseCase;
         this.buscarUseCase = buscarUseCase;
-        this.deletarUseCase = deletarUseCase;
     }
 
     @Operation(summary = "Criar banco",
@@ -86,18 +81,4 @@ public class BancoController {
         return ResponseEntity.ok(BancoResponseDTO.fromDomain(buscarUseCase.executar(bancoId, bancoCode)));
     }
 
-    @Operation(summary = "Deletar banco",
-            description = "Remove permanentemente o banco identificado pela chave composta (`banco_id` + `banco_code`). " +
-                    "Atenção: a operação falhará se houver contas financeiras vinculadas a este banco (FK).")
-    @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Banco removido com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Banco não encontrado")
-    })
-    @DeleteMapping("/{banco_id}/{banco_code}")
-    public ResponseEntity<Void> deletar(
-            @Parameter(description = "ID do banco (banco_id)") @PathVariable("banco_id") Long bancoId,
-            @Parameter(description = "Código alfanumérico de 6 caracteres (banco_code)") @PathVariable("banco_code") String bancoCode) {
-        deletarUseCase.executar(bancoId, bancoCode);
-        return ResponseEntity.noContent().build();
-    }
 }

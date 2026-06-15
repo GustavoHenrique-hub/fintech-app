@@ -117,6 +117,12 @@ public class ExtratoEntity {
     @Column(name = "atualizado_em")
     private OffsetDateTime atualizadoEm;
 
+    @Column(name = "ind_delete", nullable = false, length = 1)
+    private String indDelete = "N";
+
+    @Column(name = "deleted_at")
+    private OffsetDateTime deletedAt;
+
     public static ExtratoEntity fromDomain(Extrato domain) {
         ExtratoEntity entity = new ExtratoEntity();
         entity.id = domain.getId();
@@ -140,6 +146,8 @@ public class ExtratoEntity {
         entity.versao = domain.getVersao();
         entity.criadoEm = domain.getCriadoEm();
         entity.atualizadoEm = domain.getAtualizadoEm();
+        entity.indDelete = domain.getIndDelete() != null ? domain.getIndDelete() : "N";
+        entity.deletedAt = domain.getDeletedAt();
         return entity;
     }
 
@@ -147,7 +155,7 @@ public class ExtratoEntity {
         Extrato e = new Extrato(id, usuarioId, contaId, transacaoId, arquivoNome, arquivoUuid, hashArquivo,
                 bancoDetectado, parserVersaoId, scoreExtracao, periodoInicio, periodoFim,
                 status, totalLancamentos, lancamentosConfirmados, lancamentosPendentes,
-                lancamentosIgnorados, versao, criadoEm, atualizadoEm);
+                lancamentosIgnorados, versao, criadoEm, atualizadoEm, indDelete, deletedAt);
         e.setCode(code);
         return e;
     }

@@ -112,6 +112,9 @@ public class TransacaoEntity {
     @Column(name = "deleted_at")
     private OffsetDateTime deletedAt;
 
+    @Column(name = "estornado_at")
+    private OffsetDateTime estornadoAt;
+
     @Column(nullable = false)
     private int versao = 1;
 
@@ -147,6 +150,7 @@ public class TransacaoEntity {
         entity.periodoRecorrencia = domain.getPeriodoRecorrencia();
         entity.observacao = domain.getObservacao();
         entity.deletedAt = domain.getDeletedAt();
+        entity.estornadoAt = domain.getEstornadoAt();
         entity.versao = domain.getVersao();
         entity.criadoEm = domain.getCriadoEm();
         entity.atualizadoEm = domain.getAtualizadoEm();
@@ -158,7 +162,7 @@ public class TransacaoEntity {
         Transacao t = new Transacao(id, usuario.toDomain(), conta.toDomain(), indEstorno, tipo,
                 descricao, valor, dataTransacao, categoriaId, estabelecimento,
                 origem, statusRevisao, confiancaIa, recorrente != null && recorrente, periodoRecorrencia,
-                observacao, deletedAt, versao, criadoEm, atualizadoEm);
+                observacao, deletedAt, versao, criadoEm, atualizadoEm, estornadoAt);
         t.setCode(code);
         t.setTransacaoEstornadaId(transacaoEstornadaId);
         return t;

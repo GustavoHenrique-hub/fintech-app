@@ -10,5 +10,4 @@ public interface BancoRepositoryPort {
     List<Banco> listarTodos();
     Optional<Banco> buscarPorId(Long id);
     Optional<Banco> buscarPorIdECode(Long id, String code);
-    void deletarPorId(Long id);
 }

@@ -39,8 +39,4 @@ public class ProcessamentoJobRepositoryAdapter implements ProcessamentoJobReposi
         return jpaRepository.findById(id).map(ProcessamentoJobEntity::toDomain);
     }
 
-    @Override
-    public void deletarPorId(Long id) {
-        jpaRepository.deleteById(id);
-    }
 }
