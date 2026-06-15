@@ -19,7 +19,11 @@
       "Bash(./mvnw -q compile)",
       "Bash(./mvnw -q test-compile)",
       "Bash(./mvnw -q test -Dtest='Transacao*Test,*TransacaoUseCaseTest')",
-      "Bash(grep -E \"Tests run: [0-9]+, Failures.*Skipped: [0-9]+$|BUILD\")"
+      "Bash(grep -E \"Tests run: [0-9]+, Failures.*Skipped: [0-9]+$|BUILD\")",
+      "Bash(powershell.exe *)",
+      "Bash(/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -ExecutionPolicy Bypass -NonInteractive -File \"C:\\\\Users\\\\02.2025\\\\Documents\\\\Codar\\\\fintech-app\\\\scripts\\\\watch-and-commit.ps1\")",
+      "Bash(echo \"PID: $!\")",
+      "Bash(cmd.exe *)"
     ]
   }
 }
