@@ -58,7 +58,7 @@ class ContaFinanceiraControllerTest {
     private ContaFinanceira contaCompleta(Long id, Long usuarioId, Long bancoId, String bancoCode) {
         return new ContaFinanceira(id, usuarioId, TipoConta.corrente,
                 bancoId, bancoCode, new BigDecimal("1000.00"), true, true,
-                OffsetDateTime.now(), null);
+                OffsetDateTime.now(), null, "N", null);
     }
 
     @Test
@@ -134,7 +134,7 @@ class ContaFinanceiraControllerTest {
     @Test
     void deletar_deveRetornar204() throws Exception {
         Long id = 1L;
-        doNothing().when(deletarUseCase).executar(any(), anyString());
+        doNothing().when(removerUseCase).executar(any(), anyString());
 
         mockMvc.perform(delete("/contas/{id_contas}/{contas_code}", id, "ABC123"))
                 .andExpect(status().isNoContent());
