@@ -11,7 +11,7 @@
 //   - Confiança da IA com ConfidenceBar quando pendente de revisão
 //   - EmptyState quando filtros não casam
 import { useState, useMemo } from "react";
-import { SlidersHorizontal, Search, ChevronDown, Inbox, X } from "lucide-react";
+import { SlidersHorizontal, Search, ChevronDown, Inbox, X, RotateCcw } from "lucide-react";
 
 import { transacoes, categoriasPorId } from "@/mocks";
 import {
@@ -40,7 +40,7 @@ function normalize(s) {
     .replace(/[̀-ͯ]/g, "");
 }
 
-export const TransactionsScreen = () => {
+export const TransactionsScreen = ({ onAbrirEstorno }) => {
   const [filtroAtivo, setFiltroAtivo] = useState("todas");
   const [query, setQuery] = useState("");
 
@@ -97,10 +97,23 @@ export const TransactionsScreen = () => {
               {transacoesFiltradas.length} {transacoesFiltradas.length === 1 ? "item" : "itens"} · Últimos 30 dias
             </p>
           </div>
-          <Button variant="secondary" size="sm" leftIcon={SlidersHorizontal}>
-            Filtros
-            {algumFiltroAtivo && <span className="w-1.5 h-1.5 bg-primary rounded-full" />}
-          </Button>
+          <div className="flex items-center gap-2">
+            {onAbrirEstorno && (
+              <Button
+                variant="ghost"
+                size="sm"
+                leftIcon={RotateCcw}
+                onClick={onAbrirEstorno}
+                aria-label="Abrir tela de estornos"
+              >
+                Estornar
+              </Button>
+            )}
+            <Button variant="secondary" size="sm" leftIcon={SlidersHorizontal}>
+              Filtros
+              {algumFiltroAtivo && <span className="w-1.5 h-1.5 bg-primary rounded-full" />}
+            </Button>
+          </div>
         </div>
 
         {/* Campo de busca */}

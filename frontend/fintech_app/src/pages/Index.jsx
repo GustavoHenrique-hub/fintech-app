@@ -16,10 +16,13 @@ import { TransactionsScreen } from "@/components/finsight/screens/TransactionsSc
 import { AddTransactionScreen } from "@/components/finsight/screens/AddTransactionScreen";
 import { AnalyticsScreen } from "@/components/finsight/screens/AnalyticsScreen";
 import { ProfileScreen } from "@/components/finsight/screens/ProfileScreen";
+import { EstornoTransacaoScreen } from "@/components/finsight/screens/EstornoTransacaoScreen";
 
 const Index = () => {
   const [screen, setScreen] = useState("home");
-  const activeForNav = screen === "add" ? "payments" : screen;
+  // "add" e "estorno" não têm aba própria na BottomNav — destacam "payments".
+  const activeForNav =
+    screen === "add" || screen === "estorno" ? "payments" : screen;
 
   return (
     <div className="min-h-[100dvh] bg-background lg:flex">
@@ -39,8 +42,11 @@ const Index = () => {
         <main className="flex-1 min-h-0 flex flex-col overflow-hidden">
           {screen === "home" && <OverviewScreen />}
           {screen === "analytics" && <AnalyticsScreen />}
-          {screen === "payments" && <TransactionsScreen />}
+          {screen === "payments" && (
+            <TransactionsScreen onAbrirEstorno={() => setScreen("estorno")} />
+          )}
           {screen === "add" && <AddTransactionScreen />}
+          {screen === "estorno" && <EstornoTransacaoScreen />}
           {screen === "profile" && <ProfileScreen />}
         </main>
 

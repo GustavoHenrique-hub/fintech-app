@@ -1,7 +1,7 @@
 // SideNav: barra lateral fixa exibida apenas em telas largas (lg+ = 1024px).
 // Substitui a BottomNav em desktop, oferecendo um layout de "web app" real
 // (estilo Linear/Notion/banco digital) com nav vertical e o botão "+" no topo.
-import { Home, BarChart3, ArrowLeftRight, User, Plus, Wallet } from "lucide-react";
+import { Home, BarChart3, ArrowLeftRight, User, Plus, Wallet, RotateCcw } from "lucide-react";
 
 import { usuarioAtual } from "@/mocks";
 import { getInitials } from "@/lib/format";
@@ -10,6 +10,7 @@ const items = [
   { key: "home",      label: "Visão geral", icon: Home },
   { key: "analytics", label: "Análises",    icon: BarChart3 },
   { key: "payments",  label: "Transações",  icon: ArrowLeftRight },
+  { key: "estorno",   label: "Estornos",    icon: RotateCcw },
   { key: "profile",   label: "Perfil",      icon: User },
 ];
 
