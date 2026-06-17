@@ -1,6 +1,6 @@
 package com.enterprise.gustadev.fintech_app.application.contafinanceira;
 
-import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.DeletarContaFinanceiraUseCase;
+import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.RemoverContaFinanceiraUseCase;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.port.ContaFinanceiraRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoConta;
@@ -23,10 +23,10 @@ class DeletarContaFinanceiraUseCaseTest {
     private ContaFinanceiraRepositoryPort repository;
 
     @InjectMocks
-    private DeletarContaFinanceiraUseCase useCase;
+    private RemoverContaFinanceiraUseCase useCase;
 
     @Test
-    void executar_deveDelegarDeletarAoRepository() {
+    void executar_deveDelegarRemoverAoRepository() {
         Long id = 1L;
         String code = "ABC123";
         ContaFinanceira conta = new ContaFinanceira(id, 1L,
