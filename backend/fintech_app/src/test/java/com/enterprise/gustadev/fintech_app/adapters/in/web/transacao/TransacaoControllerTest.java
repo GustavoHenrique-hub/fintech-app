@@ -2,7 +2,7 @@ package com.enterprise.gustadev.fintech_app.adapters.in.web.transacao;
 
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.BuscarTransacaoUseCase;
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.CriarTransacaoUseCase;
-import com.enterprise.gustadev.fintech_app.application.transacao.usecase.DeletarTransacaoUseCase;
+import com.enterprise.gustadev.fintech_app.application.transacao.usecase.DeletarDeletarTransacaoUseCase;
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.ListarTransacoesUseCase;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;
