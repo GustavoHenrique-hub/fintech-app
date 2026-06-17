@@ -149,7 +149,6 @@ public class TransacaoEntity {
         entity.recorrente = domain.isRecorrente();
         entity.periodoRecorrencia = domain.getPeriodoRecorrencia();
         entity.observacao = domain.getObservacao();
-        entity.deletedAt = domain.getDeletedAt();
         entity.estornadoAt = domain.getEstornadoAt();
         entity.versao = domain.getVersao();
         entity.criadoEm = domain.getCriadoEm();
@@ -162,7 +161,7 @@ public class TransacaoEntity {
         Transacao t = new Transacao(id, usuario.toDomain(), conta.toDomain(), indEstorno, tipo,
                 descricao, valor, dataTransacao, categoriaId, estabelecimento,
                 origem, statusRevisao, confiancaIa, recorrente != null && recorrente, periodoRecorrencia,
-                observacao, deletedAt, versao, criadoEm, atualizadoEm, estornadoAt);
+                observacao, versao, criadoEm, atualizadoEm, estornadoAt);
         t.setCode(code);
         t.setTransacaoEstornadaId(transacaoEstornadaId);
         return t;

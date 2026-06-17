@@ -83,13 +83,6 @@ public class ContaFinanceiraController {
         return ResponseEntity.ok(response);
     }
 
-    @Operation(summary = "Buscar conta por ID e código",
-            description = "Retorna os dados de uma conta financeira identificada pela chave composta " +
-                    "(`id_contas` + `contas_code`), incluindo o banco vinculado.")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Conta encontrada"),
-            @ApiResponse(responseCode = "404", description = "Conta não encontrada")
-    })
     @Operation(summary = "Remover conta financeira (soft delete)",
             description = "Marca a conta como removida (ind_delete='S') e inativa (ativa=false) sem apagar o registro.")
     @ApiResponses({
