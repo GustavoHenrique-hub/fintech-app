@@ -2,7 +2,7 @@ package com.enterprise.gustadev.fintech_app.adapters.in.web.contafinanceira;
 
 import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.BuscarContaFinanceiraUseCase;
 import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.CriarContaFinanceiraUseCase;
-import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.DeletarContaFinanceiraUseCase;
+import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.RemoverContaFinanceiraUseCase;
 import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.ListarContasFinanceirasUseCase;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoConta;
@@ -43,7 +43,7 @@ class ContaFinanceiraControllerTest {
     private BuscarContaFinanceiraUseCase buscarUseCase;
 
     @Mock
-    private DeletarContaFinanceiraUseCase deletarUseCase;
+    private RemoverContaFinanceiraUseCase removerUseCase;
 
     @InjectMocks
     private ContaFinanceiraController controller;
