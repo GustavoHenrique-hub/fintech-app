@@ -60,11 +60,11 @@ class TransacaoControllerTest {
     }
 
     private Transacao transacaoCompleta(Long id, Long usuarioId, Long contaId) {
-        return new Transacao(id, new Usuario(usuarioId, "U1"), new ContaFinanceira(contaId, "C1"), "S",
+        return new Transacao(id, new Usuario(usuarioId, "U1"), new ContaFinanceira(contaId, "C1"), "N",
                 TipoTransacao.GASTO, null, new BigDecimal("150.00"),
                 LocalDate.now(), 1L, null, OrigemTransacao.manual,
                 StatusRevisaoTransacao.EXTRAIDA, null, false,
-                null, null, null, 1, null, null);
+                null, null, 1, null, null, null);
     }
 
     @Test
@@ -131,7 +131,7 @@ class TransacaoControllerTest {
     @Test
     void deletar_deveRetornar204() throws Exception {
         Long id = 1L;
-        doNothing().when(estornarUseCase).executar(any(), anyString());
+        doNothing().when(estornarUseCase).executar(any(), anyString(), any(), anyString(), any(), anyString());
 
         mockMvc.perform(delete("/transacoes/{id_transacoes}/{transacoes_code}", id, "ABC123"))
                 .andExpect(status().isNoContent());
