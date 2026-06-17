@@ -2,7 +2,7 @@ package com.enterprise.gustadev.fintech_app.adapters.in.web.transacao;
 
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.BuscarTransacaoUseCase;
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.CriarTransacaoUseCase;
-import com.enterprise.gustadev.fintech_app.application.transacao.usecase.DeletarDeletarTransacaoUseCase;
+import com.enterprise.gustadev.fintech_app.application.transacao.usecase.EstornarTransacaoUseCase;
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.ListarTransacoesUseCase;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;
@@ -47,7 +47,7 @@ class TransacaoControllerTest {
     private BuscarTransacaoUseCase buscarUseCase;
 
     @Mock
-    private DeletarTransacaoUseCase deletarUseCase;
+    private EstornarTransacaoUseCase estornarUseCase;
 
     @InjectMocks
     private TransacaoController controller;
@@ -60,7 +60,7 @@ class TransacaoControllerTest {
     }
 
     private Transacao transacaoCompleta(Long id, Long usuarioId, Long contaId) {
-        return new Transacao(id, new Usuario(usuarioId, "U1"), new ContaFinanceira(contaId, "C1"), "N",
+        return new Transacao(id, new Usuario(usuarioId, "U1"), new ContaFinanceira(contaId, "C1"), "S",
                 TipoTransacao.GASTO, null, new BigDecimal("150.00"),
                 LocalDate.now(), 1L, null, OrigemTransacao.manual,
                 StatusRevisaoTransacao.EXTRAIDA, null, false,
@@ -131,7 +131,7 @@ class TransacaoControllerTest {
     @Test
     void deletar_deveRetornar204() throws Exception {
         Long id = 1L;
-        doNothing().when(deletarUseCase).executar(any(), anyString());
+        doNothing().when(estornarUseCase).executar(any(), anyString());
 
         mockMvc.perform(delete("/transacoes/{id_transacoes}/{transacoes_code}", id, "ABC123"))
                 .andExpect(status().isNoContent());
