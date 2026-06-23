@@ -14,7 +14,9 @@
       "Read(//c/Users/02.2025/Documents/Codar/fintech-app/backend/fintech_app/**)",
       "Bash(ls \"C:\\\\Users\\\\02.2025\\\\.claude\\\\agents\" 2>&1)",
       "Read(//c/Users/02.2025/.claude/agents/**)",
-      "Read(//c/Users/02.2025/Documents/Codar/fintech-app/**)"
+      "Read(//c/Users/02.2025/Documents/Codar/fintech-app/**)",
+      "Bash(curl -s -o /tmp/openapi.json -w \"HTTP %{http_code}\\\\n\" \"http://localhost:8082/v3/api-docs\")",
+      "Read(//tmp/**)"
     ],
     "additionalDirectories": [
       "C:\\Users\\02.2025\\Documents\\Faculdade\\Fase 4"
