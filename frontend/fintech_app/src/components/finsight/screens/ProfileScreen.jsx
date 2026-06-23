@@ -6,6 +6,7 @@ import {
 
 import { useUsuario } from "@/hooks/use-usuario";
 import { useContas } from "@/hooks/use-contas";
+import { useAuth } from "@/context/AuthContext";
 import { formatCPF, getInitials, maskEmail, maskCPF } from "@/lib/format";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,9 +18,10 @@ import { SkeletonCard } from "@/components/ui/skeleton";
 
 const Row = ({
   icon: Icon, iconColor = "text-foreground", iconBg = "bg-secondary",
-  label, value, trailing, danger,
+  label, value, trailing, danger, onClick,
 }) => (
   <button
+    onClick={onClick}
     className={`w-full flex items-center gap-3 px-3.5 py-3 row-press text-left ${
       danger ? "text-destructive" : ""
     }`}
@@ -57,6 +59,7 @@ export const ProfileScreen = () => {
   const [showCPF, setShowCPF] = useState(false);
   const [deletando, setDeletando] = useState(false);
 
+  const { logout } = useAuth();
   const { data: usuario, isLoading: loadingUsuario } = useUsuario();
   const { data: contas = [], isLoading: loadingContas } = useContas();
 
@@ -213,7 +216,7 @@ export const ProfileScreen = () => {
       <section>
         <p className="section-label mb-1.5">Conta</p>
         <div className="card-soft divide-y divide-border">
-          <Row icon={LogOut} iconBg="bg-secondary" label="Sair" />
+          <Row icon={LogOut} iconBg="bg-secondary" label="Sair" onClick={logout} />
 
           <Modal>
             <ModalTrigger asChild>

@@ -1,7 +1,7 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import {
   ChevronDown, ArrowUpRight, ArrowDownLeft, TrendingUp, TrendingDown,
-  PiggyBank, Plus, Send, CreditCard, Eye, EyeOff,
+  PiggyBank, Plus, Send, CreditCard, Eye, EyeOff, Check,
 } from "lucide-react";
 
 import { BalanceChart } from "../BalanceChart";
@@ -10,16 +10,112 @@ import { useContas } from "@/hooks/use-contas";
 import { useSnapshots } from "@/hooks/use-snapshots";
 import { useTransacoes } from "@/hooks/use-transacoes";
 import { useCategorias } from "@/hooks/use-categorias";
-import { formatBRL, formatNumeroBR, formatBRLSigned, formatDataRelativa, formatHora } from "@/lib/format";
+import { formatBRL, formatNumeroBR, formatBRLSigned, formatDataRelativa } from "@/lib/format";
 import { getIconeCategoria } from "@/lib/categoria-icones";
+import { getBancoColor, getBancoLogoUrl } from "@/lib/banco-utils";
 import { Button } from "@/components/ui/button";
-import { Skeleton, SkeletonCard, SkeletonChart } from "@/components/ui/skeleton";
+import { Skeleton, SkeletonChart } from "@/components/ui/skeleton";
 
 const ranges = ["Semana", "Mês", "Ano"];
+
+// Tipo de conta → label legível
+const TIPO_LABEL = {
+  corrente:     "Conta corrente",
+  poupanca:     "Poupança",
+  cartao:       "Cartão",
+  dinheiro:     "Dinheiro",
+  investimento: "Investimento",
+};
+
+// Logo do banco com fallback para iniciais
+function BancoLogo({ banco, size = 28 }) {
+  const [erro, setErro] = useState(false);
+  const url = getBancoLogoUrl(banco);
+  const cor = getBancoColor(banco);
+
+  if (!url || erro) {
+    return (
+      <div
+        className="rounded-full flex items-center justify-center text-white font-extrabold shrink-0"
+        style={{ width: size, height: size, backgroundColor: cor, fontSize: size * 0.38 }}
+      >
+        {(banco ?? "?")[0].toUpperCase()}
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={url}
+      alt={banco}
+      onError={() => setErro(true)}
+      className="rounded-full object-contain bg-white shrink-0"
+      style={{ width: size, height: size }}
+    />
+  );
+}
+
+// Dropdown de seleção de conta
+function ContaSelector({ contas, contaSelecionada, onChange }) {
+  const [aberto, setAberto] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const handler = (e) => { if (ref.current && !ref.current.contains(e.target)) setAberto(false); };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        onClick={() => setAberto((v) => !v)}
+        className="flex items-center gap-1.5 bg-white/15 hover:bg-white/25 backdrop-blur rounded-full px-2.5 py-1.5 text-[11.5px] font-semibold transition-colors max-w-[160px]"
+      >
+        <BancoLogo banco={contaSelecionada?.banco} size={18} />
+        <span className="truncate">{contaSelecionada?.banco ?? "—"}</span>
+        <ChevronDown
+          className={`w-3 h-3 shrink-0 transition-transform ${aberto ? "rotate-180" : ""}`}
+          strokeWidth={2.5}
+        />
+      </button>
+
+      {aberto && (
+        <div className="absolute right-0 top-full mt-2 w-64 bg-card rounded-2xl shadow-xl border border-border z-50 overflow-hidden py-1">
+          {contas.map((c) => {
+            const ativa = c.id === contaSelecionada?.id;
+            return (
+              <button
+                key={c.id}
+                onClick={() => { onChange(c); setAberto(false); }}
+                className="w-full flex items-center gap-3 px-3.5 py-2.5 hover:bg-secondary transition-colors text-left"
+              >
+                <BancoLogo banco={c.banco} size={28} />
+                <div className="flex-1 min-w-0">
+                  <p className="text-[13px] font-semibold text-foreground truncate">{c.banco}</p>
+                  <p className="text-[11px] text-muted-foreground truncate">
+                    {TIPO_LABEL[c.tipo] ?? c.tipo} · {c.nome}
+                  </p>
+                </div>
+                {ativa && <Check className="w-4 h-4 text-primary shrink-0" strokeWidth={2.5} />}
+                {c.padrao && !ativa && (
+                  <span className="text-[9px] font-bold text-muted-foreground bg-secondary px-1.5 py-0.5 rounded-full">
+                    padrão
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export const OverviewScreen = () => {
   const [range, setRange] = useState("Semana");
   const [saldoOculto, setSaldoOculto] = useState(false);
+  const [contaSelecionada, setContaSelecionada] = useState(null);
 
   const { data: usuario, isLoading: loadingUsuario } = useUsuario();
   const { data: contas = [], isLoading: loadingContas } = useContas();
@@ -34,10 +130,18 @@ export const OverviewScreen = () => {
     [categorias],
   );
 
+  // Conta padrão: selecionada pelo usuário ou a marcada como padrão no banco
   const contaPadrao = useMemo(
     () => contas.find((c) => c.padrao) ?? contas[0] ?? null,
     [contas],
   );
+
+  // Sincroniza a conta selecionada quando os dados chegam
+  const contaAtual = contaSelecionada ?? contaPadrao;
+
+  useEffect(() => {
+    if (!contaSelecionada && contaPadrao) setContaSelecionada(contaPadrao);
+  }, [contaPadrao]);
 
   const snapshotAtual = useMemo(
     () => snapshots.find((s) => !s.fechado)
@@ -55,14 +159,22 @@ export const OverviewScreen = () => {
   }, [snapshotAtual]);
 
   const recentes = useMemo(
-    () =>
-      [...transacoes]
-        .sort((a, b) => (a.dataTransacao < b.dataTransacao ? 1 : -1))
-        .slice(0, 3),
+    () => [...transacoes].sort((a, b) => (a.dataTransacao < b.dataTransacao ? 1 : -1)).slice(0, 3),
     [transacoes],
   );
 
   const primeiroNome = usuario?.nome?.split(" ")[0] ?? "";
+
+  // Cor do card baseada na corHex da conta ou na cor da marca do banco
+  const cardColor = useMemo(() => {
+    if (contaAtual?.corHex) return contaAtual.corHex;
+    return getBancoColor(contaAtual?.banco);
+  }, [contaAtual]);
+
+  // Cor secundária para o gradiente (versão mais escura/saturada)
+  const cardColorEnd = useMemo(() => {
+    return cardColor + "CC"; // adiciona 80% opacity para criar variação
+  }, [cardColor]);
 
   if (isLoading) {
     return (
@@ -85,6 +197,7 @@ export const OverviewScreen = () => {
   return (
     <div className="flex-1 min-h-0 overflow-y-auto px-4 sm:px-5 lg:px-8 pt-4 lg:pt-6 pb-6 lg:pb-8 no-scrollbar">
      <div className="max-w-6xl mx-auto w-full space-y-5 lg:space-y-4">
+
       {/* ── Saudação + data ─────────────────────────────────────────── */}
       <div className="flex items-end justify-between">
         <div>
@@ -98,10 +211,26 @@ export const OverviewScreen = () => {
         </button>
       </div>
 
-      {/* ── Card hero do saldo (largura total) ─────────────────────── */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-[hsl(265_70%_55%)] text-primary-foreground p-5 lg:p-6 shadow-xl shadow-primary/25">
-        <div className="absolute -top-16 -right-12 w-48 h-48 rounded-full bg-white/10 blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-28 h-28 rounded-full bg-accent/40 blur-2xl" />
+      {/* ── Card hero do saldo ──────────────────────────────────────── */}
+      <section
+        className="relative overflow-hidden rounded-3xl text-white p-5 lg:p-6 shadow-xl"
+        style={{
+          background: `linear-gradient(135deg, ${cardColor} 0%, ${cardColorEnd} 100%)`,
+          boxShadow: `0 20px 40px -12px ${cardColor}55`,
+        }}
+      >
+        <div className="absolute -top-16 -right-12 w-48 h-48 rounded-full bg-white/10 blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-28 h-28 rounded-full bg-black/20 blur-2xl pointer-events-none" />
+
+        {/* Logo do banco — canto superior direito, atrás do conteúdo */}
+        {getBancoLogoUrl(contaAtual?.banco) && (
+          <img
+            src={getBancoLogoUrl(contaAtual.banco)}
+            alt={contaAtual.banco}
+            className="absolute top-4 right-[155px] w-10 h-10 rounded-xl object-contain bg-white/20 p-1.5 opacity-40 pointer-events-none"
+            onError={(e) => { e.currentTarget.style.display = "none"; }}
+          />
+        )}
 
         <div className="relative flex items-start justify-between">
           <div>
@@ -127,14 +256,17 @@ export const OverviewScreen = () => {
               </span>
             </p>
           </div>
-          <button className="flex items-center gap-1 bg-white/15 hover:bg-white/25 backdrop-blur rounded-full px-2.5 py-1 text-[11px] font-semibold transition-colors max-w-[140px]">
-            <span className="truncate">{contaPadrao?.banco ?? "—"}</span>
-            <ChevronDown className="w-3 h-3 shrink-0" strokeWidth={2.5} />
-          </button>
+
+          {/* Seletor de conta */}
+          <ContaSelector
+            contas={contas}
+            contaSelecionada={contaAtual}
+            onChange={setContaSelecionada}
+          />
         </div>
 
         <div className="relative flex items-center gap-1.5 mt-3">
-          <span className="inline-flex items-center gap-0.5 bg-success/90 rounded-full px-1.5 py-0.5 text-[10px] font-bold">
+          <span className="inline-flex items-center gap-0.5 bg-white/20 rounded-full px-1.5 py-0.5 text-[10px] font-bold">
             <TrendingUp className="w-2.5 h-2.5" strokeWidth={3} /> {variacao}%
           </span>
           <span className="text-[10.5px] opacity-80">vs receita do mês</span>
@@ -144,9 +276,9 @@ export const OverviewScreen = () => {
       {/* KPIs horizontais */}
       <section className="grid grid-cols-3 gap-2 lg:gap-4">
         {[
-          { label: "Receitas",  value: snapshotAtual?.totalReceitas ?? 0, up: true,  icon: ArrowUpRight,    bg: "bg-surface-green",  color: "text-success" },
-          { label: "Gastos",    value: snapshotAtual?.totalGastos ?? 0,   up: false, icon: ArrowDownLeft,   bg: "bg-surface-pink",   color: "text-destructive" },
-          { label: "Economia",  value: (snapshotAtual?.totalReceitas ?? 0) - (snapshotAtual?.totalGastos ?? 0), up: true, icon: PiggyBank, bg: "bg-surface-purple", color: "text-primary" },
+          { label: "Receitas", value: snapshotAtual?.totalReceitas ?? 0,   up: true,  icon: ArrowUpRight,  bg: "bg-surface-green",  color: "text-success" },
+          { label: "Gastos",   value: snapshotAtual?.totalGastos ?? 0,     up: false, icon: ArrowDownLeft, bg: "bg-surface-pink",   color: "text-destructive" },
+          { label: "Economia", value: (snapshotAtual?.totalReceitas ?? 0) - (snapshotAtual?.totalGastos ?? 0), up: true, icon: PiggyBank, bg: "bg-surface-purple", color: "text-primary" },
         ].map((k) => {
           const Icon = k.icon;
           const Trend = k.up ? TrendingUp : TrendingDown;
@@ -172,10 +304,10 @@ export const OverviewScreen = () => {
       {/* ── Atalhos rápidos ────────────────────────────────────────── */}
       <section className="grid grid-cols-4 gap-2 lg:gap-3 lg:max-w-xl">
         {[
-          { icon: Send, label: "Transferir", color: "bg-surface-purple text-primary" },
-          { icon: Plus, label: "Receber", color: "bg-surface-green text-success" },
-          { icon: ArrowDownLeft, label: "Cobrar", color: "bg-surface-yellow text-foreground" },
-          { icon: CreditCard, label: "Pagar", color: "bg-surface-pink text-destructive" },
+          { icon: Send,         label: "Transferir", color: "bg-surface-purple text-primary" },
+          { icon: Plus,         label: "Receber",    color: "bg-surface-green text-success" },
+          { icon: ArrowDownLeft,label: "Cobrar",     color: "bg-surface-yellow text-foreground" },
+          { icon: CreditCard,   label: "Pagar",      color: "bg-surface-pink text-destructive" },
         ].map(({ icon: Icon, label, color }) => (
           <button
             key={label}
