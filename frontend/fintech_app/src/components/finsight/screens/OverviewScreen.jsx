@@ -1,10 +1,3 @@
-// OverviewScreen ("Home"): consome usuario + contaPadrao + snapshot do mês + transações recentes.
-//
-// Onde plugar com o backend (depois):
-//   - usuarioAtual    → GET /usuarios/{id}                      (UsuarioResponseDTO)
-//   - contaPadrao     → GET /contas-financeiras/usuario/{id}    (lista, filtrar padrao=true)
-//   - snapshotAtual   → GET /snapshots/usuario/{id}/{conta}     (lista, escolher ano+mes corrente)
-//   - transacoesRecentes → GET /transacoes/usuario/{id}?limit=3 (TransacaoResponseDTO[])
 import { useState, useMemo } from "react";
 import {
   ChevronDown, ArrowUpRight, ArrowDownLeft, TrendingUp, TrendingDown,
@@ -12,10 +5,15 @@ import {
 } from "lucide-react";
 
 import { BalanceChart } from "../BalanceChart";
-import { usuarioAtual, contaPadrao, snapshotAtual, transacoes, categoriasPorId } from "@/mocks";
-import { formatBRL, formatNumeroBR, formatBRLSigned, formatDataRelativa, formatHora, getInitials } from "@/lib/format";
+import { useUsuario } from "@/hooks/use-usuario";
+import { useContas } from "@/hooks/use-contas";
+import { useSnapshots } from "@/hooks/use-snapshots";
+import { useTransacoes } from "@/hooks/use-transacoes";
+import { useCategorias } from "@/hooks/use-categorias";
+import { formatBRL, formatNumeroBR, formatBRLSigned, formatDataRelativa, formatHora } from "@/lib/format";
 import { getIconeCategoria } from "@/lib/categoria-icones";
 import { Button } from "@/components/ui/button";
+import { Skeleton, SkeletonCard, SkeletonChart } from "@/components/ui/skeleton";
 
 const ranges = ["Semana", "Mês", "Ano"];
 
@@ -23,24 +21,66 @@ export const OverviewScreen = () => {
   const [range, setRange] = useState("Semana");
   const [saldoOculto, setSaldoOculto] = useState(false);
 
-  // Sumário derivado do snapshot atual.
-  const variacao = useMemo(() => {
-    const { totalReceitas, totalGastos } = snapshotAtual;
-    const net = totalReceitas - totalGastos;
-    const base = totalReceitas || 1;
-    return ((net / base) * 100).toFixed(1);
-  }, []);
+  const { data: usuario, isLoading: loadingUsuario } = useUsuario();
+  const { data: contas = [], isLoading: loadingContas } = useContas();
+  const { data: snapshots = [], isLoading: loadingSnapshots } = useSnapshots();
+  const { data: transacoes = [], isLoading: loadingTransacoes } = useTransacoes();
+  const { data: categorias = [], isLoading: loadingCategorias } = useCategorias();
 
-  // Últimas 3 transações pra teaser de "atividade recente".
+  const isLoading = loadingUsuario || loadingContas || loadingSnapshots || loadingTransacoes || loadingCategorias;
+
+  const categoriasPorId = useMemo(
+    () => Object.fromEntries(categorias.map((c) => [c.id, c])),
+    [categorias],
+  );
+
+  const contaPadrao = useMemo(
+    () => contas.find((c) => c.padrao) ?? contas[0] ?? null,
+    [contas],
+  );
+
+  const snapshotAtual = useMemo(
+    () => snapshots.find((s) => !s.fechado)
+      ?? [...snapshots].sort((a, b) => a.ano !== b.ano ? b.ano - a.ano : b.mes - a.mes)[0]
+      ?? null,
+    [snapshots],
+  );
+
+  const variacao = useMemo(() => {
+    if (!snapshotAtual) return "0.0";
+    const { totalReceitas, totalGastos } = snapshotAtual;
+    const net = Number(totalReceitas) - Number(totalGastos);
+    const base = Number(totalReceitas) || 1;
+    return ((net / base) * 100).toFixed(1);
+  }, [snapshotAtual]);
+
   const recentes = useMemo(
     () =>
       [...transacoes]
         .sort((a, b) => (a.dataTransacao < b.dataTransacao ? 1 : -1))
         .slice(0, 3),
-    [],
+    [transacoes],
   );
 
-  const primeiroNome = usuarioAtual.nome.split(" ")[0];
+  const primeiroNome = usuario?.nome?.split(" ")[0] ?? "";
+
+  if (isLoading) {
+    return (
+      <div className="flex-1 min-h-0 overflow-y-auto px-4 sm:px-5 lg:px-8 pt-4 lg:pt-6 pb-6 lg:pb-8 no-scrollbar">
+        <div className="max-w-6xl mx-auto w-full space-y-5">
+          <Skeleton className="h-16 w-full rounded-3xl" />
+          <Skeleton className="h-36 w-full rounded-3xl" />
+          <div className="grid grid-cols-3 gap-2">
+            {[0, 1, 2].map((i) => <Skeleton key={i} className="h-24 rounded-2xl" />)}
+          </div>
+          <SkeletonChart />
+          <div className="card-soft divide-y divide-border">
+            {[0, 1, 2].map((i) => <Skeleton key={i} className="h-14 rounded-none" />)}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex-1 min-h-0 overflow-y-auto px-4 sm:px-5 lg:px-8 pt-4 lg:pt-6 pb-6 lg:pb-8 no-scrollbar">
@@ -60,7 +100,6 @@ export const OverviewScreen = () => {
 
       {/* ── Card hero do saldo (largura total) ─────────────────────── */}
       <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-[hsl(265_70%_55%)] text-primary-foreground p-5 lg:p-6 shadow-xl shadow-primary/25">
-        {/* Bolhas decorativas (blur) — só visual. */}
         <div className="absolute -top-16 -right-12 w-48 h-48 rounded-full bg-white/10 blur-3xl" />
         <div className="absolute bottom-0 right-0 w-28 h-28 rounded-full bg-accent/40 blur-2xl" />
 
@@ -79,23 +118,21 @@ export const OverviewScreen = () => {
               </button>
             </div>
             <p className="text-[32px] lg:text-[40px] font-extrabold tracking-tight mt-1 leading-none tabular-nums">
-              {saldoOculto ? "R$ ••••••" : `R$ ${formatNumeroBR(snapshotAtual.saldoFinal)}`}
+              {saldoOculto ? "R$ ••••••" : `R$ ${formatNumeroBR(snapshotAtual?.saldoFinal ?? 0)}`}
             </p>
             <p className="text-[11.5px] opacity-80 mt-1.5">
               Disponível ·{" "}
               <span className="font-semibold">
-                {saldoOculto ? "•••" : formatBRL(snapshotAtual.saldoFinal - 1200)}
+                {saldoOculto ? "•••" : formatBRL((snapshotAtual?.saldoFinal ?? 0) - 1200)}
               </span>
             </p>
           </div>
-          {/* Seletor de conta (mock — abriria lista no app real). */}
           <button className="flex items-center gap-1 bg-white/15 hover:bg-white/25 backdrop-blur rounded-full px-2.5 py-1 text-[11px] font-semibold transition-colors max-w-[140px]">
-            <span className="truncate">{contaPadrao.banco}</span>
+            <span className="truncate">{contaPadrao?.banco ?? "—"}</span>
             <ChevronDown className="w-3 h-3 shrink-0" strokeWidth={2.5} />
           </button>
         </div>
 
-        {/* Pill de variação no mês. */}
         <div className="relative flex items-center gap-1.5 mt-3">
           <span className="inline-flex items-center gap-0.5 bg-success/90 rounded-full px-1.5 py-0.5 text-[10px] font-bold">
             <TrendingUp className="w-2.5 h-2.5" strokeWidth={3} /> {variacao}%
@@ -104,12 +141,12 @@ export const OverviewScreen = () => {
         </div>
       </section>
 
-      {/* KPIs horizontais (3 colunas em qualquer tamanho ≥ md). */}
+      {/* KPIs horizontais */}
       <section className="grid grid-cols-3 gap-2 lg:gap-4">
         {[
-          { label: "Receitas",  value: snapshotAtual.totalReceitas, up: true,  icon: ArrowUpRight,    bg: "bg-surface-green",  color: "text-success" },
-          { label: "Gastos",    value: snapshotAtual.totalGastos,   up: false, icon: ArrowDownLeft,   bg: "bg-surface-pink",   color: "text-destructive" },
-          { label: "Economia",  value: snapshotAtual.totalReceitas - snapshotAtual.totalGastos, up: true, icon: PiggyBank, bg: "bg-surface-purple", color: "text-primary" },
+          { label: "Receitas",  value: snapshotAtual?.totalReceitas ?? 0, up: true,  icon: ArrowUpRight,    bg: "bg-surface-green",  color: "text-success" },
+          { label: "Gastos",    value: snapshotAtual?.totalGastos ?? 0,   up: false, icon: ArrowDownLeft,   bg: "bg-surface-pink",   color: "text-destructive" },
+          { label: "Economia",  value: (snapshotAtual?.totalReceitas ?? 0) - (snapshotAtual?.totalGastos ?? 0), up: true, icon: PiggyBank, bg: "bg-surface-purple", color: "text-primary" },
         ].map((k) => {
           const Icon = k.icon;
           const Trend = k.up ? TrendingUp : TrendingDown;
@@ -125,7 +162,7 @@ export const OverviewScreen = () => {
               <div className={`flex items-center gap-0.5 mt-1 text-[10px] lg:text-[11.5px] font-bold ${k.up ? "text-success" : "text-destructive"}`}>
                 <Trend className="w-2.5 h-2.5" strokeWidth={3} />
                 {k.up ? "+" : "−"}
-                {Math.abs(((k.value / (snapshotAtual.totalReceitas || 1)) * 100)).toFixed(1)}%
+                {Math.abs(((k.value / (Number(snapshotAtual?.totalReceitas) || 1)) * 100)).toFixed(1)}%
               </div>
             </div>
           );
@@ -175,7 +212,7 @@ export const OverviewScreen = () => {
         </div>
 
         <div className="mt-3">
-          <BalanceChart />
+          <BalanceChart transacoes={transacoes} saldoFinal={Number(snapshotAtual?.saldoFinal ?? 0)} />
         </div>
       </section>
 

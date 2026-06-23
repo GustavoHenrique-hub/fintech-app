@@ -1,22 +1,12 @@
-// AddTransactionScreen: formulário de criação de transação.
-//
-// Payload final (montado abaixo) já está no formato esperado pelo
-// TransacaoRequestDTO do backend — basta enviar:
-//
-//   POST /transacoes
-//   {
-//     usuarioId, contaId, extratoId, tipo, valor, dataTransacao,
-//     descricaoUsuario, categoriaId, subcategoria, estabelecimento,
-//     origem, observacao
-//   }
-//
-// Onde plugar com o backend:
-//   - Substituir o handleSubmit pelo `useMutation(criarTransacao)`.
-//   - Disparar toast.success em onSuccess / toast.error em onError.
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { ArrowUpRight, ArrowDownLeft, Save } from "lucide-react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { usuarioAtual, contaPadrao, categoriasGasto, categoriasReceita } from "@/mocks";
+import { useUsuario } from "@/hooks/use-usuario";
+import { useContas } from "@/hooks/use-contas";
+import { useCategorias } from "@/hooks/use-categorias";
+import { transacaoService } from "@/services";
+import { USUARIO_ID } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { InputMonetario } from "@/components/ui/input-monetario";
 import { Combobox } from "@/components/ui/combobox";
@@ -24,24 +14,33 @@ import { DatePicker } from "@/components/ui/date-picker";
 import { toast } from "@/hooks/use-toast";
 
 export const AddTransactionScreen = () => {
-  // Estado do formulário — espelha campos do TransacaoRequestDTO.
   const [tipo, setTipo] = useState("GASTO");
   const [valor, setValor] = useState(undefined);
   const [categoriaId, setCategoriaId] = useState(undefined);
   const [data, setData] = useState(new Date());
   const [descricao, setDescricao] = useState("");
-  const [submitting, setSubmitting] = useState(false);
   const [touched, setTouched] = useState(false);
 
-  // A lista de categorias do Combobox depende do tipo selecionado.
+  const queryClient = useQueryClient();
+  const { data: usuario } = useUsuario();
+  const { data: contas = [] } = useContas();
+  const { data: categorias = [] } = useCategorias();
+
+  const contaPadrao = useMemo(
+    () => contas.find((c) => c.padrao) ?? contas[0] ?? null,
+    [contas],
+  );
+
+  const categoriasGasto   = categorias.filter((c) => c.tipo === "gasto"   || c.tipo === "ambos");
+  const categoriasReceita = categorias.filter((c) => c.tipo === "receita" || c.tipo === "ambos");
+
   const itensCategoria = (tipo === "RECEITA" ? categoriasReceita : categoriasGasto).map((c) => ({
     id: c.id,
     label: c.nome,
     parentId: c.parentId,
   }));
 
-  // Validações simples.
-  const erroValor = touched && (!valor || valor <= 0);
+  const erroValor    = touched && (!valor || valor <= 0);
   const erroCategoria = touched && !categoriaId;
   const formularioValido = !!valor && valor > 0 && !!categoriaId;
 
@@ -54,7 +53,26 @@ export const AddTransactionScreen = () => {
     setTouched(false);
   };
 
-  const handleSubmit = async () => {
+  const { mutate: criarTransacao, isPending } = useMutation({
+    mutationFn: (payload) => transacaoService.criar(payload),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["transacoes", USUARIO_ID] });
+      queryClient.invalidateQueries({ queryKey: ["snapshots", USUARIO_ID] });
+      toast.success({
+        title: "Transação registrada",
+        description: `${tipo === "RECEITA" ? "Receita" : "Gasto"} salvo em ${contaPadrao?.nome ?? "conta"}.`,
+      });
+      resetar();
+    },
+    onError: () => {
+      toast.error({
+        title: "Erro ao salvar transação",
+        description: "Não foi possível registrar. Tente novamente.",
+      });
+    },
+  });
+
+  const handleSubmit = () => {
     setTouched(true);
     if (!formularioValido) {
       toast.warning({
@@ -64,40 +82,25 @@ export const AddTransactionScreen = () => {
       return;
     }
 
-    // Payload pronto pra enviar ao backend (TransacaoRequestDTO).
-    const payload = {
-      usuarioId: usuarioAtual.id,
-      contaId: contaPadrao.id,
-      extratoId: null,                     // transação manual → sem extrato
-      tipo,                                 // RECEITA | GASTO
-      valor,                                // BigDecimal (number)
-      dataTransacao: data.toISOString().slice(0, 10), // LocalDate "yyyy-MM-dd"
+    criarTransacao({
+      usuarioId: usuario?.id ?? USUARIO_ID,
+      contaId: contaPadrao?.id ?? null,
+      extratoId: null,
+      tipo,
+      valor,
+      dataTransacao: data.toISOString().slice(0, 10),
       descricaoUsuario: descricao || null,
       categoriaId,
       subcategoria: null,
       estabelecimento: null,
-      origem: "manual",                     // enum OrigemTransacao
+      origem: "manual",
       observacao: null,
-    };
-
-    setSubmitting(true);
-    // Simulação de chamada — quando integrar, troque por:
-    //   await axios.post("/transacoes", payload)
-    console.log("POST /transacoes", payload);
-    await new Promise((r) => setTimeout(r, 600));
-    setSubmitting(false);
-
-    toast.success({
-      title: "Transação registrada",
-      description: `${tipo === "RECEITA" ? "Receita" : "Gasto"} salvo em ${contaPadrao.nome}.`,
     });
-    resetar();
   };
 
   return (
     <div className="flex-1 min-h-0 overflow-y-auto px-4 sm:px-5 lg:px-8 pt-4 lg:pt-8 pb-6 lg:pb-10 no-scrollbar">
      <div className="max-w-2xl mx-auto w-full">
-      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-[20px] lg:text-[28px] font-extrabold tracking-tight text-foreground">Nova transação</h1>
@@ -108,7 +111,6 @@ export const AddTransactionScreen = () => {
         <Button variant="ghost" size="sm" onClick={resetar}>Cancelar</Button>
       </div>
 
-      {/* Tipo (segmented) */}
       <div className="mt-4 grid grid-cols-2 gap-1 p-1 bg-secondary rounded-2xl">
         <button
           onClick={() => setTipo("GASTO")}
@@ -128,7 +130,6 @@ export const AddTransactionScreen = () => {
         </button>
       </div>
 
-      {/* Valor (hero) */}
       <div className="card-soft p-5 mt-4">
         <p className="section-label text-center">Valor</p>
         <div className="mt-3 flex items-center justify-center gap-2">
@@ -153,12 +154,11 @@ export const AddTransactionScreen = () => {
           </p>
         ) : (
           <p className="text-[11px] text-muted-foreground mt-2 text-center">
-            BRL · {contaPadrao.banco} ({contaPadrao.nome})
+            BRL · {contaPadrao?.banco ?? "—"} ({contaPadrao?.nome ?? "—"})
           </p>
         )}
       </div>
 
-      {/* Categoria via Combobox (suporta hierarquia) */}
       <div className="mt-5">
         <label className="section-label">Categoria</label>
         <div className="mt-1.5">
@@ -176,7 +176,6 @@ export const AddTransactionScreen = () => {
         )}
       </div>
 
-      {/* Detalhes (Data + Descrição) — em sm+ ficam lado a lado. */}
       <div className="mt-5 grid sm:grid-cols-2 gap-3">
         <div>
           <label className="section-label">Data</label>
@@ -196,18 +195,17 @@ export const AddTransactionScreen = () => {
         </div>
       </div>
 
-      {/* CTAs */}
       <div className="mt-6 space-y-2">
         <Button
           className="w-full"
           size="lg"
           leftIcon={Save}
-          loading={submitting}
+          loading={isPending}
           onClick={handleSubmit}
         >
           Salvar transação
         </Button>
-        <Button variant="secondary" className="w-full" disabled={submitting}>
+        <Button variant="secondary" className="w-full" disabled={isPending}>
           Salvar como rascunho
         </Button>
       </div>

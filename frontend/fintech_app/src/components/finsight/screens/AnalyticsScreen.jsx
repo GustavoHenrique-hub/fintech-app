@@ -1,19 +1,15 @@
-// AnalyticsScreen: gráficos de comportamento financeiro mês a mês.
-//
-// Onde plugar com o backend:
-//   - snapshots          → GET /snapshots/usuario/{id}/{conta} (últimos 12 meses)
-//   - transacoes         → GET /transacoes/usuario/{id}        (para o donut por categoria)
-//   - categoriasPorId    → mapa categoria.id → CategoriaResponseDTO
 import { useState, useMemo } from "react";
 import { TrendingUp, TrendingDown, Sparkles, AlertTriangle, Lightbulb } from "lucide-react";
 
-import { snapshots, transacoes, categoriasPorId } from "@/mocks";
+import { useSnapshots } from "@/hooks/use-snapshots";
+import { useTransacoes } from "@/hooks/use-transacoes";
+import { useCategorias } from "@/hooks/use-categorias";
 import { formatBRL, formatNumeroBR } from "@/lib/format";
 import { ConfidenceBar } from "@/components/ui/confidence-bar";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const ranges = ["Semana", "Mês", "Ano"];
 
-// Donut: SVG puro — `strokeDasharray` proporcional à fatia + offset acumulado.
 function Donut({ fatias }) {
   const radius = 42;
   const stroke = 14;
@@ -42,9 +38,7 @@ function Donut({ fatias }) {
   );
 }
 
-// Gráfico de linha: receitas vs gastos por mês.
 function LineChart({ receitas, gastos, labels }) {
-  // Escala dinâmica baseada no maior valor (com 10% de folga).
   const max = Math.max(...receitas, ...gastos) * 1.1 || 1;
   const w = 320;
   const h = 130;
@@ -82,8 +76,17 @@ function LineChart({ receitas, gastos, labels }) {
 export const AnalyticsScreen = () => {
   const [range, setRange] = useState("Mês");
 
-  // ── Série de receitas/gastos a partir dos snapshots ─────────────
-  // Pegamos os snapshots em ordem cronológica crescente (mais antigos→atuais).
+  const { data: snapshots = [], isLoading: loadingSnap } = useSnapshots();
+  const { data: transacoes = [], isLoading: loadingTx } = useTransacoes();
+  const { data: categorias = [], isLoading: loadingCat } = useCategorias();
+
+  const isLoading = loadingSnap || loadingTx || loadingCat;
+
+  const categoriasPorId = useMemo(
+    () => Object.fromEntries(categorias.map((c) => [c.id, c])),
+    [categorias],
+  );
+
   const { receitasSerie, gastosSerie, labels } = useMemo(() => {
     const ord = [...snapshots].sort((a, b) =>
       a.ano !== b.ano ? a.ano - b.ano : a.mes - b.mes,
@@ -95,18 +98,39 @@ export const AnalyticsScreen = () => {
       gastosSerie:   ultimos.map((s) => Number(s.totalGastos)),
       labels:        ultimos.map((s) => mesAbrev[s.mes - 1]),
     };
-  }, []);
+  }, [snapshots]);
 
-  // ── KPIs agregados do último snapshot ──────────────────────────
-  const ultimoSnap = snapshots[0]; // primeiro do array = mais recente (não-fechado)
-  const totalReceitas = ultimoSnap.totalReceitas;
-  const totalGastos = ultimoSnap.totalGastos;
-  const economia = totalReceitas - totalGastos;
-  const economiaPct = ((economia / (totalReceitas || 1)) * 100).toFixed(0);
+  const ultimoSnap = useMemo(() => {
+    if (!snapshots.length) return null;
+    return [...snapshots].sort((a, b) => {
+      if (!a.fechado && b.fechado) return -1;
+      if (a.fechado && !b.fechado) return 1;
+      return a.ano !== b.ano ? b.ano - a.ano : b.mes - a.mes;
+    })[0];
+  }, [snapshots]);
 
-  // ── Gastos por categoria (transações do mês corrente) ──────────
+  const penultimoSnap = useMemo(() => {
+    if (snapshots.length < 2) return null;
+    const fechados = [...snapshots]
+      .filter((s) => s.fechado)
+      .sort((a, b) => a.ano !== b.ano ? b.ano - a.ano : b.mes - a.mes);
+    return fechados[0] ?? null;
+  }, [snapshots]);
+
+  const totalReceitas = Number(ultimoSnap?.totalReceitas ?? 0);
+  const totalGastos   = Number(ultimoSnap?.totalGastos ?? 0);
+  const economia      = totalReceitas - totalGastos;
+  const economiaPct   = ((economia / (totalReceitas || 1)) * 100).toFixed(0);
+
+  const receitasTrend = penultimoSnap
+    ? (((totalReceitas - Number(penultimoSnap.totalReceitas)) / (Number(penultimoSnap.totalReceitas) || 1)) * 100).toFixed(0)
+    : null;
+  const gastosTrend = penultimoSnap
+    ? (((totalGastos - Number(penultimoSnap.totalGastos)) / (Number(penultimoSnap.totalGastos) || 1)) * 100).toFixed(0)
+    : null;
+
   const fatias = useMemo(() => {
-    // Agrupa GASTOS do mês corrente por categoriaId.
+    if (!ultimoSnap) return [];
     const gastosMes = transacoes.filter(
       (t) =>
         t.tipo === "GASTO" &&
@@ -114,11 +138,9 @@ export const AnalyticsScreen = () => {
     );
     const totalMes = gastosMes.reduce((acc, t) => acc + Number(t.valor), 0) || 1;
 
-    // Soma por categoria (uma pílula por categoria pai — agrupa filhos no pai).
     const porCat = new Map();
     for (const t of gastosMes) {
       const cat = categoriasPorId[t.categoriaId];
-      // Se a categoria tem `parentId`, agrupa no pai pra não pulverizar o donut.
       const chave = cat?.parentId ?? cat?.id;
       const catRef = categoriasPorId[chave] ?? cat;
       if (!catRef) continue;
@@ -136,14 +158,33 @@ export const AnalyticsScreen = () => {
         pct: (c.total / totalMes) * 100,
       }))
       .sort((a, b) => b.total - a.total);
-  }, [ultimoSnap]);
+  }, [ultimoSnap, transacoes, categoriasPorId]);
 
   const totalGastosCat = fatias.reduce((acc, f) => acc + f.total, 0);
+
+  const confiancaMedia =
+    transacoes.reduce((acc, t) => acc + (t.confiancaIa ?? 0), 0) / (transacoes.length || 1);
+
+  if (isLoading) {
+    return (
+      <div className="flex-1 min-h-0 overflow-y-auto px-4 sm:px-5 lg:px-8 pt-4 lg:pt-8 pb-6 lg:pb-10 no-scrollbar">
+        <div className="max-w-6xl mx-auto w-full space-y-5">
+          <Skeleton className="h-12 w-48 rounded-xl" />
+          <div className="grid grid-cols-3 gap-2">
+            {[0, 1, 2].map((i) => <Skeleton key={i} className="h-24 rounded-2xl" />)}
+          </div>
+          <div className="grid lg:grid-cols-2 gap-5">
+            <Skeleton className="h-52 rounded-2xl" />
+            <Skeleton className="h-52 rounded-2xl" />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex-1 min-h-0 overflow-y-auto px-4 sm:px-5 lg:px-8 pt-4 lg:pt-8 pb-6 lg:pb-10 no-scrollbar">
      <div className="max-w-6xl mx-auto w-full space-y-5 lg:space-y-7">
-      {/* Header */}
       <div>
         <h1 className="text-[22px] lg:text-[28px] font-extrabold tracking-tight text-foreground leading-tight">
           Análises
@@ -153,7 +194,6 @@ export const AnalyticsScreen = () => {
         </p>
       </div>
 
-      {/* Segmented control de período. */}
       <div className="inline-flex bg-secondary rounded-full p-0.5">
         {ranges.map((r) => (
           <button
@@ -168,12 +208,29 @@ export const AnalyticsScreen = () => {
         ))}
       </div>
 
-      {/* KPIs do mês corrente */}
       <section className="grid grid-cols-3 gap-2">
         {[
-          { label: "Receitas",  value: totalReceitas, trend: "+12%", up: true,  color: "text-success" },
-          { label: "Gastos",    value: totalGastos,   trend: "-4%",  up: false, color: "text-destructive" },
-          { label: "Economia",  value: economia,      trend: `+${economiaPct}%`, up: true, color: "text-primary" },
+          {
+            label: "Receitas",
+            value: totalReceitas,
+            trend: receitasTrend !== null ? `${receitasTrend > 0 ? "+" : ""}${receitasTrend}%` : "—",
+            up: receitasTrend === null || Number(receitasTrend) >= 0,
+            color: "text-success",
+          },
+          {
+            label: "Gastos",
+            value: totalGastos,
+            trend: gastosTrend !== null ? `${gastosTrend > 0 ? "+" : ""}${gastosTrend}%` : "—",
+            up: gastosTrend === null || Number(gastosTrend) <= 0,
+            color: "text-destructive",
+          },
+          {
+            label: "Economia",
+            value: economia,
+            trend: `+${economiaPct}%`,
+            up: true,
+            color: "text-primary",
+          },
         ].map((k) => {
           const Trend = k.up ? TrendingUp : TrendingDown;
           return (
@@ -194,7 +251,6 @@ export const AnalyticsScreen = () => {
       </section>
 
       <div className="grid lg:grid-cols-2 gap-5 lg:gap-6">
-      {/* Gráfico Income vs Expenses (mensal). */}
       <section className="card-soft p-4 lg:p-6">
         <div className="flex items-center justify-between">
           <div>
@@ -215,7 +271,6 @@ export const AnalyticsScreen = () => {
         </div>
       </section>
 
-      {/* Donut: gastos por categoria. */}
       <section className="card-soft p-4 lg:p-6">
         <p className="section-label">Gastos por categoria</p>
         <div className="flex items-center gap-4 mt-3">
@@ -232,9 +287,7 @@ export const AnalyticsScreen = () => {
             {fatias.slice(0, 5).map((c) => (
               <div key={c.id} className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: c.cor }} />
-                <span className="text-[11.5px] text-foreground font-medium flex-1 truncate">
-                  {c.nome}
-                </span>
+                <span className="text-[11.5px] text-foreground font-medium flex-1 truncate">{c.nome}</span>
                 <span className="text-[11px] text-muted-foreground font-semibold tabular-nums">
                   {c.pct.toFixed(0)}%
                 </span>
@@ -245,7 +298,6 @@ export const AnalyticsScreen = () => {
       </section>
       </div>
 
-      {/* Acuracidade da classificação — usa ConfidenceBar */}
       <section className="card-soft p-4 space-y-3">
         <div>
           <p className="section-label">Acuracidade da IA</p>
@@ -253,16 +305,9 @@ export const AnalyticsScreen = () => {
             Média da confiança da IA na classificação das transações deste mês.
           </p>
         </div>
-        <ConfidenceBar
-          value={
-            transacoes.reduce((acc, t) => acc + (t.confiancaIa ?? 0), 0) /
-            (transacoes.length || 1)
-          }
-          label="Confiança média"
-        />
+        <ConfidenceBar value={confiancaMedia} label="Confiança média" />
       </section>
 
-      {/* Smart insights */}
       <section>
         <p className="section-label mb-2">Recomendações</p>
         <div className="grid lg:grid-cols-3 gap-2 lg:gap-3">

@@ -1,19 +1,8 @@
-// TransactionsScreen: lista de transações vindas do backend, agrupadas por dia.
-//
-// Onde plugar com o backend:
-//   - GET /transacoes/usuario/{id}  → TransacaoResponseDTO[]
-//   - GET /categorias               → CategoriaResponseDTO[]  (para o mapa de ícones/nomes)
-//
-// Features na tela:
-//   - Busca por descrição/estabelecimento (case+acento insensitive)
-//   - Filtros por tipo (Todas, Receitas, Gastos, Recorrentes)
-//   - Status de revisão visível com StatusBadge
-//   - Confiança da IA com ConfidenceBar quando pendente de revisão
-//   - EmptyState quando filtros não casam
 import { useState, useMemo } from "react";
 import { SlidersHorizontal, Search, ChevronDown, Inbox, X, RotateCcw } from "lucide-react";
 
-import { transacoes, categoriasPorId } from "@/mocks";
+import { useTransacoes } from "@/hooks/use-transacoes";
+import { useCategorias } from "@/hooks/use-categorias";
 import {
   formatBRL, formatBRLSigned, formatDataRelativa, formatHora,
 } from "@/lib/format";
@@ -22,8 +11,8 @@ import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { ConfidenceBar } from "@/components/ui/confidence-bar";
 import { EmptyState } from "@/components/ui/empty-state";
+import { SkeletonRow } from "@/components/ui/skeleton";
 
-// Os 4 filtros disponíveis. `tipo` mapeia para o atributo do DTO.
 const filtros = [
   { key: "todas",       label: "Todas" },
   { key: "receitas",    label: "Receitas" },
@@ -31,7 +20,6 @@ const filtros = [
   { key: "recorrentes", label: "Recorrentes" },
 ];
 
-// Remove acentos pra busca tolerante.
 function normalize(s) {
   return (s ?? "")
     .toString()
@@ -44,16 +32,22 @@ export const TransactionsScreen = ({ onAbrirEstorno }) => {
   const [filtroAtivo, setFiltroAtivo] = useState("todas");
   const [query, setQuery] = useState("");
 
-  // Aplica filtros + busca. useMemo para evitar recalcular toda render.
+  const { data: transacoes = [], isLoading: loadingTx } = useTransacoes();
+  const { data: categorias = [], isLoading: loadingCat } = useCategorias();
+
+  const isLoading = loadingTx || loadingCat;
+
+  const categoriasPorId = useMemo(
+    () => Object.fromEntries(categorias.map((c) => [c.id, c])),
+    [categorias],
+  );
+
   const transacoesFiltradas = useMemo(() => {
     const q = normalize(query);
     return transacoes.filter((t) => {
-      // Filtro de tipo
       if (filtroAtivo === "receitas" && t.tipo !== "RECEITA") return false;
       if (filtroAtivo === "gastos" && t.tipo !== "GASTO") return false;
       if (filtroAtivo === "recorrentes" && !t.recorrente) return false;
-
-      // Busca textual
       if (!q) return true;
       const haystack = [t.descricaoUsuario, t.descricaoNormalizada, t.estabelecimento]
         .filter(Boolean)
@@ -61,9 +55,8 @@ export const TransactionsScreen = ({ onAbrirEstorno }) => {
         .join(" ");
       return haystack.includes(q);
     });
-  }, [filtroAtivo, query]);
+  }, [filtroAtivo, query, transacoes]);
 
-  // Agrupa por dataTransacao (LocalDate). Map preserva ordem de inserção.
   const grupos = useMemo(() => {
     const ordenadas = [...transacoesFiltradas].sort((a, b) =>
       a.dataTransacao < b.dataTransacao ? 1 : -1,
@@ -116,7 +109,6 @@ export const TransactionsScreen = ({ onAbrirEstorno }) => {
           </div>
         </div>
 
-        {/* Campo de busca */}
         <div className="relative mt-3">
           <Search
             className="w-3.5 h-3.5 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2"
@@ -139,7 +131,6 @@ export const TransactionsScreen = ({ onAbrirEstorno }) => {
           )}
         </div>
 
-        {/* Chips de filtro */}
         <div className="flex gap-1.5 mt-3 overflow-x-auto no-scrollbar -mx-4 px-4">
           {filtros.map((f) => (
             <button
@@ -158,10 +149,13 @@ export const TransactionsScreen = ({ onAbrirEstorno }) => {
        </div>
       </div>
 
-      {/* Lista agrupada (ou EmptyState quando vazio) */}
       <div className="px-4 sm:px-5 lg:px-8 mt-3 lg:mt-5">
        <div className="max-w-5xl mx-auto w-full space-y-4 lg:space-y-5">
-        {semResultados ? (
+        {isLoading ? (
+          <div className="card-soft divide-y divide-border">
+            {[0, 1, 2, 3, 4].map((i) => <SkeletonRow key={i} />)}
+          </div>
+        ) : semResultados ? (
           <EmptyState
             icon={Inbox}
             title={algumFiltroAtivo ? "Nenhuma transação encontrada" : "Nenhuma transação ainda"}
@@ -187,8 +181,6 @@ export const TransactionsScreen = ({ onAbrirEstorno }) => {
                   const categoria = categoriasPorId[t.categoriaId];
                   const Icone = getIconeCategoria(categoria?.icone);
                   const positivo = t.tipo === "RECEITA";
-                  // Mostra ConfidenceBar quando a IA classificou mas a transação
-                  // ainda não foi revisada manualmente.
                   const mostrarConfianca =
                     t.statusRevisao === "PENDENTE_REVISAO" ||
                     t.statusRevisao === "CLASSIFICADA" ||
@@ -227,15 +219,11 @@ export const TransactionsScreen = ({ onAbrirEstorno }) => {
                         </div>
                       </div>
 
-                      {/* Linha inferior: status + confiança quando relevante. */}
                       <div className="flex items-center gap-2 pl-[52px]">
                         <StatusBadge kind="revisao" value={t.statusRevisao} />
                         {mostrarConfianca && (
                           <div className="flex-1 max-w-[140px]">
-                            <ConfidenceBar
-                              value={t.confiancaIa}
-                              showQualitative={false}
-                            />
+                            <ConfidenceBar value={t.confiancaIa} showQualitative={false} />
                           </div>
                         )}
                       </div>
@@ -247,7 +235,7 @@ export const TransactionsScreen = ({ onAbrirEstorno }) => {
           ))
         )}
 
-        {!semResultados && (
+        {!isLoading && !semResultados && (
           <Button variant="secondary" className="w-full" rightIcon={ChevronDown}>
             Carregar mais
           </Button>

@@ -1,14 +1,11 @@
-// ProfileScreen: dados da conta + preferências + segurança.
-// Lê o usuario do mock; quando integrar, troque por useQuery(["usuario", id]).
-//
-// Inclui modal de confirmação de "excluir conta" (Modal do design system).
 import { useState } from "react";
 import {
   Mail, Phone, CreditCard, Bell, Globe, Languages, Lock, ShieldCheck,
   Crown, LogOut, Trash2, ChevronRight, Check, Pencil, AlertTriangle,
 } from "lucide-react";
 
-import { usuarioAtual, contas } from "@/mocks";
+import { useUsuario } from "@/hooks/use-usuario";
+import { useContas } from "@/hooks/use-contas";
 import { formatCPF, getInitials, maskEmail, maskCPF } from "@/lib/format";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,9 +13,8 @@ import {
   ModalDescription, ModalFooter, ModalClose,
 } from "@/components/ui/modal";
 import { toast } from "@/hooks/use-toast";
+import { SkeletonCard } from "@/components/ui/skeleton";
 
-// ── Componentes auxiliares (só usados aqui) ─────────────────────────
-// Linha clicável padrão (ícone + label + valor + chevron).
 const Row = ({
   icon: Icon, iconColor = "text-foreground", iconBg = "bg-secondary",
   label, value, trailing, danger,
@@ -39,7 +35,6 @@ const Row = ({
   </button>
 );
 
-// Switch on/off controlado pelo pai.
 const Toggle = ({ on, onChange, label }) => (
   <button
     onClick={(e) => {
@@ -56,20 +51,22 @@ const Toggle = ({ on, onChange, label }) => (
   </button>
 );
 
-// ── Tela principal ─────────────────────────────────────────────────
 export const ProfileScreen = () => {
   const [notif, setNotif] = useState(true);
   const [twoFA, setTwoFA] = useState(true);
   const [showCPF, setShowCPF] = useState(false);
   const [deletando, setDeletando] = useState(false);
 
-  const usuario = usuarioAtual;
-  const iniciais = getInitials(usuario.nome);
+  const { data: usuario, isLoading: loadingUsuario } = useUsuario();
+  const { data: contas = [], isLoading: loadingContas } = useContas();
+
+  const isLoading = loadingUsuario || loadingContas;
+
+  const iniciais = getInitials(usuario?.nome ?? "");
   const contasAtivas = contas.filter((c) => c.ativa).length;
 
   const handleDelete = async () => {
     setDeletando(true);
-    // Simulação. Na integração: await axios.delete(`/usuarios/${usuario.id}`)
     await new Promise((r) => setTimeout(r, 800));
     setDeletando(false);
     toast.error({
@@ -78,10 +75,21 @@ export const ProfileScreen = () => {
     });
   };
 
+  if (isLoading) {
+    return (
+      <div className="flex-1 min-h-0 overflow-y-auto px-4 sm:px-5 lg:px-8 pt-4 lg:pt-8 pb-6 lg:pb-10 no-scrollbar">
+        <div className="max-w-5xl mx-auto w-full space-y-5">
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex-1 min-h-0 overflow-y-auto px-4 sm:px-5 lg:px-8 pt-4 lg:pt-8 pb-6 lg:pb-10 no-scrollbar">
      <div className="max-w-5xl mx-auto w-full space-y-5 lg:space-y-7">
-      {/* Header */}
       <div>
         <h1 className="text-[22px] lg:text-[28px] font-extrabold tracking-tight text-foreground leading-tight">
           Perfil
@@ -89,7 +97,6 @@ export const ProfileScreen = () => {
         <p className="text-[12px] lg:text-[13px] text-muted-foreground mt-0.5">Conta e preferências</p>
       </div>
 
-      {/* Card do usuário */}
       <section className="card-soft p-4 flex items-center gap-3">
         <div className="relative">
           <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-[18px] font-extrabold text-primary-foreground shadow-md shadow-primary/30">
@@ -104,10 +111,10 @@ export const ProfileScreen = () => {
         </div>
         <div className="flex-1 min-w-0">
           <p className="text-[15px] font-extrabold text-foreground leading-tight truncate">
-            {usuario.nome}
+            {usuario?.nome ?? "—"}
           </p>
           <p className="text-[11.5px] text-muted-foreground mt-0.5 truncate">
-            {maskEmail(usuario.email)}
+            {maskEmail(usuario?.email ?? "")}
           </p>
           <span className="inline-flex items-center gap-1 mt-1.5 px-2 py-0.5 rounded-full bg-accent text-accent-foreground text-[10px] font-bold">
             <Crown className="w-2.5 h-2.5" strokeWidth={2.75} /> Premium Personal
@@ -115,7 +122,6 @@ export const ProfileScreen = () => {
         </div>
       </section>
 
-      {/* Conta + Preferências em 2 colunas no desktop. */}
       <div className="grid lg:grid-cols-2 gap-5 lg:gap-6">
       <section>
         <p className="section-label mb-1.5">Conta</p>
@@ -125,21 +131,21 @@ export const ProfileScreen = () => {
             iconBg="bg-surface-purple"
             iconColor="text-primary"
             label="E-mail"
-            value={maskEmail(usuario.email)}
+            value={maskEmail(usuario?.email ?? "")}
           />
           <Row
             icon={Phone}
             iconBg="bg-surface-green"
             iconColor="text-success"
             label="Telefone"
-            value={usuario.telefone}
+            value={usuario?.telefone ?? "—"}
           />
           <Row
             icon={CreditCard}
             iconBg="bg-surface-yellow"
             iconColor="text-foreground"
             label="CPF"
-            value={showCPF ? formatCPF(usuario.cpf) : maskCPF(usuario.cpf)}
+            value={showCPF ? formatCPF(usuario?.cpf ?? "") : maskCPF(usuario?.cpf ?? "")}
             trailing={
               <Toggle on={showCPF} onChange={setShowCPF} label="Mostrar CPF completo" />
             }
@@ -154,7 +160,6 @@ export const ProfileScreen = () => {
         </div>
       </section>
 
-      {/* Preferências */}
       <section>
         <p className="section-label mb-1.5">Preferências</p>
         <div className="card-soft divide-y divide-border">
@@ -171,9 +176,7 @@ export const ProfileScreen = () => {
       </section>
       </div>
 
-      {/* Segurança + Card upgrade em 2 colunas no desktop. */}
       <div className="grid lg:grid-cols-2 gap-5 lg:gap-6">
-      {/* Segurança */}
       <section>
         <p className="section-label mb-1.5">Segurança</p>
         <div className="card-soft divide-y divide-border">
@@ -188,7 +191,6 @@ export const ProfileScreen = () => {
         </div>
       </section>
 
-      {/* Card de upgrade */}
       <section className="relative overflow-hidden card-soft p-4 bg-gradient-to-br from-accent/40 to-accent/10 border-accent/40">
         <div className="flex items-center gap-2">
           <Crown className="w-4 h-4 text-foreground" strokeWidth={2.5} />
@@ -208,13 +210,11 @@ export const ProfileScreen = () => {
       </section>
       </div>
 
-      {/* Ações da conta */}
       <section>
         <p className="section-label mb-1.5">Conta</p>
         <div className="card-soft divide-y divide-border">
           <Row icon={LogOut} iconBg="bg-secondary" label="Sair" />
 
-          {/* Excluir conta: usa Modal do design system para confirmar. */}
           <Modal>
             <ModalTrigger asChild>
               <Row
@@ -257,7 +257,7 @@ export const ProfileScreen = () => {
           </Modal>
         </div>
         <p className="text-[10.5px] text-muted-foreground mt-2 px-1">
-          FinSight v2.4.0 · Build 2026.04 · Usuário {usuario.usercode}
+          FinSight v2.4.0 · Build 2026.04 · Usuário {usuario?.usercode ?? "—"}
         </p>
       </section>
      </div>
