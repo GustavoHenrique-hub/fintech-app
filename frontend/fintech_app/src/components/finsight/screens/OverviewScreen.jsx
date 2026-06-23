@@ -66,14 +66,26 @@ function ContaSelector({ contas, contaSelecionada, onChange }) {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
+  // Sem contas: mostra botão de adicionar
+  if (contas.length === 0) {
+    return (
+      <button className="flex items-center gap-1.5 bg-white/15 hover:bg-white/25 backdrop-blur rounded-full px-2.5 py-1.5 text-[11.5px] font-semibold transition-colors">
+        <Plus className="w-3.5 h-3.5" strokeWidth={2.5} />
+        <span>Vincular banco</span>
+      </button>
+    );
+  }
+
   return (
     <div ref={ref} className="relative">
       <button
         onClick={() => setAberto((v) => !v)}
         className="flex items-center gap-1.5 bg-white/15 hover:bg-white/25 backdrop-blur rounded-full px-2.5 py-1.5 text-[11.5px] font-semibold transition-colors max-w-[160px]"
       >
-        <BancoLogo banco={contaSelecionada?.banco} size={18} />
-        <span className="truncate">{contaSelecionada?.banco ?? "—"}</span>
+        {contaSelecionada?.banco
+          ? <BancoLogo banco={contaSelecionada.banco} size={18} />
+          : <div className="w-[18px] h-[18px] rounded-full bg-white/30 shrink-0" />}
+        <span className="truncate">{contaSelecionada?.banco ?? "Selecionar"}</span>
         <ChevronDown
           className={`w-3 h-3 shrink-0 transition-transform ${aberto ? "rotate-180" : ""}`}
           strokeWidth={2.5}
@@ -136,12 +148,8 @@ export const OverviewScreen = () => {
     [contas],
   );
 
-  // Sincroniza a conta selecionada quando os dados chegam
+  // A conta exibida é a selecionada manualmente ou a padrão do backend
   const contaAtual = contaSelecionada ?? contaPadrao;
-
-  useEffect(() => {
-    if (!contaSelecionada && contaPadrao) setContaSelecionada(contaPadrao);
-  }, [contaPadrao]);
 
   const snapshotAtual = useMemo(
     () => snapshots.find((s) => !s.fechado)
