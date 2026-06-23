@@ -37,7 +37,7 @@ class CriarContaFinanceiraUseCaseTest {
         Long idGerado = 1L;
         ContaFinanceira contaSalva = new ContaFinanceira(idGerado, conta.getUsuarioId(),
                 conta.getTipo(), conta.getBancoId(), conta.getBancoCode(),
-                conta.getSaldoInicial(), false);
+                conta.getSaldoInicial(), false, true, null, null, null, null);
         when(repository.salvar(any())).thenReturn(contaSalva);
 
         ContaFinanceira resultado = useCase.executar(conta);
