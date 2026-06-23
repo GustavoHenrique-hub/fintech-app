@@ -5,6 +5,7 @@ import {
 } from "lucide-react";
 
 import { BalanceChart } from "../BalanceChart";
+import { VincularBancoModal } from "../VincularBancoModal";
 import { useUsuario } from "@/hooks/use-usuario";
 import { useContas } from "@/hooks/use-contas";
 import { useSnapshots } from "@/hooks/use-snapshots";
@@ -56,7 +57,7 @@ function BancoLogo({ banco, size = 28 }) {
 }
 
 // Dropdown de seleção de conta
-function ContaSelector({ contas, contaSelecionada, onChange }) {
+function ContaSelector({ contas, contaSelecionada, onChange, onVincular }) {
   const [aberto, setAberto] = useState(false);
   const ref = useRef(null);
 
@@ -69,7 +70,7 @@ function ContaSelector({ contas, contaSelecionada, onChange }) {
   // Sem contas: mostra botão de adicionar
   if (contas.length === 0) {
     return (
-      <button className="flex items-center gap-1.5 bg-white/15 hover:bg-white/25 backdrop-blur rounded-full px-2.5 py-1.5 text-[11.5px] font-semibold transition-colors">
+      <button onClick={onVincular} className="flex items-center gap-1.5 bg-white/15 hover:bg-white/25 backdrop-blur rounded-full px-2.5 py-1.5 text-[11.5px] font-semibold transition-colors">
         <Plus className="w-3.5 h-3.5" strokeWidth={2.5} />
         <span>Vincular banco</span>
       </button>
@@ -128,6 +129,7 @@ export const OverviewScreen = () => {
   const [range, setRange] = useState("Semana");
   const [saldoOculto, setSaldoOculto] = useState(false);
   const [contaSelecionada, setContaSelecionada] = useState(null);
+  const [modalBancoAberto, setModalBancoAberto] = useState(false);
 
   const { data: usuario, isLoading: loadingUsuario } = useUsuario();
   const { data: contas = [], isLoading: loadingContas } = useContas();
@@ -203,6 +205,7 @@ export const OverviewScreen = () => {
   }
 
   return (
+    <>
     <div className="flex-1 min-h-0 overflow-y-auto px-4 sm:px-5 lg:px-8 pt-4 lg:pt-6 pb-6 lg:pb-8 no-scrollbar">
      <div className="max-w-6xl mx-auto w-full space-y-5 lg:space-y-4">
 
@@ -270,6 +273,7 @@ export const OverviewScreen = () => {
             contas={contas}
             contaSelecionada={contaAtual}
             onChange={setContaSelecionada}
+            onVincular={() => setModalBancoAberto(true)}
           />
         </div>
 
@@ -397,5 +401,11 @@ export const OverviewScreen = () => {
       </section>
      </div>
     </div>
+
+    <VincularBancoModal
+      open={modalBancoAberto}
+      onOpenChange={setModalBancoAberto}
+    />
+    </>
   );
 };
