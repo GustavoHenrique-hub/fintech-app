@@ -6,11 +6,16 @@ import path from "path";
 
 export default defineConfig(() => ({
   server: {
-    // "::" escuta em todas as interfaces (IPv4 + IPv6).
     host: "::",
-    port: 8080,
+    port: 3000,
+    proxy: {
+      "/api": {
+        target: "http://localhost:8082",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
     hmr: {
-      // Desliga o overlay de erros do HMR; erros continuam visíveis no console.
       overlay: false,
     },
   },

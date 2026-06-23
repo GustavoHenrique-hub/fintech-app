@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { TrendingUp, ArrowLeft, Eye, EyeOff, CheckCircle2, Mail } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { InputCPF } from "@/components/ui/input-cpf";
 import { PasswordStrengthMeter } from "@/components/ui/password-strength-meter";
+import { usuarioService } from "@/services";
 
 const STEPS = [
   { numero: 1, label: "Dados pessoais" },
@@ -64,36 +66,42 @@ const inputClass = (erro) =>
 
 export default function CadastroPage() {
   const [step, setStep] = useState(1);
+  const navigate = useNavigate();
 
   // Campos step 1
-  const [nome, setNome]                   = useState("");
-  const [cpf, setCpf]                     = useState("");
-  const [cpfValido, setCpfValido]         = useState(false);
-  const [email, setEmail]                 = useState("");
-  const [telefone, setTelefone]           = useState("");
+  const [nome, setNome]                     = useState("");
+  const [cpf, setCpf]                       = useState("");
+  const [cpfValido, setCpfValido]           = useState(false);
+  const [email, setEmail]                   = useState("");
+  const [telefone, setTelefone]             = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
 
   // Campos step 2
-  const [senha, setSenha]                 = useState("");
-  const [confirmar, setConfirmar]         = useState("");
-  const [senhaInfo, setSenhaInfo]         = useState({ score: 0, level: "weak" });
-  const [mostrarSenha, setMostrarSenha]   = useState(false);
-  const [mostrarConf, setMostrarConf]     = useState(false);
+  const [senha, setSenha]               = useState("");
+  const [confirmar, setConfirmar]       = useState("");
+  const [senhaInfo, setSenhaInfo]       = useState({ score: 0, level: "weak" });
+  const [mostrarSenha, setMostrarSenha] = useState(false);
+  const [mostrarConf, setMostrarConf]   = useState(false);
 
-  const [touched, setTouched]             = useState(false);
+  const [touched, setTouched] = useState(false);
 
   // ── Validações step 1 ────────────────────────────────────────────
-  const erroNome      = touched && nome.trim().split(" ").filter(Boolean).length < 2;
-  const erroCpf       = touched && !cpfValido;
-  const erroEmail     = touched && !email.trim().includes("@");
-  const erroNasc      = touched && !dataNascimento;
-  const step1Valid    = !erroNome && !erroCpf && !erroEmail && !erroNasc
-                        && nome.trim().length > 0 && cpfValido && email.includes("@") && !!dataNascimento;
+  const erroNome   = touched && nome.trim().split(" ").filter(Boolean).length < 2;
+  const erroCpf    = touched && !cpfValido;
+  const erroEmail  = touched && !email.trim().includes("@");
+  const erroNasc   = touched && !dataNascimento;
+  const step1Valid = !erroNome && !erroCpf && !erroEmail && !erroNasc
+                     && nome.trim().length > 0 && cpfValido && email.includes("@") && !!dataNascimento;
 
   // ── Validações step 2 ────────────────────────────────────────────
-  const erroSenhaFraca  = touched && senhaInfo.level === "weak";
-  const erroConfirmar   = touched && senha !== confirmar;
-  const step2Valid      = senhaInfo.level !== "weak" && senha === confirmar && senha.length >= 8;
+  const erroSenhaFraca = touched && senhaInfo.level === "weak";
+  const erroConfirmar  = touched && senha !== confirmar;
+  const step2Valid     = senhaInfo.level !== "weak" && senha === confirmar && senha.length >= 8;
+
+  const { mutate: criar, isPending, isError, error } = useMutation({
+    mutationFn: (dto) => usuarioService.criar(dto),
+    onSuccess: () => setStep(3),
+  });
 
   const avancar = () => {
     setTouched(true);
@@ -106,14 +114,21 @@ export default function CadastroPage() {
     e.preventDefault();
     setTouched(true);
     if (!step2Valid) return;
-    // TODO: integrar com POST /usuarios
-    setStep(3);
+    criar({
+      nome: nome.trim(),
+      cpf: cpf.replace(/\D/g, ""),
+      email: email.trim(),
+      senha,
+      telefone: telefone.trim() || undefined,
+      dataNascimento: dataNascimento || undefined,
+    });
   };
 
-  // Data máxima: 18 anos atrás
   const maxNasc = new Date(Date.now() - 18 * 365.25 * 24 * 60 * 60 * 1000)
     .toISOString()
     .slice(0, 10);
+
+  const erroServidor = isError && error?.response?.status !== 401;
 
   return (
     <div className="min-h-[100dvh] bg-background flex flex-col items-center justify-center
@@ -148,7 +163,6 @@ export default function CadastroPage() {
               noValidate
               className="space-y-4"
             >
-              {/* Nome */}
               <InputField label="Nome completo" error={erroNome && "Informe nome e sobrenome"}>
                 <input
                   type="text"
@@ -160,12 +174,10 @@ export default function CadastroPage() {
                 />
               </InputField>
 
-              {/* CPF */}
               <InputField label="CPF" error={erroCpf && "Informe um CPF válido"}>
                 <InputCPF value={cpf} onChange={setCpf} onValid={setCpfValido} />
               </InputField>
 
-              {/* E-mail */}
               <InputField label="E-mail" error={erroEmail && "Informe um e-mail válido"}>
                 <input
                   type="email"
@@ -177,12 +189,8 @@ export default function CadastroPage() {
                 />
               </InputField>
 
-              {/* Data + Telefone */}
               <div className="grid grid-cols-2 gap-3">
-                <InputField
-                  label="Data de nascimento"
-                  error={erroNasc && "Obrigatório"}
-                >
+                <InputField label="Data de nascimento" error={erroNasc && "Obrigatório"}>
                   <input
                     type="date"
                     value={dataNascimento}
@@ -234,8 +242,15 @@ export default function CadastroPage() {
               </p>
             </div>
 
+            {erroServidor && (
+              <div className="mb-4 px-3.5 py-3 rounded-xl bg-destructive/10 border border-destructive/20">
+                <p className="text-[13px] text-destructive font-semibold">
+                  {error?.response?.data?.message ?? "Não foi possível criar a conta. Tente novamente."}
+                </p>
+              </div>
+            )}
+
             <form onSubmit={submeter} noValidate className="space-y-4">
-              {/* Senha */}
               <div>
                 <label className="section-label" htmlFor="cad-senha">Senha</label>
                 <div className="relative mt-1.5">
@@ -271,7 +286,6 @@ export default function CadastroPage() {
                 )}
               </div>
 
-              {/* Confirmar senha */}
               <div>
                 <label className="section-label" htmlFor="cad-confirmar">Confirmar senha</label>
                 <div className="relative mt-1.5">
@@ -302,7 +316,7 @@ export default function CadastroPage() {
                 )}
               </div>
 
-              <Button type="submit" className="w-full !mt-6" size="lg">
+              <Button type="submit" className="w-full !mt-6" size="lg" loading={isPending}>
                 Criar conta
               </Button>
             </form>
@@ -327,7 +341,6 @@ export default function CadastroPage() {
               .
             </p>
 
-            {/* Card e-mail */}
             <div className="mt-6 card-soft p-4 flex items-center gap-3 text-left">
               <div className="w-10 h-10 rounded-xl bg-surface-purple text-primary flex items-center justify-center shrink-0">
                 <Mail className="w-5 h-5" strokeWidth={2} />
@@ -346,7 +359,6 @@ export default function CadastroPage() {
           </div>
         )}
 
-        {/* Rodapé */}
         {step < 3 && (
           <p className="text-center text-[13px] text-muted-foreground mt-6">
             Já tem uma conta?{" "}

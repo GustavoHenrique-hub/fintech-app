@@ -1,7 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff, TrendingUp, ShieldCheck, Zap, PieChart } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
+import { authService } from "@/services";
+import { useAuth } from "@/context/AuthContext";
 
 export default function LoginPage() {
   const [email, setEmail]               = useState("");
@@ -9,16 +12,28 @@ export default function LoginPage() {
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [touched, setTouched]           = useState(false);
 
+  const { saveSession } = useAuth();
+  const navigate = useNavigate();
+
   const erroEmail = touched && !email.trim().includes("@");
   const erroSenha = touched && senha.length < 1;
+
+  const { mutate: fazerLogin, isPending, isError, error } = useMutation({
+    mutationFn: (dto) => authService.login(dto),
+    onSuccess: (data) => {
+      saveSession(data);
+      navigate("/", { replace: true });
+    },
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setTouched(true);
     if (!email.trim().includes("@") || senha.length < 1) return;
-    // TODO: integrar com POST /auth/login
-    console.log("login", { email, senha });
+    fazerLogin({ email: email.trim(), senha });
   };
+
+  const erroCredenciais = isError && error?.response?.status === 401;
 
   return (
     <div className="min-h-[100dvh] bg-background flex">
@@ -27,13 +42,11 @@ export default function LoginPage() {
       <div className="hidden lg:flex lg:w-[46%] xl:w-[42%] relative overflow-hidden
                       bg-gradient-to-br from-primary via-primary to-[hsl(265_70%_52%)]
                       flex-col items-center justify-center p-14">
-        {/* bolhas decorativas */}
         <div className="absolute -top-28 -left-28 w-96 h-96 rounded-full bg-white/10 blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 right-0 w-72 h-72 rounded-full bg-accent/25 blur-3xl pointer-events-none" />
         <div className="absolute top-1/2 -right-20 w-56 h-56 rounded-full bg-white/5 blur-2xl pointer-events-none" />
 
         <div className="relative z-10 w-full max-w-[340px]">
-          {/* Logotipo */}
           <div className="flex items-center gap-3 mb-12">
             <div className="w-11 h-11 rounded-2xl bg-white/15 backdrop-blur flex items-center justify-center shadow-lg">
               <TrendingUp className="w-6 h-6 text-white" strokeWidth={2.25} />
@@ -48,12 +61,11 @@ export default function LoginPage() {
             Inteligência financeira com IA embutida para você tomar melhores decisões.
           </p>
 
-          {/* Bullets de valor */}
           <div className="mt-10 space-y-4">
             {[
-              { icon: Zap,        text: "Categorização automática com IA" },
-              { icon: PieChart,   text: "Análise de gastos em tempo real" },
-              { icon: ShieldCheck,text: "Criptografia bancária de ponta" },
+              { icon: Zap,         text: "Categorização automática com IA" },
+              { icon: PieChart,    text: "Análise de gastos em tempo real" },
+              { icon: ShieldCheck, text: "Criptografia bancária de ponta" },
             ].map(({ icon: Icon, text }) => (
               <div key={text} className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-xl bg-white/15 flex items-center justify-center shrink-0">
@@ -64,7 +76,6 @@ export default function LoginPage() {
             ))}
           </div>
 
-          {/* Stat pill */}
           <div className="mt-12 inline-flex items-center gap-2 bg-white/10 backdrop-blur rounded-full px-4 py-2">
             <span className="w-2 h-2 rounded-full bg-success" />
             <span className="text-[12px] text-white/85 font-semibold">+12 000 usuários ativos</span>
@@ -92,6 +103,15 @@ export default function LoginPage() {
               Acesse sua conta financeira
             </p>
           </div>
+
+          {/* Erro de credenciais */}
+          {erroCredenciais && (
+            <div className="mb-4 px-3.5 py-3 rounded-xl bg-destructive/10 border border-destructive/20">
+              <p className="text-[13px] text-destructive font-semibold">
+                E-mail ou senha inválidos. Verifique seus dados e tente novamente.
+              </p>
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} noValidate className="space-y-4">
 
@@ -166,7 +186,7 @@ export default function LoginPage() {
               )}
             </div>
 
-            <Button type="submit" className="w-full !mt-6" size="lg">
+            <Button type="submit" className="w-full !mt-6" size="lg" loading={isPending}>
               Entrar
             </Button>
           </form>

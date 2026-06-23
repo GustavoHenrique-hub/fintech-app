@@ -8,7 +8,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTransacoes } from "@/hooks/use-transacoes";
 import { useCategorias } from "@/hooks/use-categorias";
 import { transacaoService } from "@/services";
-import { USUARIO_ID } from "@/lib/constants";
+import { useAuth } from "@/context/AuthContext";
 import {
   formatBRL, formatBRLSigned, formatDataRelativa, formatHora,
 } from "@/lib/format";
@@ -41,6 +41,7 @@ export const EstornoTransacaoScreen = () => {
   const [touched, setTouched] = useState(false);
 
   const queryClient = useQueryClient();
+  const { user } = useAuth();
 
   const { data: transacoes = [], isLoading: loadingTx } = useTransacoes();
   const { data: categorias = [], isLoading: loadingCat } = useCategorias();
@@ -75,8 +76,8 @@ export const EstornoTransacaoScreen = () => {
   const { mutate: estornar, isPending } = useMutation({
     mutationFn: ({ id, code, dto }) => transacaoService.estornar(id, code, dto),
     onSuccess: (_, { descricao: desc, valor }) => {
-      queryClient.invalidateQueries({ queryKey: ["transacoes", USUARIO_ID] });
-      queryClient.invalidateQueries({ queryKey: ["snapshots", USUARIO_ID] });
+      queryClient.invalidateQueries({ queryKey: ["transacoes", user?.idUsuario] });
+      queryClient.invalidateQueries({ queryKey: ["snapshots", user?.idUsuario] });
       toast.success({
         title: "Estorno realizado",
         description: `${formatBRL(valor)} foi estornado de "${desc}".`,

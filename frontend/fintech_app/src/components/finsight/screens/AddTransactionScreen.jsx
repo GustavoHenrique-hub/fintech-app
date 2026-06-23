@@ -6,7 +6,7 @@ import { useUsuario } from "@/hooks/use-usuario";
 import { useContas } from "@/hooks/use-contas";
 import { useCategorias } from "@/hooks/use-categorias";
 import { transacaoService } from "@/services";
-import { USUARIO_ID } from "@/lib/constants";
+import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { InputMonetario } from "@/components/ui/input-monetario";
 import { Combobox } from "@/components/ui/combobox";
@@ -22,6 +22,7 @@ export const AddTransactionScreen = () => {
   const [touched, setTouched] = useState(false);
 
   const queryClient = useQueryClient();
+  const { user } = useAuth();
   const { data: usuario } = useUsuario();
   const { data: contas = [] } = useContas();
   const { data: categorias = [] } = useCategorias();
@@ -56,8 +57,8 @@ export const AddTransactionScreen = () => {
   const { mutate: criarTransacao, isPending } = useMutation({
     mutationFn: (payload) => transacaoService.criar(payload),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["transacoes", USUARIO_ID] });
-      queryClient.invalidateQueries({ queryKey: ["snapshots", USUARIO_ID] });
+      queryClient.invalidateQueries({ queryKey: ["transacoes", user?.idUsuario] });
+      queryClient.invalidateQueries({ queryKey: ["snapshots", user?.idUsuario] });
       toast.success({
         title: "Transação registrada",
         description: `${tipo === "RECEITA" ? "Receita" : "Gasto"} salvo em ${contaPadrao?.nome ?? "conta"}.`,
@@ -83,7 +84,7 @@ export const AddTransactionScreen = () => {
     }
 
     criarTransacao({
-      usuarioId: usuario?.id ?? USUARIO_ID,
+      usuarioId: usuario?.id ?? user?.idUsuario,
       contaId: contaPadrao?.id ?? null,
       extratoId: null,
       tipo,

@@ -7,6 +7,9 @@
 //   import { criar } from "@/services/transacao/NewTransacao";
 export { api, apiUnwrap } from "./api";
 
+import * as AuthService from "./auth/AuthService";
+export const authService = { ...AuthService };
+
 import * as GetBanco                   from "./banco/GetBanco";
 import * as NewBanco                   from "./banco/NewBanco";
 import * as GetCategoria               from "./categoria/GetCategoria";
