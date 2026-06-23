@@ -35,7 +35,7 @@ class CriarExtratoUseCaseTest {
         Extrato salvo = new Extrato(1L, extrato.getUsuarioId(), extrato.getContaId(), null,
                 extrato.getArquivoNome(), extrato.getArquivoUuid(), extrato.getHashArquivo(),
                 null, null, null, null, null, StatusExtrato.upload_recebido,
-                0, 0, 0, 0, 1, null, null);
+                0, 0, 0, 0, 1, null, null, null, null);
         when(repository.buscarPorHash("hash-abc")).thenReturn(Optional.empty());
         when(repository.salvar(any())).thenReturn(salvo);
 
@@ -48,7 +48,7 @@ class CriarExtratoUseCaseTest {
     void executar_deveLancarExcecao_quandoHashJaExistente() {
         Extrato extrato = new Extrato(1L, 1L, "nubank.pdf", "uuid-123", "hash-dup");
         Extrato existente = new Extrato(1L, 1L, 1L, 1L,"nubank.pdf", "uuid-old", "hash-dup", null, null, null, null, null,
-                StatusExtrato.concluido, 0, 0, 0, 0, 1, null, null);
+                StatusExtrato.concluido, 0, 0, 0, 0, 1, null, null, null, null);
         when(repository.buscarPorHash("hash-dup")).thenReturn(Optional.of(existente));
 
         assertThatThrownBy(() -> useCase.executar(extrato))
