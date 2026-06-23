@@ -43,7 +43,7 @@ class EstornarTransacaoUseCaseTest {
                 TipoTransacao.GASTO, "desc", new BigDecimal("100.00"),
                 LocalDate.now(), 5L, null, OrigemTransacao.manual,
                 StatusRevisaoTransacao.EXTRAIDA, null, false,
-                null, null, null, 1, OffsetDateTime.now(), null);
+                null, null, 1, null, OffsetDateTime.now(), null);
     }
 
     @Test

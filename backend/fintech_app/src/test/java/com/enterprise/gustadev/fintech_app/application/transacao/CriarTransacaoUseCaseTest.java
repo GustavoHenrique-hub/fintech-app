@@ -45,7 +45,7 @@ class CriarTransacaoUseCaseTest {
         Transacao salva = new Transacao(1L, new Usuario(usuarioId, "U1"), new ContaFinanceira(contaId, "C1"), "N",
                 TipoTransacao.GASTO, null, new BigDecimal("150.00"),
                 LocalDate.now(), 1L, null, OrigemTransacao.manual,
-                StatusRevisaoTransacao.EXTRAIDA, null, false, null, null, null, 1, null, null);
+                StatusRevisaoTransacao.EXTRAIDA, null, false, null, null, 1, null, null, null);
         when(repository.salvar(any())).thenReturn(salva);
 
         Transacao resultado = useCase.executar(transacao);
