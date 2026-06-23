@@ -32,7 +32,7 @@ class ListarContasFinanceirasUseCaseTest {
         ContaFinanceira contaNubank = new ContaFinanceira(1L, usuarioId,
                 TipoConta.corrente, 10L, "NUBANK", BigDecimal.TEN, false, true, null, null);
         ContaFinanceira contaItau = new ContaFinanceira(2L, usuarioId,
-                TipoConta.poupanca, 20L, "ITAU01", BigDecimal.ONE, false, true, null, null);
+                TipoConta.poupanca, 20L, "ITAU01", BigDecimal.ONE, false, );
         when(repository.listarPorUsuario(usuarioId)).thenReturn(List.of(contaNubank, contaItau));
 
         List<ContaFinanceira> resultado = useCase.executar(usuarioId);
