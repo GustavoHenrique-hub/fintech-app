@@ -1,5 +1,7 @@
 package com.enterprise.gustadev.fintech_app.config;
 
+import com.enterprise.gustadev.fintech_app.application.auth.usecase.LoginUseCase;
+import com.enterprise.gustadev.fintech_app.application.auth.usecase.LogoutUseCase;
 import com.enterprise.gustadev.fintech_app.application.banco.usecase.BuscarBancoUseCase;
 import com.enterprise.gustadev.fintech_app.application.banco.usecase.CriarBancoUseCase;
 import com.enterprise.gustadev.fintech_app.application.banco.usecase.ListarBancosUseCase;
@@ -28,6 +30,8 @@ import com.enterprise.gustadev.fintech_app.application.snapshotfinanceiro.usecas
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.BuscarUsuarioUseCase;
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.CriarUsuarioUseCase;
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.ListarUsuariosUseCase;
+import com.enterprise.gustadev.fintech_app.domain.auth.port.SenhaEncoder;
+import com.enterprise.gustadev.fintech_app.domain.auth.port.SessaoTokenRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.banco.port.BancoRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.categoria.port.CategoriaRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.motivocancelamento.port.MotivoCancelamentoRepositoryPort;
@@ -45,10 +49,23 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class BeanConfig {
 
+    // ── Auth ─────────────────────────────────────────────────────────────
+    @Bean
+    public LoginUseCase loginUseCase(UsuarioRepositoryPort usuarioRepository,
+                                     SessaoTokenRepositoryPort sessaoRepository,
+                                     SenhaEncoder senhaEncoder) {
+        return new LoginUseCase(usuarioRepository, sessaoRepository, senhaEncoder);
+    }
+
+    @Bean
+    public LogoutUseCase logoutUseCase(SessaoTokenRepositoryPort sessaoRepository) {
+        return new LogoutUseCase(sessaoRepository);
+    }
+
     // ── Usuario ─────────────────────────────────────────────────────────
     @Bean
-    public CriarUsuarioUseCase criarUsuarioUseCase(UsuarioRepositoryPort repository) {
-        return new CriarUsuarioUseCase(repository);
+    public CriarUsuarioUseCase criarUsuarioUseCase(UsuarioRepositoryPort repository, SenhaEncoder senhaEncoder) {
+        return new CriarUsuarioUseCase(repository, senhaEncoder);
     }
 
     @Bean

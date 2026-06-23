@@ -35,4 +35,9 @@ public class UsuarioRepositoryAdapter implements UsuarioRepositoryPort {
         return jpaRepository.findById(id).map(UsuarioEntity::toDomain);
     }
 
+    @Override
+    public Optional<Usuario> buscarPorEmail(String email) {
+        return jpaRepository.findByEmail(email).map(UsuarioEntity::toDomain);
+    }
+
 }
