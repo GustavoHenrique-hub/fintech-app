@@ -2,7 +2,6 @@ package com.enterprise.gustadev.fintech_app.adapters.in.web.banco;
 
 import com.enterprise.gustadev.fintech_app.application.banco.usecase.BuscarBancoUseCase;
 import com.enterprise.gustadev.fintech_app.application.banco.usecase.CriarBancoUseCase;
-import com.enterprise.gustadev.fintech_app.application.banco.usecase.DeletarBancoUseCase;
 import com.enterprise.gustadev.fintech_app.application.banco.usecase.ListarBancosUseCase;
 import com.enterprise.gustadev.fintech_app.domain.banco.model.Banco;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,9 +38,6 @@ class BancoControllerTest {
 
     @Mock
     private BuscarBancoUseCase buscarUseCase;
-
-    @Mock
-    private DeletarBancoUseCase deletarUseCase;
 
     @InjectMocks
     private BancoController controller;
@@ -116,13 +112,5 @@ class BancoControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.code").value("NUBANK"));
-    }
-
-    @Test
-    void deletar_deveRetornar204() throws Exception {
-        doNothing().when(deletarUseCase).executar(any(), anyString());
-
-        mockMvc.perform(delete("/bancos/{banco_id}/{banco_code}", 1L, "NUBANK"))
-                .andExpect(status().isNoContent());
     }
 }
