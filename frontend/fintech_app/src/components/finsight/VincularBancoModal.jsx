@@ -51,14 +51,12 @@ export function VincularBancoModal({ open, onOpenChange }) {
   const [busca, setBusca]                       = useState("");
   const [bancoSelecionado, setBancoSelecionado] = useState(null);
   const [tipo, setTipo]                         = useState("corrente");
-  const [nome, setNome]                         = useState("");
   const [saldoInicial, setSaldoInicial]         = useState(undefined);
 
   const reset = () => {
     setBusca("");
     setBancoSelecionado(null);
     setTipo("corrente");
-    setNome("");
     setSaldoInicial(undefined);
   };
 
@@ -95,18 +93,17 @@ export function VincularBancoModal({ open, onOpenChange }) {
 
   const handleSubmit = () => {
     if (!bancoSelecionado) return;
+    // ContaFinanceiraRequestDTO exige bancoCode (@NotBlank @Size 6) além de bancoId.
+    // A conta não tem `nome` próprio no backend, então não o enviamos.
     criar({
       usuarioId:    user?.idUsuario,
       bancoId:      bancoSelecionado.id,
-      nome:         nome.trim() || `${bancoSelecionado.nome} – ${TIPOS_CONTA.find(t => t.value === tipo)?.label}`,
+      bancoCode:    bancoSelecionado.code,
       tipo,
       saldoInicial: saldoInicial ?? 0,
       padrao:       false,
-      ativa:        true,
     });
   };
-
-  const tipoLabel = TIPOS_CONTA.find((t) => t.value === tipo)?.label ?? tipo;
 
   return (
     <Modal open={open} onOpenChange={(v) => { if (!v) reset(); onOpenChange(v); }}>
@@ -192,17 +189,6 @@ export function VincularBancoModal({ open, onOpenChange }) {
                     </button>
                   ))}
                 </div>
-              </div>
-
-              {/* Nome personalizado */}
-              <div>
-                <p className="section-label">Nome da conta (opcional)</p>
-                <input
-                  value={nome}
-                  onChange={(e) => setNome(e.target.value)}
-                  placeholder={`${bancoSelecionado.nome} – ${tipoLabel}`}
-                  className="mt-1.5 w-full h-10 px-3.5 rounded-xl bg-card border border-border text-[13.5px] outline-none placeholder:text-muted-foreground/55 focus:ring-2 focus:ring-primary/25 focus:border-primary/40 transition-all"
-                />
               </div>
 
               {/* Saldo inicial */}

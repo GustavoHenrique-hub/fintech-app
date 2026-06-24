@@ -86,16 +86,18 @@ export const AddTransactionScreen = () => {
       return;
     }
 
+    // Alinhado ao TransacaoRequestDTO do backend: exige usuarioCode e contaCode
+    // (ambos @NotNull) e o campo se chama `descricao` (não `descricaoUsuario`).
     criarTransacao({
       usuarioId: usuario?.id ?? user?.idUsuario,
+      usuarioCode: user?.usuarioCode,
       contaId: contaPadrao?.id ?? null,
-      extratoId: null,
+      contaCode: contaPadrao?.code ?? null,
       tipo,
       valor,
       dataTransacao: data.toISOString().slice(0, 10),
-      descricaoUsuario: descricao || null,
+      descricao: descricao || null,
       categoriaId,
-      subcategoria: null,
       estabelecimento: null,
       origem: "manual",
       observacao: null,
