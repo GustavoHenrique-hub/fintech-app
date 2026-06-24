@@ -32,8 +32,11 @@ export const AddTransactionScreen = () => {
     [contas],
   );
 
-  const categoriasGasto   = categorias.filter((c) => c.tipo === "gasto"   || c.tipo === "ambos");
-  const categoriasReceita = categorias.filter((c) => c.tipo === "receita" || c.tipo === "ambos");
+  // O backend serializa TipoCategoria via .name() → "RECEITA"/"GASTO"/"AMBOS" (maiúsculas).
+  // Normalizamos para tolerar qualquer caixa.
+  const normTipo = (t) => (t ?? "").toLowerCase();
+  const categoriasGasto   = categorias.filter((c) => ["gasto",   "ambos"].includes(normTipo(c.tipo)));
+  const categoriasReceita = categorias.filter((c) => ["receita", "ambos"].includes(normTipo(c.tipo)));
 
   const itensCategoria = (tipo === "RECEITA" ? categoriasReceita : categoriasGasto).map((c) => ({
     id: c.id,
@@ -155,7 +158,7 @@ export const AddTransactionScreen = () => {
           </p>
         ) : (
           <p className="text-[11px] text-muted-foreground mt-2 text-center">
-            BRL · {contaPadrao?.banco ?? "—"} ({contaPadrao?.nome ?? "—"})
+            BRL · {contaPadrao?.banco ?? "—"}
           </p>
         )}
       </div>

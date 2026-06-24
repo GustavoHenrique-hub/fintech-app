@@ -118,10 +118,18 @@ export const EstornoTransacaoScreen = () => {
     }
 
     const desc = selecionada.descricaoUsuario ?? selecionada.estabelecimento ?? selecionada.descricaoNormalizada;
+    // O backend (EstornarTransacaoRequestDTO) exige usuarioId/usuarioCode/contaId/contaCode,
+    // todos presentes na própria transação (TransacaoResponseDTO). motivo/observacao são
+    // apenas UX no cliente — o endpoint de estorno não os consome.
     estornar({
       id: selecionada.id,
       code: selecionada.code,
-      dto: { motivo: motivo.trim(), observacao: observacao.trim() || null },
+      dto: {
+        usuarioId:   selecionada.usuarioId,
+        usuarioCode: selecionada.usuarioCode,
+        contaId:     selecionada.contaId,
+        contaCode:   selecionada.contaCode,
+      },
       descricao: desc,
       valor: selecionada.valor,
     });

@@ -107,7 +107,7 @@ function ContaSelector({ contas, contaSelecionada, onChange, onVincular }) {
                 <div className="flex-1 min-w-0">
                   <p className="text-[13px] font-semibold text-foreground truncate">{c.banco}</p>
                   <p className="text-[11px] text-muted-foreground truncate">
-                    {TIPO_LABEL[c.tipo] ?? c.tipo} · {c.nome}
+                    {TIPO_LABEL[c.tipo] ?? c.tipo}
                   </p>
                 </div>
                 {ativa && <Check className="w-4 h-4 text-primary shrink-0" strokeWidth={2.5} />}
