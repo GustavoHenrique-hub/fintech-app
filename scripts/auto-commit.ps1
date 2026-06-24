@@ -2,7 +2,7 @@ param(
     [string]$Source = "manual"
 )
 
-$REPO   = "C:\Users\02.2025\Documents\Codar\fintech-app"
+$REPO   = Split-Path -Parent $PSScriptRoot
 $REMOTE = "origin"
 $TARGET = "dev"
 $BASE   = "main"
