@@ -57,7 +57,7 @@ class ContaFinanceiraControllerTest {
 
     private ContaFinanceira contaCompleta(Long id, Long usuarioId, Long bancoId, String bancoCode) {
         return new ContaFinanceira(id, usuarioId, TipoConta.corrente,
-                bancoId, bancoCode, new BigDecimal("1000.00"), true, true,
+                bancoId, bancoCode, new BigDecimal("1000.00"), new BigDecimal("1000.00"), true, true,
                 OffsetDateTime.now(), null, "N", null);
     }
 

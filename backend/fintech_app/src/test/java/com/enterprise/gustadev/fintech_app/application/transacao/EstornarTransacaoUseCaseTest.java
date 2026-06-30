@@ -2,8 +2,10 @@ package com.enterprise.gustadev.fintech_app.application.transacao;
 
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.EstornarTransacaoUseCase;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
+import com.enterprise.gustadev.fintech_app.domain.contafinanceira.port.ContaFinanceiraRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusRevisaoTransacao;
+import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoConta;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoTransacao;
 import com.enterprise.gustadev.fintech_app.domain.transacao.exception.TransacaoNaoEncontradaException;
 import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;
@@ -35,6 +37,9 @@ class EstornarTransacaoUseCaseTest {
     @Mock
     private TransacaoRepositoryPort repository;
 
+    @Mock
+    private ContaFinanceiraRepositoryPort contaRepository;
+
     @InjectMocks
     private EstornarTransacaoUseCase useCase;
 
@@ -46,12 +51,20 @@ class EstornarTransacaoUseCaseTest {
                 null, null, 1, null, OffsetDateTime.now(), null);
     }
 
+    private ContaFinanceira contaComSaldo(Long id) {
+        return new ContaFinanceira(id, 1L, TipoConta.corrente, 10L, "BNK001",
+                new BigDecimal("200.00"), new BigDecimal("200.00"),
+                false, true, OffsetDateTime.now(), null, "N", null);
+    }
+
     @Test
     void executar_deveInserirNovaLinhaComIndEstornoS_quandoNaoHaEstorno() {
         when(repository.buscarTransacao(anyLong(), anyString(), anyLong(), anyString(), anyLong(), anyString()))
                 .thenReturn(Optional.of(original()));
         when(repository.buscarEstornoDe(10L)).thenReturn(Optional.empty());
         when(repository.salvar(any())).thenAnswer(inv -> inv.getArgument(0));
+        when(contaRepository.buscarPorId(2L)).thenReturn(Optional.of(contaComSaldo(2L)));
+        when(contaRepository.salvar(any())).thenAnswer(inv -> inv.getArgument(0));
 
         Transacao estorno = useCase.executar(10L, "ABC123", 1L, "U1", 2L, "C1");
 
@@ -61,7 +74,8 @@ class EstornarTransacaoUseCaseTest {
         assertThat(estorno.getTransacaoEstornadaId()).isEqualTo(10L);
         assertThat(estorno.getValor()).isEqualByComparingTo("100.00");
         assertThat(estorno.getTipo()).isEqualTo(TipoTransacao.GASTO);
-        verify(repository).salvar(any());
+        verify(contaRepository).buscarPorId(2L);
+        verify(contaRepository).salvar(any());
     }
 
     @Test
@@ -78,6 +92,7 @@ class EstornarTransacaoUseCaseTest {
 
         assertThat(resultado).isSameAs(estornoExistente);
         verify(repository, never()).salvar(any());
+        verify(contaRepository, never()).buscarPorId(anyLong());
     }
 
     @Test

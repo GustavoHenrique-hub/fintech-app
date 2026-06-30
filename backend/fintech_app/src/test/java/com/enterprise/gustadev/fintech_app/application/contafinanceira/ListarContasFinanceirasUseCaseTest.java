@@ -31,9 +31,9 @@ class ListarContasFinanceirasUseCaseTest {
     void executar_deveRetornarContasDoUsuarioComBancosDistintos() {
         Long usuarioId = 1L;
         ContaFinanceira contaNubank = new ContaFinanceira(1L, usuarioId,
-                TipoConta.corrente, 10L, "NUBANK", BigDecimal.TEN, false, true, OffsetDateTime.now(), null, null, null);
+                TipoConta.corrente, 10L, "NUBANK", BigDecimal.TEN, BigDecimal.TEN, false, true, OffsetDateTime.now(), null, null, null);
         ContaFinanceira contaItau = new ContaFinanceira(2L, usuarioId,
-                TipoConta.poupanca, 20L, "ITAU01", BigDecimal.ONE, false, true, OffsetDateTime.now(), null, null, null);
+                TipoConta.poupanca, 20L, "ITAU01", BigDecimal.ONE, BigDecimal.ONE, false, true, OffsetDateTime.now(), null, null, null);
         when(repository.listarPorUsuario(usuarioId)).thenReturn(List.of(contaNubank, contaItau));
 
         List<ContaFinanceira> resultado = useCase.executar(usuarioId);

@@ -27,7 +27,8 @@
       "Bash(mvn compile *)",
       "Bash(xargs grep -l \"flyway\\\\|jpa\\\\|hibernate\")",
       "Bash(cat)",
-      "Read(//tmp/**)"
+      "Read(//tmp/**)",
+      "Bash(mvn test *)"
     ]
   }
 }
