@@ -50,7 +50,9 @@ public class ContaFinanceira {
 
     public ContaFinanceira(Long usuarioId, TipoConta tipo,
                            Long bancoId, String bancoCode, BigDecimal saldoInicial, boolean padrao) {
-        this(null, usuarioId, tipo, bancoId, bancoCode, saldoInicial, null, padrao, true, OffsetDateTime.now(), null, "N", null);
+        this(null, usuarioId, tipo, bancoId, bancoCode, saldoInicial,
+                saldoInicial != null ? saldoInicial : BigDecimal.ZERO,
+                padrao, true, OffsetDateTime.now(), null, "N", null);
         this.code = CodeGenerator.gerar();
     }
 
