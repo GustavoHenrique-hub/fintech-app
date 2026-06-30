@@ -94,7 +94,7 @@ function ContaSelector({ contas, contaSelecionada, onChange, onVincular }) {
       </button>
 
       {aberto && (
-        <div className="absolute right-0 top-full mt-2 w-64 bg-card rounded-2xl shadow-xl border border-border z-50 overflow-hidden py-1">
+        <div className="absolute right-0 top-full mt-2 w-64 bg-card rounded-2xl shadow-xl border border-border z-[9999] overflow-y-auto max-h-[280px] py-1">
           {contas.map((c) => {
             const ativa = c.id === contaSelecionada?.id;
             return (
@@ -224,14 +224,17 @@ export const OverviewScreen = () => {
 
       {/* ── Card hero do saldo ──────────────────────────────────────── */}
       <section
-        className="relative overflow-hidden rounded-3xl text-white p-5 lg:p-6 shadow-xl"
+        className="relative rounded-3xl text-white p-5 lg:p-6 shadow-xl"
         style={{
           background: `linear-gradient(135deg, ${cardColor} 0%, ${cardColorEnd} 100%)`,
           boxShadow: `0 20px 40px -12px ${cardColor}55`,
         }}
       >
-        <div className="absolute -top-16 -right-12 w-48 h-48 rounded-full bg-white/10 blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 right-0 w-28 h-28 rounded-full bg-black/20 blur-2xl pointer-events-none" />
+        {/* Blobs decorativos isolados para não bloquear o dropdown */}
+        <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none">
+          <div className="absolute -top-16 -right-12 w-48 h-48 rounded-full bg-white/10 blur-3xl" />
+          <div className="absolute bottom-0 right-0 w-28 h-28 rounded-full bg-black/20 blur-2xl" />
+        </div>
 
         {/* Logo do banco — canto superior direito, atrás do conteúdo */}
         {getBancoLogoUrl(contaAtual?.banco) && (
@@ -258,12 +261,12 @@ export const OverviewScreen = () => {
               </button>
             </div>
             <p className="text-[32px] lg:text-[40px] font-extrabold tracking-tight mt-1 leading-none tabular-nums">
-              {saldoOculto ? "R$ ••••••" : `R$ ${formatNumeroBR(snapshotAtual?.saldoFinal ?? 0)}`}
+              {saldoOculto ? "R$ ••••••" : `R$ ${formatNumeroBR(contaAtual?.saldoAtual ?? 0)}`}
             </p>
             <p className="text-[11.5px] opacity-80 mt-1.5">
               Disponível ·{" "}
               <span className="font-semibold">
-                {saldoOculto ? "•••" : formatBRL((snapshotAtual?.saldoFinal ?? 0) - 1200)}
+                {saldoOculto ? "•••" : formatBRL(contaAtual?.saldoAtual ?? 0)}
               </span>
             </p>
           </div>
