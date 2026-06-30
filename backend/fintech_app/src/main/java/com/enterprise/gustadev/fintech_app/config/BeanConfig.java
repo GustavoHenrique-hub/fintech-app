@@ -154,8 +154,9 @@ public class BeanConfig {
 
     // ── Transacao ────────────────────────────────────────────────────────
     @Bean
-    public CriarTransacaoUseCase criarTransacaoUseCase(TransacaoRepositoryPort repository) {
-        return new CriarTransacaoUseCase(repository);
+    public CriarTransacaoUseCase criarTransacaoUseCase(TransacaoRepositoryPort repository,
+                                                        ContaFinanceiraRepositoryPort contaRepository) {
+        return new CriarTransacaoUseCase(repository, contaRepository);
     }
 
     @Bean
@@ -169,8 +170,9 @@ public class BeanConfig {
     }
 
     @Bean
-    public EstornarTransacaoUseCase estornarTransacaoUseCase(TransacaoRepositoryPort repository) {
-        return new EstornarTransacaoUseCase(repository);
+    public EstornarTransacaoUseCase estornarTransacaoUseCase(TransacaoRepositoryPort repository,
+                                                              ContaFinanceiraRepositoryPort contaRepository) {
+        return new EstornarTransacaoUseCase(repository, contaRepository);
     }
 
     // ── MotivoCancelamento ───────────────────────────────────────────────

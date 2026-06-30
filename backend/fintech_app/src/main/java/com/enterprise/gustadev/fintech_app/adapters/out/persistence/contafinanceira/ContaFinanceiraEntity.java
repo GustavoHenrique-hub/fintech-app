@@ -72,6 +72,9 @@ public class ContaFinanceiraEntity {
     @Column(name = "saldo_inicial", nullable = false, precision = 15, scale = 2)
     private BigDecimal saldoInicial = BigDecimal.ZERO;
 
+    @Column(name = "saldo_atual", nullable = false, precision = 15, scale = 2)
+    private BigDecimal saldoAtual = BigDecimal.ZERO;
+
     @Column
     private Boolean padrao = false;
 
@@ -99,6 +102,7 @@ public class ContaFinanceiraEntity {
         entity.bancoId = domain.getBancoId();
         entity.bancoCode = domain.getBancoCode();
         entity.saldoInicial = domain.getSaldoInicial();
+        entity.saldoAtual = domain.getSaldoAtual() != null ? domain.getSaldoAtual() : BigDecimal.ZERO;
         entity.padrao = domain.isPadrao();
         entity.ativa = domain.isAtiva();
         entity.criadoEm = domain.getCriadoEm();
@@ -110,6 +114,7 @@ public class ContaFinanceiraEntity {
 
     public ContaFinanceira toDomain() {
         ContaFinanceira c = new ContaFinanceira(id, usuarioId, tipo, bancoId, bancoCode, saldoInicial,
+                saldoAtual != null ? saldoAtual : BigDecimal.ZERO,
                 padrao != null && padrao, ativa != null && ativa, criadoEm, atualizadoEm,
                 indDelete, deletedAt);
         c.setCode(code);

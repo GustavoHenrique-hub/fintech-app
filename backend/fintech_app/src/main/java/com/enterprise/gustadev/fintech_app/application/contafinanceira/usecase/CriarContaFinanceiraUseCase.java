@@ -13,6 +13,7 @@ public class CriarContaFinanceiraUseCase {
 
     public ContaFinanceira executar(ContaFinanceira conta) {
         conta.validar();
+        conta.inicializarSaldo();
         return repository.salvar(conta);
     }
 }
