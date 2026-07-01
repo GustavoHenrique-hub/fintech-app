@@ -9,7 +9,6 @@ import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusRevisaoTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoTransacao;
 import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;
-import com.enterprise.gustadev.fintech_app.domain.usuario.model.Usuario;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -59,8 +58,8 @@ class TransacaoControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
-    private Transacao transacaoCompleta(Long id, Long usuarioId, Long contaId) {
-        return new Transacao(id, new Usuario(usuarioId, "U1"), new ContaFinanceira(contaId, "C1"), "N",
+    private Transacao transacaoCompleta(Long id, Long contaId) {
+        return new Transacao(id, new ContaFinanceira(contaId, "C1"), "N",
                 TipoTransacao.GASTO, null, new BigDecimal("150.00"),
                 LocalDate.now(), 1L, null, OrigemTransacao.manual,
                 StatusRevisaoTransacao.EXTRAIDA, null, false,
@@ -69,18 +68,15 @@ class TransacaoControllerTest {
 
     @Test
     void criar_deveRetornar201_quandoDadosValidos() throws Exception {
-        Long usuarioId = 1L;
         Long contaId = 1L;
         Long transacaoId = 1L;
         when(criarUseCase.executar(any()))
-                .thenReturn(transacaoCompleta(transacaoId, usuarioId, contaId));
+                .thenReturn(transacaoCompleta(transacaoId, contaId));
 
         mockMvc.perform(post("/transacoes")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
-                                  "usuarioId": "%s",
-                                  "usuarioCode": "U1",
                                   "contaId": "%s",
                                   "contaCode": "C1",
                                   "tipo": "GASTO",
@@ -89,7 +85,7 @@ class TransacaoControllerTest {
                                   "categoriaId": 1,
                                   "origem": "manual"
                                 }
-                                """.formatted(usuarioId, contaId, LocalDate.now())))
+                                """.formatted(contaId, LocalDate.now())))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.valor").value(150.00))
                 .andExpect(jsonPath("$.tipo").value("GASTO"));
@@ -99,7 +95,7 @@ class TransacaoControllerTest {
     void listarPorUsuario_deveRetornar200ComLista() throws Exception {
         Long usuarioId = 1L;
         when(listarUseCase.executarPorUsuario(usuarioId))
-                .thenReturn(List.of(transacaoCompleta(1L, usuarioId, 1L)));
+                .thenReturn(List.of(transacaoCompleta(1L, 1L)));
 
         mockMvc.perform(get("/transacoes/usuario/{usuarioId}", usuarioId))
                 .andExpect(status().isOk())
@@ -110,7 +106,7 @@ class TransacaoControllerTest {
     void listarPorConta_deveRetornar200ComLista() throws Exception {
         Long contaId = 1L;
         when(listarUseCase.executarPorConta(contaId))
-                .thenReturn(List.of(transacaoCompleta(1L, 1L, contaId)));
+                .thenReturn(List.of(transacaoCompleta(1L, contaId)));
 
         mockMvc.perform(get("/transacoes/conta/{contaId}", contaId))
                 .andExpect(status().isOk())
@@ -121,7 +117,7 @@ class TransacaoControllerTest {
     void buscarPorId_deveRetornar200ComTransacao() throws Exception {
         Long id = 1L;
         when(buscarUseCase.executar(any(), anyString()))
-                .thenReturn(transacaoCompleta(id, 1L, 1L));
+                .thenReturn(transacaoCompleta(id, 1L));
 
         mockMvc.perform(get("/transacoes/{id_transacoes}/{transacoes_code}", id, "ABC123"))
                 .andExpect(status().isOk())
@@ -131,7 +127,7 @@ class TransacaoControllerTest {
     @Test
     void deletar_deveRetornar204() throws Exception {
         Long id = 1L;
-        doNothing().when(estornarUseCase).executar(any(), anyString(), any(), anyString(), any(), anyString());
+        doNothing().when(estornarUseCase).executar(any(), anyString(), any(), anyString());
 
         mockMvc.perform(delete("/transacoes/{id_transacoes}/{transacoes_code}", id, "ABC123"))
                 .andExpect(status().isNoContent());

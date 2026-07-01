@@ -1,7 +1,6 @@
 package com.enterprise.gustadev.fintech_app.adapters.out.persistence.transacao;
 
 import com.enterprise.gustadev.fintech_app.adapters.out.persistence.contafinanceira.ContaFinanceiraEntity;
-import com.enterprise.gustadev.fintech_app.adapters.out.persistence.usuario.UsuarioEntity;
 import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;
 import com.enterprise.gustadev.fintech_app.domain.transacao.port.TransacaoRepositoryPort;
 import jakarta.persistence.EntityManager;
@@ -33,7 +32,7 @@ public class TransacaoRepositoryAdapter implements TransacaoRepositoryPort {
 
     @Override
     public List<Transacao> listarPorUsuario(Long usuarioId) {
-        return jpaRepository.findByUsuario_IdUsuarioAndDeletedAtIsNullOrderByDataTransacaoDesc(usuarioId)
+        return jpaRepository.findByConta_UsuarioIdAndDeletedAtIsNullOrderByDataTransacaoDesc(usuarioId)
                 .stream().map(TransacaoEntity::toDomain).toList();
     }
 
@@ -62,9 +61,9 @@ public class TransacaoRepositoryAdapter implements TransacaoRepositoryPort {
     }
 
     @Override
-    public Optional<Transacao> buscarTransacao(Long id, String code, Long usuarioId, String usuarioCode, Long contaId, String contaCode){
+    public Optional<Transacao> buscarTransacao(Long id, String code, Long contaId, String contaCode) {
         return jpaRepository
-                .buscarParaEstorno(id, code, usuarioId, usuarioCode, contaId, contaCode)
+                .buscarParaEstorno(id, code, contaId, contaCode)
                 .map(TransacaoEntity::toDomain);
     }
 
@@ -75,14 +74,12 @@ public class TransacaoRepositoryAdapter implements TransacaoRepositoryPort {
     }
 
     /**
-     * Persiste a transação ligando usuário e conta por referências gerenciadas
-     * (resolvidas via EntityManager a partir da chave do domínio), evitando que o
-     * Hibernate tente persistir instâncias transientes das entidades associadas.
+     * Persiste a transação ligando a conta por referência gerenciada (resolvida via
+     * EntityManager a partir da chave do domínio), evitando que o Hibernate tente
+     * persistir instância transiente de ContaFinanceiraEntity.
      */
     private Transacao persistir(Transacao transacao) {
         TransacaoEntity entity = TransacaoEntity.fromDomain(transacao);
-        entity.setUsuario(entityManager.getReference(
-                UsuarioEntity.class, transacao.getUsuario().getIdUsuario()));
         entity.setConta(entityManager.getReference(
                 ContaFinanceiraEntity.class, transacao.getConta().getId()));
         return jpaRepository.save(entity).toDomain();

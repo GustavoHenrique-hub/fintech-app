@@ -166,7 +166,6 @@ CREATE TABLE transacoes (
     tipo                VARCHAR(10)   NOT NULL
                             CONSTRAINT CK_transacoes_tipo
                             CHECK (tipo IN ('RECEITA','GASTO')),
-    usuario_id          BIGINT        NOT NULL,
     valor               NUMERIC(15,2) NOT NULL,
     versao              INT           NOT NULL,
     CONSTRAINT PK_transacoes PRIMARY KEY (id)
@@ -425,10 +424,6 @@ ALTER TABLE transacoes
 ALTER TABLE transacoes
     ADD CONSTRAINT fk_transacoes_conta
     FOREIGN KEY (conta_id) REFERENCES contas_financeiras (id);
-
-ALTER TABLE transacoes
-    ADD CONSTRAINT fk_transacoes_usuario
-    FOREIGN KEY (usuario_id) REFERENCES usuarios (id_usuario);
 
 ALTER TABLE transacoes_canceladas
     ADD CONSTRAINT fk_transacoes_canceladas_motivo

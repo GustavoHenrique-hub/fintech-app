@@ -11,7 +11,6 @@ import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFin
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoTransacao;
 import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;
-import com.enterprise.gustadev.fintech_app.domain.usuario.model.Usuario;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -51,10 +50,9 @@ public class TransacaoController {
     })
     @PostMapping
     public ResponseEntity<TransacaoResponseDTO> criar(@Valid @RequestBody TransacaoRequestDTO dto) {
-        Usuario usuario = new Usuario(dto.usuarioId(), dto.usuarioCode());
         ContaFinanceira conta = new ContaFinanceira(dto.contaId(), dto.contaCode());
         Transacao transacao = new Transacao(
-                usuario, conta,
+                conta,
                 TipoTransacao.valueOf(dto.tipo()),
                 dto.valor(), dto.dataTransacao(),
                 dto.categoriaId(),
@@ -112,7 +110,6 @@ public class TransacaoController {
             @Valid @RequestBody EstornarTransacaoRequestDTO dto) {
         Transacao estornada = estornarUseCase.executar(
                 idTransacoes, transacoesCode,
-                dto.usuarioId(), dto.usuarioCode(),
                 dto.contaId(), dto.contaCode());
         return ResponseEntity.ok(TransacaoResponseDTO.fromDomain(estornada));
     }

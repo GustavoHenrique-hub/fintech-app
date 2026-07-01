@@ -270,7 +270,6 @@ CREATE TABLE transacoes (
     tipo                 VARCHAR(10)   NOT NULL
                              CHECK (tipo IN ('RECEITA','GASTO')),
     transacao_estorno_id BIGINT,
-    usuario_id           BIGINT        NOT NULL,
     valor                NUMERIC(15,2) NOT NULL,
     versao               INTEGER       NOT NULL,
     PRIMARY KEY (id)

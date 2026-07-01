@@ -20,10 +20,9 @@ public class EstornarTransacaoUseCase {
     }
 
     @Transactional
-    public Transacao executar(Long id, String code, Long usuarioId, String usuarioCode,
-                              Long contaId, String contaCode) {
+    public Transacao executar(Long id, String code, Long contaId, String contaCode) {
         Transacao original = repository
-                .buscarTransacao(id, code, usuarioId, usuarioCode, contaId, contaCode)
+                .buscarTransacao(id, code, contaId, contaCode)
                 .orElseThrow(() -> new TransacaoNaoEncontradaException(
                         "Transação não encontrada para estorno: id=" + id + ", code=" + code));
 

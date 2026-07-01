@@ -8,8 +8,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public record TransacaoRequestDTO(
-        @NotNull Long usuarioId,
-        @NotNull String usuarioCode,
         @NotNull Long contaId,
         @NotNull String contaCode,
         @NotBlank String tipo,

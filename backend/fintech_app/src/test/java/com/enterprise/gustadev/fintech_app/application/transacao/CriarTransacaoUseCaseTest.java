@@ -10,7 +10,6 @@ import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoTransacao;
 import com.enterprise.gustadev.fintech_app.domain.transacao.exception.TransacaoInvalidaException;
 import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;
 import com.enterprise.gustadev.fintech_app.domain.transacao.port.TransacaoRepositoryPort;
-import com.enterprise.gustadev.fintech_app.domain.usuario.model.Usuario;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -50,13 +49,12 @@ class CriarTransacaoUseCaseTest {
 
     @Test
     void executar_deveSalvarTransacaoEAtualizarSaldo_quandoDadosValidos() {
-        Long usuarioId = 1L;
         Long contaId = 1L;
         Transacao transacao = new Transacao(
-                new Usuario(usuarioId, "U1"), new ContaFinanceira(contaId, "C1"), TipoTransacao.GASTO,
+                new ContaFinanceira(contaId, "C1"), TipoTransacao.GASTO,
                 new BigDecimal("150.00"), LocalDate.now(), 1L, OrigemTransacao.manual
         );
-        Transacao salva = new Transacao(1L, new Usuario(usuarioId, "U1"), new ContaFinanceira(contaId, "C1"), "N",
+        Transacao salva = new Transacao(1L, new ContaFinanceira(contaId, "C1"), "N",
                 TipoTransacao.GASTO, null, new BigDecimal("150.00"),
                 LocalDate.now(), 1L, null, OrigemTransacao.manual,
                 StatusRevisaoTransacao.EXTRAIDA, null, false, null, null, 1, null, null, null);
@@ -76,7 +74,7 @@ class CriarTransacaoUseCaseTest {
     @Test
     void executar_naoDeveSalvar_quandoValorInvalido() {
         Transacao transacaoInvalida = new Transacao(
-                new Usuario(1L, "U1"), new ContaFinanceira(1L, "C1"), TipoTransacao.GASTO,
+                new ContaFinanceira(1L, "C1"), TipoTransacao.GASTO,
                 BigDecimal.ZERO, LocalDate.now(), 1L, OrigemTransacao.manual
         );
 

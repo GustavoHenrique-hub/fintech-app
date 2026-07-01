@@ -9,8 +9,6 @@ import java.time.OffsetDateTime;
 public record TransacaoResponseDTO(
         Long id,
         String code,
-        Long usuarioId,
-        String  usuarioCode,
         Long contaId,
         String contaCode,
         String indEstorno,
@@ -31,8 +29,6 @@ public record TransacaoResponseDTO(
         return new TransacaoResponseDTO(
                 domain.getId(),
                 domain.getCode(),
-                domain.getUsuario().getIdUsuario(),
-                domain.getUsuario().getUsuarioCode(),
                 domain.getConta().getId(),
                 domain.getConta().getCode(),
                 domain.getIndEstorno(),
