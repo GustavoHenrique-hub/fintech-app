@@ -32,7 +32,8 @@
       "Bash(./mvnw.cmd -q -DskipTests compile)",
       "Bash(./mvnw.cmd -q test -Dtest=\"TransacaoTest,CriarTransacaoUseCaseTest,EstornarTransacaoUseCaseTest,ListarTransacoesUseCaseTest,TransacaoControllerTest\")",
       "Bash(./mvnw.cmd test *)",
-      "Bash(findstr /R \"Tests run: BUILD ERROR FAIL\")"
+      "Bash(findstr /R \"Tests run: BUILD ERROR FAIL\")",
+      "Bash(findstr /C:\"Tests run\" /C:\"BUILD\" /C:\"ERROR\" /C:\"FAIL\")"
     ]
   }
 }
