@@ -2,7 +2,6 @@ package com.enterprise.gustadev.fintech_app.adapters.out.persistence.transacao;
 
 import com.enterprise.gustadev.fintech_app.adapters.out.persistence.categoria.CategoriaEntity;
 import com.enterprise.gustadev.fintech_app.adapters.out.persistence.contafinanceira.ContaFinanceiraEntity;
-import com.enterprise.gustadev.fintech_app.adapters.out.persistence.usuario.UsuarioEntity;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusRevisaoTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoTransacao;
@@ -41,16 +40,6 @@ public class TransacaoEntity {
 
     @Column(name = "transacoes_code", unique = true, nullable = false, length = 6)
     private String code;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumns(
-            value = {
-                    @JoinColumn(name = "usuario_id", referencedColumnName = "id_usuario"),
-                    @JoinColumn(name = "usuario_code", referencedColumnName = "usuario_code")
-            },
-            foreignKey = @ForeignKey(name = "fk_transacoes_usuario")
-    )
-    private UsuarioEntity usuario;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns(
@@ -128,9 +117,9 @@ public class TransacaoEntity {
     private Long transacaoEstornadaId;
 
     /**
-     * Mapeia apenas os campos escalares. As associações {@code usuario} e {@code conta}
-     * são gravadas pelo adapter com referências gerenciadas (EntityManager) para evitar
-     * tentar persistir instâncias transientes de UsuarioEntity/ContaFinanceiraEntity.
+     * Mapeia apenas os campos escalares. A associação {@code conta} é gravada pelo adapter
+     * com referência gerenciada (EntityManager) para evitar tentar persistir instância
+     * transiente de ContaFinanceiraEntity.
      */
     public static TransacaoEntity fromDomain(Transacao domain) {
         TransacaoEntity entity = new TransacaoEntity();
@@ -158,7 +147,7 @@ public class TransacaoEntity {
     }
 
     public Transacao toDomain() {
-        Transacao t = new Transacao(id, usuario.toDomain(), conta.toDomain(), indEstorno, tipo,
+        Transacao t = new Transacao(id, conta.toDomain(), indEstorno, tipo,
                 descricao, valor, dataTransacao, categoriaId, estabelecimento,
                 origem, statusRevisao, confiancaIa, recorrente != null && recorrente, periodoRecorrencia,
                 observacao, versao, criadoEm, atualizadoEm, estornadoAt);

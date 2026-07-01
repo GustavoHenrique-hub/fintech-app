@@ -6,7 +6,6 @@ import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusRevisaoTran
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.util.CodeGenerator;
 import com.enterprise.gustadev.fintech_app.domain.transacao.exception.TransacaoInvalidaException;
-import com.enterprise.gustadev.fintech_app.domain.usuario.model.Usuario;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,7 +19,6 @@ public class Transacao {
 
     private Long id;
     private String code;
-    private Usuario usuario;
     private ContaFinanceira conta;
     private String indEstorno;
     private TipoTransacao tipo;
@@ -42,7 +40,7 @@ public class Transacao {
     /** Quando preenchido, esta linha é um estorno e aponta para o id da transação original revertida. */
     private Long transacaoEstornadaId;
 
-    public Transacao(Long id, Usuario usuario, ContaFinanceira conta, String indEstorno,
+    public Transacao(Long id, ContaFinanceira conta, String indEstorno,
                      TipoTransacao tipo, String descricao, BigDecimal valor,
                      LocalDate dataTransacao, Long categoriaId, String estabelecimento,
                      OrigemTransacao origem, StatusRevisaoTransacao statusRevisao,
@@ -50,7 +48,6 @@ public class Transacao {
                      String observacao, int versao,
                      OffsetDateTime criadoEm, OffsetDateTime atualizadoEm, OffsetDateTime estornadoAt) {
         this.id = id;
-        this.usuario = usuario;
         this.conta = conta;
         this.indEstorno = indEstorno;
         this.tipo = tipo;
@@ -71,10 +68,10 @@ public class Transacao {
         this.atualizadoEm = atualizadoEm;
     }
 
-    public Transacao(Usuario usuario, ContaFinanceira conta, TipoTransacao tipo,
+    public Transacao(ContaFinanceira conta, TipoTransacao tipo,
                      BigDecimal valor, LocalDate dataTransacao, Long categoriaId,
                      OrigemTransacao origem) {
-        this(null, usuario, conta, "N", tipo, null,
+        this(null, conta, "N", tipo, null,
              valor, dataTransacao, categoriaId, null, origem,
              StatusRevisaoTransacao.EXTRAIDA, null, false, null, null,
              1, OffsetDateTime.now(), null, null);
@@ -91,7 +88,7 @@ public class Transacao {
         }
         this.estornadoAt = OffsetDateTime.now();
         Transacao estorno = new Transacao(
-                null, usuario, conta, "S", tipo, descricao, valor, dataTransacao,
+                null, conta, "S", tipo, descricao, valor, dataTransacao,
                 categoriaId, estabelecimento, origem, statusRevisao, confiancaIa,
                 recorrente, periodoRecorrencia, observacao, 1,
                 OffsetDateTime.now(), null, null);
@@ -101,9 +98,6 @@ public class Transacao {
     }
 
     public void validar() {
-        if (usuario == null) {
-            throw new TransacaoInvalidaException("Usuario é obrigatório");
-        }
         if (conta == null) {
             throw new TransacaoInvalidaException("Conta é obrigatório");
         }

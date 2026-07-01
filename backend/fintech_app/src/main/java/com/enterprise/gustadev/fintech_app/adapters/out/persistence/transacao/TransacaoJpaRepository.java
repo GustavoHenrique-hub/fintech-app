@@ -11,28 +11,27 @@ import java.util.Optional;
 
 public interface TransacaoJpaRepository extends JpaRepository<TransacaoEntity, Long> {
 
-    @EntityGraph(attributePaths = {"usuario", "conta"})
-    List<TransacaoEntity> findByUsuario_IdUsuarioAndDeletedAtIsNullOrderByDataTransacaoDesc(Long usuarioId);
+    @EntityGraph(attributePaths = {"conta"})
+    List<TransacaoEntity> findByConta_UsuarioIdAndDeletedAtIsNullOrderByDataTransacaoDesc(Long usuarioId);
 
-    @EntityGraph(attributePaths = {"usuario", "conta"})
+    @EntityGraph(attributePaths = {"conta"})
     List<TransacaoEntity> findByConta_IdAndDeletedAtIsNull(Long contaId);
 
-    @EntityGraph(attributePaths = {"usuario", "conta"})
+    @EntityGraph(attributePaths = {"conta"})
     Optional<TransacaoEntity> findByIdAndCode(Long id, String code);
 
     @Override
-    @EntityGraph(attributePaths = {"usuario", "conta"})
+    @EntityGraph(attributePaths = {"conta"})
     Optional<TransacaoEntity> findById(Long id);
 
-    @EntityGraph(attributePaths = {"usuario", "conta"})
+    @EntityGraph(attributePaths = {"conta"})
     Optional<TransacaoEntity> findByTransacaoEstornadaId(Long transacaoEstornadaId);
 
     @Query("""
         SELECT DISTINCT t FROM TransacaoEntity t
         LEFT JOIN FETCH t.categoria c
-        JOIN FETCH t.usuario u
         JOIN FETCH t.conta co
-        WHERE u.idUsuario = :usuarioId
+        WHERE co.usuarioId = :usuarioId
           AND t.dataTransacao BETWEEN :inicio AND :fim
           AND t.deletedAt IS NULL
         ORDER BY t.dataTransacao DESC
@@ -44,12 +43,9 @@ public interface TransacaoJpaRepository extends JpaRepository<TransacaoEntity, L
 
     @Query("""
       SELECT t FROM TransacaoEntity t
-      JOIN FETCH t.usuario u
       JOIN FETCH t.conta c
       WHERE t.id = :id
         AND t.code = :code
-        AND u.idUsuario = :usuarioId
-        AND u.usuarioCode = :usuarioCode
         AND c.id = :contaId
         AND c.code = :contaCode
         AND t.deletedAt IS NULL
@@ -57,8 +53,6 @@ public interface TransacaoJpaRepository extends JpaRepository<TransacaoEntity, L
     Optional<TransacaoEntity> buscarParaEstorno(
             @Param("id") Long id,
             @Param("code") String code,
-            @Param("usuarioId") Long usuarioId,
-            @Param("usuarioCode") String usuarioCode,
             @Param("contaId") Long contaId,
             @Param("contaCode") String contaCode);
 
