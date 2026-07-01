@@ -28,7 +28,11 @@
       "Bash(xargs grep -l \"flyway\\\\|jpa\\\\|hibernate\")",
       "Bash(cat)",
       "Read(//tmp/**)",
-      "Bash(mvn test *)"
+      "Bash(mvn test *)",
+      "Bash(./mvnw.cmd -q -DskipTests compile)",
+      "Bash(./mvnw.cmd -q test -Dtest=\"TransacaoTest,CriarTransacaoUseCaseTest,EstornarTransacaoUseCaseTest,ListarTransacoesUseCaseTest,TransacaoControllerTest\")",
+      "Bash(./mvnw.cmd test *)",
+      "Bash(findstr /R \"Tests run: BUILD ERROR FAIL\")"
     ]
   }
 }

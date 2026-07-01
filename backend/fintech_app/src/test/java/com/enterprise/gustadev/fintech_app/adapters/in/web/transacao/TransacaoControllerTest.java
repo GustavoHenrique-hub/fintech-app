@@ -25,10 +25,9 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -125,11 +124,17 @@ class TransacaoControllerTest {
     }
 
     @Test
-    void deletar_deveRetornar204() throws Exception {
+    void estornar_deveRetornar200() throws Exception {
         Long id = 1L;
-        doNothing().when(estornarUseCase).executar(any(), anyString(), any(), anyString());
+        when(estornarUseCase.executar(any(), anyString(), any(), anyString()))
+                .thenReturn(transacaoCompleta(id, 1L));
 
-        mockMvc.perform(delete("/transacoes/{id_transacoes}/{transacoes_code}", id, "ABC123"))
-                .andExpect(status().isNoContent());
+        mockMvc.perform(patch("/transacoes/{id_transacoes}/{transacoes_code}/estornar", id, "ABC123")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                { "contaId": 1, "contaCode": "C1" }
+                                """))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(id.intValue()));
     }
 }
