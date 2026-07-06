@@ -173,27 +173,27 @@ INSERT INTO categoria_thresholds (categoria_id, threshold_auto, threshold_alerta
 --     Agora referenciam banco via FK composta (banco_code, banco_id)
 -- ════════════════════════════════════════════════════════════
 INSERT INTO contas_financeiras
-  (usuario_id, usuario_code, banco_id, banco_code, tipo, saldo_inicial, saldo_atual, padrao, ativa, contas_code, criado_em)
-  VALUES (v_usr_id, 'USR001', v_banco_nub, v_bnub_code, 'corrente', 2500.00, 2500.00, TRUE,  TRUE, 'NUB001', v_now)
+  (usuario_id, usuario_code, banco_id, banco_code, tipo, saldo_inicial, saldo_atual, padrao, ativa, ind_delete, contas_code, criado_em)
+  VALUES (v_usr_id, 'USR001', v_banco_nub, v_bnub_code, 'corrente', 2500.00, 2500.00, TRUE,  TRUE, 'N', 'NUB001', v_now)
   RETURNING id INTO v_conta_nub;
 
 INSERT INTO contas_financeiras
-  (usuario_id, usuario_code, banco_id, banco_code, tipo, saldo_inicial, saldo_atual, padrao, ativa, contas_code, criado_em)
-  VALUES (v_usr_id, 'USR001', v_banco_ita, v_bita_code, 'corrente', 10000.00, 10000.00, FALSE, TRUE, 'ITA002', v_now)
+  (usuario_id, usuario_code, banco_id, banco_code, tipo, saldo_inicial, saldo_atual, padrao, ativa, ind_delete, contas_code, criado_em)
+  VALUES (v_usr_id, 'USR001', v_banco_ita, v_bita_code, 'corrente', 10000.00, 10000.00, FALSE, TRUE, 'N', 'ITA002', v_now)
   RETURNING id INTO v_conta_ita;
 
 -- Carteira usa banco "Carteira" (sem banco real)
 INSERT INTO contas_financeiras
-  (usuario_id, usuario_code, banco_id, banco_code, tipo, saldo_inicial, saldo_atual, padrao, ativa, contas_code, criado_em)
+  (usuario_id, usuario_code, banco_id, banco_code, tipo, saldo_inicial, saldo_atual, padrao, ativa, ind_delete, contas_code, criado_em)
   VALUES (v_usr_id, 'USR001',
           (SELECT banco_id FROM banco WHERE banco_code = 'CAR007'),
           'CAR007',
-          'dinheiro', 300.00, 300.00, FALSE, TRUE, 'CAR003', v_now)
+          'dinheiro', 300.00, 300.00, FALSE, TRUE, 'N', 'CAR003', v_now)
   RETURNING id INTO v_conta_car;
 
 INSERT INTO contas_financeiras
-  (usuario_id, usuario_code, banco_id, banco_code, tipo, saldo_inicial, saldo_atual, padrao, ativa, contas_code, criado_em)
-  VALUES (v_usr2_id, 'USR002', v_banco_bra, v_bbra_code, 'corrente', 5000.00, 5000.00, TRUE, TRUE, 'BRA004', v_now)
+  (usuario_id, usuario_code, banco_id, banco_code, tipo, saldo_inicial, saldo_atual, padrao, ativa, ind_delete, contas_code, criado_em)
+  VALUES (v_usr2_id, 'USR002', v_banco_bra, v_bbra_code, 'corrente', 5000.00, 5000.00, TRUE, TRUE, 'N', 'BRA004', v_now)
   RETURNING id INTO v_conta_ana;
 
 
