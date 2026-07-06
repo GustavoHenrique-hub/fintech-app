@@ -51,7 +51,7 @@ class EstornarTransacaoUseCaseTest {
     }
 
     private ContaFinanceira contaComSaldo(Long id) {
-        return new ContaFinanceira(id, 1L, TipoConta.corrente, 10L, "BNK001",
+        return new ContaFinanceira(id, 1L, "USER01",TipoConta.corrente, 10L, "BNK001",
                 new BigDecimal("200.00"), new BigDecimal("200.00"),
                 false, true, OffsetDateTime.now(), null, "N", null);
     }
