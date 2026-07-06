@@ -115,12 +115,12 @@ SELECT id INTO v_parser_nub FROM parser_versoes WHERE banco = 'Nubank' AND versa
 INSERT INTO usuarios (cpf, dt_nascimento, email, nome, senha, usuario_code, email_verificado, telefone)
 VALUES ('123.456.789-09', '1990-03-15', 'joao.silva@finapp.com.br', 'João Silva',
         '$2b$12$PlaceholderHashBcryptUser01', 'USR001', TRUE, '(11) 98765-4321')
-RETURNING id_usuario INTO v_usr_id;
+RETURNING usuario_id INTO v_usr_id;
 
 INSERT INTO usuarios (cpf, dt_nascimento, email, nome, senha, usuario_code, email_verificado, telefone)
 VALUES ('987.654.321-00', '1985-07-22', 'ana.costa@finapp.com.br', 'Ana Costa',
         '$2b$12$PlaceholderHashBcryptUser02', 'USR002', FALSE, '(21) 91234-5678')
-RETURNING id_usuario INTO v_usr2_id;
+RETURNING usuario_id INTO v_usr2_id;
 
 
 -- ════════════════════════════════════════════════════════════
