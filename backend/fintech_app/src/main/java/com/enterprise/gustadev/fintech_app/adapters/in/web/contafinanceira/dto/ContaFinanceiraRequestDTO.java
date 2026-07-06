@@ -13,6 +13,9 @@ public record ContaFinanceiraRequestDTO(
         @Schema(description = "ID do usuário dono da conta", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
         @NotNull Long usuarioId,
 
+        @Schema(description = "Code do usuário dono da conta", example = "LPD056", requiredMode = Schema.RequiredMode.REQUIRED)
+        @NotNull String usuarioCode,
+
         @Schema(description = "Tipo da conta. Valores permitidos: corrente, poupanca, investimento, dinheiro etc.",
                 example = "corrente", requiredMode = Schema.RequiredMode.REQUIRED)
         @NotBlank String tipo,

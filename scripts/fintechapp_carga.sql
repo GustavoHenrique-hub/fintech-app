@@ -46,6 +46,12 @@ DECLARE
   v_parser_nub  BIGINT;
   v_extrato_id  BIGINT;
 
+  -- Códigos das contas (para FK composta em transacoes)
+  v_conta_nub_code  VARCHAR(6) := 'NUB001';
+  v_conta_ita_code  VARCHAR(6) := 'ITA002';
+  v_conta_car_code  VARCHAR(6) := 'CAR003';
+  v_conta_ana_code  VARCHAR(6) := 'BRA004';
+
   -- Transações
   v_tx_sup      BIGINT;
   v_tx_del      BIGINT;
@@ -163,27 +169,27 @@ INSERT INTO categoria_thresholds (categoria_id, threshold_auto, threshold_alerta
 --     Agora referenciam banco via FK composta (banco_code, banco_id)
 -- ════════════════════════════════════════════════════════════
 INSERT INTO contas_financeiras
-  (usuario_id, banco_id, banco_code, tipo, saldo_inicial, padrao, ativa, contas_code, criado_em)
-  VALUES (v_usr_id, v_banco_nub, v_bnub_code, 'corrente', 2500.00, TRUE,  TRUE, 'NUB001', v_now)
+  (usuario_id, usuario_code, banco_id, banco_code, tipo, saldo_inicial, saldo_atual, padrao, ativa, contas_code, criado_em)
+  VALUES (v_usr_id, 'USR001', v_banco_nub, v_bnub_code, 'corrente', 2500.00, 2500.00, TRUE,  TRUE, 'NUB001', v_now)
   RETURNING id INTO v_conta_nub;
 
 INSERT INTO contas_financeiras
-  (usuario_id, banco_id, banco_code, tipo, saldo_inicial, padrao, ativa, contas_code, criado_em)
-  VALUES (v_usr_id, v_banco_ita, v_bita_code, 'corrente', 10000.00, FALSE, TRUE, 'ITA002', v_now)
+  (usuario_id, usuario_code, banco_id, banco_code, tipo, saldo_inicial, saldo_atual, padrao, ativa, contas_code, criado_em)
+  VALUES (v_usr_id, 'USR001', v_banco_ita, v_bita_code, 'corrente', 10000.00, 10000.00, FALSE, TRUE, 'ITA002', v_now)
   RETURNING id INTO v_conta_ita;
 
 -- Carteira usa banco "Carteira" (sem banco real)
 INSERT INTO contas_financeiras
-  (usuario_id, banco_id, banco_code, tipo, saldo_inicial, padrao, ativa, contas_code, criado_em)
-  VALUES (v_usr_id,
+  (usuario_id, usuario_code, banco_id, banco_code, tipo, saldo_inicial, saldo_atual, padrao, ativa, contas_code, criado_em)
+  VALUES (v_usr_id, 'USR001',
           (SELECT banco_id FROM banco WHERE banco_code = 'CAR007'),
           'CAR007',
-          'dinheiro', 300.00, FALSE, TRUE, 'CAR003', v_now)
+          'dinheiro', 300.00, 300.00, FALSE, TRUE, 'CAR003', v_now)
   RETURNING id INTO v_conta_car;
 
 INSERT INTO contas_financeiras
-  (usuario_id, banco_id, banco_code, tipo, saldo_inicial, padrao, ativa, contas_code, criado_em)
-  VALUES (v_usr2_id, v_banco_bra, v_bbra_code, 'corrente', 5000.00, TRUE, TRUE, 'BRA004', v_now)
+  (usuario_id, usuario_code, banco_id, banco_code, tipo, saldo_inicial, saldo_atual, padrao, ativa, contas_code, criado_em)
+  VALUES (v_usr2_id, 'USR002', v_banco_bra, v_bbra_code, 'corrente', 5000.00, 5000.00, TRUE, TRUE, 'BRA004', v_now)
   RETURNING id INTO v_conta_ana;
 
 
@@ -224,54 +230,54 @@ SELECT id INTO v_mot_usr FROM motivos_cancelamento WHERE motivos_cancelamento_co
 
 -- Gastos (vindos de extrato → ficam em PENDENTE_REVISAO aguardando revisão do usuário)
 INSERT INTO transacoes (
-  conta_id, tipo, descricao, estabelecimento,
+  conta_id, conta_code, tipo, descricao, estabelecimento,
   valor, data_transacao, criado_em,
   categoria_id, origem, status_revisao, ind_estorno,
   transacoes_code, versao
 ) VALUES
-  (v_conta_nub, 'GASTO', 'COMPRA 02/05 PAGUE MENOS SP', 'Pague Menos',
+  (v_conta_nub, v_conta_nub_code, 'GASTO', 'COMPRA 02/05 PAGUE MENOS SP', 'Pague Menos',
    347.89, '2025-05-02', v_now,
    v_cat_sup, 'pdf', 'PENDENTE_REVISAO', 'N', 'TX0001', 1),
 
-  (v_conta_nub, 'GASTO', 'COMPRA 04/05 IFOOD*RESTAURANTE SP', 'iFood',
+  (v_conta_nub, v_conta_nub_code, 'GASTO', 'COMPRA 04/05 IFOOD*RESTAURANTE SP', 'iFood',
    58.90, '2025-05-04', v_now,
    v_cat_del, 'pdf', 'PENDENTE_REVISAO', 'N', 'TX0002', 1),
 
-  (v_conta_nub, 'GASTO', 'COMPRA 05/05 UBER *TRIP SP', 'Uber',
+  (v_conta_nub, v_conta_nub_code, 'GASTO', 'COMPRA 05/05 UBER *TRIP SP', 'Uber',
    34.70, '2025-05-05', v_now,
    v_cat_ube, 'pdf', 'PENDENTE_REVISAO', 'N', 'TX0003', 1),
 
-  (v_conta_nub, 'GASTO', 'COMPRA 07/05 NETFLIX.COM SP', 'Netflix',
+  (v_conta_nub, v_conta_nub_code, 'GASTO', 'COMPRA 07/05 NETFLIX.COM SP', 'Netflix',
    55.90, '2025-05-07', v_now,
    v_cat_net, 'pdf', 'PENDENTE_REVISAO', 'N', 'TX0004', 1),
 
-  (v_conta_nub, 'GASTO', 'COMPRA 10/05 DROGA RAIA SP', 'Droga Raia',
+  (v_conta_nub, v_conta_nub_code, 'GASTO', 'COMPRA 10/05 DROGA RAIA SP', 'Droga Raia',
    89.50, '2025-05-10', v_now,
    v_cat_far, 'pdf', 'PENDENTE_REVISAO', 'N', 'TX0005', 1);
 
 -- Gastos manuais (usuário lançou → já confirmados)
 INSERT INTO transacoes (
-  conta_id, tipo, descricao, estabelecimento,
+  conta_id, conta_code, tipo, descricao, estabelecimento,
   valor, data_transacao, criado_em,
   categoria_id, origem, status_revisao, ind_estorno,
   transacoes_code, versao
 ) VALUES
-  (v_conta_ita, 'GASTO', 'ENEL SP ENERGIA ELETRICA', 'ENEL SP',
+  (v_conta_ita, v_conta_ita_code, 'GASTO', 'ENEL SP ENERGIA ELETRICA', 'ENEL SP',
    180.00, '2025-05-12', v_now,
    v_cat_ene, 'manual', 'CONFIRMADA', 'N', 'TX0006', 1),
 
-  (v_conta_car, 'GASTO', 'LANCHONETE ESQUINA', 'Lanchonete Esquina',
+  (v_conta_car, v_conta_car_code, 'GASTO', 'LANCHONETE ESQUINA', 'Lanchonete Esquina',
    22.00, '2025-05-22', v_now,
    v_cat_sup, 'manual', 'CONFIRMADA', 'N', 'TX0007', 1);
 
 -- Transação que será cancelada
 INSERT INTO transacoes (
-  conta_id, tipo, descricao, estabelecimento,
+  conta_id, conta_code, tipo, descricao, estabelecimento,
   valor, data_transacao, criado_em,
   categoria_id, origem, status_revisao, confianca_ia, ind_estorno,
   transacoes_code, versao
 ) VALUES (
-  v_conta_nub, 'GASTO', 'COMPRA 20/05 AMAZON MKTPLC SP', 'Amazon',
+  v_conta_nub, v_conta_nub_code, 'GASTO', 'COMPRA 20/05 AMAZON MKTPLC SP', 'Amazon',
   215.00, '2025-05-20', v_now,
   v_cat_out, 'pdf', 'PENDENTE_REVISAO', 45, 'N',
   'TX0008', 1
@@ -279,24 +285,24 @@ INSERT INTO transacoes (
 
 -- Receitas do João
 INSERT INTO transacoes (
-  conta_id, tipo, descricao,
+  conta_id, conta_code, tipo, descricao,
   valor, data_transacao, criado_em,
   categoria_id, origem, status_revisao, ind_estorno,
   recorrente, periodo_recorrencia, transacoes_code, versao
 ) VALUES (
-  v_conta_ita, 'RECEITA', 'Salário Maio/2025',
+  v_conta_ita, v_conta_ita_code, 'RECEITA', 'Salário Maio/2025',
   6800.00, '2025-05-05', v_now,
   v_cat_sal, 'manual', 'CONFIRMADA', 'N',
   TRUE, '2025-06-05', 'TX0009', 1
 ) RETURNING id INTO v_tx_sal;
 
 INSERT INTO transacoes (
-  conta_id, tipo, descricao,
+  conta_id, conta_code, tipo, descricao,
   valor, data_transacao, criado_em,
   categoria_id, origem, status_revisao, ind_estorno,
   recorrente, transacoes_code, versao
 ) VALUES (
-  v_conta_nub, 'RECEITA', 'Projeto Web — Cliente ABC',
+  v_conta_nub, v_conta_nub_code, 'RECEITA', 'Projeto Web — Cliente ABC',
   1500.00, '2025-05-15', v_now,
   v_cat_fre, 'manual', 'CONFIRMADA', 'N',
   FALSE, 'TX0010', 1

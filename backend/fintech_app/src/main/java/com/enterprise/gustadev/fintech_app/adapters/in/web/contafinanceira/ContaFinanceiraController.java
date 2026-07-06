@@ -63,6 +63,7 @@ public class ContaFinanceiraController {
     public ResponseEntity<ContaFinanceiraResponseDTO> criar(@Valid @RequestBody ContaFinanceiraRequestDTO dto) {
         ContaFinanceira conta = new ContaFinanceira(
                 dto.usuarioId(),
+                dto.usuarioCode(),
                 TipoConta.valueOf(dto.tipo()),
                 dto.bancoId(), dto.bancoCode(),
                 dto.saldoInicial(), dto.padrao()

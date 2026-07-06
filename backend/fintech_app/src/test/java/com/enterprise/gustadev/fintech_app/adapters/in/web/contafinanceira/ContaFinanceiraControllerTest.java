@@ -55,8 +55,8 @@ class ContaFinanceiraControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
-    private ContaFinanceira contaCompleta(Long id, Long usuarioId, Long bancoId, String bancoCode) {
-        return new ContaFinanceira(id, usuarioId, TipoConta.corrente,
+    private ContaFinanceira contaCompleta(Long id, Long usuarioId, ,Long bancoId, String bancoCode) {
+        return new ContaFinanceira(id, usuarioId, usuarioCode, TipoConta.corrente,
                 bancoId, bancoCode, new BigDecimal("1000.00"), new BigDecimal("1000.00"), true, true,
                 OffsetDateTime.now(), null, "N", null);
     }
