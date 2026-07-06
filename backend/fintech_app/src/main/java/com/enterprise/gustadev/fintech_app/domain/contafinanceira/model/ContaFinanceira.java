@@ -4,6 +4,7 @@ import com.enterprise.gustadev.fintech_app.domain.contafinanceira.exception.Cont
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoConta;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.util.CodeGenerator;
+import com.enterprise.gustadev.fintech_app.domain.usuario.model.Usuario;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +17,7 @@ public class ContaFinanceira {
 
     private Long id;
     private String code;
-    private Long usuarioId;
+    private Usuario usuario;
     private TipoConta tipo;
     private Long bancoId;
     private String bancoCode;
@@ -29,12 +30,12 @@ public class ContaFinanceira {
     private String indDelete;
     private OffsetDateTime deletedAt;
 
-    public ContaFinanceira(Long id, Long usuarioId, TipoConta tipo,
+    public ContaFinanceira(Long id, Usuario usuario, TipoConta tipo,
                            Long bancoId, String bancoCode, BigDecimal saldoInicial, BigDecimal saldoAtual,
                            boolean padrao, boolean ativa, OffsetDateTime criadoEm, OffsetDateTime atualizadoEm,
                            String indDelete, OffsetDateTime deletedAt) {
         this.id = id;
-        this.usuarioId = usuarioId;
+        this.usuario = usuario;
         this.tipo = tipo;
         this.bancoId = bancoId;
         this.bancoCode = bancoCode;
@@ -48,9 +49,9 @@ public class ContaFinanceira {
         this.deletedAt = deletedAt;
     }
 
-    public ContaFinanceira(Long usuarioId, TipoConta tipo,
+    public ContaFinanceira(Usuario usuario, TipoConta tipo,
                            Long bancoId, String bancoCode, BigDecimal saldoInicial, boolean padrao) {
-        this(null, usuarioId, tipo, bancoId, bancoCode, saldoInicial,
+        this(null, usuario, tipo, bancoId, bancoCode, saldoInicial,
                 saldoInicial != null ? saldoInicial : BigDecimal.ZERO,
                 padrao, true, OffsetDateTime.now(), null, "N", null);
         this.code = CodeGenerator.gerar();
@@ -86,8 +87,8 @@ public class ContaFinanceira {
     }
 
     public void validar() {
-        if (usuarioId == null) {
-            throw new ContaFinanceiraInvalidaException("UsuarioId é obrigatório");
+        if (usuario == null) {
+            throw new ContaFinanceiraInvalidaException("Usuario é obrigatório");
         }
         if (tipo == null) {
             throw new ContaFinanceiraInvalidaException("Tipo é obrigatório");

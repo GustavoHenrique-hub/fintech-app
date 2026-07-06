@@ -43,8 +43,15 @@ public class ContaFinanceiraEntity {
     private Long usuarioId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id", insertable = false, updatable = false,
-            foreignKey = @ForeignKey(name = "fk_contas_financeiras_usuario"))
+    @JoinColumns(
+            value = {
+                    @JoinColumn(name = "usuario_id", referencedColumnName = "banco_id",
+                            insertable = false, updatable = false),
+                    @JoinColumn(name = "banco_code", referencedColumnName = "banco_code",
+                            insertable = false, updatable = false)
+            },
+            foreignKey = @ForeignKey(name = "fk_contas_financeiras_banco")
+    )
     private UsuarioEntity usuario;
 
     @Enumerated(EnumType.STRING)
@@ -97,7 +104,7 @@ public class ContaFinanceiraEntity {
         ContaFinanceiraEntity entity = new ContaFinanceiraEntity();
         entity.id = domain.getId();
         entity.code = domain.getCode();
-        entity.usuarioId = domain.getUsuarioId();
+        entity.usuario = domain.getUsuario();
         entity.tipo = domain.getTipo();
         entity.bancoId = domain.getBancoId();
         entity.bancoCode = domain.getBancoCode();
