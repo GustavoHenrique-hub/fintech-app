@@ -188,8 +188,10 @@ public class BeanConfig {
 
     // ── TransacaoCancelada ───────────────────────────────────────────────
     @Bean
-    public CancelarTransacaoUseCase cancelarTransacaoUseCase(TransacaoCanceladaRepositoryPort repository) {
-        return new CancelarTransacaoUseCase(repository);
+    public CancelarTransacaoUseCase cancelarTransacaoUseCase(TransacaoCanceladaRepositoryPort repository,
+                                                              TransacaoRepositoryPort transacaoRepository,
+                                                              ContaFinanceiraRepositoryPort contaRepository) {
+        return new CancelarTransacaoUseCase(repository, transacaoRepository, contaRepository);
     }
 
     @Bean

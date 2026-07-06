@@ -62,6 +62,7 @@ export const AddTransactionScreen = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["transacoes", user?.idUsuario] });
       queryClient.invalidateQueries({ queryKey: ["snapshots", user?.idUsuario] });
+      queryClient.invalidateQueries({ queryKey: ["contas", user?.idUsuario] });
       toast.success({
         title: "Transação registrada",
         description: `${tipo === "RECEITA" ? "Receita" : "Gasto"} salvo em ${contaPadrao?.nome ?? "conta"}.`,
