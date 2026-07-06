@@ -39,6 +39,7 @@ public class Transacao {
     private OffsetDateTime atualizadoEm;
     /** Quando preenchido, esta linha é um estorno e aponta para o id da transação original revertida. */
     private Long transacaoEstornadaId;
+    private OffsetDateTime deletedAt;
 
     public Transacao(Long id, ContaFinanceira conta, String indEstorno,
                      TipoTransacao tipo, String descricao, BigDecimal valor,
@@ -95,6 +96,12 @@ public class Transacao {
         estorno.code = CodeGenerator.gerar();
         estorno.transacaoEstornadaId = this.id;
         return estorno;
+    }
+
+    public void arquivar() {
+        this.statusRevisao = StatusRevisaoTransacao.ARQUIVADA;
+        this.deletedAt = OffsetDateTime.now();
+        this.atualizadoEm = OffsetDateTime.now();
     }
 
     public void validar() {

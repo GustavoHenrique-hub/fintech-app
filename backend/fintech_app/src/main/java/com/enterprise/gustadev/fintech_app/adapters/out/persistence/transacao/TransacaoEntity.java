@@ -139,6 +139,7 @@ public class TransacaoEntity {
         entity.periodoRecorrencia = domain.getPeriodoRecorrencia();
         entity.observacao = domain.getObservacao();
         entity.estornadoAt = domain.getEstornadoAt();
+        entity.deletedAt = domain.getDeletedAt();
         entity.versao = domain.getVersao();
         entity.criadoEm = domain.getCriadoEm();
         entity.atualizadoEm = domain.getAtualizadoEm();
@@ -153,6 +154,7 @@ public class TransacaoEntity {
                 observacao, versao, criadoEm, atualizadoEm, estornadoAt);
         t.setCode(code);
         t.setTransacaoEstornadaId(transacaoEstornadaId);
+        t.setDeletedAt(deletedAt);
         return t;
     }
 }
