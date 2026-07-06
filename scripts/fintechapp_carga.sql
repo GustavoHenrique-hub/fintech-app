@@ -346,7 +346,7 @@ INSERT INTO extratos (
   banco_detectado, parser_versao_id, extratos_code,
   score_extracao, periodo_inicio, periodo_fim, status,
   total_lancamentos, lancamentos_confirmados, lancamentos_pendentes, lancamentos_ignorados,
-  versao, criado_em
+  ind_delete, versao, criado_em
 ) VALUES (
   v_usr_id, v_conta_nub,
   'nubank_maio_2025.pdf',
@@ -355,7 +355,7 @@ INSERT INTO extratos (
   'Nubank', v_parser_nub, 'EXT001',
   0.980, '2025-05-01', '2025-05-31', 'pendente_revisao',
   6, 0, 6, 0,
-  1, v_now
+  'N', 1, v_now
 ) RETURNING id INTO v_extrato_id;
 
 
