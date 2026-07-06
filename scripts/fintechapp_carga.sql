@@ -1,9 +1,13 @@
 -- ============================================================
 --  FINAPP — Carga inicial (seed)
---  Compatível com o schema do log Hibernate: 2026-05-27 13:06:45
+--  Compatível com o schema do log Hibernate: 2026-07-06
 --  PostgreSQL 14+
 --  ATENÇÃO: Hibernate não gera DEFAULT nas colunas criado_em
 --  Todos os timestamps NOT NULL são informados explicitamente.
+--
+--  Mudanças 2026-07-06:
+--  - transacoes: adicionado conta_code (FK composta conta_id + conta_code)
+--  - contas_financeiras: adicionado usuario_code (NOT NULL) e saldo_atual
 -- ============================================================
 
 DO $$
@@ -310,24 +314,24 @@ INSERT INTO transacoes (
 
 -- Transações da Ana
 INSERT INTO transacoes (
-  conta_id, tipo, descricao,
+  conta_id, conta_code, tipo, descricao,
   valor, data_transacao, criado_em,
   categoria_id, origem, status_revisao, ind_estorno,
   recorrente, periodo_recorrencia, transacoes_code, versao
 ) VALUES (
-  v_conta_ana, 'RECEITA', 'Salário Maio/2025',
+  v_conta_ana, v_conta_ana_code, 'RECEITA', 'Salário Maio/2025',
   4500.00, '2025-05-05', v_now,
   v_cat_sal, 'manual', 'CONFIRMADA', 'N',
   TRUE, '2025-06-05', 'TX0011', 1
 );
 
 INSERT INTO transacoes (
-  conta_id, tipo, descricao, estabelecimento,
+  conta_id, conta_code, tipo, descricao, estabelecimento,
   valor, data_transacao, criado_em,
   categoria_id, origem, status_revisao, ind_estorno,
   transacoes_code, versao
 ) VALUES (
-  v_conta_ana, 'GASTO', 'SUPERMERCADO EXTRA SP', 'Extra',
+  v_conta_ana, v_conta_ana_code, 'GASTO', 'SUPERMERCADO EXTRA SP', 'Extra',
   290.50, '2025-05-08', v_now,
   v_cat_sup, 'manual', 'CONFIRMADA', 'N',
   'TX0012', 1
