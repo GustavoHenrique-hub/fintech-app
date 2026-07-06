@@ -42,15 +42,18 @@ public class ContaFinanceiraEntity {
     @Column(name = "usuario_id", nullable = false)
     private Long usuarioId;
 
+    @Column(name = "usuario_code", nullable = false)
+    private String usuarioCode;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns(
             value = {
-                    @JoinColumn(name = "usuario_id", referencedColumnName = "banco_id",
+                    @JoinColumn(name = "usuario_id", referencedColumnName = "usuario_id",
                             insertable = false, updatable = false),
-                    @JoinColumn(name = "banco_code", referencedColumnName = "banco_code",
+                    @JoinColumn(name = "usuario_code", referencedColumnName = "usuario_code",
                             insertable = false, updatable = false)
             },
-            foreignKey = @ForeignKey(name = "fk_contas_financeiras_banco")
+            foreignKey = @ForeignKey(name = "fk_contas_financeiras_usuario")
     )
     private UsuarioEntity usuario;
 
@@ -104,7 +107,8 @@ public class ContaFinanceiraEntity {
         ContaFinanceiraEntity entity = new ContaFinanceiraEntity();
         entity.id = domain.getId();
         entity.code = domain.getCode();
-        entity.usuario = domain.getUsuario();
+        entity.usuarioId = domain.getUsuarioId();
+        entity.usuarioCode = domain.getUsuarioCode();
         entity.tipo = domain.getTipo();
         entity.bancoId = domain.getBancoId();
         entity.bancoCode = domain.getBancoCode();
@@ -120,7 +124,7 @@ public class ContaFinanceiraEntity {
     }
 
     public ContaFinanceira toDomain() {
-        ContaFinanceira c = new ContaFinanceira(id, usuarioId, tipo, bancoId, bancoCode, saldoInicial,
+        ContaFinanceira c = new ContaFinanceira(id, usuarioId, usuarioCode, tipo, bancoId, bancoCode, saldoInicial,
                 saldoAtual != null ? saldoAtual : BigDecimal.ZERO,
                 padrao != null && padrao, ativa != null && ativa, criadoEm, atualizadoEm,
                 indDelete, deletedAt);
