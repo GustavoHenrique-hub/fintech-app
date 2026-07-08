@@ -23,7 +23,7 @@ public class UsuarioEntity {
     @Column(name = "usuario_id")
     private Long idUsuario;
 
-    @Column(name = "usuario_code", nullable = false, unique = true)
+    @Column(name = "usuario_code", nullable = false, unique = true, length = 6)
     private String usuarioCode;
 
     @Column(nullable = false, unique = true)
