@@ -46,6 +46,7 @@ public class NotificacaoController {
     public ResponseEntity<NotificacaoResponseDTO> criar(@Valid @RequestBody CriarNotificacaoRequestDTO dto) {
         Notificacao notificacao = new Notificacao(
                 dto.usuarioId(),
+                null,
                 CanalNotificacao.valueOf(dto.canal()),
                 dto.tipo(), dto.titulo(), dto.mensagem()
         );

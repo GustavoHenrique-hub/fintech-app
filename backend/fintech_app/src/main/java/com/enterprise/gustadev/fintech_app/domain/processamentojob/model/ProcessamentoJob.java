@@ -2,6 +2,7 @@ package com.enterprise.gustadev.fintech_app.domain.processamentojob.model;
 
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusJob;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoJob;
+import com.enterprise.gustadev.fintech_app.domain.shared.util.CodeGenerator;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +13,9 @@ import java.time.OffsetDateTime;
 public class ProcessamentoJob {
 
     private Long id;
+    private String code;
     private Long extratoId;
+    private String extratoCode;
     private TipoJob tipo;
     private StatusJob status;
     private short tentativas;
@@ -27,14 +30,16 @@ public class ProcessamentoJob {
     private OffsetDateTime concluidoEm;
     private OffsetDateTime proximoRetry;
 
-    public ProcessamentoJob(Long id, Long extratoId, TipoJob tipo, StatusJob status,
-                             short tentativas, short maxTentativas, String payload,
-                             String erroMensagem, String workerId, OffsetDateTime lockExpiresAt,
-                             Long correlationId, OffsetDateTime enfileiradoEm,
-                             OffsetDateTime iniciadoEm, OffsetDateTime concluidoEm,
-                             OffsetDateTime proximoRetry) {
+    public ProcessamentoJob(Long id, String code, Long extratoId, String extratoCode,
+                             TipoJob tipo, StatusJob status, short tentativas, short maxTentativas,
+                             String payload, String erroMensagem, String workerId,
+                             OffsetDateTime lockExpiresAt, Long correlationId,
+                             OffsetDateTime enfileiradoEm, OffsetDateTime iniciadoEm,
+                             OffsetDateTime concluidoEm, OffsetDateTime proximoRetry) {
         this.id = id;
+        this.code = code;
         this.extratoId = extratoId;
+        this.extratoCode = extratoCode;
         this.tipo = tipo;
         this.status = status;
         this.tentativas = tentativas;
@@ -50,8 +55,9 @@ public class ProcessamentoJob {
         this.proximoRetry = proximoRetry;
     }
 
-    public ProcessamentoJob(Long extratoId, TipoJob tipo) {
-        this(null, extratoId, tipo, StatusJob.enfileirado, (short) 0, (short) 3,
+    public ProcessamentoJob(Long extratoId, String extratoCode, TipoJob tipo) {
+        this(null, null, extratoId, extratoCode, tipo, StatusJob.enfileirado, (short) 0, (short) 3,
              null, null, null, null, null, null, null, null, null);
+        this.code = CodeGenerator.gerar();
     }
 }

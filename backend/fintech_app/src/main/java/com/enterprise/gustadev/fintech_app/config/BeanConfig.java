@@ -133,8 +133,9 @@ public class BeanConfig {
 
     // ── Extrato ──────────────────────────────────────────────────────────
     @Bean
-    public CriarExtratoUseCase criarExtratoUseCase(ExtratoRepositoryPort repository) {
-        return new CriarExtratoUseCase(repository);
+    public CriarExtratoUseCase criarExtratoUseCase(ExtratoRepositoryPort repository,
+                                                    ContaFinanceiraRepositoryPort contaRepository) {
+        return new CriarExtratoUseCase(repository, contaRepository);
     }
 
     @Bean
@@ -213,8 +214,9 @@ public class BeanConfig {
 
     // ── Notificacao ──────────────────────────────────────────────────────
     @Bean
-    public CriarNotificacaoUseCase criarNotificacaoUseCase(NotificacaoRepositoryPort repository) {
-        return new CriarNotificacaoUseCase(repository);
+    public CriarNotificacaoUseCase criarNotificacaoUseCase(NotificacaoRepositoryPort repository,
+                                                            UsuarioRepositoryPort usuarioRepository) {
+        return new CriarNotificacaoUseCase(repository, usuarioRepository);
     }
 
     @Bean
