@@ -36,6 +36,7 @@ public class TransacaoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "transacoes_id")
     private Long id;
 
     @Column(name = "transacoes_code", unique = true, nullable = false, length = 6)
