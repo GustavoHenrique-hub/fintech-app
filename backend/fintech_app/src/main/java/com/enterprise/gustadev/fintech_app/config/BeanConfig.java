@@ -226,8 +226,9 @@ public class BeanConfig {
 
     // ── ConsentimentoLgpd ────────────────────────────────────────────────
     @Bean
-    public RegistrarConsentimentoLgpdUseCase registrarConsentimentoLgpdUseCase(ConsentimentoLgpdRepositoryPort repository) {
-        return new RegistrarConsentimentoLgpdUseCase(repository);
+    public RegistrarConsentimentoLgpdUseCase registrarConsentimentoLgpdUseCase(ConsentimentoLgpdRepositoryPort repository,
+                                                                                UsuarioRepositoryPort usuarioRepository) {
+        return new RegistrarConsentimentoLgpdUseCase(repository, usuarioRepository);
     }
 
     @Bean

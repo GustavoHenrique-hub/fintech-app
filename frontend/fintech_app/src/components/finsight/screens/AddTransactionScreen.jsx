@@ -89,6 +89,7 @@ export const AddTransactionScreen = () => {
 
     // Alinhado ao TransacaoRequestDTO do backend: exige usuarioCode e contaCode
     // (ambos @NotNull) e o campo se chama `descricao` (não `descricaoUsuario`).
+    const categoriaSelecionada = categorias.find((c) => c.id === categoriaId);
     criarTransacao({
       usuarioId: usuario?.id ?? user?.idUsuario,
       usuarioCode: user?.usuarioCode,
@@ -99,6 +100,7 @@ export const AddTransactionScreen = () => {
       dataTransacao: data.toISOString().slice(0, 10),
       descricao: descricao || null,
       categoriaId,
+      categoriaCode: categoriaSelecionada?.code ?? null,
       estabelecimento: null,
       origem: "manual",
       observacao: null,

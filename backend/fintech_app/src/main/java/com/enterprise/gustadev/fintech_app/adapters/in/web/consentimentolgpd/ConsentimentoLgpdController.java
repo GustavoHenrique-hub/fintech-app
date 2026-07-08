@@ -46,6 +46,7 @@ public class ConsentimentoLgpdController {
     public ResponseEntity<ConsentimentoLgpdResponseDTO> registrar(@Valid @RequestBody ConsentimentoLgpdRequestDTO dto) {
         ConsentimentoLgpd consentimento = new ConsentimentoLgpd(
                 dto.usuarioId(),
+                null,
                 TipoConsentimentoLgpd.valueOf(dto.tipo()),
                 dto.versaoPolitica(),
                 dto.consentido(),

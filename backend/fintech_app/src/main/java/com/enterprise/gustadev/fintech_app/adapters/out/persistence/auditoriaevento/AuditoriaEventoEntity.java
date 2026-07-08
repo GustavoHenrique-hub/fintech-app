@@ -14,6 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -31,7 +32,11 @@ public class AuditoriaEventoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "auditoria_evento_id")
     private Long id;
+
+    @Column(name = "auditoria_evento_code", unique = true, nullable = false, length = 6)
+    private String code;
 
     @Column(name = "correlation_id", nullable = false)
     private Long correlationId;
@@ -39,9 +44,19 @@ public class AuditoriaEventoEntity {
     @Column(name = "usuario_id")
     private Long usuarioId;
 
+    @Column(name = "usuario_code", length = 6)
+    private String usuarioCode;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id", insertable = false, updatable = false,
-            foreignKey = @ForeignKey(name = "fk_auditoria_eventos_usuario"))
+    @JoinColumns(
+            value = {
+                    @JoinColumn(name = "usuario_id", referencedColumnName = "usuario_id",
+                            insertable = false, updatable = false),
+                    @JoinColumn(name = "usuario_code", referencedColumnName = "usuario_code",
+                            insertable = false, updatable = false)
+            },
+            foreignKey = @ForeignKey(name = "fk_auditoria_eventos_usuario")
+    )
     private UsuarioEntity usuario;
 
     @Column(nullable = false, length = 50)
@@ -76,8 +91,10 @@ public class AuditoriaEventoEntity {
     public static AuditoriaEventoEntity fromDomain(AuditoriaEvento domain) {
         AuditoriaEventoEntity entity = new AuditoriaEventoEntity();
         entity.id = domain.getId();
+        entity.code = domain.getCode();
         entity.correlationId = domain.getCorrelationId();
         entity.usuarioId = domain.getUsuarioId();
+        entity.usuarioCode = domain.getUsuarioCode();
         entity.entidade = domain.getEntidade();
         entity.entidadeId = domain.getEntidadeId();
         entity.acao = domain.getAcao();
@@ -91,7 +108,8 @@ public class AuditoriaEventoEntity {
     }
 
     public AuditoriaEvento toDomain() {
-        return new AuditoriaEvento(id, correlationId, usuarioId, entidade, entidadeId,
-                acao, dadosAnteriores, dadosNovos, ipOrigem, userAgent, origem, criadoEm);
+        return new AuditoriaEvento(id, code, correlationId, usuarioId, usuarioCode,
+                entidade, entidadeId, acao, dadosAnteriores, dadosNovos, ipOrigem, userAgent,
+                origem, criadoEm);
     }
 }

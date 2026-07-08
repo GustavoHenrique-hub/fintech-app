@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -29,22 +30,46 @@ public class SnapshotFinanceiroEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "snapshot_financeiro_id")
     private Long id;
+
+    @Column(name = "snapshot_financeiro_code", unique = true, nullable = false, length = 6)
+    private String code;
 
     @Column(name = "usuario_id", nullable = false)
     private Long usuarioId;
 
+    @Column(name = "usuario_code", nullable = false, length = 6)
+    private String usuarioCode;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id", insertable = false, updatable = false,
-            foreignKey = @ForeignKey(name = "fk_snapshots_financeiros_usuario"))
+    @JoinColumns(
+            value = {
+                    @JoinColumn(name = "usuario_id", referencedColumnName = "usuario_id",
+                            insertable = false, updatable = false),
+                    @JoinColumn(name = "usuario_code", referencedColumnName = "usuario_code",
+                            insertable = false, updatable = false)
+            },
+            foreignKey = @ForeignKey(name = "fk_snapshots_financeiros_usuario")
+    )
     private UsuarioEntity usuario;
 
     @Column(name = "conta_id")
     private Long contaId;
 
+    @Column(name = "conta_code", length = 6)
+    private String contaCode;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "conta_id", insertable = false, updatable = false,
-            foreignKey = @ForeignKey(name = "fk_snapshots_financeiros_conta"))
+    @JoinColumns(
+            value = {
+                    @JoinColumn(name = "conta_id", referencedColumnName = "conta_id",
+                            insertable = false, updatable = false),
+                    @JoinColumn(name = "conta_code", referencedColumnName = "conta_code",
+                            insertable = false, updatable = false)
+            },
+            foreignKey = @ForeignKey(name = "fk_snapshots_financeiros_conta")
+    )
     private ContaFinanceiraEntity conta;
 
     @Column(nullable = false)
@@ -74,8 +99,11 @@ public class SnapshotFinanceiroEntity {
     public static SnapshotFinanceiroEntity fromDomain(SnapshotFinanceiro domain) {
         SnapshotFinanceiroEntity entity = new SnapshotFinanceiroEntity();
         entity.id = domain.getId();
+        entity.code = domain.getCode();
         entity.usuarioId = domain.getUsuarioId();
+        entity.usuarioCode = domain.getUsuarioCode();
         entity.contaId = domain.getContaId();
+        entity.contaCode = domain.getContaCode();
         entity.ano = domain.getAno();
         entity.mes = domain.getMes();
         entity.saldoInicial = domain.getSaldoInicial();
@@ -88,7 +116,7 @@ public class SnapshotFinanceiroEntity {
     }
 
     public SnapshotFinanceiro toDomain() {
-        return new SnapshotFinanceiro(id, usuarioId, contaId, ano, mes,
-                saldoInicial, totalReceitas, totalGastos, saldoFinal, fechado, fechadoEm);
+        return new SnapshotFinanceiro(id, code, usuarioId, usuarioCode, contaId, contaCode,
+                ano, mes, saldoInicial, totalReceitas, totalGastos, saldoFinal, fechado, fechadoEm);
     }
 }
