@@ -78,6 +78,7 @@ export const EstornoTransacaoScreen = () => {
     onSuccess: (_, { descricao: desc, valor }) => {
       queryClient.invalidateQueries({ queryKey: ["transacoes", user?.idUsuario] });
       queryClient.invalidateQueries({ queryKey: ["snapshots", user?.idUsuario] });
+      queryClient.invalidateQueries({ queryKey: ["contas", user?.idUsuario] });
       toast.success({
         title: "Estorno realizado",
         description: `${formatBRL(valor)} foi estornado de "${desc}".`,
