@@ -25,9 +25,10 @@ public class MotivoCancelamentoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "motivo_id")
     private Long id;
 
-    @Column(name = "motivos_cancelamento_code", unique = true, nullable = false, length = 6)
+    @Column(name = "motivo_code", unique = true, nullable = false, length = 6)
     private String code;
 
     @Column(nullable = false, length = 255)

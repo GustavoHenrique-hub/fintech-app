@@ -25,9 +25,10 @@ public class CategoriaEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "categoria_id")
     private Long id;
 
-    @Column(name = "categorias_code", unique = true, nullable = false, length = 6)
+    @Column(name = "categoria_code", unique = true, nullable = false, length = 6)
     private String code;
 
     @Column(nullable = false, length = 100)
