@@ -1,0 +1,1 @@
+{"nodes": [{"id": "backend_fintech_app_src_test_resources_application_h2config", "label": "Test application.yaml H2 In-Memory Config", "file_type": "code", "source_file": "backend/fintech_app/src/test/resources/application.yaml", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null}], "edges": [], "hyperedges": []}
