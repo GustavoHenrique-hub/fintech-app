@@ -6,7 +6,6 @@ import com.enterprise.gustadev.fintech_app.application.extrato.usecase.BuscarExt
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.CriarExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.ListarExtratosUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.RemoverExtratoUseCase;
-import com.enterprise.gustadev.fintech_app.domain.extrato.model.Extrato;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -52,11 +51,9 @@ public class ExtratoController {
     })
     @PostMapping
     public ResponseEntity<ExtratoResponseDTO> criar(@Valid @RequestBody ExtratoRequestDTO dto) {
-        Extrato extrato = new Extrato(
-                dto.usuarioId(), dto.contaId(),
-                dto.arquivoNome(), dto.arquivoUuid(), dto.hashArquivo()
-        );
-        ExtratoResponseDTO response = ExtratoResponseDTO.fromDomain(criarUseCase.executar(extrato));
+        ExtratoResponseDTO response = ExtratoResponseDTO.fromDomain(
+                criarUseCase.executar(dto.usuarioId(), dto.contaId(),
+                        dto.arquivoNome(), dto.arquivoUuid(), dto.hashArquivo()));
         return ResponseEntity.created(URI.create("/extratos/" + response.id() + "/" + response.code())).body(response);
     }
 

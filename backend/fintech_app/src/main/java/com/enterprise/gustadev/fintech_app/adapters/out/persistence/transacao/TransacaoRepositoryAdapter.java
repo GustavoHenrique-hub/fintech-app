@@ -74,12 +74,16 @@ public class TransacaoRepositoryAdapter implements TransacaoRepositoryPort {
     }
 
     /**
-     * Persiste a transação ligando a conta por referência gerenciada (resolvida via
-     * EntityManager a partir da chave do domínio), evitando que o Hibernate tente
-     * persistir instância transiente de ContaFinanceiraEntity.
+     * Persiste a transação populando explicitamente os escalares {@code contaId} e
+     * {@code contaCode} (a associação {@code conta} agora é apenas leitura, com
+     * {@code insertable=false, updatable=false}). Também liga a instância gerenciada
+     * de {@link ContaFinanceiraEntity} para que {@code toDomain()} funcione no retorno
+     * do save sem disparar carregamento adicional.
      */
     private Transacao persistir(Transacao transacao) {
         TransacaoEntity entity = TransacaoEntity.fromDomain(transacao);
+        entity.setContaId(transacao.getConta().getId());
+        entity.setContaCode(transacao.getConta().getCode());
         entity.setConta(entityManager.getReference(
                 ContaFinanceiraEntity.class, transacao.getConta().getId()));
         return jpaRepository.save(entity).toDomain();

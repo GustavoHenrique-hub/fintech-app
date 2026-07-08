@@ -56,6 +56,7 @@ public class TransacaoController {
                 TipoTransacao.valueOf(dto.tipo()),
                 dto.valor(), dto.dataTransacao(),
                 dto.categoriaId(),
+                dto.categoriaCode(),
                 OrigemTransacao.valueOf(dto.origem())
         );
         transacao.setDescricao(dto.descricao());

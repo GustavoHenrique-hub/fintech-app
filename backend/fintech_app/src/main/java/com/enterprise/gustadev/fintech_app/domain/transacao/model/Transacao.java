@@ -26,6 +26,7 @@ public class Transacao {
     private BigDecimal valor;
     private LocalDate dataTransacao;
     private Long categoriaId;
+    private String categoriaCode;
     private String estabelecimento;
     private OrigemTransacao origem;
     private StatusRevisaoTransacao statusRevisao;
@@ -43,7 +44,8 @@ public class Transacao {
 
     public Transacao(Long id, ContaFinanceira conta, String indEstorno,
                      TipoTransacao tipo, String descricao, BigDecimal valor,
-                     LocalDate dataTransacao, Long categoriaId, String estabelecimento,
+                     LocalDate dataTransacao, Long categoriaId, String categoriaCode,
+                     String estabelecimento,
                      OrigemTransacao origem, StatusRevisaoTransacao statusRevisao,
                      Short confiancaIa, boolean recorrente, LocalDate periodoRecorrencia,
                      String observacao, int versao,
@@ -56,6 +58,7 @@ public class Transacao {
         this.valor = valor;
         this.dataTransacao = dataTransacao;
         this.categoriaId = categoriaId;
+        this.categoriaCode = categoriaCode;
         this.estabelecimento = estabelecimento;
         this.origem = origem;
         this.statusRevisao = statusRevisao;
@@ -71,9 +74,9 @@ public class Transacao {
 
     public Transacao(ContaFinanceira conta, TipoTransacao tipo,
                      BigDecimal valor, LocalDate dataTransacao, Long categoriaId,
-                     OrigemTransacao origem) {
+                     String categoriaCode, OrigemTransacao origem) {
         this(null, conta, "N", tipo, null,
-             valor, dataTransacao, categoriaId, null, origem,
+             valor, dataTransacao, categoriaId, categoriaCode, null, origem,
              StatusRevisaoTransacao.EXTRAIDA, null, false, null, null,
              1, OffsetDateTime.now(), null, null);
         this.code = CodeGenerator.gerar();
@@ -90,7 +93,7 @@ public class Transacao {
         this.estornadoAt = OffsetDateTime.now();
         Transacao estorno = new Transacao(
                 null, conta, "S", tipo, descricao, valor, dataTransacao,
-                categoriaId, estabelecimento, origem, statusRevisao, confiancaIa,
+                categoriaId, categoriaCode, estabelecimento, origem, statusRevisao, confiancaIa,
                 recorrente, periodoRecorrencia, observacao, 1,
                 OffsetDateTime.now(), null, null);
         estorno.code = CodeGenerator.gerar();

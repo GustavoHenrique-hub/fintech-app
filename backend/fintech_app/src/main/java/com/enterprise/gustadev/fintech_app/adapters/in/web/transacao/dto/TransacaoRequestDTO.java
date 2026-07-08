@@ -15,6 +15,7 @@ public record TransacaoRequestDTO(
         @NotNull @DecimalMin("0.01") BigDecimal valor,
         @NotNull LocalDate dataTransacao,
         @NotNull Long categoriaId,
+        @NotNull String categoriaCode,
         String estabelecimento,
         @NotBlank String origem,
         String observacao

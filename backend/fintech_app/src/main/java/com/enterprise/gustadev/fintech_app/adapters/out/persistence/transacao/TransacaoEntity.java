@@ -42,11 +42,19 @@ public class TransacaoEntity {
     @Column(name = "transacoes_code", unique = true, nullable = false, length = 6)
     private String code;
 
+    @Column(name = "conta_id", nullable = false)
+    private Long contaId;
+
+    @Column(name = "conta_code", nullable = false, length = 6)
+    private String contaCode;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns(
             value = {
-                    @JoinColumn(name = "conta_id", referencedColumnName = "id"),
-                    @JoinColumn(name = "conta_code", referencedColumnName = "contas_code")
+                    @JoinColumn(name = "conta_id", referencedColumnName = "conta_id",
+                            insertable = false, updatable = false),
+                    @JoinColumn(name = "conta_code", referencedColumnName = "conta_code",
+                            insertable = false, updatable = false)
             },
             foreignKey = @ForeignKey(name = "fk_transacoes_conta")
     )
@@ -71,9 +79,19 @@ public class TransacaoEntity {
     @Column(name = "categoria_id", nullable = false)
     private Long categoriaId;
 
+    @Column(name = "categoria_code", nullable = false, length = 6)
+    private String categoriaCode;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "categoria_id", insertable = false, updatable = false,
-            foreignKey = @ForeignKey(name = "fk_transacoes_categoria"))
+    @JoinColumns(
+            value = {
+                    @JoinColumn(name = "categoria_id", referencedColumnName = "categoria_id",
+                            insertable = false, updatable = false),
+                    @JoinColumn(name = "categoria_code", referencedColumnName = "categoria_code",
+                            insertable = false, updatable = false)
+            },
+            foreignKey = @ForeignKey(name = "fk_transacoes_categoria")
+    )
     private CategoriaEntity categoria;
 
     @Column(length = 255)
@@ -126,12 +144,17 @@ public class TransacaoEntity {
         TransacaoEntity entity = new TransacaoEntity();
         entity.id = domain.getId();
         entity.code = domain.getCode();
+        if (domain.getConta() != null) {
+            entity.contaId = domain.getConta().getId();
+            entity.contaCode = domain.getConta().getCode();
+        }
         entity.indEstorno = domain.getIndEstorno();
         entity.tipo = domain.getTipo();
         entity.descricao = domain.getDescricao();
         entity.valor = domain.getValor();
         entity.dataTransacao = domain.getDataTransacao();
         entity.categoriaId = domain.getCategoriaId();
+        entity.categoriaCode = domain.getCategoriaCode();
         entity.estabelecimento = domain.getEstabelecimento();
         entity.origem = domain.getOrigem();
         entity.statusRevisao = domain.getStatusRevisao();
@@ -150,7 +173,7 @@ public class TransacaoEntity {
 
     public Transacao toDomain() {
         Transacao t = new Transacao(id, conta.toDomain(), indEstorno, tipo,
-                descricao, valor, dataTransacao, categoriaId, estabelecimento,
+                descricao, valor, dataTransacao, categoriaId, categoriaCode, estabelecimento,
                 origem, statusRevisao, confiancaIa, recorrente != null && recorrente, periodoRecorrencia,
                 observacao, versao, criadoEm, atualizadoEm, estornadoAt);
         t.setCode(code);
