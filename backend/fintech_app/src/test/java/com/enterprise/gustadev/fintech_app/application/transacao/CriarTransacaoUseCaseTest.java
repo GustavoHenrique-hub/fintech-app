@@ -52,11 +52,11 @@ class CriarTransacaoUseCaseTest {
         Long contaId = 1L;
         Transacao transacao = new Transacao(
                 new ContaFinanceira(contaId, "C1"), TipoTransacao.GASTO,
-                new BigDecimal("150.00"), LocalDate.now(), 1L, OrigemTransacao.manual
+                new BigDecimal("150.00"), LocalDate.now(), 1L, "CAT001", OrigemTransacao.manual
         );
         Transacao salva = new Transacao(1L, new ContaFinanceira(contaId, "C1"), "N",
                 TipoTransacao.GASTO, null, new BigDecimal("150.00"),
-                LocalDate.now(), 1L, null, OrigemTransacao.manual,
+                LocalDate.now(), 1L, "CAT001", null, OrigemTransacao.manual,
                 StatusRevisaoTransacao.EXTRAIDA, null, false, null, null, 1, null, null, null);
         when(repository.salvar(any())).thenReturn(salva);
         when(contaRepository.buscarPorId(contaId)).thenReturn(Optional.of(contaComSaldo(contaId)));
@@ -75,7 +75,7 @@ class CriarTransacaoUseCaseTest {
     void executar_naoDeveSalvar_quandoValorInvalido() {
         Transacao transacaoInvalida = new Transacao(
                 new ContaFinanceira(1L, "C1"), TipoTransacao.GASTO,
-                BigDecimal.ZERO, LocalDate.now(), 1L, OrigemTransacao.manual
+                BigDecimal.ZERO, LocalDate.now(), 1L, "CAT001", OrigemTransacao.manual
         );
 
         assertThatThrownBy(() -> useCase.executar(transacaoInvalida))

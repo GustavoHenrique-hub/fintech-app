@@ -31,7 +31,7 @@ class ListarTransacoesUseCaseTest {
 
     private Transacao criarTransacao(Long contaId) {
         return new Transacao(new ContaFinanceira(contaId, "C1"), TipoTransacao.GASTO,
-                new BigDecimal("50.00"), LocalDate.now(), 1L, OrigemTransacao.manual);
+                new BigDecimal("50.00"), LocalDate.now(), 1L, "CAT001", OrigemTransacao.manual);
     }
 
     @Test

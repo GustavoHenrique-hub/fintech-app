@@ -20,7 +20,7 @@ class TransacaoTest {
         Transacao transacao = new Transacao(
                 new ContaFinanceira(1L, "C1"),
                 TipoTransacao.GASTO, new BigDecimal("50.00"),
-                LocalDate.now(), 1L, OrigemTransacao.manual
+                LocalDate.now(), 1L, "CAT001", OrigemTransacao.manual
         );
         assertThatCode(transacao::validar).doesNotThrowAnyException();
     }
@@ -30,7 +30,7 @@ class TransacaoTest {
         Transacao transacao = new Transacao(
                 null,
                 TipoTransacao.GASTO, new BigDecimal("50.00"),
-                LocalDate.now(), 1L, OrigemTransacao.manual
+                LocalDate.now(), 1L, "CAT001", OrigemTransacao.manual
         );
         assertThatThrownBy(transacao::validar)
                 .isInstanceOf(TransacaoInvalidaException.class)
@@ -42,7 +42,7 @@ class TransacaoTest {
         Transacao transacao = new Transacao(
                 new ContaFinanceira(1L, "C1"),
                 TipoTransacao.GASTO, BigDecimal.ZERO,
-                LocalDate.now(), 1L, OrigemTransacao.manual
+                LocalDate.now(), 1L, "CAT001", OrigemTransacao.manual
         );
         assertThatThrownBy(transacao::validar)
                 .isInstanceOf(TransacaoInvalidaException.class)
@@ -54,7 +54,7 @@ class TransacaoTest {
         Transacao transacao = new Transacao(
                 new ContaFinanceira(1L, "C1"),
                 TipoTransacao.GASTO, new BigDecimal("-10.00"),
-                LocalDate.now(), 1L, OrigemTransacao.manual
+                LocalDate.now(), 1L, "CAT001", OrigemTransacao.manual
         );
         assertThatThrownBy(transacao::validar)
                 .isInstanceOf(TransacaoInvalidaException.class)
@@ -66,7 +66,7 @@ class TransacaoTest {
         Transacao transacao = new Transacao(
                 new ContaFinanceira(1L, "C1"),
                 TipoTransacao.RECEITA, new BigDecimal("100.00"),
-                null, 1L, OrigemTransacao.manual
+                null, 1L, "CAT001", OrigemTransacao.manual
         );
         assertThatThrownBy(transacao::validar)
                 .isInstanceOf(TransacaoInvalidaException.class)
@@ -78,7 +78,7 @@ class TransacaoTest {
         Transacao transacao = new Transacao(
                 new ContaFinanceira(1L, "C1"),
                 TipoTransacao.RECEITA, new BigDecimal("100.00"),
-                LocalDate.now(), 1L, null
+                LocalDate.now(), 1L, "CAT001", null
         );
         assertThatThrownBy(transacao::validar)
                 .isInstanceOf(TransacaoInvalidaException.class)

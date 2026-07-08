@@ -45,7 +45,7 @@ class EstornarTransacaoUseCaseTest {
     private Transacao original() {
         return new Transacao(10L, new ContaFinanceira(2L, "C1"), "N",
                 TipoTransacao.GASTO, "desc", new BigDecimal("100.00"),
-                LocalDate.now(), 5L, null, OrigemTransacao.manual,
+                LocalDate.now(), 5L, "CAT001", null, OrigemTransacao.manual,
                 StatusRevisaoTransacao.EXTRAIDA, null, false,
                 null, null, 1, null, OffsetDateTime.now(), null);
     }

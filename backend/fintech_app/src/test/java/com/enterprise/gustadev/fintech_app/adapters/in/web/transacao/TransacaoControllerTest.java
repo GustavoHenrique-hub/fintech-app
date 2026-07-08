@@ -60,7 +60,7 @@ class TransacaoControllerTest {
     private Transacao transacaoCompleta(Long id, Long contaId) {
         return new Transacao(id, new ContaFinanceira(contaId, "C1"), "N",
                 TipoTransacao.GASTO, null, new BigDecimal("150.00"),
-                LocalDate.now(), 1L, null, OrigemTransacao.manual,
+                LocalDate.now(), 1L, "CAT001", null, OrigemTransacao.manual,
                 StatusRevisaoTransacao.EXTRAIDA, null, false,
                 null, null, 1, null, null, null);
     }
@@ -82,6 +82,7 @@ class TransacaoControllerTest {
                                   "valor": 150.00,
                                   "dataTransacao": "%s",
                                   "categoriaId": 1,
+                                  "categoriaCode": "CAT001",
                                   "origem": "manual"
                                 }
                                 """.formatted(contaId, LocalDate.now())))
