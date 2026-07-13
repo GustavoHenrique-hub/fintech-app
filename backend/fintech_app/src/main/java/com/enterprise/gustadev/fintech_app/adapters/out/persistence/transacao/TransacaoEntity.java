@@ -4,7 +4,6 @@ import com.enterprise.gustadev.fintech_app.adapters.out.persistence.categoria.Ca
 import com.enterprise.gustadev.fintech_app.adapters.out.persistence.contafinanceira.ContaFinanceiraEntity;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusRevisaoTransacao;
-import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoTransacao;
 import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -62,10 +61,6 @@ public class TransacaoEntity {
 
     @Column(name = "ind_estorno", nullable = false, length = 1)
     private String indEstorno = "N";
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 10)
-    private TipoTransacao tipo;
 
     @Column(columnDefinition = "TEXT")
     private String descricao;
@@ -149,7 +144,6 @@ public class TransacaoEntity {
             entity.contaCode = domain.getConta().getCode();
         }
         entity.indEstorno = domain.getIndEstorno();
-        entity.tipo = domain.getTipo();
         entity.descricao = domain.getDescricao();
         entity.valor = domain.getValor();
         entity.dataTransacao = domain.getDataTransacao();
@@ -172,13 +166,16 @@ public class TransacaoEntity {
     }
 
     public Transacao toDomain() {
-        Transacao t = new Transacao(id, conta.toDomain(), indEstorno, tipo,
+        Transacao t = new Transacao(id, conta.toDomain(), indEstorno,
                 descricao, valor, dataTransacao, categoriaId, categoriaCode, estabelecimento,
                 origem, statusRevisao, confiancaIa, recorrente != null && recorrente, periodoRecorrencia,
                 observacao, versao, criadoEm, atualizadoEm, estornadoAt);
         t.setCode(code);
         t.setTransacaoEstornadaId(transacaoEstornadaId);
         t.setDeletedAt(deletedAt);
+        if (categoria != null) {
+            t.setCategoriaTipo(categoria.getTipo());
+        }
         return t;
     }
 }

@@ -1,5 +1,6 @@
 package com.enterprise.gustadev.fintech_app.adapters.out.persistence.transacao;
 
+import com.enterprise.gustadev.fintech_app.adapters.out.persistence.categoria.CategoriaEntity;
 import com.enterprise.gustadev.fintech_app.adapters.out.persistence.contafinanceira.ContaFinanceiraEntity;
 import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;
 import com.enterprise.gustadev.fintech_app.domain.transacao.port.TransacaoRepositoryPort;
@@ -78,7 +79,9 @@ public class TransacaoRepositoryAdapter implements TransacaoRepositoryPort {
      * {@code contaCode} (a associação {@code conta} agora é apenas leitura, com
      * {@code insertable=false, updatable=false}). Também liga a instância gerenciada
      * de {@link ContaFinanceiraEntity} para que {@code toDomain()} funcione no retorno
-     * do save sem disparar carregamento adicional.
+     * do save sem disparar carregamento adicional. O mesmo é feito para
+     * {@link CategoriaEntity}, já que {@code toDomain()} agora lê {@code categoria.getTipo()}
+     * para resolver a direção (RECEITA/GASTO) da transação.
      */
     private Transacao persistir(Transacao transacao) {
         TransacaoEntity entity = TransacaoEntity.fromDomain(transacao);
@@ -86,6 +89,8 @@ public class TransacaoRepositoryAdapter implements TransacaoRepositoryPort {
         entity.setContaCode(transacao.getConta().getCode());
         entity.setConta(entityManager.getReference(
                 ContaFinanceiraEntity.class, transacao.getConta().getId()));
+        entity.setCategoria(entityManager.getReference(
+                CategoriaEntity.class, transacao.getCategoriaId()));
         return jpaRepository.save(entity).toDomain();
     }
 }

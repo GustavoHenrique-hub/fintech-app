@@ -3,6 +3,7 @@ package com.enterprise.gustadev.fintech_app.domain.transacao.model;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusRevisaoTransacao;
+import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoCategoria;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.util.CodeGenerator;
 import com.enterprise.gustadev.fintech_app.domain.transacao.exception.TransacaoInvalidaException;
@@ -21,12 +22,13 @@ public class Transacao {
     private String code;
     private ContaFinanceira conta;
     private String indEstorno;
-    private TipoTransacao tipo;
     private String descricao;
     private BigDecimal valor;
     private LocalDate dataTransacao;
     private Long categoriaId;
     private String categoriaCode;
+    /** Tipo da categoria associada (RECEITA/GASTO/AMBOS), resolvido pelo chamador — não persistido em transacoes. */
+    private TipoCategoria categoriaTipo;
     private String estabelecimento;
     private OrigemTransacao origem;
     private StatusRevisaoTransacao statusRevisao;
@@ -43,7 +45,7 @@ public class Transacao {
     private OffsetDateTime deletedAt;
 
     public Transacao(Long id, ContaFinanceira conta, String indEstorno,
-                     TipoTransacao tipo, String descricao, BigDecimal valor,
+                     String descricao, BigDecimal valor,
                      LocalDate dataTransacao, Long categoriaId, String categoriaCode,
                      String estabelecimento,
                      OrigemTransacao origem, StatusRevisaoTransacao statusRevisao,
@@ -53,7 +55,6 @@ public class Transacao {
         this.id = id;
         this.conta = conta;
         this.indEstorno = indEstorno;
-        this.tipo = tipo;
         this.descricao = descricao;
         this.valor = valor;
         this.dataTransacao = dataTransacao;
@@ -72,10 +73,10 @@ public class Transacao {
         this.atualizadoEm = atualizadoEm;
     }
 
-    public Transacao(ContaFinanceira conta, TipoTransacao tipo,
+    public Transacao(ContaFinanceira conta,
                      BigDecimal valor, LocalDate dataTransacao, Long categoriaId,
                      String categoriaCode, OrigemTransacao origem) {
-        this(null, conta, "N", tipo, null,
+        this(null, conta, "N", null,
              valor, dataTransacao, categoriaId, categoriaCode, null, origem,
              StatusRevisaoTransacao.EXTRAIDA, null, false, null, null,
              1, OffsetDateTime.now(), null, null);
@@ -92,13 +93,30 @@ public class Transacao {
         }
         this.estornadoAt = OffsetDateTime.now();
         Transacao estorno = new Transacao(
-                null, conta, "S", tipo, descricao, valor, dataTransacao,
+                null, conta, "S", descricao, valor, dataTransacao,
                 categoriaId, categoriaCode, estabelecimento, origem, statusRevisao, confiancaIa,
                 recorrente, periodoRecorrencia, observacao, 1,
                 OffsetDateTime.now(), null, null);
         estorno.code = CodeGenerator.gerar();
         estorno.transacaoEstornadaId = this.id;
+        estorno.categoriaTipo = this.categoriaTipo;
         return estorno;
+    }
+
+    /**
+     * Direção efetiva (RECEITA/GASTO) desta transação. Para categoria RECEITA/GASTO
+     * a direção vem direto da categoria; para AMBOS (ex: categoria "Outros"), o
+     * sinal de {@code valor} desempata (negativo = GASTO, positivo = RECEITA).
+     */
+    public TipoTransacao tipoEfetivo() {
+        if (categoriaTipo == null) {
+            throw new TransacaoInvalidaException("Tipo da categoria da transação não foi resolvido");
+        }
+        return switch (categoriaTipo) {
+            case RECEITA -> TipoTransacao.RECEITA;
+            case GASTO -> TipoTransacao.GASTO;
+            case AMBOS -> valor.signum() < 0 ? TipoTransacao.GASTO : TipoTransacao.RECEITA;
+        };
     }
 
     public void arquivar() {
@@ -111,10 +129,16 @@ public class Transacao {
         if (conta == null) {
             throw new TransacaoInvalidaException("Conta é obrigatório");
         }
-        if (tipo == null) {
-            throw new TransacaoInvalidaException("Tipo é obrigatório");
+        if (categoriaId == null) {
+            throw new TransacaoInvalidaException("CategoriaId é obrigatório");
         }
-        if (valor == null || valor.compareTo(BigDecimal.ZERO) <= 0) {
+        if (categoriaTipo == null) {
+            throw new TransacaoInvalidaException("Tipo da categoria é obrigatório");
+        }
+        if (valor == null || valor.signum() == 0) {
+            throw new TransacaoInvalidaException("Valor deve ser diferente de zero");
+        }
+        if (categoriaTipo != TipoCategoria.AMBOS && valor.signum() < 0) {
             throw new TransacaoInvalidaException("Valor deve ser maior que zero");
         }
         if (dataTransacao == null) {
@@ -122,9 +146,6 @@ public class Transacao {
         }
         if (origem == null) {
             throw new TransacaoInvalidaException("Origem é obrigatória");
-        }
-        if (categoriaId == null) {
-            throw new TransacaoInvalidaException("CategoriaId é obrigatório");
         }
     }
 }
