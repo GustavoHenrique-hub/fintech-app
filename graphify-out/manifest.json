@@ -1,8 +1,8 @@
 {
   ".claude/settings.local.json": {
-    "mtime": 1783514770.3874025,
-    "ast_hash": "bb783d0f1ed997f4a5c29257d086d691",
-    "semantic_hash": "bb783d0f1ed997f4a5c29257d086d691"
+    "mtime": 1783968189.6666596,
+    "ast_hash": "e4bcea14aea5d3f09bc79bd7ee0c1111",
+    "semantic_hash": "e4bcea14aea5d3f09bc79bd7ee0c1111"
   },
   "Entregas FIAP/Atividade Fase 4 - RM570791/script.js": {
     "mtime": 1779911509.3008413,
@@ -80,9 +80,9 @@
     "semantic_hash": "216804359631e049e7d44cb95764a23c"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/consentimentolgpd/ConsentimentoLgpdController.java": {
-    "mtime": 1779911509.344158,
-    "ast_hash": "340efe5eaf15e7370e5ab066d44e8efe",
-    "semantic_hash": "340efe5eaf15e7370e5ab066d44e8efe"
+    "mtime": 1783539281.8691678,
+    "ast_hash": "00f2ff109ebe9a27fdb6dc92cf680420",
+    "semantic_hash": "00f2ff109ebe9a27fdb6dc92cf680420"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/consentimentolgpd/dto/ConsentimentoLgpdRequestDTO.java": {
     "mtime": 1779911509.3598528,
@@ -115,9 +115,9 @@
     "semantic_hash": "d5bff8ffdc7f96d0b452725bcec18ac6"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/extrato/ExtratoController.java": {
-    "mtime": 1781541780.9583535,
-    "ast_hash": "2f2c59161973b0f31775682c65a643f0",
-    "semantic_hash": "2f2c59161973b0f31775682c65a643f0"
+    "mtime": 1783539163.0948966,
+    "ast_hash": "a941b64b973e843c23365239a56aea13",
+    "semantic_hash": "a941b64b973e843c23365239a56aea13"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/extrato/dto/ExtratoRequestDTO.java": {
     "mtime": 1779911509.3779335,
@@ -145,9 +145,9 @@
     "semantic_hash": "d76b2538229129cc270a93707a42b8eb"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/notificacao/NotificacaoController.java": {
-    "mtime": 1779911509.39472,
-    "ast_hash": "9d81c6e0ed7358d1b4643f68eb0ed2eb",
-    "semantic_hash": "9d81c6e0ed7358d1b4643f68eb0ed2eb"
+    "mtime": 1783539219.0945282,
+    "ast_hash": "91397077e155831f43911a717d9e7548",
+    "semantic_hash": "91397077e155831f43911a717d9e7548"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/notificacao/dto/CriarNotificacaoRequestDTO.java": {
     "mtime": 1779911509.4040792,
@@ -170,9 +170,9 @@
     "semantic_hash": "b915e687d74db9360277825db0609f11"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java": {
-    "mtime": 1782924770.706839,
-    "ast_hash": "0c5c3fdb6b31e14d1afae324fe6bbb2e",
-    "semantic_hash": "0c5c3fdb6b31e14d1afae324fe6bbb2e"
+    "mtime": 1783539108.620418,
+    "ast_hash": "35f2f36744f3d4fb3c9b13f84aca6b49",
+    "semantic_hash": "35f2f36744f3d4fb3c9b13f84aca6b49"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/dto/EstornarTransacaoRequestDTO.java": {
     "mtime": 1782924770.706839,
@@ -180,9 +180,9 @@
     "semantic_hash": "907cc959d5c981e78b2bc8ea6a1af80f"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/dto/TransacaoRequestDTO.java": {
-    "mtime": 1782924770.706839,
-    "ast_hash": "933e72e20ea7714cac1f9f01b16ae47a",
-    "semantic_hash": "933e72e20ea7714cac1f9f01b16ae47a"
+    "mtime": 1783539097.850038,
+    "ast_hash": "dbd114352aed6316246f177c6603ebf3",
+    "semantic_hash": "dbd114352aed6316246f177c6603ebf3"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/dto/TransacaoResponseDTO.java": {
     "mtime": 1782924770.708861,
@@ -190,9 +190,9 @@
     "semantic_hash": "4708d933274f8916c9349599f9b4869e"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacaocancelada/TransacaoCanceladaController.java": {
-    "mtime": 1779911509.478012,
-    "ast_hash": "9c657c0f187b4ad2fbfc3ea7ce9cf61f",
-    "semantic_hash": "9c657c0f187b4ad2fbfc3ea7ce9cf61f"
+    "mtime": 1783538906.5164666,
+    "ast_hash": "321568f1af4f7b77fa128d4336fe02a5",
+    "semantic_hash": "321568f1af4f7b77fa128d4336fe02a5"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacaocancelada/dto/CancelarTransacaoRequestDTO.java": {
     "mtime": 1779911509.4966643,
@@ -265,9 +265,9 @@
     "semantic_hash": "4c2efd3f5522fa87cbea34395ce98dd5"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/consentimentolgpd/usecase/RegistrarConsentimentoLgpdUseCase.java": {
-    "mtime": 1779911509.8258135,
-    "ast_hash": "02aaebb77f0599ff1d30395a50b90b43",
-    "semantic_hash": "02aaebb77f0599ff1d30395a50b90b43"
+    "mtime": 1783539275.5838256,
+    "ast_hash": "a9815963028546aad61838b6130881c7",
+    "semantic_hash": "a9815963028546aad61838b6130881c7"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/contafinanceira/usecase/BuscarContaFinanceiraUseCase.java": {
     "mtime": 1779911509.828294,
@@ -295,9 +295,9 @@
     "semantic_hash": "610d627b6bed0b6c24d4a03926770d8c"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/usecase/CriarExtratoUseCase.java": {
-    "mtime": 1779911509.8362339,
-    "ast_hash": "b9544f724413e1394525df1456831142",
-    "semantic_hash": "b9544f724413e1394525df1456831142"
+    "mtime": 1783539139.6926787,
+    "ast_hash": "b2ec133580b3bcfd5aad01fab1562fd4",
+    "semantic_hash": "b2ec133580b3bcfd5aad01fab1562fd4"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/usecase/ListarExtratosUseCase.java": {
     "mtime": 1779911509.8376143,
@@ -320,9 +320,9 @@
     "semantic_hash": "157ae9f8f1dbe1052a0acff1f2d7e416"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/notificacao/usecase/CriarNotificacaoUseCase.java": {
-    "mtime": 1779911509.840727,
-    "ast_hash": "4fd62fb272bb2a326faf688d302b948f",
-    "semantic_hash": "4fd62fb272bb2a326faf688d302b948f"
+    "mtime": 1783539180.5697544,
+    "ast_hash": "3054922fa0995945498b5502d01b2c9d",
+    "semantic_hash": "3054922fa0995945498b5502d01b2c9d"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/notificacao/usecase/ListarNotificacoesUseCase.java": {
     "mtime": 1779911509.840727,
@@ -360,9 +360,9 @@
     "semantic_hash": "17a8ee043320bdbb2bfc08839bc91807"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacaocancelada/usecase/CancelarTransacaoUseCase.java": {
-    "mtime": 1783372205.5123098,
-    "ast_hash": "09c6acf49766069477c08ee723dafc52",
-    "semantic_hash": "09c6acf49766069477c08ee723dafc52"
+    "mtime": 1783538924.3361206,
+    "ast_hash": "a61eae7291199011435709f471716318",
+    "semantic_hash": "a61eae7291199011435709f471716318"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacaocancelada/usecase/ListarTransacoesCanceladasUseCase.java": {
     "mtime": 1779911509.8611317,
@@ -385,9 +385,9 @@
     "semantic_hash": "ef42322fcf951e6e735ccb943c0c067b"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/config/BeanConfig.java": {
-    "mtime": 1783372217.1848807,
-    "ast_hash": "d5f508be543a569e86fd293487a9fd48",
-    "semantic_hash": "d5f508be543a569e86fd293487a9fd48"
+    "mtime": 1783539288.0671484,
+    "ast_hash": "919ad59c590e1c585c4d32e5df0effa2",
+    "semantic_hash": "919ad59c590e1c585c4d32e5df0effa2"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/config/OpenApiConfig.java": {
     "mtime": 1779911509.8831303,
@@ -395,9 +395,9 @@
     "semantic_hash": "6a32dc6ff33732423fef6843e64dbed0"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/auditoriaevento/model/AuditoriaEvento.java": {
-    "mtime": 1779911509.8831303,
-    "ast_hash": "dcbdd65ee673a2d12e6e1ecdb860887c",
-    "semantic_hash": "dcbdd65ee673a2d12e6e1ecdb860887c"
+    "mtime": 1783539327.4417174,
+    "ast_hash": "7215946b1382669bfc5650a755a69569",
+    "semantic_hash": "7215946b1382669bfc5650a755a69569"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/auditoriaevento/port/AuditoriaEventoRepositoryPort.java": {
     "mtime": 1779911509.8831303,
@@ -410,9 +410,9 @@
     "semantic_hash": "1b5932e6a3303e8bc3f6309ee3a963f2"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/auth/model/SessaoToken.java": {
-    "mtime": 1782238961.8361251,
-    "ast_hash": "89a710eb19876475b31b1a48c82a8d4c",
-    "semantic_hash": "89a710eb19876475b31b1a48c82a8d4c"
+    "mtime": 1783539242.5198102,
+    "ast_hash": "ec3eb409a238679a07807ee1a7923532",
+    "semantic_hash": "ec3eb409a238679a07807ee1a7923532"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/auth/port/SenhaEncoder.java": {
     "mtime": 1782238979.5665903,
@@ -450,9 +450,9 @@
     "semantic_hash": "d8d97de5e5d3a48b43091f754fb44885"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/categoria/model/CategoriaThreshold.java": {
-    "mtime": 1779911509.9441261,
-    "ast_hash": "125343ed781b64ec759beacfef5886aa",
-    "semantic_hash": "125343ed781b64ec759beacfef5886aa"
+    "mtime": 1783538828.6711702,
+    "ast_hash": "5dd08002932b838afe611ec95b01f13a",
+    "semantic_hash": "5dd08002932b838afe611ec95b01f13a"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/categoria/port/CategoriaRepositoryPort.java": {
     "mtime": 1781538806.800823,
@@ -470,9 +470,9 @@
     "semantic_hash": "8d1f2314c28e097307053bf1582df8f9"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/consentimentolgpd/model/ConsentimentoLgpd.java": {
-    "mtime": 1779911509.9611256,
-    "ast_hash": "dc267524df8983de601dad8cc208373a",
-    "semantic_hash": "dc267524df8983de601dad8cc208373a"
+    "mtime": 1783539240.4731338,
+    "ast_hash": "980ce4ac5cf1fe765b428d77036160a5",
+    "semantic_hash": "980ce4ac5cf1fe765b428d77036160a5"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/consentimentolgpd/port/ConsentimentoLgpdRepositoryPort.java": {
     "mtime": 1779911509.9611256,
@@ -500,9 +500,9 @@
     "semantic_hash": "ab35feea00778c02bd00afe5ab667e52"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/extrato/model/Extrato.java": {
-    "mtime": 1781541455.647328,
-    "ast_hash": "9333547a6f7f58923f87026ef5556383",
-    "semantic_hash": "9333547a6f7f58923f87026ef5556383"
+    "mtime": 1783539041.9796772,
+    "ast_hash": "cbd517b5a5239e63564770ae9f46cd0c",
+    "semantic_hash": "cbd517b5a5239e63564770ae9f46cd0c"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/extrato/port/ExtratoRepositoryPort.java": {
     "mtime": 1781538825.013811,
@@ -525,9 +525,9 @@
     "semantic_hash": "aa04af893469a5034b354d962f539b8d"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/notificacao/model/Notificacao.java": {
-    "mtime": 1779911510.011197,
-    "ast_hash": "e65d6b2a5b8d4b367052179a029c21ee",
-    "semantic_hash": "e65d6b2a5b8d4b367052179a029c21ee"
+    "mtime": 1783539148.6462288,
+    "ast_hash": "af90f75810abd290ef799546f79ae46b",
+    "semantic_hash": "af90f75810abd290ef799546f79ae46b"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/notificacao/port/NotificacaoRepositoryPort.java": {
     "mtime": 1779911510.011197,
@@ -540,9 +540,9 @@
     "semantic_hash": "e5ec14fac5b5efa3bb0133786c664d84"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/parserversao/model/ParserVersao.java": {
-    "mtime": 1779911510.0159802,
-    "ast_hash": "d84edb36f54bd532869f110d9cbb0eee",
-    "semantic_hash": "d84edb36f54bd532869f110d9cbb0eee"
+    "mtime": 1783538971.2844875,
+    "ast_hash": "5d1ec0bd22a46709d92e35bd93664b68",
+    "semantic_hash": "5d1ec0bd22a46709d92e35bd93664b68"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/parserversao/port/ParserVersaoRepositoryPort.java": {
     "mtime": 1781538840.1516132,
@@ -550,9 +550,9 @@
     "semantic_hash": "6862f6af3e93dcc60a3414fdb118e3c5"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/processamentojob/model/ProcessamentoJob.java": {
-    "mtime": 1779911510.0159802,
-    "ast_hash": "aa0cb2539084b3853eb1bb2bc3ab2cfb",
-    "semantic_hash": "aa0cb2539084b3853eb1bb2bc3ab2cfb"
+    "mtime": 1783539198.5501802,
+    "ast_hash": "cc2fd6c1a9d74cb95483e24fca156c0a",
+    "semantic_hash": "cc2fd6c1a9d74cb95483e24fca156c0a"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/processamentojob/port/ProcessamentoJobRepositoryPort.java": {
     "mtime": 1781538835.0781922,
@@ -635,9 +635,9 @@
     "semantic_hash": "9d3d4fd9384f2cbb8aab3536bb968717"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/snapshotfinanceiro/model/SnapshotFinanceiro.java": {
-    "mtime": 1779911510.0313747,
-    "ast_hash": "428daf22817ad5a5871f99479add958a",
-    "semantic_hash": "428daf22817ad5a5871f99479add958a"
+    "mtime": 1783539295.463884,
+    "ast_hash": "ef59040576f0de536956702cc3cfa7c9",
+    "semantic_hash": "ef59040576f0de536956702cc3cfa7c9"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/snapshotfinanceiro/port/SnapshotFinanceiroRepositoryPort.java": {
     "mtime": 1779911510.0313747,
@@ -655,9 +655,9 @@
     "semantic_hash": "927f6f795e6b3c28e3f900d84242f7e8"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/transacao/model/Transacao.java": {
-    "mtime": 1783372153.2756596,
-    "ast_hash": "da1e47be5eb55f30074a82ce67e72686",
-    "semantic_hash": "da1e47be5eb55f30074a82ce67e72686"
+    "mtime": 1783539041.7667458,
+    "ast_hash": "bdb28cc2d6f858b1e4526d799ee74f62",
+    "semantic_hash": "bdb28cc2d6f858b1e4526d799ee74f62"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/transacao/port/TransacaoRepositoryPort.java": {
     "mtime": 1782924770.7128258,
@@ -670,9 +670,9 @@
     "semantic_hash": "da0aeda077aca6569d3950d1ee398ebd"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/transacaocancelada/model/TransacaoCancelada.java": {
-    "mtime": 1779911510.061268,
-    "ast_hash": "0691432db65956770ce9076ded7bf840",
-    "semantic_hash": "0691432db65956770ce9076ded7bf840"
+    "mtime": 1783538871.807133,
+    "ast_hash": "becf23be836ed235a2918e1859304757",
+    "semantic_hash": "becf23be836ed235a2918e1859304757"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/transacaocancelada/port/TransacaoCanceladaRepositoryPort.java": {
     "mtime": 1779911510.061268,
@@ -715,9 +715,9 @@
     "semantic_hash": "22b5a60b3699a65071d430b37c51a64b"
   },
   "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoControllerTest.java": {
-    "mtime": 1782924770.7128258,
-    "ast_hash": "d7798b514ea568edaf5628273b7f29ac",
-    "semantic_hash": "d7798b514ea568edaf5628273b7f29ac"
+    "mtime": 1783539777.4028308,
+    "ast_hash": "d822d9935988f1751c4e2a03625b7d9e",
+    "semantic_hash": "d822d9935988f1751c4e2a03625b7d9e"
   },
   "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/banco/BuscarBancoUseCaseTest.java": {
     "mtime": 1779911510.136039,
@@ -760,24 +760,24 @@
     "semantic_hash": "ef8626e12c5b9bad79a7dc0fa99e816c"
   },
   "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/extrato/CriarExtratoUseCaseTest.java": {
-    "mtime": 1782232932.7501667,
-    "ast_hash": "f8938829da802ed9a8821adcc730cefd",
-    "semantic_hash": "f8938829da802ed9a8821adcc730cefd"
+    "mtime": 1783539544.950498,
+    "ast_hash": "0be7b7da9f0ce23bbb5169f5e9cafd24",
+    "semantic_hash": "0be7b7da9f0ce23bbb5169f5e9cafd24"
   },
   "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/transacao/CriarTransacaoUseCaseTest.java": {
-    "mtime": 1783365246.029318,
-    "ast_hash": "8e7f3d0afd02384bf607c01168cef9a2",
-    "semantic_hash": "8e7f3d0afd02384bf607c01168cef9a2"
+    "mtime": 1783539791.7918646,
+    "ast_hash": "a4b98e072bac866be195f7d446f15068",
+    "semantic_hash": "a4b98e072bac866be195f7d446f15068"
   },
   "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/transacao/EstornarTransacaoUseCaseTest.java": {
-    "mtime": 1783365267.9624047,
-    "ast_hash": "877ebf3b66622c82bf24311037387384",
-    "semantic_hash": "877ebf3b66622c82bf24311037387384"
+    "mtime": 1783539794.3511024,
+    "ast_hash": "e9b0ed065682df18bbee72730d5d1cda",
+    "semantic_hash": "e9b0ed065682df18bbee72730d5d1cda"
   },
   "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/transacao/ListarTransacoesUseCaseTest.java": {
-    "mtime": 1782924770.7148328,
-    "ast_hash": "c93f24d18aa600f167b727602986ac00",
-    "semantic_hash": "c93f24d18aa600f167b727602986ac00"
+    "mtime": 1783539796.1788638,
+    "ast_hash": "7c30cc987f8d53d93fcc27fc1b57eaa3",
+    "semantic_hash": "7c30cc987f8d53d93fcc27fc1b57eaa3"
   },
   "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/domain/banco/BancoTest.java": {
     "mtime": 1779911510.2940311,
@@ -795,14 +795,14 @@
     "semantic_hash": "5dfbe1554b74d6c33cef7a0de83ae5c2"
   },
   "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/domain/extrato/ExtratoTest.java": {
-    "mtime": 1779911510.3111892,
-    "ast_hash": "e9fed4fef735fd244dc9cb91f8270dfc",
-    "semantic_hash": "e9fed4fef735fd244dc9cb91f8270dfc"
+    "mtime": 1783539420.2049716,
+    "ast_hash": "2a02e1f5d26612f498d36a58f11e5a63",
+    "semantic_hash": "2a02e1f5d26612f498d36a58f11e5a63"
   },
   "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/domain/transacao/TransacaoTest.java": {
-    "mtime": 1782924770.7148328,
-    "ast_hash": "ef024dc0fdbc0bfa92d0002e0143eb3c",
-    "semantic_hash": "ef024dc0fdbc0bfa92d0002e0143eb3c"
+    "mtime": 1783539750.369161,
+    "ast_hash": "64c91d39feaca640ce35cf63a6d3f297",
+    "semantic_hash": "64c91d39feaca640ce35cf63a6d3f297"
   },
   "frontend/fintech_app/.claude/settings.json": {
     "mtime": 1782233955.469231,
@@ -875,9 +875,9 @@
     "semantic_hash": "99a8819cd735b8afe5205b76c51ebcf0"
   },
   "frontend/fintech_app/src/components/finsight/screens/AddTransactionScreen.jsx": {
-    "mtime": 1783372241.1977048,
-    "ast_hash": "2e36f49f857d2ca300c36c9ad298cc14",
-    "semantic_hash": "2e36f49f857d2ca300c36c9ad298cc14"
+    "mtime": 1783539347.271537,
+    "ast_hash": "62f0dbf179d7a9374e0829860cab8627",
+    "semantic_hash": "62f0dbf179d7a9374e0829860cab8627"
   },
   "frontend/fintech_app/src/components/finsight/screens/AnalyticsScreen.jsx": {
     "mtime": 1782234432.0015323,
@@ -885,9 +885,9 @@
     "semantic_hash": "89b66e435d2442291483f76beecee057"
   },
   "frontend/fintech_app/src/components/finsight/screens/EstornoTransacaoScreen.jsx": {
-    "mtime": 1782314255.0802207,
-    "ast_hash": "84402f07ea16d159a10f9bb32a39a7be",
-    "semantic_hash": "84402f07ea16d159a10f9bb32a39a7be"
+    "mtime": 1783538421.936984,
+    "ast_hash": "7ef22d6fdf016c6b986c153e05a76a51",
+    "semantic_hash": "7ef22d6fdf016c6b986c153e05a76a51"
   },
   "frontend/fintech_app/src/components/finsight/screens/OverviewScreen.jsx": {
     "mtime": 1782837170.738382,
