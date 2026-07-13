@@ -97,6 +97,7 @@ export function VincularBancoModal({ open, onOpenChange }) {
     // A conta não tem `nome` próprio no backend, então não o enviamos.
     criar({
       usuarioId:    user?.idUsuario,
+      usuarioCode:  user?.usuarioCode,
       bancoId:      bancoSelecionado.id,
       bancoCode:    bancoSelecionado.code,
       tipo,

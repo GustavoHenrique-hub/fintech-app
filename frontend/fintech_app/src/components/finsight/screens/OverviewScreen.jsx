@@ -119,6 +119,15 @@ function ContaSelector({ contas, contaSelecionada, onChange, onVincular }) {
               </button>
             );
           })}
+          <button
+            onClick={() => { setAberto(false); onVincular(); }}
+            className="w-full flex items-center gap-3 px-3.5 py-2.5 hover:bg-secondary transition-colors text-left border-t border-border"
+          >
+            <div className="w-7 h-7 rounded-full bg-secondary flex items-center justify-center shrink-0">
+              <Plus className="w-3.5 h-3.5 text-foreground" strokeWidth={2.5} />
+            </div>
+            <p className="text-[13px] font-semibold text-foreground">Adicionar banco</p>
+          </button>
         </div>
       )}
     </div>
