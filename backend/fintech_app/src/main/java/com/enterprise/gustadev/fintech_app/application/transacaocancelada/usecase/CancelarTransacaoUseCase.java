@@ -51,7 +51,7 @@ public class CancelarTransacaoUseCase {
                             .orElseThrow(() -> new ContaFinanceiraInvalidaException(
                                     "Conta financeira não encontrada: " + transacao.getConta().getId()));
 
-                    conta.reverterTransacao(transacao.getTipo(), transacao.getValor());
+                    conta.reverterTransacao(transacao.tipoEfetivo(), transacao.getValor().abs());
                     contaRepository.salvar(conta);
 
                     transacao.arquivar();

@@ -143,7 +143,6 @@ CREATE TABLE transacoes (
     conta_id BIGINT NOT NULL,
     conta_code VARCHAR(6) NOT NULL,
     ind_estorno VARCHAR(1) NOT NULL DEFAULT 'N',
-    tipo VARCHAR(10) NOT NULL CHECK (tipo IN ('RECEITA','GASTO')),
     descricao TEXT,
     valor NUMERIC(15,2) NOT NULL,
     data_transacao DATE NOT NULL,

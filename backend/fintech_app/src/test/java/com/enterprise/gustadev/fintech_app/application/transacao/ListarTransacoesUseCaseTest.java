@@ -3,7 +3,6 @@ package com.enterprise.gustadev.fintech_app.application.transacao;
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.ListarTransacoesUseCase;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;
-import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoTransacao;
 import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;
 import com.enterprise.gustadev.fintech_app.domain.transacao.port.TransacaoRepositoryPort;
 import org.junit.jupiter.api.Test;
@@ -30,7 +29,7 @@ class ListarTransacoesUseCaseTest {
     private ListarTransacoesUseCase useCase;
 
     private Transacao criarTransacao(Long contaId) {
-        return new Transacao(new ContaFinanceira(contaId, "C1"), TipoTransacao.GASTO,
+        return new Transacao(new ContaFinanceira(contaId, "C1"),
                 new BigDecimal("50.00"), LocalDate.now(), 1L, "CAT001", OrigemTransacao.manual);
     }
 

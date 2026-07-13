@@ -156,8 +156,9 @@ public class BeanConfig {
     // ── Transacao ────────────────────────────────────────────────────────
     @Bean
     public CriarTransacaoUseCase criarTransacaoUseCase(TransacaoRepositoryPort repository,
-                                                        ContaFinanceiraRepositoryPort contaRepository) {
-        return new CriarTransacaoUseCase(repository, contaRepository);
+                                                        ContaFinanceiraRepositoryPort contaRepository,
+                                                        CategoriaRepositoryPort categoriaRepository) {
+        return new CriarTransacaoUseCase(repository, contaRepository, categoriaRepository);
     }
 
     @Bean

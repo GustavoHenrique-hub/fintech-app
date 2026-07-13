@@ -7,7 +7,7 @@ import com.enterprise.gustadev.fintech_app.application.transacao.usecase.ListarT
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusRevisaoTransacao;
-import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoTransacao;
+import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoCategoria;
 import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -58,11 +58,13 @@ class TransacaoControllerTest {
     }
 
     private Transacao transacaoCompleta(Long id, Long contaId) {
-        return new Transacao(id, new ContaFinanceira(contaId, "C1"), "N",
-                TipoTransacao.GASTO, null, new BigDecimal("150.00"),
+        Transacao transacao = new Transacao(id, new ContaFinanceira(contaId, "C1"), "N",
+                null, new BigDecimal("150.00"),
                 LocalDate.now(), 1L, "CAT001", null, OrigemTransacao.manual,
                 StatusRevisaoTransacao.EXTRAIDA, null, false,
                 null, null, 1, null, null, null);
+        transacao.setCategoriaTipo(TipoCategoria.GASTO);
+        return transacao;
     }
 
     @Test
@@ -78,7 +80,6 @@ class TransacaoControllerTest {
                                 {
                                   "contaId": "%s",
                                   "contaCode": "C1",
-                                  "tipo": "GASTO",
                                   "valor": 150.00,
                                   "dataTransacao": "%s",
                                   "categoriaId": 1,

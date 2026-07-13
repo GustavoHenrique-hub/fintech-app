@@ -89,14 +89,17 @@ export const AddTransactionScreen = () => {
 
     // Alinhado ao TransacaoRequestDTO do backend: exige usuarioCode e contaCode
     // (ambos @NotNull) e o campo se chama `descricao` (não `descricaoUsuario`).
+    // O backend não recebe mais `tipo`: a direção é derivada da categoria.
+    // Para categoria "ambos" (ex.: Outros), o sinal de valor desempata.
     const categoriaSelecionada = categorias.find((c) => c.id === categoriaId);
+    const categoriaEhAmbos = normTipo(categoriaSelecionada?.tipo) === "ambos";
+    const valorEnviado = categoriaEhAmbos && tipo === "GASTO" ? -Math.abs(valor) : Math.abs(valor);
     criarTransacao({
       usuarioId: usuario?.id ?? user?.idUsuario,
       usuarioCode: user?.usuarioCode,
       contaId: contaPadrao?.id ?? null,
       contaCode: contaPadrao?.code ?? null,
-      tipo,
-      valor,
+      valor: valorEnviado,
       dataTransacao: data.toISOString().slice(0, 10),
       descricao: descricao || null,
       categoriaId,

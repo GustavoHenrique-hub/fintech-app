@@ -32,7 +32,7 @@ public record TransacaoResponseDTO(
                 domain.getConta().getId(),
                 domain.getConta().getCode(),
                 domain.getIndEstorno(),
-                domain.getTipo().name(),
+                domain.tipoEfetivo().name(),
                 domain.getDescricao(),
                 domain.getValor(),
                 domain.getDataTransacao(),

@@ -244,86 +244,88 @@ SELECT motivo_id INTO v_mot_usr FROM motivos_cancelamento WHERE motivo_code = v_
 
 -- ════════════════════════════════════════════════════════════
 --  9. TRANSACOES  → FK composta para contas_financeiras e categorias
---     tipo: 'RECEITA' | 'GASTO'
+--     Direção (RECEITA/GASTO) não é mais coluna própria: é derivada da
+--     categoria (v_cat_*). Para categoria AMBOS (ex.: v_cat_out/"Outros"),
+--     o sinal de valor desempata (negativo = gasto, positivo = receita).
 --     status_revisao: 'EXTRAIDA' | 'PENDENTE_REVISAO' | 'CONFIRMADA' etc.
 --     ind_estorno: 'S' = sim, 'N' = não
 -- ════════════════════════════════════════════════════════════
 
 -- Gastos (vindos de extrato → ficam em PENDENTE_REVISAO aguardando revisão do usuário)
 INSERT INTO transacoes (
-  conta_id, conta_code, tipo, descricao, estabelecimento,
+  conta_id, conta_code, descricao, estabelecimento,
   valor, data_transacao, criado_em,
   categoria_id, categoria_code, origem, status_revisao, ind_estorno,
   transacoes_code, versao
 ) VALUES
-  (v_conta_nub, v_conta_nub_code, 'GASTO', 'COMPRA 02/05 PAGUE MENOS SP', 'Pague Menos',
+  (v_conta_nub, v_conta_nub_code, 'COMPRA 02/05 PAGUE MENOS SP', 'Pague Menos',
    347.89, '2025-05-02', v_now,
    v_cat_sup, v_cat_sup_code, 'pdf', 'PENDENTE_REVISAO', 'N', 'TX0001', 1),
 
-  (v_conta_nub, v_conta_nub_code, 'GASTO', 'COMPRA 04/05 IFOOD*RESTAURANTE SP', 'iFood',
+  (v_conta_nub, v_conta_nub_code, 'COMPRA 04/05 IFOOD*RESTAURANTE SP', 'iFood',
    58.90, '2025-05-04', v_now,
    v_cat_del, v_cat_del_code, 'pdf', 'PENDENTE_REVISAO', 'N', 'TX0002', 1),
 
-  (v_conta_nub, v_conta_nub_code, 'GASTO', 'COMPRA 05/05 UBER *TRIP SP', 'Uber',
+  (v_conta_nub, v_conta_nub_code, 'COMPRA 05/05 UBER *TRIP SP', 'Uber',
    34.70, '2025-05-05', v_now,
    v_cat_ube, v_cat_ube_code, 'pdf', 'PENDENTE_REVISAO', 'N', 'TX0003', 1),
 
-  (v_conta_nub, v_conta_nub_code, 'GASTO', 'COMPRA 07/05 NETFLIX.COM SP', 'Netflix',
+  (v_conta_nub, v_conta_nub_code, 'COMPRA 07/05 NETFLIX.COM SP', 'Netflix',
    55.90, '2025-05-07', v_now,
    v_cat_net, v_cat_net_code, 'pdf', 'PENDENTE_REVISAO', 'N', 'TX0004', 1),
 
-  (v_conta_nub, v_conta_nub_code, 'GASTO', 'COMPRA 10/05 DROGA RAIA SP', 'Droga Raia',
+  (v_conta_nub, v_conta_nub_code, 'COMPRA 10/05 DROGA RAIA SP', 'Droga Raia',
    89.50, '2025-05-10', v_now,
    v_cat_far, v_cat_far_code, 'pdf', 'PENDENTE_REVISAO', 'N', 'TX0005', 1);
 
 -- Gastos manuais (usuário lançou → já confirmados)
 INSERT INTO transacoes (
-  conta_id, conta_code, tipo, descricao, estabelecimento,
+  conta_id, conta_code, descricao, estabelecimento,
   valor, data_transacao, criado_em,
   categoria_id, categoria_code, origem, status_revisao, ind_estorno,
   transacoes_code, versao
 ) VALUES
-  (v_conta_ita, v_conta_ita_code, 'GASTO', 'ENEL SP ENERGIA ELETRICA', 'ENEL SP',
+  (v_conta_ita, v_conta_ita_code, 'ENEL SP ENERGIA ELETRICA', 'ENEL SP',
    180.00, '2025-05-12', v_now,
    v_cat_ene, v_cat_ene_code, 'manual', 'CONFIRMADA', 'N', 'TX0006', 1),
 
-  (v_conta_car, v_conta_car_code, 'GASTO', 'LANCHONETE ESQUINA', 'Lanchonete Esquina',
+  (v_conta_car, v_conta_car_code, 'LANCHONETE ESQUINA', 'Lanchonete Esquina',
    22.00, '2025-05-22', v_now,
    v_cat_sup, v_cat_sup_code, 'manual', 'CONFIRMADA', 'N', 'TX0007', 1);
 
--- Transação que será cancelada
+-- Transação que será cancelada (categoria "Outros" = AMBOS; valor negativo = gasto)
 INSERT INTO transacoes (
-  conta_id, conta_code, tipo, descricao, estabelecimento,
+  conta_id, conta_code, descricao, estabelecimento,
   valor, data_transacao, criado_em,
   categoria_id, categoria_code, origem, status_revisao, confianca_ia, ind_estorno,
   transacoes_code, versao
 ) VALUES (
-  v_conta_nub, v_conta_nub_code, 'GASTO', 'COMPRA 20/05 AMAZON MKTPLC SP', 'Amazon',
-  215.00, '2025-05-20', v_now,
+  v_conta_nub, v_conta_nub_code, 'COMPRA 20/05 AMAZON MKTPLC SP', 'Amazon',
+  -215.00, '2025-05-20', v_now,
   v_cat_out, v_cat_out_code, 'pdf', 'PENDENTE_REVISAO', 45, 'N',
   v_tx_amz_code, 1
 ) RETURNING transacoes_id INTO v_tx_amz;
 
 -- Receitas do João
 INSERT INTO transacoes (
-  conta_id, conta_code, tipo, descricao,
+  conta_id, conta_code, descricao,
   valor, data_transacao, criado_em,
   categoria_id, categoria_code, origem, status_revisao, ind_estorno,
   recorrente, periodo_recorrencia, transacoes_code, versao
 ) VALUES (
-  v_conta_ita, v_conta_ita_code, 'RECEITA', 'Salário Maio/2025',
+  v_conta_ita, v_conta_ita_code, 'Salário Maio/2025',
   6800.00, '2025-05-05', v_now,
   v_cat_sal, v_cat_sal_code, 'manual', 'CONFIRMADA', 'N',
   TRUE, '2025-06-05', v_tx_sal_code, 1
 ) RETURNING transacoes_id INTO v_tx_sal;
 
 INSERT INTO transacoes (
-  conta_id, conta_code, tipo, descricao,
+  conta_id, conta_code, descricao,
   valor, data_transacao, criado_em,
   categoria_id, categoria_code, origem, status_revisao, ind_estorno,
   recorrente, transacoes_code, versao
 ) VALUES (
-  v_conta_nub, v_conta_nub_code, 'RECEITA', 'Projeto Web — Cliente ABC',
+  v_conta_nub, v_conta_nub_code, 'Projeto Web — Cliente ABC',
   1500.00, '2025-05-15', v_now,
   v_cat_fre, v_cat_fre_code, 'manual', 'CONFIRMADA', 'N',
   FALSE, 'TX0010', 1
@@ -331,24 +333,24 @@ INSERT INTO transacoes (
 
 -- Transações da Ana
 INSERT INTO transacoes (
-  conta_id, conta_code, tipo, descricao,
+  conta_id, conta_code, descricao,
   valor, data_transacao, criado_em,
   categoria_id, categoria_code, origem, status_revisao, ind_estorno,
   recorrente, periodo_recorrencia, transacoes_code, versao
 ) VALUES (
-  v_conta_ana, v_conta_ana_code, 'RECEITA', 'Salário Maio/2025',
+  v_conta_ana, v_conta_ana_code, 'Salário Maio/2025',
   4500.00, '2025-05-05', v_now,
   v_cat_sal, v_cat_sal_code, 'manual', 'CONFIRMADA', 'N',
   TRUE, '2025-06-05', 'TX0011', 1
 );
 
 INSERT INTO transacoes (
-  conta_id, conta_code, tipo, descricao, estabelecimento,
+  conta_id, conta_code, descricao, estabelecimento,
   valor, data_transacao, criado_em,
   categoria_id, categoria_code, origem, status_revisao, ind_estorno,
   transacoes_code, versao
 ) VALUES (
-  v_conta_ana, v_conta_ana_code, 'GASTO', 'SUPERMERCADO EXTRA SP', 'Extra',
+  v_conta_ana, v_conta_ana_code, 'SUPERMERCADO EXTRA SP', 'Extra',
   290.50, '2025-05-08', v_now,
   v_cat_sup, v_cat_sup_code, 'manual', 'CONFIRMADA', 'N',
   'TX0012', 1

@@ -9,7 +9,6 @@ import com.enterprise.gustadev.fintech_app.application.transacao.usecase.Estorna
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.ListarTransacoesUseCase;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;
-import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoTransacao;
 import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -43,7 +42,7 @@ public class TransacaoController {
         this.estornarUseCase = estornarUseCase;
     }
 
-    @Operation(summary = "Criar transação", description = "Registra uma nova transação financeira. Os campos tipo e origem devem conter valores válidos dos enums TipoTransacao e OrigemTransacao.")
+    @Operation(summary = "Criar transação", description = "Registra uma nova transação financeira. O campo origem deve conter um valor válido do enum OrigemTransacao. A direção (receita/gasto) é derivada da categoria informada; para categorias do tipo AMBOS, o sinal de valor decide (negativo = gasto).")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Transação criada com sucesso"),
             @ApiResponse(responseCode = "400", description = "Dados inválidos na requisição")
@@ -53,7 +52,6 @@ public class TransacaoController {
         ContaFinanceira conta = new ContaFinanceira(dto.contaId(), dto.contaCode());
         Transacao transacao = new Transacao(
                 conta,
-                TipoTransacao.valueOf(dto.tipo()),
                 dto.valor(), dto.dataTransacao(),
                 dto.categoriaId(),
                 dto.categoriaCode(),

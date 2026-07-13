@@ -20,7 +20,7 @@ Base analisada: domínios atuais (`Usuario`, `Banco`, `ContaFinanceira`, `Catego
 ## 2. Categoria e CategoriaThreshold
 
 - **Categorias padrão (`padrao=true`) são read-only**: o usuário pode duplicar/clonar, mas não editar nem excluir as do sistema.
-- **Tipo da categoria precisa casar com tipo da transação**: GASTO só aceita categoria do tipo despesa; RECEITA só categoria de receita. Validar no momento da classificação.
+- **Transação não tem mais campo `tipo` próprio**: a direção (RECEITA/GASTO) é derivada da categoria vinculada (`Transacao.tipoEfetivo()`). Categoria RECEITA/GASTO implica a mesma direção na transação, com `valor` sempre positivo. Categoria `AMBOS` (ex.: "Outros") é a exceção: o sinal de `valor` desempata (negativo = gasto, positivo = receita).
 - **Threshold como gatilho de revisão automática**:
   - Se `confiancaIa >= thresholdAuto` → status vai direto para `CLASSIFICADA`.
   - Se entre `thresholdAlerta` e `thresholdAuto` → `PENDENTE_REVISAO`.

@@ -35,7 +35,7 @@ public class EstornarTransacaoUseCase {
                     ContaFinanceira conta = contaRepository.buscarPorId(original.getConta().getId())
                             .orElseThrow(() -> new ContaFinanceiraInvalidaException(
                                     "Conta financeira não encontrada: " + original.getConta().getId()));
-                    conta.reverterTransacao(original.getTipo(), original.getValor());
+                    conta.reverterTransacao(original.tipoEfetivo(), original.getValor().abs());
                     contaRepository.salvar(conta);
 
                     return estornoSalvo;

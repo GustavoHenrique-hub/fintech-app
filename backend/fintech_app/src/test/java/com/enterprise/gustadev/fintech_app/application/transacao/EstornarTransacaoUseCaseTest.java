@@ -5,6 +5,7 @@ import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFin
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.port.ContaFinanceiraRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusRevisaoTransacao;
+import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoCategoria;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoConta;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoTransacao;
 import com.enterprise.gustadev.fintech_app.domain.transacao.exception.TransacaoNaoEncontradaException;
@@ -43,11 +44,13 @@ class EstornarTransacaoUseCaseTest {
     private EstornarTransacaoUseCase useCase;
 
     private Transacao original() {
-        return new Transacao(10L, new ContaFinanceira(2L, "C1"), "N",
-                TipoTransacao.GASTO, "desc", new BigDecimal("100.00"),
+        Transacao transacao = new Transacao(10L, new ContaFinanceira(2L, "C1"), "N",
+                "desc", new BigDecimal("100.00"),
                 LocalDate.now(), 5L, "CAT001", null, OrigemTransacao.manual,
                 StatusRevisaoTransacao.EXTRAIDA, null, false,
                 null, null, 1, null, OffsetDateTime.now(), null);
+        transacao.setCategoriaTipo(TipoCategoria.GASTO);
+        return transacao;
     }
 
     private ContaFinanceira contaComSaldo(Long id) {
@@ -72,7 +75,7 @@ class EstornarTransacaoUseCaseTest {
         assertThat(estorno.getIndEstorno()).isEqualTo("S");
         assertThat(estorno.getTransacaoEstornadaId()).isEqualTo(10L);
         assertThat(estorno.getValor()).isEqualByComparingTo("100.00");
-        assertThat(estorno.getTipo()).isEqualTo(TipoTransacao.GASTO);
+        assertThat(estorno.tipoEfetivo()).isEqualTo(TipoTransacao.GASTO);
         verify(contaRepository).buscarPorId(2L);
         verify(contaRepository).salvar(any());
     }
