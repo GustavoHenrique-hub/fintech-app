@@ -102,8 +102,6 @@
   "100": "Auto Commit.ps1",
   "101": "HELP",
   "102": "Transactional",
-  "103": "TransacaoRequestDTO.java",
-  "104": "ApiResponse",
   "105": "Before Each",
   "106": "Mock Mvc",
   "107": "Application.yaml",
@@ -148,7 +146,6 @@
   "146": "README #2",
   "147": "Watch And Commit.ps1",
   "148": "ListarTransacoesUseCaseTest.java",
-  "149": "ExtratoTest",
   "150": "transacoes Table Schema Recommendation",
   "151": "FinSight — Frontend",
   "152": "categorias Table Schema (hierarquia pai/filho)",
@@ -177,15 +174,5 @@
   "175": "AuditoriaEvento Business Rules (append-only)",
   "176": "Todo-list Vite+React Boilerplate README",
   "177": "Branch Strategy (main/develop/feature/hotfix)",
-  "178": "FinTech App Technology Stack",
-  "179": "GetMapping",
-  "180": "Operation",
-  "181": "PatchMapping",
-  "182": "PostMapping",
-  "183": "RequestMapping",
-  "184": "ResponseEntity",
-  "185": "RestController",
-  "186": "Tag",
-  "187": "Bean",
-  "188": "Configuration"
+  "178": "FinTech App Technology Stack"
 }

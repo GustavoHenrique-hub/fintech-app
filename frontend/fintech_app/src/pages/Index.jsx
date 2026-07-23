@@ -48,7 +48,10 @@ const Index = () => {
             {screen === "home" && <OverviewScreen onNavigate={setScreen} />}
             {screen === "analytics" && <AnalyticsScreen />}
             {screen === "payments" && (
-              <TransactionsScreen onAbrirEstorno={() => setScreen("estorno")} />
+              <TransactionsScreen
+                onAbrirEstorno={() => setScreen("estorno")}
+                onNavigate={setScreen}
+              />
             )}
             {screen === "add" && <AddTransactionScreen />}
             {screen === "estorno" && <EstornoTransacaoScreen />}

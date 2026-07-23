@@ -81,11 +81,16 @@ public class TransacaoRepositoryAdapter implements TransacaoRepositoryPort {
     public ResumoPeriodo somarPorUsuarioContaNoPeriodo(Long usuarioId, String usuarioCode,
                                                         Long contaId, String contaCode,
                                                         LocalDate inicio, LocalDate fim) {
-        Object[] resultado = jpaRepository.somarPorUsuarioContaNoPeriodo(
+        // A query agrega sem GROUP BY, então sempre retorna exatamente uma linha —
+        // mas o Spring Data JPA só projeta corretamente múltiplas colunas escalares
+        // quando o método é declarado como List<Object[]> (Object[] direto expõe o
+        // array da linha aninhado, e o cast para BigDecimal falha em runtime).
+        List<Object[]> resultado = jpaRepository.somarPorUsuarioContaNoPeriodo(
                 usuarioId, usuarioCode, contaId, contaCode, inicio, fim,
                 TipoCategoria.RECEITA, TipoCategoria.GASTO, TipoCategoria.AMBOS);
+        Object[] linha = resultado.get(0);
         return new ResumoPeriodo(usuarioId, contaId, inicio, fim,
-                (BigDecimal) resultado[0], (BigDecimal) resultado[1]);
+                (BigDecimal) linha[0], (BigDecimal) linha[1]);
     }
 
     /**

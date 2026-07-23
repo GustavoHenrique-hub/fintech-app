@@ -82,7 +82,7 @@ public interface TransacaoJpaRepository extends JpaRepository<TransacaoEntity, L
           AND t.estornadoAt IS NULL
           AND t.indEstorno = 'N'
     """)
-    Object[] somarPorUsuarioContaNoPeriodo(
+    List<Object[]> somarPorUsuarioContaNoPeriodo(
             @Param("usuarioId") Long usuarioId,
             @Param("usuarioCode") String usuarioCode,
             @Param("contaId") Long contaId,

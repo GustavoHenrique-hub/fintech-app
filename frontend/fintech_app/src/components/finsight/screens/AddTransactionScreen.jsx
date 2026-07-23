@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { InputMonetario } from "@/components/ui/input-monetario";
 import { Combobox } from "@/components/ui/combobox";
 import { DatePicker } from "@/components/ui/date-picker";
+import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "@/hooks/use-toast";
 
 export const AddTransactionScreen = () => {
@@ -24,9 +25,11 @@ export const AddTransactionScreen = () => {
 
   const queryClient = useQueryClient();
   const { user } = useAuth();
-  const { data: usuario } = useUsuario();
-  const { contas, contaAtual } = useContaSelecionada();
-  const { data: categorias = [] } = useCategorias();
+  const { data: usuario, isLoading: loadingUsuario } = useUsuario();
+  const { contas, contaAtual, loadingContas } = useContaSelecionada();
+  const { data: categorias = [], isLoading: loadingCategorias } = useCategorias();
+
+  const isLoading = loadingUsuario || loadingContas || loadingCategorias;
 
   // Pré-seleciona a conta ativa (a mesma da Overview) assim que carregar,
   // mas o usuário pode trocar para outra conta antes de salvar.
@@ -123,6 +126,28 @@ export const AddTransactionScreen = () => {
       observacao: null,
     });
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex-1 min-h-0 overflow-y-auto px-4 sm:px-5 lg:px-8 pt-4 lg:pt-8 pb-6 lg:pb-10 no-scrollbar">
+        <div className="max-w-2xl mx-auto w-full space-y-5">
+          <div className="flex items-center justify-between">
+            <Skeleton className="h-7 w-40 rounded-lg" />
+            <Skeleton className="h-8 w-20 rounded-lg" />
+          </div>
+          <Skeleton className="h-11 w-full rounded-2xl" />
+          <Skeleton className="h-32 w-full rounded-2xl" />
+          <Skeleton className="h-10 w-full rounded-xl" />
+          <Skeleton className="h-10 w-full rounded-xl" />
+          <div className="grid sm:grid-cols-2 gap-3">
+            <Skeleton className="h-10 w-full rounded-xl" />
+            <Skeleton className="h-10 w-full rounded-xl" />
+          </div>
+          <Skeleton className="h-12 w-full rounded-xl" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex-1 min-h-0 overflow-y-auto px-4 sm:px-5 lg:px-8 pt-4 lg:pt-8 pb-6 lg:pb-10 no-scrollbar">

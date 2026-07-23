@@ -870,13 +870,13 @@
     "semantic_hash": ""
   },
   "frontend/fintech_app/src/components/finsight/VincularBancoModal.jsx": {
-    "mtime": 1783969695.947386,
-    "ast_hash": "28fa7f42694fee78a0e443003735f4e1",
+    "mtime": 1784817346.7255733,
+    "ast_hash": "0ce3cba52eb99da8e7fba9f3c8d4b334",
     "semantic_hash": ""
   },
   "frontend/fintech_app/src/components/finsight/screens/AddTransactionScreen.jsx": {
-    "mtime": 1784815906.1790452,
-    "ast_hash": "895f59e263c5dcbae657e3077db7b84c",
+    "mtime": 1784817336.1778946,
+    "ast_hash": "188aaab6689ccc889652cd7ed5176b43",
     "semantic_hash": ""
   },
   "frontend/fintech_app/src/components/finsight/screens/AnalyticsScreen.jsx": {
@@ -900,8 +900,8 @@
     "semantic_hash": "203493a3a5ebc8c8b158fd8cff0e958c"
   },
   "frontend/fintech_app/src/components/finsight/screens/TransactionsScreen.jsx": {
-    "mtime": 1784816073.9875865,
-    "ast_hash": "853a67c9cd40b25fe9310917d9fba10c",
+    "mtime": 1784819616.9523473,
+    "ast_hash": "f26c4c702d5a61577d05ead367e0dba0",
     "semantic_hash": ""
   },
   "frontend/fintech_app/src/components/ui/button.jsx": {
@@ -1100,8 +1100,8 @@
     "semantic_hash": "c2b00c3ea6d344ad74f6a88b2ed5584c"
   },
   "frontend/fintech_app/src/pages/Index.jsx": {
-    "mtime": 1784815681.992939,
-    "ast_hash": "88132d3853f22003923d86dab7834665",
+    "mtime": 1784819622.5503788,
+    "ast_hash": "fa278d4c0efc17f11c5d113e9c6db686",
     "semantic_hash": ""
   },
   "frontend/fintech_app/src/pages/NotFound.jsx": {
@@ -1519,64 +1519,9 @@
     "ast_hash": "90c9b2988cab6b3cf62db87ca73be121",
     "semantic_hash": ""
   },
-  "docs/ajustar_movimenta\u00e7\u00e3o.png": {
-    "mtime": 1784813539.1935022,
-    "ast_hash": "5f81e202bc41f6b5bd85909f117de847",
-    "semantic_hash": ""
-  },
-  "docs/ao_trocar_filtrar.png": {
-    "mtime": 1784812156.5013804,
-    "ast_hash": "3929ce831955800cb933dc8f38527879",
-    "semantic_hash": ""
-  },
-  "docs/atalhos_funcionais_adicionar_atalhos.png": {
-    "mtime": 1784813641.4060924,
-    "ast_hash": "110681204bb2d90cccd0cbe55a336edd",
-    "semantic_hash": ""
-  },
-  "docs/atividade_recente_ver_tudo.png": {
-    "mtime": 1784813899.11456,
-    "ast_hash": "cc7bd7cc97c964d186d39e70b3968854",
-    "semantic_hash": ""
-  },
-  "docs/atualizar_status.png": {
-    "mtime": 1784812305.471374,
-    "ast_hash": "6c658455e25cd80df0080dca276c7976",
-    "semantic_hash": ""
-  },
-  "docs/campo_selecao_da_conta.png": {
-    "mtime": 1784812119.2632003,
-    "ast_hash": "289de2d4bf729452db5f5992805b0782",
-    "semantic_hash": ""
-  },
-  "docs/filtragem_dos_dados.png": {
-    "mtime": 1784812004.869654,
-    "ast_hash": "dbd3418f2533366c359a978ea1336d75",
-    "semantic_hash": ""
-  },
-  "docs/filtro_grafico_overview.png": {
-    "mtime": 1784813610.8150077,
-    "ast_hash": "3a9b8fb9c74cf567bb2c98d656d37803",
-    "semantic_hash": ""
-  },
-  "docs/filtro_para_todas_as_contas.png": {
-    "mtime": 1784812081.2123027,
-    "ast_hash": "e6bddbe8d137b5b4af0e0be2788050e7",
-    "semantic_hash": ""
-  },
-  "docs/remover_alertas.png": {
-    "mtime": 1784813508.7279124,
-    "ast_hash": "b97d44d31e46b46f5f6a98ced6f79c20",
-    "semantic_hash": ""
-  },
-  "docs/suggestion_box_pesquisa_tela.png": {
-    "mtime": 1784813660.0685766,
-    "ast_hash": "9b57d05acaf27117555206879fb83640",
-    "semantic_hash": ""
-  },
-  "docs/tela_transacoes_por_conta.png": {
-    "mtime": 1784812049.139341,
-    "ast_hash": "1a721b9de4e5ad145b3cc97777a12f23",
+  "docs/ajuste_funcionamento.png": {
+    "mtime": 1784819544.16929,
+    "ast_hash": "6771a7d159e57de109d04d364e417aa2",
     "semantic_hash": ""
   }
 }

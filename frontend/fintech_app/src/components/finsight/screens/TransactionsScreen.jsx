@@ -176,7 +176,7 @@ function FiltrosModal({ open, onOpenChange, rascunho, setRascunho, categorias, o
   );
 }
 
-export const TransactionsScreen = ({ onAbrirEstorno }) => {
+export const TransactionsScreen = ({ onAbrirEstorno, onNavigate }) => {
   const [query, setQuery] = useState("");
   const [filtros, setFiltros] = useState(FILTROS_PADRAO);
   const [rascunho, setRascunho] = useState(FILTROS_PADRAO);
@@ -321,7 +321,7 @@ export const TransactionsScreen = ({ onAbrirEstorno }) => {
               filtroAtivo ? (
                 <Button variant="secondary" onClick={limparFiltros}>Limpar filtros</Button>
               ) : (
-                <Button>Nova transação</Button>
+                <Button onClick={() => onNavigate?.("add")}>Nova transação</Button>
               )
             }
           />

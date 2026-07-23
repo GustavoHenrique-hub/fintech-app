@@ -11,6 +11,7 @@ import { bancoService, contaFinanceiraService } from "@/services";
 import { useAuth } from "@/context/AuthContext";
 import { getBancoLogoUrl, getBancoColor } from "@/lib/banco-utils";
 import { toast } from "@/hooks/use-toast";
+import { SkeletonRow } from "@/components/ui/skeleton";
 
 const TIPOS_CONTA = [
   { value: "corrente",     label: "Corrente" },
@@ -137,9 +138,12 @@ export function VincularBancoModal({ open, onOpenChange }) {
           {/* Lista de bancos */}
           <div className="max-h-[220px] overflow-y-auto rounded-2xl border border-border divide-y divide-border bg-card">
             {isLoading ? (
-              <div className="py-8 text-center text-[13px] text-muted-foreground">
-                Carregando bancos...
-              </div>
+              <>
+                <SkeletonRow />
+                <SkeletonRow />
+                <SkeletonRow />
+                <SkeletonRow />
+              </>
             ) : bancosFiltrados.length === 0 ? (
               <div className="py-8 text-center text-[13px] text-muted-foreground">
                 Nenhum banco encontrado
