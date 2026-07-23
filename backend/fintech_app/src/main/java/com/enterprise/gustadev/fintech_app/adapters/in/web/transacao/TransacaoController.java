@@ -1,8 +1,10 @@
 package com.enterprise.gustadev.fintech_app.adapters.in.web.transacao;
 
 import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.EstornarTransacaoRequestDTO;
+import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.ResumoPeriodoResponseDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.TransacaoRequestDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.TransacaoResponseDTO;
+import com.enterprise.gustadev.fintech_app.application.transacao.usecase.BuscarResumoPeriodoUseCase;
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.BuscarTransacaoUseCase;
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.CriarTransacaoUseCase;
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.EstornarTransacaoUseCase;
@@ -20,6 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 @Tag(name = "Transações", description = "Registro e consulta de transações financeiras (débito, crédito, transferência)")
@@ -31,15 +34,18 @@ public class TransacaoController {
     private final ListarTransacoesUseCase listarUseCase;
     private final BuscarTransacaoUseCase buscarUseCase;
     private final EstornarTransacaoUseCase estornarUseCase;
+    private final BuscarResumoPeriodoUseCase resumoPeriodoUseCase;
 
     public TransacaoController(CriarTransacaoUseCase criarUseCase,
                                ListarTransacoesUseCase listarUseCase,
                                BuscarTransacaoUseCase buscarUseCase,
-                               EstornarTransacaoUseCase estornarUseCase) {
+                               EstornarTransacaoUseCase estornarUseCase,
+                               BuscarResumoPeriodoUseCase resumoPeriodoUseCase) {
         this.criarUseCase = criarUseCase;
         this.listarUseCase = listarUseCase;
         this.buscarUseCase = buscarUseCase;
         this.estornarUseCase = estornarUseCase;
+        this.resumoPeriodoUseCase = resumoPeriodoUseCase;
     }
 
     @Operation(summary = "Criar transação", description = "Registra uma nova transação financeira. O campo origem deve conter um valor válido do enum OrigemTransacao. A direção (receita/gasto) é derivada da categoria informada; para categorias do tipo AMBOS, o sinal de valor decide (negativo = gasto).")
@@ -111,5 +117,21 @@ public class TransacaoController {
                 idTransacoes, transacoesCode,
                 dto.contaId(), dto.contaCode());
         return ResponseEntity.ok(TransacaoResponseDTO.fromDomain(estornada));
+    }
+
+    @Operation(summary = "Resumo por período e conta",
+            description = "Soma o total de receitas e gastos de uma conta em um intervalo de datas arbitrário " +
+                    "(semana, mês, ano ou qualquer outro período). Transações estornadas não entram na soma.")
+    @ApiResponse(responseCode = "200", description = "Resumo calculado com sucesso")
+    @GetMapping("/resumo-periodo")
+    public ResponseEntity<ResumoPeriodoResponseDTO> resumoPeriodo(
+            @Parameter(description = "ID do usuário") @RequestParam Long usuarioId,
+            @Parameter(description = "Código do usuário") @RequestParam String usuarioCode,
+            @Parameter(description = "ID da conta") @RequestParam Long contaId,
+            @Parameter(description = "Código da conta") @RequestParam String contaCode,
+            @Parameter(description = "Início do período (inclusive)") @RequestParam LocalDate inicio,
+            @Parameter(description = "Fim do período (inclusive)") @RequestParam LocalDate fim) {
+        return ResponseEntity.ok(ResumoPeriodoResponseDTO.fromDomain(
+                resumoPeriodoUseCase.executar(usuarioId, usuarioCode, contaId, contaCode, inicio, fim)));
     }
 }

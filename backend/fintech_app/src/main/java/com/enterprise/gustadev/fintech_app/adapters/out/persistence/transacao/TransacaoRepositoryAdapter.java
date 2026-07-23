@@ -2,6 +2,8 @@ package com.enterprise.gustadev.fintech_app.adapters.out.persistence.transacao;
 
 import com.enterprise.gustadev.fintech_app.adapters.out.persistence.categoria.CategoriaEntity;
 import com.enterprise.gustadev.fintech_app.adapters.out.persistence.contafinanceira.ContaFinanceiraEntity;
+import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoCategoria;
+import com.enterprise.gustadev.fintech_app.domain.transacao.model.ResumoPeriodo;
 import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;
 import com.enterprise.gustadev.fintech_app.domain.transacao.port.TransacaoRepositoryPort;
 import jakarta.persistence.EntityManager;
@@ -9,6 +11,7 @@ import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -72,6 +75,17 @@ public class TransacaoRepositoryAdapter implements TransacaoRepositoryPort {
     public Optional<Transacao> buscarEstornoDe(Long transacaoEstornadaId) {
         return jpaRepository.findByTransacaoEstornadaId(transacaoEstornadaId)
                 .map(TransacaoEntity::toDomain);
+    }
+
+    @Override
+    public ResumoPeriodo somarPorUsuarioContaNoPeriodo(Long usuarioId, String usuarioCode,
+                                                        Long contaId, String contaCode,
+                                                        LocalDate inicio, LocalDate fim) {
+        Object[] resultado = jpaRepository.somarPorUsuarioContaNoPeriodo(
+                usuarioId, usuarioCode, contaId, contaCode, inicio, fim,
+                TipoCategoria.RECEITA, TipoCategoria.GASTO, TipoCategoria.AMBOS);
+        return new ResumoPeriodo(usuarioId, contaId, inicio, fim,
+                (BigDecimal) resultado[0], (BigDecimal) resultado[1]);
     }
 
     /**

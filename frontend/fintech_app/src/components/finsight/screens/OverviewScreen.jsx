@@ -1,16 +1,17 @@
 import { useState, useMemo, useRef, useEffect } from "react";
 import {
   ChevronDown, ArrowUpRight, ArrowDownLeft, TrendingUp, TrendingDown,
-  PiggyBank, Plus, Send, CreditCard, Eye, EyeOff, Check,
+  PiggyBank, Plus, Eye, EyeOff, Check,
 } from "lucide-react";
 
 import { BalanceChart } from "../BalanceChart";
 import { VincularBancoModal } from "../VincularBancoModal";
 import { useUsuario } from "@/hooks/use-usuario";
-import { useContas } from "@/hooks/use-contas";
-import { useSnapshots } from "@/hooks/use-snapshots";
+import { useContaSelecionada } from "@/context/ContaSelecionadaContext";
 import { useTransacoes } from "@/hooks/use-transacoes";
 import { useCategorias } from "@/hooks/use-categorias";
+import { useResumoPeriodo } from "@/hooks/use-resumo-periodo";
+import { getIntervaloPeriodo } from "@/lib/periodo";
 import { formatBRL, formatNumeroBR, formatBRLSigned, formatDataRelativa } from "@/lib/format";
 import { getIconeCategoria } from "@/lib/categoria-icones";
 import { getBancoColor, getBancoLogoUrl } from "@/lib/banco-utils";
@@ -18,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton, SkeletonChart } from "@/components/ui/skeleton";
 
 const ranges = ["Semana", "Mês", "Ano"];
+const PERIODO_LABEL = { Semana: "7 dias", "Mês": "30 dias", Ano: "12 meses" };
 
 // Tipo de conta → label legível
 const TIPO_LABEL = {
@@ -134,52 +136,48 @@ function ContaSelector({ contas, contaSelecionada, onChange, onVincular }) {
   );
 }
 
-export const OverviewScreen = () => {
+export const OverviewScreen = ({ onNavigate }) => {
   const [range, setRange] = useState("Semana");
   const [saldoOculto, setSaldoOculto] = useState(false);
-  const [contaSelecionada, setContaSelecionada] = useState(null);
   const [modalBancoAberto, setModalBancoAberto] = useState(false);
 
   const { data: usuario, isLoading: loadingUsuario } = useUsuario();
-  const { data: contas = [], isLoading: loadingContas } = useContas();
-  const { data: snapshots = [], isLoading: loadingSnapshots } = useSnapshots();
+  const { contas, contaAtual, setContaSelecionada, loadingContas } = useContaSelecionada();
   const { data: transacoes = [], isLoading: loadingTransacoes } = useTransacoes();
   const { data: categorias = [], isLoading: loadingCategorias } = useCategorias();
 
-  const isLoading = loadingUsuario || loadingContas || loadingSnapshots || loadingTransacoes || loadingCategorias;
+  // Resumo do mês corrente, escopado à conta ativa — alimenta o hero card e os KPIs.
+  const intervaloMes = useMemo(() => getIntervaloPeriodo("Mês"), []);
+  const { data: resumoMes, isLoading: loadingResumo } = useResumoPeriodo({
+    conta: contaAtual, ...intervaloMes,
+  });
+
+  const isLoading =
+    loadingUsuario || loadingContas || loadingTransacoes || loadingCategorias || loadingResumo;
 
   const categoriasPorId = useMemo(
     () => Object.fromEntries(categorias.map((c) => [c.id, c])),
     [categorias],
   );
 
-  // Conta padrão: selecionada pelo usuário ou a marcada como padrão no banco
-  const contaPadrao = useMemo(
-    () => contas.find((c) => c.padrao) ?? contas[0] ?? null,
-    [contas],
+  // Transações da conta ativa — base para atividade recente e para o gráfico.
+  const transacoesDaConta = useMemo(
+    () => transacoes.filter((t) => t.contaId === contaAtual?.id),
+    [transacoes, contaAtual],
   );
 
-  // A conta exibida é a selecionada manualmente ou a padrão do backend
-  const contaAtual = contaSelecionada ?? contaPadrao;
-
-  const snapshotAtual = useMemo(
-    () => snapshots.find((s) => !s.fechado)
-      ?? [...snapshots].sort((a, b) => a.ano !== b.ano ? b.ano - a.ano : b.mes - a.mes)[0]
-      ?? null,
-    [snapshots],
-  );
+  const totalReceitas = Number(resumoMes?.totalReceitas ?? 0);
+  const totalGastos = Number(resumoMes?.totalGastos ?? 0);
+  const economia = totalReceitas - totalGastos;
 
   const variacao = useMemo(() => {
-    if (!snapshotAtual) return "0.0";
-    const { totalReceitas, totalGastos } = snapshotAtual;
-    const net = Number(totalReceitas) - Number(totalGastos);
-    const base = Number(totalReceitas) || 1;
-    return ((net / base) * 100).toFixed(1);
-  }, [snapshotAtual]);
+    const base = totalReceitas || 1;
+    return ((economia / base) * 100).toFixed(1);
+  }, [totalReceitas, economia]);
 
   const recentes = useMemo(
-    () => [...transacoes].sort((a, b) => (a.dataTransacao < b.dataTransacao ? 1 : -1)).slice(0, 3),
-    [transacoes],
+    () => [...transacoesDaConta].sort((a, b) => (a.dataTransacao < b.dataTransacao ? 1 : -1)).slice(0, 3),
+    [transacoesDaConta],
   );
 
   const primeiroNome = usuario?.nome?.split(" ")[0] ?? "";
@@ -300,9 +298,9 @@ export const OverviewScreen = () => {
       {/* KPIs horizontais */}
       <section className="grid grid-cols-3 gap-2 lg:gap-4">
         {[
-          { label: "Receitas", value: snapshotAtual?.totalReceitas ?? 0,   up: true,  icon: ArrowUpRight,  bg: "bg-surface-green",  color: "text-success" },
-          { label: "Gastos",   value: snapshotAtual?.totalGastos ?? 0,     up: false, icon: ArrowDownLeft, bg: "bg-surface-pink",   color: "text-destructive" },
-          { label: "Economia", value: (snapshotAtual?.totalReceitas ?? 0) - (snapshotAtual?.totalGastos ?? 0), up: true, icon: PiggyBank, bg: "bg-surface-purple", color: "text-primary" },
+          { label: "Receitas", value: totalReceitas, up: true,  icon: ArrowUpRight,  bg: "bg-surface-green",  color: "text-success" },
+          { label: "Gastos",   value: totalGastos,    up: false, icon: ArrowDownLeft, bg: "bg-surface-pink",   color: "text-destructive" },
+          { label: "Economia", value: economia,       up: true, icon: PiggyBank, bg: "bg-surface-purple", color: "text-primary" },
         ].map((k) => {
           const Icon = k.icon;
           const Trend = k.up ? TrendingUp : TrendingDown;
@@ -318,31 +316,11 @@ export const OverviewScreen = () => {
               <div className={`flex items-center gap-0.5 mt-1 text-[10px] lg:text-[11.5px] font-bold ${k.up ? "text-success" : "text-destructive"}`}>
                 <Trend className="w-2.5 h-2.5" strokeWidth={3} />
                 {k.up ? "+" : "−"}
-                {Math.abs(((k.value / (Number(snapshotAtual?.totalReceitas) || 1)) * 100)).toFixed(1)}%
+                {Math.abs(((k.value / (totalReceitas || 1)) * 100)).toFixed(1)}%
               </div>
             </div>
           );
         })}
-      </section>
-
-      {/* ── Atalhos rápidos ────────────────────────────────────────── */}
-      <section className="grid grid-cols-4 gap-2 lg:gap-3 lg:max-w-xl">
-        {[
-          { icon: Send,         label: "Transferir", color: "bg-surface-purple text-primary" },
-          { icon: Plus,         label: "Receber",    color: "bg-surface-green text-success" },
-          { icon: ArrowDownLeft,label: "Cobrar",     color: "bg-surface-yellow text-foreground" },
-          { icon: CreditCard,   label: "Pagar",      color: "bg-surface-pink text-destructive" },
-        ].map(({ icon: Icon, label, color }) => (
-          <button
-            key={label}
-            className="flex flex-col items-center gap-1.5 active:scale-95 transition-transform group"
-          >
-            <div className={`w-12 h-12 rounded-2xl ${color} flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform`}>
-              <Icon className="w-[18px] h-[18px]" strokeWidth={2.25} />
-            </div>
-            <span className="text-[10.5px] font-semibold text-foreground">{label}</span>
-          </button>
-        ))}
       </section>
 
       {/* ── Card do gráfico ────────────────────────────────────────── */}
@@ -350,7 +328,7 @@ export const OverviewScreen = () => {
         <div className="flex items-center justify-between">
           <div>
             <p className="section-label">Saldo nos últimos dias</p>
-            <p className="text-[12.5px] text-muted-foreground mt-0.5">7 dias · vs período anterior</p>
+            <p className="text-[12.5px] text-muted-foreground mt-0.5">{PERIODO_LABEL[range]} · vs período anterior</p>
           </div>
           <div className="inline-flex bg-secondary rounded-full p-0.5">
             {ranges.map((r) => (
@@ -368,7 +346,11 @@ export const OverviewScreen = () => {
         </div>
 
         <div className="mt-3">
-          <BalanceChart transacoes={transacoes} saldoFinal={Number(snapshotAtual?.saldoFinal ?? 0)} />
+          <BalanceChart
+            transacoes={transacoesDaConta}
+            saldoFinal={Number(contaAtual?.saldoAtual ?? 0)}
+            range={range}
+          />
         </div>
       </section>
 
@@ -376,7 +358,7 @@ export const OverviewScreen = () => {
       <section>
         <div className="flex items-center justify-between mb-2">
           <p className="section-label">Atividade recente</p>
-          <Button variant="ghost" size="sm">Ver tudo</Button>
+          <Button variant="ghost" size="sm" onClick={() => onNavigate?.("payments")}>Ver tudo</Button>
         </div>
         <div className="card-soft divide-y divide-border">
           {recentes.map((t) => {

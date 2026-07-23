@@ -177,6 +177,11 @@ public class BeanConfig {
         return new EstornarTransacaoUseCase(repository, contaRepository);
     }
 
+    @Bean
+    public BuscarResumoPeriodoUseCase buscarResumoPeriodoUseCase(TransacaoRepositoryPort repository) {
+        return new BuscarResumoPeriodoUseCase(repository);
+    }
+
     // ── MotivoCancelamento ───────────────────────────────────────────────
     @Bean
     public ListarMotivosCancelamentoUseCase listarMotivosCancelamentoUseCase(MotivoCancelamentoRepositoryPort repository) {

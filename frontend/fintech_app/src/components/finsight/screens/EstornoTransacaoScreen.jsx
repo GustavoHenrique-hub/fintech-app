@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import {
-  RotateCcw, Inbox, AlertTriangle, CheckCircle2, XCircle, Info,
+  RotateCcw, Inbox, Info,
   Search, X,
 } from "lucide-react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -155,36 +155,6 @@ export const EstornoTransacaoScreen = () => {
           <RotateCcw className="w-5 h-5" strokeWidth={2.25} />
         </div>
       </div>
-
-      {/* Painel de testes de alerta */}
-      <section className="card-soft p-3 lg:p-4">
-        <div className="flex items-center justify-between gap-2">
-          <div>
-            <p className="section-label">Testar alertas</p>
-            <p className="text-[11.5px] text-muted-foreground mt-0.5">
-              Dispara as 4 variantes sem afetar dados reais.
-            </p>
-          </div>
-        </div>
-        <div className="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-2">
-          <Button variant="primary" size="sm" leftIcon={CheckCircle2}
-            onClick={() => toast.success({ title: "Operação concluída", description: "Tudo certo — sem pendências." })}>
-            Sucesso
-          </Button>
-          <Button variant="secondary" size="sm" leftIcon={AlertTriangle}
-            onClick={() => toast.warning({ title: "Atenção", description: "Alguns campos precisam ser revisados antes de continuar." })}>
-            Aviso
-          </Button>
-          <Button variant="danger" size="sm" leftIcon={XCircle}
-            onClick={() => toast.error({ title: "Ocorreu um erro", description: "Não foi possível concluir a operação. Tente novamente." })}>
-            Erro
-          </Button>
-          <Button variant="secondary" size="sm" leftIcon={Info}
-            onClick={() => toast.info({ title: "Informação", description: "O estorno pode levar até 2 dias úteis para refletir." })}>
-            Info
-          </Button>
-        </div>
-      </section>
 
       {/* Busca */}
       <div className="relative">

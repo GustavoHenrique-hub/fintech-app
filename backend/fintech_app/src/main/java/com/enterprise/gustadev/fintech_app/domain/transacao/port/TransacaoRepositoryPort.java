@@ -1,5 +1,6 @@
 package com.enterprise.gustadev.fintech_app.domain.transacao.port;
 
+import com.enterprise.gustadev.fintech_app.domain.transacao.model.ResumoPeriodo;
 import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;
 
 import java.time.LocalDate;
@@ -15,4 +16,6 @@ public interface TransacaoRepositoryPort {
     Optional<Transacao> buscarPorIdECode(Long id, String code);
     Optional<Transacao> buscarTransacao(Long id, String code, Long contaId, String contaCode);
     Optional<Transacao> buscarEstornoDe(Long transacaoEstornadaId);
+    ResumoPeriodo somarPorUsuarioContaNoPeriodo(Long usuarioId, String usuarioCode,
+                                                 Long contaId, String contaCode, LocalDate inicio, LocalDate fim);
 }

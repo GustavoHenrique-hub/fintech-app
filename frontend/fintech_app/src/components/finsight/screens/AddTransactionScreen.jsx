@@ -1,9 +1,9 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { ArrowUpRight, ArrowDownLeft, Save } from "lucide-react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { useUsuario } from "@/hooks/use-usuario";
-import { useContas } from "@/hooks/use-contas";
+import { useContaSelecionada } from "@/context/ContaSelecionadaContext";
 import { useCategorias } from "@/hooks/use-categorias";
 import { transacaoService } from "@/services";
 import { useAuth } from "@/context/AuthContext";
@@ -17,6 +17,7 @@ export const AddTransactionScreen = () => {
   const [tipo, setTipo] = useState("GASTO");
   const [valor, setValor] = useState(undefined);
   const [categoriaId, setCategoriaId] = useState(undefined);
+  const [contaId, setContaId] = useState(undefined);
   const [data, setData] = useState(new Date());
   const [descricao, setDescricao] = useState("");
   const [touched, setTouched] = useState(false);
@@ -24,11 +25,22 @@ export const AddTransactionScreen = () => {
   const queryClient = useQueryClient();
   const { user } = useAuth();
   const { data: usuario } = useUsuario();
-  const { data: contas = [] } = useContas();
+  const { contas, contaAtual } = useContaSelecionada();
   const { data: categorias = [] } = useCategorias();
 
-  const contaPadrao = useMemo(
-    () => contas.find((c) => c.padrao) ?? contas[0] ?? null,
+  // Pré-seleciona a conta ativa (a mesma da Overview) assim que carregar,
+  // mas o usuário pode trocar para outra conta antes de salvar.
+  useEffect(() => {
+    if (contaId === undefined && contaAtual?.id !== undefined) setContaId(contaAtual.id);
+  }, [contaId, contaAtual]);
+
+  const contaSelecionada = useMemo(
+    () => contas.find((c) => c.id === contaId) ?? null,
+    [contas, contaId],
+  );
+
+  const itensConta = useMemo(
+    () => contas.map((c) => ({ id: c.id, label: c.nome ?? c.banco })),
     [contas],
   );
 
@@ -46,12 +58,14 @@ export const AddTransactionScreen = () => {
 
   const erroValor    = touched && (!valor || valor <= 0);
   const erroCategoria = touched && !categoriaId;
-  const formularioValido = !!valor && valor > 0 && !!categoriaId;
+  const erroConta    = touched && !contaId;
+  const formularioValido = !!valor && valor > 0 && !!categoriaId && !!contaId;
 
   const resetar = () => {
     setTipo("GASTO");
     setValor(undefined);
     setCategoriaId(undefined);
+    setContaId(contaAtual?.id);
     setData(new Date());
     setDescricao("");
     setTouched(false);
@@ -65,7 +79,7 @@ export const AddTransactionScreen = () => {
       queryClient.invalidateQueries({ queryKey: ["contas", user?.idUsuario] });
       toast.success({
         title: "Transação registrada",
-        description: `${tipo === "RECEITA" ? "Receita" : "Gasto"} salvo em ${contaPadrao?.nome ?? "conta"}.`,
+        description: `${tipo === "RECEITA" ? "Receita" : "Gasto"} salvo em ${contaSelecionada?.nome ?? "conta"}.`,
       });
       resetar();
     },
@@ -82,7 +96,7 @@ export const AddTransactionScreen = () => {
     if (!formularioValido) {
       toast.warning({
         title: "Verifique os campos",
-        description: "Preencha o valor e selecione uma categoria.",
+        description: "Preencha o valor e selecione uma conta e uma categoria.",
       });
       return;
     }
@@ -97,8 +111,8 @@ export const AddTransactionScreen = () => {
     criarTransacao({
       usuarioId: usuario?.id ?? user?.idUsuario,
       usuarioCode: user?.usuarioCode,
-      contaId: contaPadrao?.id ?? null,
-      contaCode: contaPadrao?.code ?? null,
+      contaId: contaSelecionada?.id ?? null,
+      contaCode: contaSelecionada?.code ?? null,
       valor: valorEnviado,
       dataTransacao: data.toISOString().slice(0, 10),
       descricao: descricao || null,
@@ -166,7 +180,24 @@ export const AddTransactionScreen = () => {
           </p>
         ) : (
           <p className="text-[11px] text-muted-foreground mt-2 text-center">
-            BRL · {contaPadrao?.banco ?? "—"}
+            BRL · {contaSelecionada?.banco ?? "—"}
+          </p>
+        )}
+      </div>
+
+      <div className="mt-5">
+        <label className="section-label">Conta</label>
+        <div className="mt-1.5">
+          <Combobox
+            items={itensConta}
+            value={contaId}
+            onChange={setContaId}
+            placeholder="Selecione uma conta"
+          />
+        </div>
+        {erroConta && (
+          <p className="text-[11.5px] text-destructive mt-1.5 font-medium">
+            Selecione uma conta
           </p>
         )}
       </div>

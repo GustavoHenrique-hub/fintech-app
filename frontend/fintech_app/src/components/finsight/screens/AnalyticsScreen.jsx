@@ -4,11 +4,43 @@ import { TrendingUp, TrendingDown, Sparkles, AlertTriangle, Lightbulb } from "lu
 import { useSnapshots } from "@/hooks/use-snapshots";
 import { useTransacoes } from "@/hooks/use-transacoes";
 import { useCategorias } from "@/hooks/use-categorias";
+import { useContaSelecionada } from "@/context/ContaSelecionadaContext";
+import { useResumoPeriodo } from "@/hooks/use-resumo-periodo";
+import { getIntervaloPeriodo, getIntervaloPeriodoAnterior, filtrarPorIntervalo } from "@/lib/periodo";
 import { formatBRL, formatNumeroBR } from "@/lib/format";
 import { ConfidenceBar } from "@/components/ui/confidence-bar";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const ranges = ["Semana", "Mês", "Ano"];
+const DIAS_LABEL = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+const MES_ABREV = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+
+// Soma receitas/gastos por dia entre `inicioStr` e `fimStr` (strings "yyyy-MM-dd").
+// `labelFn` decide o rótulo de cada ponto (dia da semana, ou dia do mês esparso).
+function bucketsDiarios(transacoes, inicioStr, fimStr, labelFn) {
+  const dias = [];
+  let cursor = new Date(`${inicioStr}T12:00:00`);
+  const fimDate = new Date(`${fimStr}T12:00:00`);
+  while (cursor <= fimDate) {
+    dias.push(cursor.toISOString().slice(0, 10));
+    cursor = new Date(cursor.getFullYear(), cursor.getMonth(), cursor.getDate() + 1);
+  }
+
+  const receitasSerie = dias.map((d) =>
+    transacoes
+      .filter((t) => t.dataTransacao === d && t.tipo === "RECEITA")
+      .reduce((acc, t) => acc + Number(t.valor), 0),
+  );
+  const gastosSerie = dias.map((d) =>
+    transacoes
+      .filter((t) => t.dataTransacao === d && t.tipo === "GASTO")
+      .reduce((acc, t) => acc + Number(t.valor), 0),
+  );
+  const n = dias.length;
+  const labels = dias.map((d, i) => labelFn(new Date(`${d}T12:00:00`), i, n));
+
+  return { receitasSerie, gastosSerie, labels };
+}
 
 function Donut({ fatias }) {
   const radius = 42;
@@ -67,7 +99,7 @@ function LineChart({ receitas, gastos, labels }) {
         <path d={toPath(gastos)} fill="none" stroke="hsl(var(--destructive))" strokeWidth="2.5" strokeLinecap="round" />
       </svg>
       <div className="flex justify-between text-[9.5px] text-muted-foreground font-medium mt-1.5 px-0.5">
-        {labels.map((l) => <span key={l}>{l}</span>)}
+        {labels.map((l, i) => <span key={i}>{l}</span>)}
       </div>
     </div>
   );
@@ -76,70 +108,80 @@ function LineChart({ receitas, gastos, labels }) {
 export const AnalyticsScreen = () => {
   const [range, setRange] = useState("Mês");
 
+  const { contaAtual, loadingContas } = useContaSelecionada();
   const { data: snapshots = [], isLoading: loadingSnap } = useSnapshots();
   const { data: transacoes = [], isLoading: loadingTx } = useTransacoes();
   const { data: categorias = [], isLoading: loadingCat } = useCategorias();
 
-  const isLoading = loadingSnap || loadingTx || loadingCat;
+  const intervaloAtual = useMemo(() => getIntervaloPeriodo(range), [range]);
+  const intervaloAnterior = useMemo(() => getIntervaloPeriodoAnterior(range), [range]);
+
+  const { data: resumoAtual, isLoading: loadingResumoAtual } = useResumoPeriodo({
+    conta: contaAtual, ...intervaloAtual,
+  });
+  const { data: resumoAnterior, isLoading: loadingResumoAnterior } = useResumoPeriodo({
+    conta: contaAtual, inicio: intervaloAnterior.inicio, fim: intervaloAnterior.fim,
+  });
+
+  const isLoading =
+    loadingContas || loadingSnap || loadingTx || loadingCat || loadingResumoAtual || loadingResumoAnterior;
 
   const categoriasPorId = useMemo(
     () => Object.fromEntries(categorias.map((c) => [c.id, c])),
     [categorias],
   );
 
+  // Transações da conta ativa — base para o gráfico (Semana/Mês) e para o donut.
+  const transacoesDaConta = useMemo(
+    () => transacoes.filter((t) => t.contaId === contaAtual?.id),
+    [transacoes, contaAtual],
+  );
+
   const { receitasSerie, gastosSerie, labels } = useMemo(() => {
-    const ord = [...snapshots].sort((a, b) =>
-      a.ano !== b.ano ? a.ano - b.ano : a.mes - b.mes,
-    );
-    const ultimos = ord.slice(-7);
-    const mesAbrev = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
-    return {
-      receitasSerie: ultimos.map((s) => Number(s.totalReceitas)),
-      gastosSerie:   ultimos.map((s) => Number(s.totalGastos)),
-      labels:        ultimos.map((s) => mesAbrev[s.mes - 1]),
-    };
-  }, [snapshots]);
+    if (range === "Ano") {
+      // Mantém a granularidade mensal (snapshots), agora escopada à conta ativa.
+      const snapsDaConta = snapshots.filter((s) => s.contaId === contaAtual?.id);
+      const ord = [...snapsDaConta].sort((a, b) =>
+        a.ano !== b.ano ? a.ano - b.ano : a.mes - b.mes,
+      );
+      const ultimos = ord.slice(-7);
+      return {
+        receitasSerie: ultimos.map((s) => Number(s.totalReceitas)),
+        gastosSerie: ultimos.map((s) => Number(s.totalGastos)),
+        labels: ultimos.map((s) => MES_ABREV[s.mes - 1]),
+      };
+    }
 
-  const ultimoSnap = useMemo(() => {
-    if (!snapshots.length) return null;
-    return [...snapshots].sort((a, b) => {
-      if (!a.fechado && b.fechado) return -1;
-      if (a.fechado && !b.fechado) return 1;
-      return a.ano !== b.ano ? b.ano - a.ano : b.mes - a.mes;
-    })[0];
-  }, [snapshots]);
+    const labelFn = range === "Semana"
+      ? (d) => DIAS_LABEL[d.getDay()]
+      : (d, i, n) => (i % Math.max(1, Math.ceil(n / 6)) === 0 || i === n - 1
+          ? String(d.getDate()).padStart(2, "0")
+          : "");
+    return bucketsDiarios(transacoesDaConta, intervaloAtual.inicio, intervaloAtual.fim, labelFn);
+  }, [range, snapshots, transacoesDaConta, contaAtual, intervaloAtual]);
 
-  const penultimoSnap = useMemo(() => {
-    if (snapshots.length < 2) return null;
-    const fechados = [...snapshots]
-      .filter((s) => s.fechado)
-      .sort((a, b) => a.ano !== b.ano ? b.ano - a.ano : b.mes - a.mes);
-    return fechados[0] ?? null;
-  }, [snapshots]);
-
-  const totalReceitas = Number(ultimoSnap?.totalReceitas ?? 0);
-  const totalGastos   = Number(ultimoSnap?.totalGastos ?? 0);
+  const totalReceitas = Number(resumoAtual?.totalReceitas ?? 0);
+  const totalGastos   = Number(resumoAtual?.totalGastos ?? 0);
   const economia      = totalReceitas - totalGastos;
   const economiaPct   = ((economia / (totalReceitas || 1)) * 100).toFixed(0);
 
-  const receitasTrend = penultimoSnap
-    ? (((totalReceitas - Number(penultimoSnap.totalReceitas)) / (Number(penultimoSnap.totalReceitas) || 1)) * 100).toFixed(0)
+  const receitasAnterior = Number(resumoAnterior?.totalReceitas ?? 0);
+  const gastosAnterior   = Number(resumoAnterior?.totalGastos ?? 0);
+
+  const receitasTrend = resumoAnterior
+    ? (((totalReceitas - receitasAnterior) / (receitasAnterior || 1)) * 100).toFixed(0)
     : null;
-  const gastosTrend = penultimoSnap
-    ? (((totalGastos - Number(penultimoSnap.totalGastos)) / (Number(penultimoSnap.totalGastos) || 1)) * 100).toFixed(0)
+  const gastosTrend = resumoAnterior
+    ? (((totalGastos - gastosAnterior) / (gastosAnterior || 1)) * 100).toFixed(0)
     : null;
 
   const fatias = useMemo(() => {
-    if (!ultimoSnap) return [];
-    const gastosMes = transacoes.filter(
-      (t) =>
-        t.tipo === "GASTO" &&
-        t.dataTransacao.startsWith(`${ultimoSnap.ano}-${String(ultimoSnap.mes).padStart(2, "0")}`),
-    );
-    const totalMes = gastosMes.reduce((acc, t) => acc + Number(t.valor), 0) || 1;
+    const gastosPeriodo = filtrarPorIntervalo(transacoesDaConta, intervaloAtual.inicio, intervaloAtual.fim)
+      .filter((t) => t.tipo === "GASTO");
+    const totalPeriodo = gastosPeriodo.reduce((acc, t) => acc + Number(t.valor), 0) || 1;
 
     const porCat = new Map();
-    for (const t of gastosMes) {
+    for (const t of gastosPeriodo) {
       const cat = categoriasPorId[t.categoriaId];
       const chave = cat?.parentId ?? cat?.id;
       const catRef = categoriasPorId[chave] ?? cat;
@@ -155,15 +197,15 @@ export const AnalyticsScreen = () => {
         nome: c.nome,
         cor: c.corHex,
         total: c.total,
-        pct: (c.total / totalMes) * 100,
+        pct: (c.total / totalPeriodo) * 100,
       }))
       .sort((a, b) => b.total - a.total);
-  }, [ultimoSnap, transacoes, categoriasPorId]);
+  }, [transacoesDaConta, intervaloAtual, categoriasPorId]);
 
   const totalGastosCat = fatias.reduce((acc, f) => acc + f.total, 0);
 
   const confiancaMedia =
-    transacoes.reduce((acc, t) => acc + (t.confiancaIa ?? 0), 0) / (transacoes.length || 1);
+    transacoesDaConta.reduce((acc, t) => acc + (t.confiancaIa ?? 0), 0) / (transacoesDaConta.length || 1);
 
   if (isLoading) {
     return (
@@ -255,7 +297,9 @@ export const AnalyticsScreen = () => {
         <div className="flex items-center justify-between">
           <div>
             <p className="section-label">Receitas vs Gastos</p>
-            <p className="text-[12px] text-muted-foreground mt-0.5">Últimos 7 períodos</p>
+            <p className="text-[12px] text-muted-foreground mt-0.5">
+              {range === "Ano" ? "Últimos 7 períodos" : `Período: ${range}`}
+            </p>
           </div>
           <div className="flex items-center gap-3 text-[10.5px]">
             <span className="flex items-center gap-1 text-muted-foreground">

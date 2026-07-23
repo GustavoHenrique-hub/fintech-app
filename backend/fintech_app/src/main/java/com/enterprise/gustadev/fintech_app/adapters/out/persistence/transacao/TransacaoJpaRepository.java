@@ -1,5 +1,6 @@
 package com.enterprise.gustadev.fintech_app.adapters.out.persistence.transacao;
 
+import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoCategoria;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -55,5 +56,41 @@ public interface TransacaoJpaRepository extends JpaRepository<TransacaoEntity, L
             @Param("code") String code,
             @Param("contaId") Long contaId,
             @Param("contaCode") String contaCode);
+
+    /**
+     * Direção efetiva replica {@link com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao#tipoEfetivo()}:
+     * categoria AMBOS decide pelo sinal de {@code t.valor}. Estornos (indEstorno='S') e
+     * transações já estornadas (estornadoAt preenchido) ficam de fora da soma.
+     */
+    @Query("""
+        SELECT
+          COALESCE(SUM(CASE
+              WHEN c.tipo = :receita OR (c.tipo = :ambos AND t.valor > 0) THEN t.valor
+              ELSE 0 END), 0),
+          COALESCE(SUM(CASE
+              WHEN c.tipo = :gasto OR (c.tipo = :ambos AND t.valor < 0) THEN -t.valor
+              ELSE 0 END), 0)
+        FROM TransacaoEntity t
+        JOIN t.conta co
+        JOIN t.categoria c
+        WHERE co.usuarioId = :usuarioId
+          AND co.usuarioCode = :usuarioCode
+          AND co.id = :contaId
+          AND co.code = :contaCode
+          AND t.dataTransacao BETWEEN :inicio AND :fim
+          AND t.deletedAt IS NULL
+          AND t.estornadoAt IS NULL
+          AND t.indEstorno = 'N'
+    """)
+    Object[] somarPorUsuarioContaNoPeriodo(
+            @Param("usuarioId") Long usuarioId,
+            @Param("usuarioCode") String usuarioCode,
+            @Param("contaId") Long contaId,
+            @Param("contaCode") String contaCode,
+            @Param("inicio") LocalDate inicio,
+            @Param("fim") LocalDate fim,
+            @Param("receita") TipoCategoria receita,
+            @Param("gasto") TipoCategoria gasto,
+            @Param("ambos") TipoCategoria ambos);
 
 }
