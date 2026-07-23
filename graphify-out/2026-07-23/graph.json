@@ -1193,7 +1193,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_contafinanceira_contafinanceiracontroller_contafinanceiracontroller_contafinanceiracontroller",
-      "community": 32,
+      "community": 20,
       "norm_label": ".contafinanceiracontroller()"
     },
     {
@@ -1383,7 +1383,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_exception_globalexceptionhandler",
-      "community": 102,
+      "community": 6,
       "norm_label": "globalexceptionhandler.java"
     },
     {
@@ -1393,7 +1393,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_exception_globalexceptionhandler_globalexceptionhandler",
-      "community": 102,
+      "community": 6,
       "norm_label": "globalexceptionhandler"
     },
     {
@@ -1403,7 +1403,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "restcontrolleradvice",
-      "community": 102,
+      "community": 6,
       "norm_label": "restcontrolleradvice"
     },
     {
@@ -1413,7 +1413,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_exception_globalexceptionhandler_globalexceptionhandler_handlecredenciaisinvalidas",
-      "community": 102,
+      "community": 6,
       "norm_label": ".handlecredenciaisinvalidas()"
     },
     {
@@ -1423,7 +1423,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_exception_globalexceptionhandler_java_responseentity",
-      "community": 102,
+      "community": 6,
       "norm_label": "responseentity"
     },
     {
@@ -1433,7 +1433,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "exceptionhandler",
-      "community": 102,
+      "community": 6,
       "norm_label": "exceptionhandler"
     },
     {
@@ -1443,7 +1443,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_exception_globalexceptionhandler_globalexceptionhandler_handlenaoencontrada",
-      "community": 102,
+      "community": 6,
       "norm_label": ".handlenaoencontrada()"
     },
     {
@@ -1453,7 +1453,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_exception_globalexceptionhandler_globalexceptionhandler_handleinvalida",
-      "community": 102,
+      "community": 6,
       "norm_label": ".handleinvalida()"
     },
     {
@@ -1513,7 +1513,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_extrato_extratocontroller_extratocontroller_extratocontroller",
-      "community": 7,
+      "community": 16,
       "norm_label": ".extratocontroller()"
     },
     {
@@ -2320,7 +2320,7 @@
       "label": "TransacaoController",
       "file_type": "code",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L27",
+      "source_location": "L28",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller",
       "community": 18,
@@ -2360,17 +2360,17 @@
       "label": ".TransacaoController()",
       "file_type": "code",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L38",
+      "source_location": "L39",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_transacaocontroller",
-      "community": 18,
+      "community": 3,
       "norm_label": ".transacaocontroller()"
     },
     {
       "label": ".criar()",
       "file_type": "code",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L50",
+      "source_location": "L51",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_criar",
       "community": 18,
@@ -2420,7 +2420,7 @@
       "label": ".listarPorUsuario()",
       "file_type": "code",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L72",
+      "source_location": "L73",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_listarporusuario",
       "community": 18,
@@ -2450,7 +2450,7 @@
       "label": ".listarPorConta()",
       "file_type": "code",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L81",
+      "source_location": "L82",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_listarporconta",
       "community": 18,
@@ -2460,7 +2460,7 @@
       "label": ".buscarPorId()",
       "file_type": "code",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L90",
+      "source_location": "L91",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_buscarporid",
       "community": 18,
@@ -2470,7 +2470,7 @@
       "label": ".estornar()",
       "file_type": "code",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L103",
+      "source_location": "L104",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_estornar",
       "community": 18,
@@ -2487,14 +2487,14 @@
       "norm_label": "patchmapping"
     },
     {
-      "label": ".resumoMensal()",
+      "label": ".resumoPeriodo()",
       "file_type": "code",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L121",
+      "source_location": "L122",
       "_origin": "ast",
-      "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_resumomensal",
+      "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_resumoperiodo",
       "community": 18,
-      "norm_label": ".resumomensal()"
+      "norm_label": ".resumoperiodo()"
     },
     {
       "label": "EstornarTransacaoRequestDTO.java",
@@ -2517,33 +2517,33 @@
       "norm_label": "estornartransacaorequestdto"
     },
     {
-      "label": "ResumoMensalResponseDTO.java",
+      "label": "ResumoPeriodoResponseDTO.java",
       "file_type": "code",
-      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/dto/ResumoMensalResponseDTO.java",
+      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/dto/ResumoPeriodoResponseDTO.java",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_resumomensalresponsedto",
-      "community": 18,
-      "norm_label": "resumomensalresponsedto.java"
+      "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_resumoperiodoresponsedto",
+      "community": 3,
+      "norm_label": "resumoperiodoresponsedto.java"
     },
     {
-      "label": "ResumoMensalResponseDTO",
+      "label": "ResumoPeriodoResponseDTO",
       "file_type": "code",
-      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/dto/ResumoMensalResponseDTO.java",
-      "source_location": "L7",
+      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/dto/ResumoPeriodoResponseDTO.java",
+      "source_location": "L8",
       "_origin": "ast",
-      "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_resumomensalresponsedto_resumomensalresponsedto",
+      "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_resumoperiodoresponsedto_resumoperiodoresponsedto",
       "community": 18,
-      "norm_label": "resumomensalresponsedto"
+      "norm_label": "resumoperiodoresponsedto"
     },
     {
       "label": ".fromDomain()",
       "file_type": "code",
-      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/dto/ResumoMensalResponseDTO.java",
-      "source_location": "L16",
+      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/dto/ResumoPeriodoResponseDTO.java",
+      "source_location": "L17",
       "_origin": "ast",
-      "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_resumomensalresponsedto_resumomensalresponsedto_fromdomain",
-      "community": 26,
+      "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_resumoperiodoresponsedto_resumoperiodoresponsedto_fromdomain",
+      "community": 3,
       "norm_label": ".fromdomain()"
     },
     {
@@ -2573,7 +2573,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_transacaoresponsedto",
-      "community": 18,
+      "community": 13,
       "norm_label": "transacaoresponsedto.java"
     },
     {
@@ -2593,7 +2593,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_transacaoresponsedto_transacaoresponsedto_fromdomain",
-      "community": 18,
+      "community": 26,
       "norm_label": ".fromdomain()"
     },
     {
@@ -2653,7 +2653,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacaocancelada_transacaocanceladacontroller_transacaocanceladacontroller_transacaocanceladacontroller",
-      "community": 104,
+      "community": 9,
       "norm_label": ".transacaocanceladacontroller()"
     },
     {
@@ -2983,7 +2983,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_auth_usecase_loginusecase",
-      "community": 5,
+      "community": 6,
       "norm_label": "loginusecase.java"
     },
     {
@@ -3013,7 +3013,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_auth_usecase_loginusecase_loginusecase_executar",
-      "community": 5,
+      "community": 6,
       "norm_label": ".executar()"
     },
     {
@@ -3393,7 +3393,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_usecase_buscarcontafinanceirausecase_buscarcontafinanceirausecase",
-      "community": 23,
+      "community": 20,
       "norm_label": "buscarcontafinanceirausecase"
     },
     {
@@ -3403,7 +3403,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_usecase_buscarcontafinanceirausecase_buscarcontafinanceirausecase_buscarcontafinanceirausecase",
-      "community": 23,
+      "community": 32,
       "norm_label": ".buscarcontafinanceirausecase()"
     },
     {
@@ -3413,7 +3413,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_usecase_buscarcontafinanceirausecase_buscarcontafinanceirausecase_executar",
-      "community": 23,
+      "community": 15,
       "norm_label": ".executar()"
     },
     {
@@ -3463,7 +3463,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_usecase_listarcontasfinanceirasusecase",
-      "community": 32,
+      "community": 35,
       "norm_label": "listarcontasfinanceirasusecase.java"
     },
     {
@@ -3473,7 +3473,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_usecase_listarcontasfinanceirasusecase_listarcontasfinanceirasusecase",
-      "community": 32,
+      "community": 35,
       "norm_label": "listarcontasfinanceirasusecase"
     },
     {
@@ -3483,7 +3483,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_usecase_listarcontasfinanceirasusecase_listarcontasfinanceirasusecase_listarcontasfinanceirasusecase",
-      "community": 32,
+      "community": 35,
       "norm_label": ".listarcontasfinanceirasusecase()"
     },
     {
@@ -3493,7 +3493,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_usecase_listarcontasfinanceirasusecase_listarcontasfinanceirasusecase_executar",
-      "community": 32,
+      "community": 35,
       "norm_label": ".executar()"
     },
     {
@@ -3503,7 +3503,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_usecase_removercontafinanceirausecase",
-      "community": 32,
+      "community": 42,
       "norm_label": "removercontafinanceirausecase.java"
     },
     {
@@ -3513,7 +3513,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_usecase_removercontafinanceirausecase_removercontafinanceirausecase",
-      "community": 32,
+      "community": 42,
       "norm_label": "removercontafinanceirausecase"
     },
     {
@@ -3523,7 +3523,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_usecase_removercontafinanceirausecase_removercontafinanceirausecase_removercontafinanceirausecase",
-      "community": 32,
+      "community": 42,
       "norm_label": ".removercontafinanceirausecase()"
     },
     {
@@ -3533,7 +3533,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_usecase_removercontafinanceirausecase_removercontafinanceirausecase_executar",
-      "community": 32,
+      "community": 42,
       "norm_label": ".executar()"
     },
     {
@@ -3543,7 +3543,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_usecase_removercontafinanceirausecase_java_transactional",
-      "community": 32,
+      "community": 42,
       "norm_label": "transactional"
     },
     {
@@ -3593,7 +3593,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_usecase_criarextratousecase",
-      "community": 32,
+      "community": 7,
       "norm_label": "criarextratousecase.java"
     },
     {
@@ -3603,7 +3603,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_usecase_criarextratousecase_criarextratousecase",
-      "community": 32,
+      "community": 106,
       "norm_label": "criarextratousecase"
     },
     {
@@ -3613,7 +3613,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_usecase_criarextratousecase_criarextratousecase_criarextratousecase",
-      "community": 32,
+      "community": 7,
       "norm_label": ".criarextratousecase()"
     },
     {
@@ -3683,7 +3683,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_usecase_removerextratousecase_removerextratousecase",
-      "community": 7,
+      "community": 16,
       "norm_label": "removerextratousecase"
     },
     {
@@ -3957,43 +3957,43 @@
       "norm_label": ".executar()"
     },
     {
-      "label": "BuscarResumoMensalUseCase.java",
+      "label": "BuscarResumoPeriodoUseCase.java",
       "file_type": "code",
-      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/BuscarResumoMensalUseCase.java",
+      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/BuscarResumoPeriodoUseCase.java",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumomensalusecase",
-      "community": 26,
-      "norm_label": "buscarresumomensalusecase.java"
+      "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumoperiodousecase",
+      "community": 3,
+      "norm_label": "buscarresumoperiodousecase.java"
     },
     {
-      "label": "BuscarResumoMensalUseCase",
+      "label": "BuscarResumoPeriodoUseCase",
       "file_type": "code",
-      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/BuscarResumoMensalUseCase.java",
-      "source_location": "L6",
+      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/BuscarResumoPeriodoUseCase.java",
+      "source_location": "L8",
       "_origin": "ast",
-      "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumomensalusecase_buscarresumomensalusecase",
-      "community": 18,
-      "norm_label": "buscarresumomensalusecase"
+      "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumoperiodousecase_buscarresumoperiodousecase",
+      "community": 3,
+      "norm_label": "buscarresumoperiodousecase"
     },
     {
-      "label": ".BuscarResumoMensalUseCase()",
+      "label": ".BuscarResumoPeriodoUseCase()",
       "file_type": "code",
-      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/BuscarResumoMensalUseCase.java",
-      "source_location": "L10",
+      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/BuscarResumoPeriodoUseCase.java",
+      "source_location": "L12",
       "_origin": "ast",
-      "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumomensalusecase_buscarresumomensalusecase_buscarresumomensalusecase",
-      "community": 18,
-      "norm_label": ".buscarresumomensalusecase()"
+      "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumoperiodousecase_buscarresumoperiodousecase_buscarresumoperiodousecase",
+      "community": 3,
+      "norm_label": ".buscarresumoperiodousecase()"
     },
     {
       "label": ".executar()",
       "file_type": "code",
-      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/BuscarResumoMensalUseCase.java",
-      "source_location": "L14",
+      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/BuscarResumoPeriodoUseCase.java",
+      "source_location": "L16",
       "_origin": "ast",
-      "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumomensalusecase_buscarresumomensalusecase_executar",
-      "community": 26,
+      "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumoperiodousecase_buscarresumoperiodousecase_executar",
+      "community": 3,
       "norm_label": ".executar()"
     },
     {
@@ -4003,7 +4003,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscartransacaousecase",
-      "community": 13,
+      "community": 3,
       "norm_label": "buscartransacaousecase.java"
     },
     {
@@ -4013,7 +4013,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscartransacaousecase_buscartransacaousecase",
-      "community": 18,
+      "community": 3,
       "norm_label": "buscartransacaousecase"
     },
     {
@@ -4023,7 +4023,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscartransacaousecase_buscartransacaousecase_buscartransacaousecase",
-      "community": 18,
+      "community": 3,
       "norm_label": ".buscartransacaousecase()"
     },
     {
@@ -4043,7 +4043,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_criartransacaousecase",
-      "community": 13,
+      "community": 3,
       "norm_label": "criartransacaousecase.java"
     },
     {
@@ -4053,7 +4053,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_criartransacaousecase_criartransacaousecase",
-      "community": 18,
+      "community": 3,
       "norm_label": "criartransacaousecase"
     },
     {
@@ -4063,7 +4063,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_criartransacaousecase_criartransacaousecase_criartransacaousecase",
-      "community": 32,
+      "community": 3,
       "norm_label": ".criartransacaousecase()"
     },
     {
@@ -4073,7 +4073,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_criartransacaousecase_criartransacaousecase_executar",
-      "community": 13,
+      "community": 26,
       "norm_label": ".executar()"
     },
     {
@@ -4083,7 +4083,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_criartransacaousecase_java_transactional",
-      "community": 13,
+      "community": 3,
       "norm_label": "transactional"
     },
     {
@@ -4093,7 +4093,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_estornartransacaousecase",
-      "community": 13,
+      "community": 3,
       "norm_label": "estornartransacaousecase.java"
     },
     {
@@ -4103,7 +4103,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_estornartransacaousecase_estornartransacaousecase",
-      "community": 18,
+      "community": 3,
       "norm_label": "estornartransacaousecase"
     },
     {
@@ -4113,7 +4113,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_estornartransacaousecase_estornartransacaousecase_estornartransacaousecase",
-      "community": 32,
+      "community": 3,
       "norm_label": ".estornartransacaousecase()"
     },
     {
@@ -4133,7 +4133,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_estornartransacaousecase_java_transactional",
-      "community": 102,
+      "community": 3,
       "norm_label": "transactional"
     },
     {
@@ -4143,7 +4143,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_listartransacoesusecase",
-      "community": 13,
+      "community": 148,
       "norm_label": "listartransacoesusecase.java"
     },
     {
@@ -4153,7 +4153,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_listartransacoesusecase_listartransacoesusecase",
-      "community": 18,
+      "community": 148,
       "norm_label": "listartransacoesusecase"
     },
     {
@@ -4163,7 +4163,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_listartransacoesusecase_listartransacoesusecase_listartransacoesusecase",
-      "community": 18,
+      "community": 148,
       "norm_label": ".listartransacoesusecase()"
     },
     {
@@ -4173,7 +4173,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_listartransacoesusecase_listartransacoesusecase_executarporusuario",
-      "community": 18,
+      "community": 148,
       "norm_label": ".executarporusuario()"
     },
     {
@@ -4183,7 +4183,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_listartransacoesusecase_listartransacoesusecase_executarporconta",
-      "community": 18,
+      "community": 148,
       "norm_label": ".executarporconta()"
     },
     {
@@ -4193,7 +4193,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacaocancelada_usecase_cancelartransacaousecase",
-      "community": 104,
+      "community": 9,
       "norm_label": "cancelartransacaousecase.java"
     },
     {
@@ -4203,7 +4203,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacaocancelada_usecase_cancelartransacaousecase_cancelartransacaousecase",
-      "community": 104,
+      "community": 9,
       "norm_label": "cancelartransacaousecase"
     },
     {
@@ -4213,7 +4213,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacaocancelada_usecase_cancelartransacaousecase_cancelartransacaousecase_cancelartransacaousecase",
-      "community": 104,
+      "community": 9,
       "norm_label": ".cancelartransacaousecase()"
     },
     {
@@ -4243,7 +4243,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacaocancelada_usecase_listartransacoescanceladasusecase",
-      "community": 104,
+      "community": 9,
       "norm_label": "listartransacoescanceladasusecase.java"
     },
     {
@@ -4253,7 +4253,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacaocancelada_usecase_listartransacoescanceladasusecase_listartransacoescanceladasusecase",
-      "community": 104,
+      "community": 9,
       "norm_label": "listartransacoescanceladasusecase"
     },
     {
@@ -4263,7 +4263,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacaocancelada_usecase_listartransacoescanceladasusecase_listartransacoescanceladasusecase_listartransacoescanceladasusecase",
-      "community": 104,
+      "community": 9,
       "norm_label": ".listartransacoescanceladasusecase()"
     },
     {
@@ -4403,7 +4403,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig",
-      "community": 104,
+      "community": 14,
       "norm_label": "beanconfig.java"
     },
     {
@@ -4413,7 +4413,7 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig",
-      "community": 3,
+      "community": 14,
       "norm_label": "beanconfig"
     },
     {
@@ -4423,7 +4423,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_java_configuration",
-      "community": 104,
+      "community": 14,
       "norm_label": "configuration"
     },
     {
@@ -4433,7 +4433,7 @@
       "source_location": "L53",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_loginusecase",
-      "community": 3,
+      "community": 14,
       "norm_label": ".loginusecase()"
     },
     {
@@ -4443,7 +4443,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_java_bean",
-      "community": 3,
+      "community": 14,
       "norm_label": "bean"
     },
     {
@@ -4473,7 +4473,7 @@
       "source_location": "L71",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_listarusuariosusecase",
-      "community": 3,
+      "community": 14,
       "norm_label": ".listarusuariosusecase()"
     },
     {
@@ -4493,7 +4493,7 @@
       "source_location": "L82",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_criarcontafinanceirausecase",
-      "community": 3,
+      "community": 32,
       "norm_label": ".criarcontafinanceirausecase()"
     },
     {
@@ -4503,7 +4503,7 @@
       "source_location": "L87",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_listarcontasfinanceirasusecase",
-      "community": 3,
+      "community": 14,
       "norm_label": ".listarcontasfinanceirasusecase()"
     },
     {
@@ -4513,7 +4513,7 @@
       "source_location": "L92",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_buscarcontafinanceirausecase",
-      "community": 3,
+      "community": 14,
       "norm_label": ".buscarcontafinanceirausecase()"
     },
     {
@@ -4523,7 +4523,7 @@
       "source_location": "L97",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_removercontafinanceirausecase",
-      "community": 3,
+      "community": 14,
       "norm_label": ".removercontafinanceirausecase()"
     },
     {
@@ -4533,7 +4533,7 @@
       "source_location": "L103",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_criarbancousecase",
-      "community": 3,
+      "community": 14,
       "norm_label": ".criarbancousecase()"
     },
     {
@@ -4543,7 +4543,7 @@
       "source_location": "L108",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_listarbancosusecase",
-      "community": 3,
+      "community": 14,
       "norm_label": ".listarbancosusecase()"
     },
     {
@@ -4563,7 +4563,7 @@
       "source_location": "L119",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_criarcategoriausecase",
-      "community": 1,
+      "community": 14,
       "norm_label": ".criarcategoriausecase()"
     },
     {
@@ -4573,7 +4573,7 @@
       "source_location": "L124",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_listarcategoriasusecase",
-      "community": 3,
+      "community": 14,
       "norm_label": ".listarcategoriasusecase()"
     },
     {
@@ -4583,7 +4583,7 @@
       "source_location": "L129",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_buscarcategoriausecase",
-      "community": 3,
+      "community": 14,
       "norm_label": ".buscarcategoriausecase()"
     },
     {
@@ -4593,7 +4593,7 @@
       "source_location": "L135",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_criarextratousecase",
-      "community": 32,
+      "community": 14,
       "norm_label": ".criarextratousecase()"
     },
     {
@@ -4603,7 +4603,7 @@
       "source_location": "L141",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_listarextratosusecase",
-      "community": 3,
+      "community": 14,
       "norm_label": ".listarextratosusecase()"
     },
     {
@@ -4613,7 +4613,7 @@
       "source_location": "L146",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_buscarextratousecase",
-      "community": 3,
+      "community": 14,
       "norm_label": ".buscarextratousecase()"
     },
     {
@@ -4623,7 +4623,7 @@
       "source_location": "L151",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_removerextratousecase",
-      "community": 3,
+      "community": 14,
       "norm_label": ".removerextratousecase()"
     },
     {
@@ -4633,7 +4633,7 @@
       "source_location": "L157",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_criartransacaousecase",
-      "community": 3,
+      "community": 14,
       "norm_label": ".criartransacaousecase()"
     },
     {
@@ -4643,7 +4643,7 @@
       "source_location": "L164",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_listartransacoesusecase",
-      "community": 3,
+      "community": 14,
       "norm_label": ".listartransacoesusecase()"
     },
     {
@@ -4653,7 +4653,7 @@
       "source_location": "L169",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_buscartransacaousecase",
-      "community": 3,
+      "community": 14,
       "norm_label": ".buscartransacaousecase()"
     },
     {
@@ -4667,14 +4667,14 @@
       "norm_label": ".estornartransacaousecase()"
     },
     {
-      "label": ".buscarResumoMensalUseCase()",
+      "label": ".buscarResumoPeriodoUseCase()",
       "file_type": "code",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/config/BeanConfig.java",
       "source_location": "L180",
       "_origin": "ast",
-      "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_buscarresumomensalusecase",
-      "community": 3,
-      "norm_label": ".buscarresumomensalusecase()"
+      "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_buscarresumoperiodousecase",
+      "community": 14,
+      "norm_label": ".buscarresumoperiodousecase()"
     },
     {
       "label": ".listarMotivosCancelamentoUseCase()",
@@ -4683,7 +4683,7 @@
       "source_location": "L186",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_listarmotivoscancelamentousecase",
-      "community": 3,
+      "community": 11,
       "norm_label": ".listarmotivoscancelamentousecase()"
     },
     {
@@ -4693,7 +4693,7 @@
       "source_location": "L191",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_buscarmotivocancelamentousecase",
-      "community": 3,
+      "community": 14,
       "norm_label": ".buscarmotivocancelamentousecase()"
     },
     {
@@ -4703,7 +4703,7 @@
       "source_location": "L197",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_cancelartransacaousecase",
-      "community": 104,
+      "community": 9,
       "norm_label": ".cancelartransacaousecase()"
     },
     {
@@ -4713,7 +4713,7 @@
       "source_location": "L205",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_listartransacoescanceladasusecase",
-      "community": 3,
+      "community": 14,
       "norm_label": ".listartransacoescanceladasusecase()"
     },
     {
@@ -4723,7 +4723,7 @@
       "source_location": "L211",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_listarsnapshotsfinanceirosusecase",
-      "community": 3,
+      "community": 14,
       "norm_label": ".listarsnapshotsfinanceirosusecase()"
     },
     {
@@ -4733,7 +4733,7 @@
       "source_location": "L216",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_buscarsnapshotfinanceirousecase",
-      "community": 3,
+      "community": 14,
       "norm_label": ".buscarsnapshotfinanceirousecase()"
     },
     {
@@ -4743,7 +4743,7 @@
       "source_location": "L222",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_criarnotificacaousecase",
-      "community": 3,
+      "community": 14,
       "norm_label": ".criarnotificacaousecase()"
     },
     {
@@ -4753,7 +4753,7 @@
       "source_location": "L228",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_listarnotificacoesusecase",
-      "community": 3,
+      "community": 14,
       "norm_label": ".listarnotificacoesusecase()"
     },
     {
@@ -4763,7 +4763,7 @@
       "source_location": "L234",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_registrarconsentimentolgpdusecase",
-      "community": 3,
+      "community": 14,
       "norm_label": ".registrarconsentimentolgpdusecase()"
     },
     {
@@ -4773,7 +4773,7 @@
       "source_location": "L240",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_listarconsentimentoslgpdusecase",
-      "community": 10,
+      "community": 14,
       "norm_label": ".listarconsentimentoslgpdusecase()"
     },
     {
@@ -4943,7 +4943,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_auth_exception_credenciaisinvalidasexception",
-      "community": 5,
+      "community": 6,
       "norm_label": "credenciaisinvalidasexception.java"
     },
     {
@@ -4953,7 +4953,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_auth_exception_credenciaisinvalidasexception_credenciaisinvalidasexception",
-      "community": 5,
+      "community": 6,
       "norm_label": "credenciaisinvalidasexception"
     },
     {
@@ -4963,7 +4963,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_auth_exception_credenciaisinvalidasexception_credenciaisinvalidasexception_credenciaisinvalidasexception",
-      "community": 5,
+      "community": 6,
       "norm_label": ".credenciaisinvalidasexception()"
     },
     {
@@ -5063,7 +5063,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_auth_port_senhaencoder_senhaencoder_matches",
-      "community": 5,
+      "community": 6,
       "norm_label": ".matches()"
     },
     {
@@ -5663,7 +5663,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_contafinanceira_exception_contafinanceirainvalidaexception",
-      "community": 13,
+      "community": 23,
       "norm_label": "contafinanceirainvalidaexception.java"
     },
     {
@@ -5673,7 +5673,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_contafinanceira_exception_contafinanceirainvalidaexception_contafinanceirainvalidaexception",
-      "community": 13,
+      "community": 23,
       "norm_label": "contafinanceirainvalidaexception"
     },
     {
@@ -5683,7 +5683,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_contafinanceira_exception_contafinanceirainvalidaexception_contafinanceirainvalidaexception_contafinanceirainvalidaexception",
-      "community": 13,
+      "community": 23,
       "norm_label": ".contafinanceirainvalidaexception()"
     },
     {
@@ -5753,7 +5753,7 @@
       "source_location": "L66",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_contafinanceira_model_contafinanceira_contafinanceira_aplicartransacao",
-      "community": 13,
+      "community": 26,
       "norm_label": ".aplicartransacao()"
     },
     {
@@ -5763,7 +5763,7 @@
       "source_location": "L71",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_contafinanceira_model_contafinanceira_contafinanceira_revertertransacao",
-      "community": 102,
+      "community": 26,
       "norm_label": ".revertertransacao()"
     },
     {
@@ -5793,7 +5793,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_contafinanceira_port_contafinanceirarepositoryport",
-      "community": 15,
+      "community": 32,
       "norm_label": "contafinanceirarepositoryport.java"
     },
     {
@@ -5833,7 +5833,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_contafinanceira_port_contafinanceirarepositoryport_contafinanceirarepositoryport_buscarporid",
-      "community": 15,
+      "community": 32,
       "norm_label": ".buscarporid()"
     },
     {
@@ -5843,7 +5843,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_contafinanceira_port_contafinanceirarepositoryport_contafinanceirarepositoryport_buscarporidecode",
-      "community": 15,
+      "community": 32,
       "norm_label": ".buscarporidecode()"
     },
     {
@@ -5853,7 +5853,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_extrato_exception_extratoinvalidoexception",
-      "community": 149,
+      "community": 7,
       "norm_label": "extratoinvalidoexception.java"
     },
     {
@@ -5863,7 +5863,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_extrato_exception_extratoinvalidoexception_extratoinvalidoexception",
-      "community": 149,
+      "community": 7,
       "norm_label": "extratoinvalidoexception"
     },
     {
@@ -5873,7 +5873,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_extrato_exception_extratoinvalidoexception_extratoinvalidoexception_extratoinvalidoexception",
-      "community": 149,
+      "community": 7,
       "norm_label": ".extratoinvalidoexception()"
     },
     {
@@ -5883,7 +5883,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_extrato_model_extrato",
-      "community": 149,
+      "community": 7,
       "norm_label": "extrato.java"
     },
     {
@@ -5903,7 +5903,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_extrato_model_extrato_java_getter",
-      "community": 149,
+      "community": 7,
       "norm_label": "getter"
     },
     {
@@ -5913,7 +5913,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_extrato_model_extrato_java_setter",
-      "community": 149,
+      "community": 7,
       "norm_label": "setter"
     },
     {
@@ -6943,7 +6943,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_origemtransacao",
-      "community": 148,
+      "community": 102,
       "norm_label": "origemtransacao.java"
     },
     {
@@ -6953,7 +6953,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_origemtransacao_origemtransacao",
-      "community": 148,
+      "community": 102,
       "norm_label": "origemtransacao"
     },
     {
@@ -6963,7 +6963,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_origemtransacao_origemtransacao_manual",
-      "community": 148,
+      "community": 102,
       "norm_label": "manual"
     },
     {
@@ -6973,7 +6973,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_origemtransacao_origemtransacao_pdf",
-      "community": 148,
+      "community": 102,
       "norm_label": "pdf"
     },
     {
@@ -6983,7 +6983,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_origemtransacao_origemtransacao_api",
-      "community": 148,
+      "community": 102,
       "norm_label": "api"
     },
     {
@@ -7313,7 +7313,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_statusrevisaotransacao",
-      "community": 42,
+      "community": 13,
       "norm_label": "statusrevisaotransacao.java"
     },
     {
@@ -7323,7 +7323,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_statusrevisaotransacao_statusrevisaotransacao",
-      "community": 42,
+      "community": 13,
       "norm_label": "statusrevisaotransacao"
     },
     {
@@ -7333,7 +7333,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_statusrevisaotransacao_statusrevisaotransacao_extraida",
-      "community": 42,
+      "community": 13,
       "norm_label": "extraida"
     },
     {
@@ -7343,7 +7343,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_statusrevisaotransacao_statusrevisaotransacao_classificada",
-      "community": 42,
+      "community": 13,
       "norm_label": "classificada"
     },
     {
@@ -7353,7 +7353,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_statusrevisaotransacao_statusrevisaotransacao_pendente_revisao",
-      "community": 42,
+      "community": 13,
       "norm_label": "pendente_revisao"
     },
     {
@@ -7363,7 +7363,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_statusrevisaotransacao_statusrevisaotransacao_confirmada",
-      "community": 42,
+      "community": 13,
       "norm_label": "confirmada"
     },
     {
@@ -7373,7 +7373,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_statusrevisaotransacao_statusrevisaotransacao_ignorada",
-      "community": 42,
+      "community": 13,
       "norm_label": "ignorada"
     },
     {
@@ -7383,7 +7383,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_statusrevisaotransacao_statusrevisaotransacao_arquivada",
-      "community": 42,
+      "community": 13,
       "norm_label": "arquivada"
     },
     {
@@ -7673,7 +7673,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_tipotransacao_tipotransacao",
-      "community": 102,
+      "community": 26,
       "norm_label": "tipotransacao"
     },
     {
@@ -7683,7 +7683,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_tipotransacao_tipotransacao_receita",
-      "community": 102,
+      "community": 26,
       "norm_label": "receita"
     },
     {
@@ -7693,7 +7693,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_tipotransacao_tipotransacao_gasto",
-      "community": 102,
+      "community": 26,
       "norm_label": "gasto"
     },
     {
@@ -7907,33 +7907,33 @@
       "norm_label": ".transacaonaoencontradaexception()"
     },
     {
-      "label": "ResumoMensal.java",
+      "label": "ResumoPeriodo.java",
       "file_type": "code",
-      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/transacao/model/ResumoMensal.java",
+      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/transacao/model/ResumoPeriodo.java",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumomensal",
-      "community": 26,
-      "norm_label": "resumomensal.java"
+      "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumoperiodo",
+      "community": 3,
+      "norm_label": "resumoperiodo.java"
     },
     {
-      "label": "ResumoMensal",
+      "label": "ResumoPeriodo",
       "file_type": "code",
-      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/transacao/model/ResumoMensal.java",
-      "source_location": "L5",
+      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/transacao/model/ResumoPeriodo.java",
+      "source_location": "L6",
       "_origin": "ast",
-      "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumomensal_resumomensal",
-      "community": 26,
-      "norm_label": "resumomensal"
+      "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumoperiodo_resumoperiodo",
+      "community": 3,
+      "norm_label": "resumoperiodo"
     },
     {
       "label": ".saldoPeriodo()",
       "file_type": "code",
-      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/transacao/model/ResumoMensal.java",
-      "source_location": "L13",
+      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/transacao/model/ResumoPeriodo.java",
+      "source_location": "L14",
       "_origin": "ast",
-      "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumomensal_resumomensal_saldoperiodo",
-      "community": 26,
+      "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumoperiodo_resumoperiodo_saldoperiodo",
+      "community": 3,
       "norm_label": ".saldoperiodo()"
     },
     {
@@ -7983,7 +7983,7 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_transacao_transacao_transacao",
-      "community": 105,
+      "community": 13,
       "norm_label": ".transacao()"
     },
     {
@@ -7993,7 +7993,7 @@
       "source_location": "L90",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_transacao_transacao_criarestorno",
-      "community": 105,
+      "community": 13,
       "norm_label": ".criarestorno()"
     },
     {
@@ -8003,7 +8003,7 @@
       "source_location": "L111",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_transacao_transacao_tipoefetivo",
-      "community": 102,
+      "community": 26,
       "norm_label": ".tipoefetivo()"
     },
     {
@@ -8033,7 +8033,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_port_transacaorepositoryport",
-      "community": 13,
+      "community": 3,
       "norm_label": "transacaorepositoryport.java"
     },
     {
@@ -8043,7 +8043,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_port_transacaorepositoryport_transacaorepositoryport",
-      "community": 13,
+      "community": 3,
       "norm_label": "transacaorepositoryport"
     },
     {
@@ -8053,7 +8053,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_port_transacaorepositoryport_transacaorepositoryport_salvar",
-      "community": 13,
+      "community": 3,
       "norm_label": ".salvar()"
     },
     {
@@ -8127,14 +8127,14 @@
       "norm_label": ".buscarestornode()"
     },
     {
-      "label": ".somarPorUsuarioContaNoMes()",
+      "label": ".somarPorUsuarioContaNoPeriodo()",
       "file_type": "code",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/transacao/port/TransacaoRepositoryPort.java",
       "source_location": "L19",
       "_origin": "ast",
-      "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_port_transacaorepositoryport_transacaorepositoryport_somarporusuariocontanomes",
-      "community": 26,
-      "norm_label": ".somarporusuariocontanomes()"
+      "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_port_transacaorepositoryport_transacaorepositoryport_somarporusuariocontanoperiodo",
+      "community": 3,
+      "norm_label": ".somarporusuariocontanoperiodo()"
     },
     {
       "label": "TransacaoCanceladaInvalidaException.java",
@@ -8243,7 +8243,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacaocancelada_port_transacaocanceladarepositoryport_transacaocanceladarepositoryport",
-      "community": 104,
+      "community": 9,
       "norm_label": "transacaocanceladarepositoryport"
     },
     {
@@ -8423,7 +8423,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_usuario_ports_usuariorepositoryport_usuariorepositoryport_buscarporemail",
-      "community": 5,
+      "community": 6,
       "norm_label": ".buscarporemail()"
     },
     {
@@ -9333,7 +9333,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_deletarcontafinanceirausecasetest",
-      "community": 32,
+      "community": 42,
       "norm_label": "deletarcontafinanceirausecasetest.java"
     },
     {
@@ -9343,7 +9343,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_deletarcontafinanceirausecasetest_deletarcontafinanceirausecasetest",
-      "community": 32,
+      "community": 42,
       "norm_label": "deletarcontafinanceirausecasetest"
     },
     {
@@ -9353,7 +9353,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_deletarcontafinanceirausecasetest_java_extendwith",
-      "community": 32,
+      "community": 42,
       "norm_label": "extendwith"
     },
     {
@@ -9363,7 +9363,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_deletarcontafinanceirausecasetest_deletarcontafinanceirausecasetest_executar_devedelegarremoveraorepository",
-      "community": 32,
+      "community": 42,
       "norm_label": ".executar_devedelegarremoveraorepository()"
     },
     {
@@ -9373,7 +9373,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_deletarcontafinanceirausecasetest_java_test",
-      "community": 32,
+      "community": 42,
       "norm_label": "test"
     },
     {
@@ -9383,7 +9383,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_listarcontasfinanceirasusecasetest",
-      "community": 32,
+      "community": 35,
       "norm_label": "listarcontasfinanceirasusecasetest.java"
     },
     {
@@ -9393,7 +9393,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_listarcontasfinanceirasusecasetest_listarcontasfinanceirasusecasetest",
-      "community": 32,
+      "community": 35,
       "norm_label": "listarcontasfinanceirasusecasetest"
     },
     {
@@ -9403,7 +9403,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_listarcontasfinanceirasusecasetest_java_extendwith",
-      "community": 32,
+      "community": 35,
       "norm_label": "extendwith"
     },
     {
@@ -9413,7 +9413,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_listarcontasfinanceirasusecasetest_listarcontasfinanceirasusecasetest_executar_deveretornarcontasdousuariocombancosdistintos",
-      "community": 32,
+      "community": 35,
       "norm_label": ".executar_deveretornarcontasdousuariocombancosdistintos()"
     },
     {
@@ -9423,7 +9423,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_listarcontasfinanceirasusecasetest_java_test",
-      "community": 32,
+      "community": 35,
       "norm_label": "test"
     },
     {
@@ -9433,7 +9433,7 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_listarcontasfinanceirasusecasetest_listarcontasfinanceirasusecasetest_executar_deveretornarlistavazia_quandonaohacontas",
-      "community": 32,
+      "community": 35,
       "norm_label": ".executar_deveretornarlistavazia_quandonaohacontas()"
     },
     {
@@ -9523,7 +9523,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_transacao_criartransacaousecasetest",
-      "community": 15,
+      "community": 47,
       "norm_label": "criartransacaousecasetest.java"
     },
     {
@@ -9533,7 +9533,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_transacao_criartransacaousecasetest_criartransacaousecasetest",
-      "community": 15,
+      "community": 47,
       "norm_label": "criartransacaousecasetest"
     },
     {
@@ -9543,7 +9543,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_transacao_criartransacaousecasetest_java_extendwith",
-      "community": 15,
+      "community": 47,
       "norm_label": "extendwith"
     },
     {
@@ -9553,7 +9553,7 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_transacao_criartransacaousecasetest_criartransacaousecasetest_contacomsaldo",
-      "community": 15,
+      "community": 47,
       "norm_label": ".contacomsaldo()"
     },
     {
@@ -9563,7 +9563,7 @@
       "source_location": "L55",
       "_origin": "ast",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_transacao_criartransacaousecasetest_criartransacaousecasetest_categoria",
-      "community": 15,
+      "community": 47,
       "norm_label": ".categoria()"
     },
     {
@@ -9573,7 +9573,7 @@
       "source_location": "L59",
       "_origin": "ast",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_transacao_criartransacaousecasetest_criartransacaousecasetest_executar_devesalvartransacaoeatualizarsaldo_quandodadosvalidos",
-      "community": 15,
+      "community": 47,
       "norm_label": ".executar_devesalvartransacaoeatualizarsaldo_quandodadosvalidos()"
     },
     {
@@ -9583,7 +9583,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_transacao_criartransacaousecasetest_java_test",
-      "community": 15,
+      "community": 47,
       "norm_label": "test"
     },
     {
@@ -9593,7 +9593,7 @@
       "source_location": "L84",
       "_origin": "ast",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_transacao_criartransacaousecasetest_criartransacaousecasetest_executar_naodevesalvar_quandovalorinvalido",
-      "community": 15,
+      "community": 47,
       "norm_label": ".executar_naodevesalvar_quandovalorinvalido()"
     },
     {
@@ -10073,7 +10073,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_domain_transacao_transacaotest_transacaotest",
-      "community": 102,
+      "community": 26,
       "norm_label": "transacaotest"
     },
     {
@@ -10083,7 +10083,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_domain_transacao_transacaotest_transacaotest_validar_devepassar_quandodadoscorretos",
-      "community": 102,
+      "community": 26,
       "norm_label": ".validar_devepassar_quandodadoscorretos()"
     },
     {
@@ -10093,7 +10093,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_domain_transacao_transacaotest_java_test",
-      "community": 102,
+      "community": 26,
       "norm_label": "test"
     },
     {
@@ -10103,7 +10103,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_domain_transacao_transacaotest_transacaotest_validar_develancarexcecao_quandocontanula",
-      "community": 102,
+      "community": 26,
       "norm_label": ".validar_develancarexcecao_quandocontanula()"
     },
     {
@@ -10113,7 +10113,7 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_domain_transacao_transacaotest_transacaotest_validar_develancarexcecao_quandocategoriatiponaoresolvido",
-      "community": 102,
+      "community": 26,
       "norm_label": ".validar_develancarexcecao_quandocategoriatiponaoresolvido()"
     },
     {
@@ -10123,7 +10123,7 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_domain_transacao_transacaotest_transacaotest_validar_develancarexcecao_quandovalorzero",
-      "community": 102,
+      "community": 26,
       "norm_label": ".validar_develancarexcecao_quandovalorzero()"
     },
     {
@@ -10133,7 +10133,7 @@
       "source_location": "L69",
       "_origin": "ast",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_domain_transacao_transacaotest_transacaotest_validar_develancarexcecao_quandovalornegativoemcategorianaoambos",
-      "community": 102,
+      "community": 26,
       "norm_label": ".validar_develancarexcecao_quandovalornegativoemcategorianaoambos()"
     },
     {
@@ -10143,7 +10143,7 @@
       "source_location": "L82",
       "_origin": "ast",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_domain_transacao_transacaotest_transacaotest_validar_devepassar_quandovalornegativoemcategoriaambos",
-      "community": 102,
+      "community": 26,
       "norm_label": ".validar_devepassar_quandovalornegativoemcategoriaambos()"
     },
     {
@@ -10153,7 +10153,7 @@
       "source_location": "L93",
       "_origin": "ast",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_domain_transacao_transacaotest_transacaotest_validar_develancarexcecao_quandodatanula",
-      "community": 102,
+      "community": 26,
       "norm_label": ".validar_develancarexcecao_quandodatanula()"
     },
     {
@@ -10163,7 +10163,7 @@
       "source_location": "L106",
       "_origin": "ast",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_domain_transacao_transacaotest_transacaotest_validar_develancarexcecao_quandoorigemnula",
-      "community": 102,
+      "community": 26,
       "norm_label": ".validar_develancarexcecao_quandoorigemnula()"
     },
     {
@@ -10173,7 +10173,7 @@
       "source_location": "L119",
       "_origin": "ast",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_domain_transacao_transacaotest_transacaotest_tipoefetivo_deveresolverpelosinaldovalor_quandocategoriaambos",
-      "community": 102,
+      "community": 26,
       "norm_label": ".tipoefetivo_deveresolverpelosinaldovalor_quandocategoriaambos()"
     },
     {
@@ -10917,10 +10917,60 @@
       "norm_label": "balancechart.jsx"
     },
     {
+      "label": "DIAS_LABEL",
+      "file_type": "code",
+      "source_file": "frontend/fintech_app/src/components/finsight/BalanceChart.jsx",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "frontend_fintech_app_src_components_finsight_balancechart_dias_label",
+      "community": 8,
+      "norm_label": "dias_label"
+    },
+    {
+      "label": "MESES_LABEL",
+      "file_type": "code",
+      "source_file": "frontend/fintech_app/src/components/finsight/BalanceChart.jsx",
+      "source_location": "L8",
+      "_origin": "ast",
+      "id": "frontend_fintech_app_src_components_finsight_balancechart_meses_label",
+      "community": 8,
+      "norm_label": "meses_label"
+    },
+    {
+      "label": "montarPontos()",
+      "file_type": "code",
+      "source_file": "frontend/fintech_app/src/components/finsight/BalanceChart.jsx",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "frontend_fintech_app_src_components_finsight_balancechart_montarpontos",
+      "community": 8,
+      "norm_label": "montarpontos()"
+    },
+    {
+      "label": "buildPointsDiario()",
+      "file_type": "code",
+      "source_file": "frontend/fintech_app/src/components/finsight/BalanceChart.jsx",
+      "source_location": "L31",
+      "_origin": "ast",
+      "id": "frontend_fintech_app_src_components_finsight_balancechart_buildpointsdiario",
+      "community": 8,
+      "norm_label": "buildpointsdiario()"
+    },
+    {
+      "label": "buildPointsMensal()",
+      "file_type": "code",
+      "source_file": "frontend/fintech_app/src/components/finsight/BalanceChart.jsx",
+      "source_location": "L53",
+      "_origin": "ast",
+      "id": "frontend_fintech_app_src_components_finsight_balancechart_buildpointsmensal",
+      "community": 8,
+      "norm_label": "buildpointsmensal()"
+    },
+    {
       "label": "buildPoints()",
       "file_type": "code",
       "source_file": "frontend/fintech_app/src/components/finsight/BalanceChart.jsx",
-      "source_location": "L4",
+      "source_location": "L75",
       "_origin": "ast",
       "id": "frontend_fintech_app_src_components_finsight_balancechart_buildpoints",
       "community": 8,
@@ -10930,7 +10980,7 @@
       "label": "BalanceChart()",
       "file_type": "code",
       "source_file": "frontend/fintech_app/src/components/finsight/BalanceChart.jsx",
-      "source_location": "L45",
+      "source_location": "L87",
       "_origin": "ast",
       "id": "frontend_fintech_app_src_components_finsight_balancechart_balancechart",
       "community": 8,
@@ -11007,10 +11057,30 @@
       "norm_label": "topbar.jsx"
     },
     {
+      "label": "TELAS",
+      "file_type": "code",
+      "source_file": "frontend/fintech_app/src/components/finsight/TopBar.jsx",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "frontend_fintech_app_src_components_finsight_topbar_telas",
+      "community": 86,
+      "norm_label": "telas"
+    },
+    {
+      "label": "normalize()",
+      "file_type": "code",
+      "source_file": "frontend/fintech_app/src/components/finsight/TopBar.jsx",
+      "source_location": "L19",
+      "_origin": "ast",
+      "id": "frontend_fintech_app_src_components_finsight_topbar_normalize",
+      "community": 86,
+      "norm_label": "normalize()"
+    },
+    {
       "label": "TopBar()",
       "file_type": "code",
       "source_file": "frontend/fintech_app/src/components/finsight/TopBar.jsx",
-      "source_location": "L8",
+      "source_location": "L27",
       "_origin": "ast",
       "id": "frontend_fintech_app_src_components_finsight_topbar_topbar",
       "community": 86,
@@ -11090,17 +11160,47 @@
       "label": "ranges",
       "file_type": "code",
       "source_file": "frontend/fintech_app/src/components/finsight/screens/AnalyticsScreen.jsx",
-      "source_location": "L11",
+      "source_location": "L14",
       "_origin": "ast",
       "id": "frontend_fintech_app_src_components_finsight_screens_analyticsscreen_ranges",
       "community": 62,
       "norm_label": "ranges"
     },
     {
+      "label": "DIAS_LABEL",
+      "file_type": "code",
+      "source_file": "frontend/fintech_app/src/components/finsight/screens/AnalyticsScreen.jsx",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "frontend_fintech_app_src_components_finsight_screens_analyticsscreen_dias_label",
+      "community": 62,
+      "norm_label": "dias_label"
+    },
+    {
+      "label": "MES_ABREV",
+      "file_type": "code",
+      "source_file": "frontend/fintech_app/src/components/finsight/screens/AnalyticsScreen.jsx",
+      "source_location": "L16",
+      "_origin": "ast",
+      "id": "frontend_fintech_app_src_components_finsight_screens_analyticsscreen_mes_abrev",
+      "community": 62,
+      "norm_label": "mes_abrev"
+    },
+    {
+      "label": "bucketsDiarios()",
+      "file_type": "code",
+      "source_file": "frontend/fintech_app/src/components/finsight/screens/AnalyticsScreen.jsx",
+      "source_location": "L20",
+      "_origin": "ast",
+      "id": "frontend_fintech_app_src_components_finsight_screens_analyticsscreen_bucketsdiarios",
+      "community": 62,
+      "norm_label": "bucketsdiarios()"
+    },
+    {
       "label": "Donut()",
       "file_type": "code",
       "source_file": "frontend/fintech_app/src/components/finsight/screens/AnalyticsScreen.jsx",
-      "source_location": "L13",
+      "source_location": "L45",
       "_origin": "ast",
       "id": "frontend_fintech_app_src_components_finsight_screens_analyticsscreen_donut",
       "community": 62,
@@ -11110,7 +11210,7 @@
       "label": "LineChart()",
       "file_type": "code",
       "source_file": "frontend/fintech_app/src/components/finsight/screens/AnalyticsScreen.jsx",
-      "source_location": "L41",
+      "source_location": "L73",
       "_origin": "ast",
       "id": "frontend_fintech_app_src_components_finsight_screens_analyticsscreen_linechart",
       "community": 62,
@@ -11120,7 +11220,7 @@
       "label": "AnalyticsScreen()",
       "file_type": "code",
       "source_file": "frontend/fintech_app/src/components/finsight/screens/AnalyticsScreen.jsx",
-      "source_location": "L76",
+      "source_location": "L108",
       "_origin": "ast",
       "id": "frontend_fintech_app_src_components_finsight_screens_analyticsscreen_analyticsscreen",
       "community": 62,
@@ -11170,17 +11270,27 @@
       "label": "ranges",
       "file_type": "code",
       "source_file": "frontend/fintech_app/src/components/finsight/screens/OverviewScreen.jsx",
-      "source_location": "L20",
+      "source_location": "L21",
       "_origin": "ast",
       "id": "frontend_fintech_app_src_components_finsight_screens_overviewscreen_ranges",
       "community": 8,
       "norm_label": "ranges"
     },
     {
+      "label": "PERIODO_LABEL",
+      "file_type": "code",
+      "source_file": "frontend/fintech_app/src/components/finsight/screens/OverviewScreen.jsx",
+      "source_location": "L22",
+      "_origin": "ast",
+      "id": "frontend_fintech_app_src_components_finsight_screens_overviewscreen_periodo_label",
+      "community": 8,
+      "norm_label": "periodo_label"
+    },
+    {
       "label": "TIPO_LABEL",
       "file_type": "code",
       "source_file": "frontend/fintech_app/src/components/finsight/screens/OverviewScreen.jsx",
-      "source_location": "L23",
+      "source_location": "L25",
       "_origin": "ast",
       "id": "frontend_fintech_app_src_components_finsight_screens_overviewscreen_tipo_label",
       "community": 8,
@@ -11190,7 +11300,7 @@
       "label": "BancoLogo()",
       "file_type": "code",
       "source_file": "frontend/fintech_app/src/components/finsight/screens/OverviewScreen.jsx",
-      "source_location": "L32",
+      "source_location": "L34",
       "_origin": "ast",
       "id": "frontend_fintech_app_src_components_finsight_screens_overviewscreen_bancologo",
       "community": 8,
@@ -11200,7 +11310,7 @@
       "label": "ContaSelector()",
       "file_type": "code",
       "source_file": "frontend/fintech_app/src/components/finsight/screens/OverviewScreen.jsx",
-      "source_location": "L60",
+      "source_location": "L62",
       "_origin": "ast",
       "id": "frontend_fintech_app_src_components_finsight_screens_overviewscreen_contaselector",
       "community": 8,
@@ -11210,7 +11320,7 @@
       "label": "OverviewScreen()",
       "file_type": "code",
       "source_file": "frontend/fintech_app/src/components/finsight/screens/OverviewScreen.jsx",
-      "source_location": "L137",
+      "source_location": "L139",
       "_origin": "ast",
       "id": "frontend_fintech_app_src_components_finsight_screens_overviewscreen_overviewscreen",
       "community": 8,
@@ -11267,30 +11377,50 @@
       "norm_label": "transactionsscreen.jsx"
     },
     {
-      "label": "filtros",
+      "label": "FILTROS_PADRAO",
       "file_type": "code",
       "source_file": "frontend/fintech_app/src/components/finsight/screens/TransactionsScreen.jsx",
-      "source_location": "L16",
+      "source_location": "L23",
       "_origin": "ast",
-      "id": "frontend_fintech_app_src_components_finsight_screens_transactionsscreen_filtros",
+      "id": "frontend_fintech_app_src_components_finsight_screens_transactionsscreen_filtros_padrao",
       "community": 67,
-      "norm_label": "filtros"
+      "norm_label": "filtros_padrao"
     },
     {
       "label": "normalize()",
       "file_type": "code",
       "source_file": "frontend/fintech_app/src/components/finsight/screens/TransactionsScreen.jsx",
-      "source_location": "L23",
+      "source_location": "L31",
       "_origin": "ast",
       "id": "frontend_fintech_app_src_components_finsight_screens_transactionsscreen_normalize",
       "community": 67,
       "norm_label": "normalize()"
     },
     {
+      "label": "algumFiltroAtivo()",
+      "file_type": "code",
+      "source_file": "frontend/fintech_app/src/components/finsight/screens/TransactionsScreen.jsx",
+      "source_location": "L39",
+      "_origin": "ast",
+      "id": "frontend_fintech_app_src_components_finsight_screens_transactionsscreen_algumfiltroativo",
+      "community": 67,
+      "norm_label": "algumfiltroativo()"
+    },
+    {
+      "label": "FiltrosModal()",
+      "file_type": "code",
+      "source_file": "frontend/fintech_app/src/components/finsight/screens/TransactionsScreen.jsx",
+      "source_location": "L49",
+      "_origin": "ast",
+      "id": "frontend_fintech_app_src_components_finsight_screens_transactionsscreen_filtrosmodal",
+      "community": 67,
+      "norm_label": "filtrosmodal()"
+    },
+    {
       "label": "TransactionsScreen()",
       "file_type": "code",
       "source_file": "frontend/fintech_app/src/components/finsight/screens/TransactionsScreen.jsx",
-      "source_location": "L31",
+      "source_location": "L179",
       "_origin": "ast",
       "id": "frontend_fintech_app_src_components_finsight_screens_transactionsscreen_transactionsscreen",
       "community": 67,
@@ -11997,6 +12127,46 @@
       "norm_label": "useauth()"
     },
     {
+      "label": "ContaSelecionadaContext.jsx",
+      "file_type": "code",
+      "source_file": "frontend/fintech_app/src/context/ContaSelecionadaContext.jsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "frontend_fintech_app_src_context_contaselecionadacontext",
+      "community": 79,
+      "norm_label": "contaselecionadacontext.jsx"
+    },
+    {
+      "label": "ContaSelecionadaContext",
+      "file_type": "code",
+      "source_file": "frontend/fintech_app/src/context/ContaSelecionadaContext.jsx",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "frontend_fintech_app_src_context_contaselecionadacontext_contaselecionadacontext",
+      "community": 79,
+      "norm_label": "contaselecionadacontext"
+    },
+    {
+      "label": "ContaSelecionadaProvider()",
+      "file_type": "code",
+      "source_file": "frontend/fintech_app/src/context/ContaSelecionadaContext.jsx",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "frontend_fintech_app_src_context_contaselecionadacontext_contaselecionadaprovider",
+      "community": 79,
+      "norm_label": "contaselecionadaprovider()"
+    },
+    {
+      "label": "useContaSelecionada()",
+      "file_type": "code",
+      "source_file": "frontend/fintech_app/src/context/ContaSelecionadaContext.jsx",
+      "source_location": "L34",
+      "_origin": "ast",
+      "id": "frontend_fintech_app_src_context_contaselecionadacontext_usecontaselecionada",
+      "community": 79,
+      "norm_label": "usecontaselecionada()"
+    },
+    {
       "label": "use-categorias.js",
       "file_type": "code",
       "source_file": "frontend/fintech_app/src/hooks/use-categorias.js",
@@ -12055,6 +12225,26 @@
       "id": "frontend_fintech_app_src_hooks_use_mobile_useismobile",
       "community": 94,
       "norm_label": "useismobile()"
+    },
+    {
+      "label": "use-resumo-periodo.js",
+      "file_type": "code",
+      "source_file": "frontend/fintech_app/src/hooks/use-resumo-periodo.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "frontend_fintech_app_src_hooks_use_resumo_periodo",
+      "community": 81,
+      "norm_label": "use-resumo-periodo.js"
+    },
+    {
+      "label": "useResumoPeriodo()",
+      "file_type": "code",
+      "source_file": "frontend/fintech_app/src/hooks/use-resumo-periodo.js",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "frontend_fintech_app_src_hooks_use_resumo_periodo_useresumoperiodo",
+      "community": 81,
+      "norm_label": "useresumoperiodo()"
     },
     {
       "label": "use-snapshots.js",
@@ -12487,6 +12677,56 @@
       "norm_label": "capitalize()"
     },
     {
+      "label": "periodo.js",
+      "file_type": "code",
+      "source_file": "frontend/fintech_app/src/lib/periodo.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "frontend_fintech_app_src_lib_periodo",
+      "community": 50,
+      "norm_label": "periodo.js"
+    },
+    {
+      "label": "intervaloDe()",
+      "file_type": "code",
+      "source_file": "frontend/fintech_app/src/lib/periodo.js",
+      "source_location": "L11",
+      "_origin": "ast",
+      "id": "frontend_fintech_app_src_lib_periodo_intervalode",
+      "community": 50,
+      "norm_label": "intervalode()"
+    },
+    {
+      "label": "getIntervaloPeriodo()",
+      "file_type": "code",
+      "source_file": "frontend/fintech_app/src/lib/periodo.js",
+      "source_location": "L16",
+      "_origin": "ast",
+      "id": "frontend_fintech_app_src_lib_periodo_getintervaloperiodo",
+      "community": 50,
+      "norm_label": "getintervaloperiodo()"
+    },
+    {
+      "label": "getIntervaloPeriodoAnterior()",
+      "file_type": "code",
+      "source_file": "frontend/fintech_app/src/lib/periodo.js",
+      "source_location": "L29",
+      "_origin": "ast",
+      "id": "frontend_fintech_app_src_lib_periodo_getintervaloperiodoanterior",
+      "community": 50,
+      "norm_label": "getintervaloperiodoanterior()"
+    },
+    {
+      "label": "filtrarPorIntervalo()",
+      "file_type": "code",
+      "source_file": "frontend/fintech_app/src/lib/periodo.js",
+      "source_location": "L42",
+      "_origin": "ast",
+      "id": "frontend_fintech_app_src_lib_periodo_filtrarporintervalo",
+      "community": 50,
+      "norm_label": "filtrarporintervalo()"
+    },
+    {
       "label": "utils.js",
       "file_type": "code",
       "source_file": "frontend/fintech_app/src/lib/utils.js",
@@ -12750,7 +12990,7 @@
       "label": "Index()",
       "file_type": "code",
       "source_file": "frontend/fintech_app/src/pages/Index.jsx",
-      "source_location": "L21",
+      "source_location": "L22",
       "_origin": "ast",
       "id": "frontend_fintech_app_src_pages_index_index",
       "community": 8,
@@ -13290,7 +13530,7 @@
       "label": "bancoService",
       "file_type": "code",
       "source_file": "frontend/fintech_app/src/services/index.js",
-      "source_location": "L38",
+      "source_location": "L39",
       "_origin": "ast",
       "id": "frontend_fintech_app_src_services_index_bancoservice",
       "community": 2,
@@ -13300,7 +13540,7 @@
       "label": "categoriaService",
       "file_type": "code",
       "source_file": "frontend/fintech_app/src/services/index.js",
-      "source_location": "L39",
+      "source_location": "L40",
       "_origin": "ast",
       "id": "frontend_fintech_app_src_services_index_categoriaservice",
       "community": 2,
@@ -13310,7 +13550,7 @@
       "label": "consentimentoService",
       "file_type": "code",
       "source_file": "frontend/fintech_app/src/services/index.js",
-      "source_location": "L40",
+      "source_location": "L41",
       "_origin": "ast",
       "id": "frontend_fintech_app_src_services_index_consentimentoservice",
       "community": 2,
@@ -13320,7 +13560,7 @@
       "label": "contaFinanceiraService",
       "file_type": "code",
       "source_file": "frontend/fintech_app/src/services/index.js",
-      "source_location": "L41",
+      "source_location": "L42",
       "_origin": "ast",
       "id": "frontend_fintech_app_src_services_index_contafinanceiraservice",
       "community": 2,
@@ -13330,7 +13570,7 @@
       "label": "extratoService",
       "file_type": "code",
       "source_file": "frontend/fintech_app/src/services/index.js",
-      "source_location": "L42",
+      "source_location": "L43",
       "_origin": "ast",
       "id": "frontend_fintech_app_src_services_index_extratoservice",
       "community": 2,
@@ -13340,7 +13580,7 @@
       "label": "motivoCancelamentoService",
       "file_type": "code",
       "source_file": "frontend/fintech_app/src/services/index.js",
-      "source_location": "L43",
+      "source_location": "L44",
       "_origin": "ast",
       "id": "frontend_fintech_app_src_services_index_motivocancelamentoservice",
       "community": 2,
@@ -13350,7 +13590,7 @@
       "label": "notificacaoService",
       "file_type": "code",
       "source_file": "frontend/fintech_app/src/services/index.js",
-      "source_location": "L44",
+      "source_location": "L45",
       "_origin": "ast",
       "id": "frontend_fintech_app_src_services_index_notificacaoservice",
       "community": 2,
@@ -13360,7 +13600,7 @@
       "label": "snapshotFinanceiroService",
       "file_type": "code",
       "source_file": "frontend/fintech_app/src/services/index.js",
-      "source_location": "L45",
+      "source_location": "L46",
       "_origin": "ast",
       "id": "frontend_fintech_app_src_services_index_snapshotfinanceiroservice",
       "community": 2,
@@ -13370,7 +13610,7 @@
       "label": "transacaoService",
       "file_type": "code",
       "source_file": "frontend/fintech_app/src/services/index.js",
-      "source_location": "L46",
+      "source_location": "L47",
       "_origin": "ast",
       "id": "frontend_fintech_app_src_services_index_transacaoservice",
       "community": 2,
@@ -13380,7 +13620,7 @@
       "label": "transacaoCanceladaService",
       "file_type": "code",
       "source_file": "frontend/fintech_app/src/services/index.js",
-      "source_location": "L47",
+      "source_location": "L48",
       "_origin": "ast",
       "id": "frontend_fintech_app_src_services_index_transacaocanceladaservice",
       "community": 2,
@@ -13390,7 +13630,7 @@
       "label": "usuarioService",
       "file_type": "code",
       "source_file": "frontend/fintech_app/src/services/index.js",
-      "source_location": "L48",
+      "source_location": "L49",
       "_origin": "ast",
       "id": "frontend_fintech_app_src_services_index_usuarioservice",
       "community": 2,
@@ -13555,6 +13795,26 @@
       "id": "frontend_fintech_app_src_services_transacao_estornartransacao_estornar",
       "community": 2,
       "norm_label": "estornar()"
+    },
+    {
+      "label": "GetResumoPeriodo.js",
+      "file_type": "code",
+      "source_file": "frontend/fintech_app/src/services/transacao/GetResumoPeriodo.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "frontend_fintech_app_src_services_transacao_getresumoperiodo",
+      "community": 2,
+      "norm_label": "getresumoperiodo.js"
+    },
+    {
+      "label": "buscarResumoPeriodo()",
+      "file_type": "code",
+      "source_file": "frontend/fintech_app/src/services/transacao/GetResumoPeriodo.js",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "frontend_fintech_app_src_services_transacao_getresumoperiodo_buscarresumoperiodo",
+      "community": 2,
+      "norm_label": "buscarresumoperiodo()"
     },
     {
       "label": "GetTransacao.js",
@@ -22135,7 +22395,7 @@
       "source_location": "L4",
       "weight": 1.0,
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller",
-      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_resumomensalresponsedto_resumomensalresponsedto",
+      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_resumoperiodoresponsedto_resumoperiodoresponsedto",
       "confidence_score": 1.0
     },
     {
@@ -22219,7 +22479,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L27",
+      "source_location": "L28",
       "weight": 1.0,
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller",
       "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller",
@@ -22233,7 +22493,7 @@
       "source_location": "L7",
       "weight": 1.0,
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller",
-      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumomensalusecase_buscarresumomensalusecase",
+      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumoperiodousecase_buscarresumoperiodousecase",
       "confidence_score": 1.0
     },
     {
@@ -22317,7 +22577,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L27",
+      "source_location": "L28",
       "weight": 1.0,
       "context": "attribute",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller",
@@ -22328,7 +22588,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L27",
+      "source_location": "L28",
       "weight": 1.0,
       "context": "attribute",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller",
@@ -22339,7 +22599,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L27",
+      "source_location": "L28",
       "weight": 1.0,
       "context": "attribute",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller",
@@ -22350,7 +22610,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L90",
+      "source_location": "L91",
       "weight": 1.0,
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller",
       "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_buscarporid",
@@ -22360,7 +22620,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L50",
+      "source_location": "L51",
       "weight": 1.0,
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller",
       "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_criar",
@@ -22370,7 +22630,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L103",
+      "source_location": "L104",
       "weight": 1.0,
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller",
       "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_estornar",
@@ -22380,7 +22640,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L81",
+      "source_location": "L82",
       "weight": 1.0,
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller",
       "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_listarporconta",
@@ -22390,7 +22650,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L72",
+      "source_location": "L73",
       "weight": 1.0,
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller",
       "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_listarporusuario",
@@ -22400,17 +22660,17 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L121",
+      "source_location": "L122",
       "weight": 1.0,
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller",
-      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_resumomensal",
+      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_resumoperiodo",
       "confidence_score": 1.0
     },
     {
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L38",
+      "source_location": "L39",
       "weight": 1.0,
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller",
       "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_transacaocontroller",
@@ -22420,33 +22680,11 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L36",
+      "source_location": "L37",
       "weight": 1.0,
       "context": "field",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller",
-      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumomensalusecase_buscarresumomensalusecase",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L34",
-      "weight": 1.0,
-      "context": "field",
-      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller",
-      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscartransacaousecase_buscartransacaousecase",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L32",
-      "weight": 1.0,
-      "context": "field",
-      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller",
-      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_criartransacaousecase_criartransacaousecase",
+      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumoperiodousecase_buscarresumoperiodousecase",
       "confidence_score": 1.0
     },
     {
@@ -22457,7 +22695,7 @@
       "weight": 1.0,
       "context": "field",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller",
-      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_estornartransacaousecase_estornartransacaousecase",
+      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscartransacaousecase_buscartransacaousecase",
       "confidence_score": 1.0
     },
     {
@@ -22465,6 +22703,28 @@
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
       "source_location": "L33",
+      "weight": 1.0,
+      "context": "field",
+      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller",
+      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_criartransacaousecase_criartransacaousecase",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
+      "source_location": "L36",
+      "weight": 1.0,
+      "context": "field",
+      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller",
+      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_estornartransacaousecase_estornartransacaousecase",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
+      "source_location": "L34",
       "weight": 1.0,
       "context": "field",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller",
@@ -22486,18 +22746,18 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L38",
+      "source_location": "L39",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_transacaocontroller",
-      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumomensalusecase_buscarresumomensalusecase",
+      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumoperiodousecase_buscarresumoperiodousecase",
       "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L38",
+      "source_location": "L39",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_transacaocontroller",
@@ -22508,7 +22768,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L38",
+      "source_location": "L39",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_transacaocontroller",
@@ -22519,7 +22779,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L38",
+      "source_location": "L39",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_transacaocontroller",
@@ -22530,7 +22790,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L38",
+      "source_location": "L39",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_transacaocontroller",
@@ -22541,7 +22801,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L50",
+      "source_location": "L51",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_criar",
@@ -22552,7 +22812,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L50",
+      "source_location": "L51",
       "weight": 1.0,
       "context": "generic_arg",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_criar",
@@ -22563,7 +22823,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L50",
+      "source_location": "L51",
       "weight": 1.0,
       "context": "attribute",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_criar",
@@ -22574,7 +22834,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L50",
+      "source_location": "L51",
       "weight": 1.0,
       "context": "attribute",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_criar",
@@ -22585,7 +22845,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L50",
+      "source_location": "L51",
       "weight": 1.0,
       "context": "attribute",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_criar",
@@ -22596,7 +22856,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L50",
+      "source_location": "L51",
       "weight": 1.0,
       "context": "return_type",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_criar",
@@ -22607,7 +22867,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L90",
+      "source_location": "L91",
       "weight": 1.0,
       "context": "return_type",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_buscarporid",
@@ -22618,7 +22878,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L103",
+      "source_location": "L104",
       "weight": 1.0,
       "context": "return_type",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_estornar",
@@ -22629,7 +22889,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L81",
+      "source_location": "L82",
       "weight": 1.0,
       "context": "return_type",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_listarporconta",
@@ -22640,7 +22900,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L72",
+      "source_location": "L73",
       "weight": 1.0,
       "context": "return_type",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_listarporusuario",
@@ -22651,10 +22911,10 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L121",
+      "source_location": "L122",
       "weight": 1.0,
       "context": "return_type",
-      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_resumomensal",
+      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_resumoperiodo",
       "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_java_responseentity",
       "confidence_score": 1.0
     },
@@ -22662,7 +22922,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L90",
+      "source_location": "L91",
       "weight": 1.0,
       "context": "attribute",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_buscarporid",
@@ -22673,7 +22933,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L103",
+      "source_location": "L104",
       "weight": 1.0,
       "context": "attribute",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_estornar",
@@ -22684,7 +22944,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L81",
+      "source_location": "L82",
       "weight": 1.0,
       "context": "attribute",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_listarporconta",
@@ -22695,7 +22955,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L72",
+      "source_location": "L73",
       "weight": 1.0,
       "context": "attribute",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_listarporusuario",
@@ -22706,10 +22966,10 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L121",
+      "source_location": "L122",
       "weight": 1.0,
       "context": "attribute",
-      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_resumomensal",
+      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_resumoperiodo",
       "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_java_operation",
       "confidence_score": 1.0
     },
@@ -22717,7 +22977,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L90",
+      "source_location": "L91",
       "weight": 1.0,
       "context": "attribute",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_buscarporid",
@@ -22728,7 +22988,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L103",
+      "source_location": "L104",
       "weight": 1.0,
       "context": "attribute",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_estornar",
@@ -22739,7 +22999,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L72",
+      "source_location": "L73",
       "weight": 1.0,
       "context": "generic_arg",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_listarporusuario",
@@ -22750,7 +23010,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L72",
+      "source_location": "L73",
       "weight": 1.0,
       "context": "attribute",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_listarporusuario",
@@ -22761,7 +23021,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L72",
+      "source_location": "L73",
       "weight": 1.0,
       "context": "attribute",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_listarporusuario",
@@ -22774,7 +23034,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L77",
+      "source_location": "L78",
       "weight": 1.0,
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_listarporusuario",
       "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_listartransacoesusecase_listartransacoesusecase_executarporusuario"
@@ -22783,7 +23043,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L81",
+      "source_location": "L82",
       "weight": 1.0,
       "context": "attribute",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_listarporconta",
@@ -22794,10 +23054,10 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L121",
+      "source_location": "L122",
       "weight": 1.0,
       "context": "attribute",
-      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_resumomensal",
+      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_resumoperiodo",
       "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_java_apiresponse",
       "confidence_score": 1.0
     },
@@ -22805,7 +23065,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L90",
+      "source_location": "L91",
       "weight": 1.0,
       "context": "attribute",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_buscarporid",
@@ -22816,7 +23076,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L81",
+      "source_location": "L82",
       "weight": 1.0,
       "context": "attribute",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_listarporconta",
@@ -22827,10 +23087,10 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L121",
+      "source_location": "L122",
       "weight": 1.0,
       "context": "attribute",
-      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_resumomensal",
+      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_resumoperiodo",
       "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_java_getmapping",
       "confidence_score": 1.0
     },
@@ -22838,7 +23098,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L81",
+      "source_location": "L82",
       "weight": 1.0,
       "context": "generic_arg",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_listarporconta",
@@ -22851,7 +23111,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L86",
+      "source_location": "L87",
       "weight": 1.0,
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_listarporconta",
       "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_listartransacoesusecase_listartransacoesusecase_executarporconta"
@@ -22860,7 +23120,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L90",
+      "source_location": "L91",
       "weight": 1.0,
       "context": "generic_arg",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_buscarporid",
@@ -22871,7 +23131,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L103",
+      "source_location": "L104",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_estornar",
@@ -22882,7 +23142,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L103",
+      "source_location": "L104",
       "weight": 1.0,
       "context": "generic_arg",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_estornar",
@@ -22893,7 +23153,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L103",
+      "source_location": "L104",
       "weight": 1.0,
       "context": "attribute",
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_estornar",
@@ -22904,11 +23164,11 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
-      "source_location": "L121",
+      "source_location": "L122",
       "weight": 1.0,
       "context": "generic_arg",
-      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_resumomensal",
-      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_resumomensalresponsedto_resumomensalresponsedto",
+      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_resumoperiodo",
+      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_resumoperiodoresponsedto_resumoperiodoresponsedto",
       "confidence_score": 1.0
     },
     {
@@ -22924,44 +23184,44 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/dto/ResumoMensalResponseDTO.java",
-      "source_location": "L7",
+      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/dto/ResumoPeriodoResponseDTO.java",
+      "source_location": "L8",
       "weight": 1.0,
-      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_resumomensalresponsedto",
-      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_resumomensalresponsedto_resumomensalresponsedto",
+      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_resumoperiodoresponsedto",
+      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_resumoperiodoresponsedto_resumoperiodoresponsedto",
       "confidence_score": 1.0
     },
     {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/dto/ResumoMensalResponseDTO.java",
+      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/dto/ResumoPeriodoResponseDTO.java",
       "source_location": "L3",
       "weight": 1.0,
-      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_resumomensalresponsedto",
-      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumomensal_resumomensal",
+      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_resumoperiodoresponsedto",
+      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumoperiodo_resumoperiodo",
       "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/dto/ResumoMensalResponseDTO.java",
-      "source_location": "L16",
+      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/dto/ResumoPeriodoResponseDTO.java",
+      "source_location": "L17",
       "weight": 1.0,
       "context": "return_type",
-      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_resumomensalresponsedto_resumomensalresponsedto_fromdomain",
-      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_resumomensalresponsedto_resumomensalresponsedto",
+      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_resumoperiodoresponsedto_resumoperiodoresponsedto_fromdomain",
+      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_resumoperiodoresponsedto_resumoperiodoresponsedto",
       "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/dto/ResumoMensalResponseDTO.java",
-      "source_location": "L16",
+      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/dto/ResumoPeriodoResponseDTO.java",
+      "source_location": "L17",
       "weight": 1.0,
       "context": "parameter_type",
-      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_resumomensalresponsedto_resumomensalresponsedto_fromdomain",
-      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumomensal_resumomensal",
+      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_resumoperiodoresponsedto_resumoperiodoresponsedto_fromdomain",
+      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumoperiodo_resumoperiodo",
       "confidence_score": 1.0
     },
     {
@@ -22969,11 +23229,11 @@
       "context": "call",
       "confidence": "INFERRED",
       "confidence_score": 0.8,
-      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/dto/ResumoMensalResponseDTO.java",
-      "source_location": "L24",
+      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/dto/ResumoPeriodoResponseDTO.java",
+      "source_location": "L25",
       "weight": 1.0,
-      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_resumomensalresponsedto_resumomensalresponsedto_fromdomain",
-      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumomensal_resumomensal_saldoperiodo"
+      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_resumoperiodoresponsedto_resumoperiodoresponsedto_fromdomain",
+      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumoperiodo_resumoperiodo_saldoperiodo"
     },
     {
       "relation": "contains",
@@ -27445,63 +27705,63 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/BuscarResumoMensalUseCase.java",
-      "source_location": "L6",
+      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/BuscarResumoPeriodoUseCase.java",
+      "source_location": "L8",
       "weight": 1.0,
-      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumomensalusecase",
-      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumomensalusecase_buscarresumomensalusecase",
+      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumoperiodousecase",
+      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumoperiodousecase_buscarresumoperiodousecase",
       "confidence_score": 1.0
     },
     {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/BuscarResumoMensalUseCase.java",
+      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/BuscarResumoPeriodoUseCase.java",
       "source_location": "L3",
       "weight": 1.0,
-      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumomensalusecase",
-      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumomensal_resumomensal",
+      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumoperiodousecase",
+      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumoperiodo_resumoperiodo",
       "confidence_score": 1.0
     },
     {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/BuscarResumoMensalUseCase.java",
+      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/BuscarResumoPeriodoUseCase.java",
       "source_location": "L4",
       "weight": 1.0,
-      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumomensalusecase",
+      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumoperiodousecase",
       "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_port_transacaorepositoryport_transacaorepositoryport",
       "confidence_score": 1.0
     },
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/BuscarResumoMensalUseCase.java",
-      "source_location": "L10",
+      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/BuscarResumoPeriodoUseCase.java",
+      "source_location": "L12",
       "weight": 1.0,
-      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumomensalusecase_buscarresumomensalusecase",
-      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumomensalusecase_buscarresumomensalusecase_buscarresumomensalusecase",
+      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumoperiodousecase_buscarresumoperiodousecase",
+      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumoperiodousecase_buscarresumoperiodousecase_buscarresumoperiodousecase",
       "confidence_score": 1.0
     },
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/BuscarResumoMensalUseCase.java",
-      "source_location": "L14",
+      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/BuscarResumoPeriodoUseCase.java",
+      "source_location": "L16",
       "weight": 1.0,
-      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumomensalusecase_buscarresumomensalusecase",
-      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumomensalusecase_buscarresumomensalusecase_executar",
+      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumoperiodousecase_buscarresumoperiodousecase",
+      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumoperiodousecase_buscarresumoperiodousecase_executar",
       "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/BuscarResumoMensalUseCase.java",
-      "source_location": "L8",
+      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/BuscarResumoPeriodoUseCase.java",
+      "source_location": "L10",
       "weight": 1.0,
       "context": "field",
-      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumomensalusecase_buscarresumomensalusecase",
+      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumoperiodousecase_buscarresumoperiodousecase",
       "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_port_transacaorepositoryport_transacaorepositoryport",
       "confidence_score": 1.0
     },
@@ -27512,30 +27772,30 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/config/BeanConfig.java",
       "source_location": "L180",
       "weight": 1.0,
-      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_buscarresumomensalusecase",
-      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumomensalusecase_buscarresumomensalusecase",
+      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_buscarresumoperiodousecase",
+      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumoperiodousecase_buscarresumoperiodousecase",
       "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/BuscarResumoMensalUseCase.java",
-      "source_location": "L10",
+      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/BuscarResumoPeriodoUseCase.java",
+      "source_location": "L12",
       "weight": 1.0,
       "context": "parameter_type",
-      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumomensalusecase_buscarresumomensalusecase_buscarresumomensalusecase",
+      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumoperiodousecase_buscarresumoperiodousecase_buscarresumoperiodousecase",
       "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_port_transacaorepositoryport_transacaorepositoryport",
       "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/BuscarResumoMensalUseCase.java",
-      "source_location": "L14",
+      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/BuscarResumoPeriodoUseCase.java",
+      "source_location": "L16",
       "weight": 1.0,
       "context": "return_type",
-      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumomensalusecase_buscarresumomensalusecase_executar",
-      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumomensal_resumomensal",
+      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumoperiodousecase_buscarresumoperiodousecase_executar",
+      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumoperiodo_resumoperiodo",
       "confidence_score": 1.0
     },
     {
@@ -27543,11 +27803,11 @@
       "context": "call",
       "confidence": "INFERRED",
       "confidence_score": 0.8,
-      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/BuscarResumoMensalUseCase.java",
-      "source_location": "L16",
+      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/BuscarResumoPeriodoUseCase.java",
+      "source_location": "L18",
       "weight": 1.0,
-      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumomensalusecase_buscarresumomensalusecase_executar",
-      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_port_transacaorepositoryport_transacaorepositoryport_somarporusuariocontanomes"
+      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumoperiodousecase_buscarresumoperiodousecase_executar",
+      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_port_transacaorepositoryport_transacaorepositoryport_somarporusuariocontanoperiodo"
     },
     {
       "relation": "contains",
@@ -29546,7 +29806,7 @@
       "source_location": "L180",
       "weight": 1.0,
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig",
-      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_buscarresumomensalusecase",
+      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_buscarresumoperiodousecase",
       "confidence_score": 1.0
     },
     {
@@ -29946,7 +30206,7 @@
       "source_location": "L180",
       "weight": 1.0,
       "context": "attribute",
-      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_buscarresumomensalusecase",
+      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_buscarresumoperiodousecase",
       "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_java_bean",
       "confidence_score": 1.0
     },
@@ -30551,7 +30811,7 @@
       "source_location": "L180",
       "weight": 1.0,
       "context": "parameter_type",
-      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_buscarresumomensalusecase",
+      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_buscarresumoperiodousecase",
       "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_port_transacaorepositoryport_transacaorepositoryport",
       "confidence_score": 1.0
     },
@@ -36564,21 +36824,21 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/transacao/model/ResumoMensal.java",
-      "source_location": "L5",
+      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/transacao/model/ResumoPeriodo.java",
+      "source_location": "L6",
       "weight": 1.0,
-      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumomensal",
-      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumomensal_resumomensal",
+      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumoperiodo",
+      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumoperiodo_resumoperiodo",
       "confidence_score": 1.0
     },
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/transacao/model/ResumoMensal.java",
-      "source_location": "L13",
+      "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/transacao/model/ResumoPeriodo.java",
+      "source_location": "L14",
       "weight": 1.0,
-      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumomensal_resumomensal",
-      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumomensal_resumomensal_saldoperiodo",
+      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumoperiodo_resumoperiodo",
+      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumoperiodo_resumoperiodo_saldoperiodo",
       "confidence_score": 1.0
     },
     {
@@ -36589,7 +36849,7 @@
       "source_location": "L3",
       "weight": 1.0,
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_port_transacaorepositoryport",
-      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumomensal_resumomensal",
+      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumoperiodo_resumoperiodo",
       "confidence_score": 1.0
     },
     {
@@ -36599,8 +36859,8 @@
       "source_location": "L19",
       "weight": 1.0,
       "context": "return_type",
-      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_port_transacaorepositoryport_transacaorepositoryport_somarporusuariocontanomes",
-      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumomensal_resumomensal",
+      "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_port_transacaorepositoryport_transacaorepositoryport_somarporusuariocontanoperiodo",
+      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumoperiodo_resumoperiodo",
       "confidence_score": 1.0
     },
     {
@@ -37025,7 +37285,7 @@
       "source_location": "L19",
       "weight": 1.0,
       "source": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_port_transacaorepositoryport_transacaorepositoryport",
-      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_port_transacaorepositoryport_transacaorepositoryport_somarporusuariocontanomes",
+      "target": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_port_transacaorepositoryport_transacaorepositoryport_somarporusuariocontanoperiodo",
       "confidence_score": 1.0
     },
     {
@@ -41262,7 +41522,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/components/finsight/BalanceChart.jsx",
-      "source_location": "L45",
+      "source_location": "L87",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_components_finsight_balancechart",
       "target": "frontend_fintech_app_src_components_finsight_balancechart_balancechart",
@@ -41272,10 +41532,60 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/components/finsight/BalanceChart.jsx",
-      "source_location": "L4",
+      "source_location": "L75",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_components_finsight_balancechart",
       "target": "frontend_fintech_app_src_components_finsight_balancechart_buildpoints",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/components/finsight/BalanceChart.jsx",
+      "source_location": "L31",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_components_finsight_balancechart",
+      "target": "frontend_fintech_app_src_components_finsight_balancechart_buildpointsdiario",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/components/finsight/BalanceChart.jsx",
+      "source_location": "L53",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_components_finsight_balancechart",
+      "target": "frontend_fintech_app_src_components_finsight_balancechart_buildpointsmensal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/components/finsight/BalanceChart.jsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_components_finsight_balancechart",
+      "target": "frontend_fintech_app_src_components_finsight_balancechart_dias_label",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/components/finsight/BalanceChart.jsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_components_finsight_balancechart",
+      "target": "frontend_fintech_app_src_components_finsight_balancechart_meses_label",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/components/finsight/BalanceChart.jsx",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_components_finsight_balancechart",
+      "target": "frontend_fintech_app_src_components_finsight_balancechart_montarpontos",
       "confidence_score": 1.0
     },
     {
@@ -41295,6 +41605,50 @@
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/components/finsight/BalanceChart.jsx",
       "source_location": "L49",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_components_finsight_balancechart_buildpointsdiario",
+      "target": "frontend_fintech_app_src_components_finsight_balancechart_montarpontos",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/components/finsight/BalanceChart.jsx",
+      "source_location": "L72",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_components_finsight_balancechart_buildpointsmensal",
+      "target": "frontend_fintech_app_src_components_finsight_balancechart_montarpontos",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/components/finsight/BalanceChart.jsx",
+      "source_location": "L79",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_components_finsight_balancechart_buildpoints",
+      "target": "frontend_fintech_app_src_components_finsight_balancechart_buildpointsdiario",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/components/finsight/BalanceChart.jsx",
+      "source_location": "L76",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_components_finsight_balancechart_buildpoints",
+      "target": "frontend_fintech_app_src_components_finsight_balancechart_buildpointsmensal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/components/finsight/BalanceChart.jsx",
+      "source_location": "L89",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_components_finsight_balancechart_balancechart",
       "target": "frontend_fintech_app_src_components_finsight_balancechart_buildpoints",
@@ -41355,10 +41709,41 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/components/finsight/TopBar.jsx",
-      "source_location": "L8",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_components_finsight_topbar",
+      "target": "frontend_fintech_app_src_components_finsight_topbar_normalize",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/components/finsight/TopBar.jsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_components_finsight_topbar",
+      "target": "frontend_fintech_app_src_components_finsight_topbar_telas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/components/finsight/TopBar.jsx",
+      "source_location": "L27",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_components_finsight_topbar",
       "target": "frontend_fintech_app_src_components_finsight_topbar_topbar",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/components/finsight/TopBar.jsx",
+      "source_location": "L45",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_components_finsight_topbar_topbar",
+      "target": "frontend_fintech_app_src_components_finsight_topbar_normalize",
       "confidence_score": 1.0
     },
     {
@@ -41427,7 +41812,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/components/finsight/screens/AnalyticsScreen.jsx",
-      "source_location": "L76",
+      "source_location": "L108",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_components_finsight_screens_analyticsscreen",
       "target": "frontend_fintech_app_src_components_finsight_screens_analyticsscreen_analyticsscreen",
@@ -41437,7 +41822,27 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/components/finsight/screens/AnalyticsScreen.jsx",
-      "source_location": "L13",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_components_finsight_screens_analyticsscreen",
+      "target": "frontend_fintech_app_src_components_finsight_screens_analyticsscreen_bucketsdiarios",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/components/finsight/screens/AnalyticsScreen.jsx",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_components_finsight_screens_analyticsscreen",
+      "target": "frontend_fintech_app_src_components_finsight_screens_analyticsscreen_dias_label",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/components/finsight/screens/AnalyticsScreen.jsx",
+      "source_location": "L45",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_components_finsight_screens_analyticsscreen",
       "target": "frontend_fintech_app_src_components_finsight_screens_analyticsscreen_donut",
@@ -41447,7 +41852,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/components/finsight/screens/AnalyticsScreen.jsx",
-      "source_location": "L41",
+      "source_location": "L73",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_components_finsight_screens_analyticsscreen",
       "target": "frontend_fintech_app_src_components_finsight_screens_analyticsscreen_linechart",
@@ -41457,10 +41862,31 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/components/finsight/screens/AnalyticsScreen.jsx",
-      "source_location": "L11",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_components_finsight_screens_analyticsscreen",
+      "target": "frontend_fintech_app_src_components_finsight_screens_analyticsscreen_mes_abrev",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/components/finsight/screens/AnalyticsScreen.jsx",
+      "source_location": "L14",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_components_finsight_screens_analyticsscreen",
       "target": "frontend_fintech_app_src_components_finsight_screens_analyticsscreen_ranges",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/components/finsight/screens/AnalyticsScreen.jsx",
+      "source_location": "L160",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_components_finsight_screens_analyticsscreen_analyticsscreen",
+      "target": "frontend_fintech_app_src_components_finsight_screens_analyticsscreen_bucketsdiarios",
       "confidence_score": 1.0
     },
     {
@@ -41487,7 +41913,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/components/finsight/screens/OverviewScreen.jsx",
-      "source_location": "L32",
+      "source_location": "L34",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_components_finsight_screens_overviewscreen",
       "target": "frontend_fintech_app_src_components_finsight_screens_overviewscreen_bancologo",
@@ -41497,7 +41923,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/components/finsight/screens/OverviewScreen.jsx",
-      "source_location": "L60",
+      "source_location": "L62",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_components_finsight_screens_overviewscreen",
       "target": "frontend_fintech_app_src_components_finsight_screens_overviewscreen_contaselector",
@@ -41507,7 +41933,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/components/finsight/screens/OverviewScreen.jsx",
-      "source_location": "L137",
+      "source_location": "L139",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_components_finsight_screens_overviewscreen",
       "target": "frontend_fintech_app_src_components_finsight_screens_overviewscreen_overviewscreen",
@@ -41517,7 +41943,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/components/finsight/screens/OverviewScreen.jsx",
-      "source_location": "L20",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_components_finsight_screens_overviewscreen",
+      "target": "frontend_fintech_app_src_components_finsight_screens_overviewscreen_periodo_label",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/components/finsight/screens/OverviewScreen.jsx",
+      "source_location": "L21",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_components_finsight_screens_overviewscreen",
       "target": "frontend_fintech_app_src_components_finsight_screens_overviewscreen_ranges",
@@ -41527,7 +41963,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/components/finsight/screens/OverviewScreen.jsx",
-      "source_location": "L23",
+      "source_location": "L25",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_components_finsight_screens_overviewscreen",
       "target": "frontend_fintech_app_src_components_finsight_screens_overviewscreen_tipo_label",
@@ -41567,10 +42003,10 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/components/finsight/screens/TransactionsScreen.jsx",
-      "source_location": "L16",
+      "source_location": "L39",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_components_finsight_screens_transactionsscreen",
-      "target": "frontend_fintech_app_src_components_finsight_screens_transactionsscreen_filtros",
+      "target": "frontend_fintech_app_src_components_finsight_screens_transactionsscreen_algumfiltroativo",
       "confidence_score": 1.0
     },
     {
@@ -41580,7 +42016,17 @@
       "source_location": "L23",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_components_finsight_screens_transactionsscreen",
-      "target": "frontend_fintech_app_src_components_finsight_screens_transactionsscreen_normalize",
+      "target": "frontend_fintech_app_src_components_finsight_screens_transactionsscreen_filtros_padrao",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/components/finsight/screens/TransactionsScreen.jsx",
+      "source_location": "L49",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_components_finsight_screens_transactionsscreen",
+      "target": "frontend_fintech_app_src_components_finsight_screens_transactionsscreen_filtrosmodal",
       "confidence_score": 1.0
     },
     {
@@ -41588,6 +42034,16 @@
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/components/finsight/screens/TransactionsScreen.jsx",
       "source_location": "L31",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_components_finsight_screens_transactionsscreen",
+      "target": "frontend_fintech_app_src_components_finsight_screens_transactionsscreen_normalize",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/components/finsight/screens/TransactionsScreen.jsx",
+      "source_location": "L179",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_components_finsight_screens_transactionsscreen",
       "target": "frontend_fintech_app_src_components_finsight_screens_transactionsscreen_transactionsscreen",
@@ -41598,10 +42054,21 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/components/finsight/screens/TransactionsScreen.jsx",
-      "source_location": "L46",
+      "source_location": "L197",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_components_finsight_screens_transactionsscreen_transactionsscreen",
       "target": "frontend_fintech_app_src_components_finsight_screens_transactionsscreen_normalize",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/components/finsight/screens/TransactionsScreen.jsx",
+      "source_location": "L233",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_components_finsight_screens_transactionsscreen_transactionsscreen",
+      "target": "frontend_fintech_app_src_components_finsight_screens_transactionsscreen_algumfiltroativo",
       "confidence_score": 1.0
     },
     {
@@ -42193,6 +42660,36 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/context/ContaSelecionadaContext.jsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_context_contaselecionadacontext",
+      "target": "frontend_fintech_app_src_context_contaselecionadacontext_contaselecionadacontext",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/context/ContaSelecionadaContext.jsx",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_context_contaselecionadacontext",
+      "target": "frontend_fintech_app_src_context_contaselecionadacontext_contaselecionadaprovider",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/context/ContaSelecionadaContext.jsx",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_context_contaselecionadacontext",
+      "target": "frontend_fintech_app_src_context_contaselecionadacontext_usecontaselecionada",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/hooks/use-categorias.js",
       "source_location": "L4",
       "weight": 1.0,
@@ -42218,6 +42715,16 @@
       "weight": 1.0,
       "source": "frontend_fintech_app_src_hooks_use_mobile",
       "target": "frontend_fintech_app_src_hooks_use_mobile_useismobile",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/hooks/use-resumo-periodo.js",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_hooks_use_resumo_periodo",
+      "target": "frontend_fintech_app_src_hooks_use_resumo_periodo_useresumoperiodo",
       "confidence_score": 1.0
     },
     {
@@ -42727,6 +43234,68 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/lib/periodo.js",
+      "source_location": "L42",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_lib_periodo",
+      "target": "frontend_fintech_app_src_lib_periodo_filtrarporintervalo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/lib/periodo.js",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_lib_periodo",
+      "target": "frontend_fintech_app_src_lib_periodo_getintervaloperiodo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/lib/periodo.js",
+      "source_location": "L29",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_lib_periodo",
+      "target": "frontend_fintech_app_src_lib_periodo_getintervaloperiodoanterior",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/lib/periodo.js",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_lib_periodo",
+      "target": "frontend_fintech_app_src_lib_periodo_intervalode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/lib/periodo.js",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_lib_periodo_getintervaloperiodo",
+      "target": "frontend_fintech_app_src_lib_periodo_intervalode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/lib/periodo.js",
+      "source_location": "L32",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_lib_periodo_getintervaloperiodoanterior",
+      "target": "frontend_fintech_app_src_lib_periodo_getintervaloperiodo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/lib/utils.js",
       "source_location": "L7",
       "weight": 1.0,
@@ -43053,7 +43622,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/pages/Index.jsx",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_pages_index",
       "target": "frontend_fintech_app_src_pages_index_index",
@@ -43444,6 +44013,17 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/services/transacao/GetResumoPeriodo.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_services_transacao_getresumoperiodo",
+      "target": "frontend_fintech_app_src_services_api",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/services/transacao/GetTransacao.js",
       "source_location": "L5",
       "weight": 1.0,
@@ -43723,6 +44303,17 @@
       "source_location": "L5",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_services_transacao_estornartransacao",
+      "target": "frontend_fintech_app_src_services_api_api",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/services/transacao/GetResumoPeriodo.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_services_transacao_getresumoperiodo",
       "target": "frontend_fintech_app_src_services_api_api",
       "confidence_score": 1.0
     },
@@ -44280,6 +44871,28 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/services/transacao/GetResumoPeriodo.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_services_transacao_getresumoperiodo",
+      "target": "frontend_fintech_app_src_services_api_apiunwrap",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/fintech_app/src/services/transacao/GetResumoPeriodo.js",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_services_transacao_getresumoperiodo_buscarresumoperiodo",
+      "target": "frontend_fintech_app_src_services_api_apiunwrap"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/services/transacao/GetTransacao.js",
       "source_location": "L5",
       "weight": 1.0,
@@ -44789,7 +45402,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/services/index.js",
-      "source_location": "L38",
+      "source_location": "L39",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_services_index",
       "target": "frontend_fintech_app_src_services_index_bancoservice",
@@ -44799,7 +45412,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/services/index.js",
-      "source_location": "L39",
+      "source_location": "L40",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_services_index",
       "target": "frontend_fintech_app_src_services_index_categoriaservice",
@@ -44809,7 +45422,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/services/index.js",
-      "source_location": "L40",
+      "source_location": "L41",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_services_index",
       "target": "frontend_fintech_app_src_services_index_consentimentoservice",
@@ -44819,7 +45432,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/services/index.js",
-      "source_location": "L41",
+      "source_location": "L42",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_services_index",
       "target": "frontend_fintech_app_src_services_index_contafinanceiraservice",
@@ -44829,7 +45442,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/services/index.js",
-      "source_location": "L42",
+      "source_location": "L43",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_services_index",
       "target": "frontend_fintech_app_src_services_index_extratoservice",
@@ -44839,7 +45452,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/services/index.js",
-      "source_location": "L43",
+      "source_location": "L44",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_services_index",
       "target": "frontend_fintech_app_src_services_index_motivocancelamentoservice",
@@ -44849,7 +45462,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/services/index.js",
-      "source_location": "L44",
+      "source_location": "L45",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_services_index",
       "target": "frontend_fintech_app_src_services_index_notificacaoservice",
@@ -44859,7 +45472,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/services/index.js",
-      "source_location": "L45",
+      "source_location": "L46",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_services_index",
       "target": "frontend_fintech_app_src_services_index_snapshotfinanceiroservice",
@@ -44869,7 +45482,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/services/index.js",
-      "source_location": "L47",
+      "source_location": "L48",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_services_index",
       "target": "frontend_fintech_app_src_services_index_transacaocanceladaservice",
@@ -44879,7 +45492,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/services/index.js",
-      "source_location": "L46",
+      "source_location": "L47",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_services_index",
       "target": "frontend_fintech_app_src_services_index_transacaoservice",
@@ -44889,7 +45502,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/services/index.js",
-      "source_location": "L48",
+      "source_location": "L49",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_services_index",
       "target": "frontend_fintech_app_src_services_index_usuarioservice",
@@ -44955,6 +45568,17 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/services/index.js",
+      "source_location": "L32",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_services_index",
+      "target": "frontend_fintech_app_src_services_transacao_getresumoperiodo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/services/index.js",
       "source_location": "L29",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_services_index",
@@ -44977,7 +45601,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/services/index.js",
-      "source_location": "L32",
+      "source_location": "L33",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_services_index",
       "target": "frontend_fintech_app_src_services_transacaocancelada_gettransacaocancelada",
@@ -44988,7 +45612,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/services/index.js",
-      "source_location": "L33",
+      "source_location": "L34",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_services_index",
       "target": "frontend_fintech_app_src_services_transacaocancelada_newtransacaocancelada",
@@ -44999,7 +45623,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/services/index.js",
-      "source_location": "L34",
+      "source_location": "L35",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_services_index",
       "target": "frontend_fintech_app_src_services_usuario_getusuario",
@@ -45010,7 +45634,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/services/index.js",
-      "source_location": "L35",
+      "source_location": "L36",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_services_index",
       "target": "frontend_fintech_app_src_services_usuario_newusuario",
@@ -45021,7 +45645,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/fintech_app/src/services/index.js",
-      "source_location": "L36",
+      "source_location": "L37",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_services_index",
       "target": "frontend_fintech_app_src_services_usuario_updateusuario",
@@ -45115,6 +45739,16 @@
       "weight": 1.0,
       "source": "frontend_fintech_app_src_services_transacao_estornartransacao",
       "target": "frontend_fintech_app_src_services_transacao_estornartransacao_estornar",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/fintech_app/src/services/transacao/GetResumoPeriodo.js",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "frontend_fintech_app_src_services_transacao_getresumoperiodo",
+      "target": "frontend_fintech_app_src_services_transacao_getresumoperiodo_buscarresumoperiodo",
       "confidence_score": 1.0
     },
     {
