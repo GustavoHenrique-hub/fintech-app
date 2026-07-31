@@ -1,7 +1,7 @@
 {
   ".claude/settings.local.json": {
-    "mtime": 1785508664.1178339,
-    "ast_hash": "ba7c20bf9ac1f8dcc104c0a00096743b",
+    "mtime": 1785510363.0581117,
+    "ast_hash": "b58d1e6e70ca89a260ad53809e429710",
     "semantic_hash": ""
   },
   "Entregas FIAP/Atividade Fase 4 - RM570791/script.js": {
@@ -105,7 +105,7 @@
     "semantic_hash": "6753eb058675efcd495a469f64420178"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/contafinanceira/dto/ContaFinanceiraResponseDTO.java": {
-    "mtime": 1785508603.7170317,
+    "mtime": 1785510322.5722027,
     "ast_hash": "20f99b2aa8aba4618d5692b7721801df",
     "semantic_hash": ""
   },
@@ -385,7 +385,7 @@
     "semantic_hash": "ef42322fcf951e6e735ccb943c0c067b"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/config/BeanConfig.java": {
-    "mtime": 1785508603.7190402,
+    "mtime": 1785510322.5722027,
     "ast_hash": "852133208e4e2d6f93025f6bba7fe2ec",
     "semantic_hash": ""
   },
@@ -485,7 +485,7 @@
     "semantic_hash": "0878579454c0ba826bebcc597513fd73"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/contafinanceira/model/ContaFinanceira.java": {
-    "mtime": 1785508603.7190402,
+    "mtime": 1785510322.5722027,
     "ast_hash": "78c246868d9b4f55821f14a726875da2",
     "semantic_hash": ""
   },
@@ -790,7 +790,7 @@
     "semantic_hash": "5372529e8937579cc192f9563e00e3e9"
   },
   "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/domain/contafinanceira/ContaFinanceiraTest.java": {
-    "mtime": 1785508603.721049,
+    "mtime": 1785510322.5722027,
     "ast_hash": "2f020d3c6827a216a296f6dcd8b5a6e8",
     "semantic_hash": ""
   },
@@ -875,7 +875,7 @@
     "semantic_hash": ""
   },
   "frontend/fintech_app/src/components/finsight/screens/AddTransactionScreen.jsx": {
-    "mtime": 1785508603.721049,
+    "mtime": 1785510322.5722027,
     "ast_hash": "d9313974787ee56030094ec2a748b161",
     "semantic_hash": ""
   },
@@ -890,7 +890,7 @@
     "semantic_hash": ""
   },
   "frontend/fintech_app/src/components/finsight/screens/OverviewScreen.jsx": {
-    "mtime": 1785508603.721049,
+    "mtime": 1785510322.5881162,
     "ast_hash": "0e7042c514168c1bba466c784f3cde2b",
     "semantic_hash": ""
   },
@@ -1065,7 +1065,7 @@
     "semantic_hash": "5618b6cb3f1b18fa9d28afd3bca89200"
   },
   "frontend/fintech_app/src/mocks/contas.js": {
-    "mtime": 1785508603.721049,
+    "mtime": 1785510322.5881162,
     "ast_hash": "fe06cf80f93b069a9e063f83b16424cf",
     "semantic_hash": ""
   },
@@ -1195,7 +1195,7 @@
     "semantic_hash": "fa98525fe12e83c522a15ef69ad2c889"
   },
   "frontend/fintech_app/src/services/index.js": {
-    "mtime": 1785508603.721049,
+    "mtime": 1785510322.5902152,
     "ast_hash": "eea412f57cb77a7ea12f967dacb7291a",
     "semantic_hash": ""
   },
@@ -1330,7 +1330,7 @@
     "semantic_hash": ""
   },
   "scripts/fintechapp_schema.sql": {
-    "mtime": 1785508603.7252061,
+    "mtime": 1785510322.616506,
     "ast_hash": "bc53ca24351417460ff3c878bf100715",
     "semantic_hash": ""
   },
@@ -1520,68 +1520,68 @@
     "semantic_hash": ""
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/economia/EconomiaController.java": {
-    "mtime": 1785508603.7906072,
+    "mtime": 1785510322.6915195,
     "ast_hash": "95a2a19c6dc0171e6881eb4a97c57d2f",
     "semantic_hash": ""
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/economia/dto/EconomiaRequestDTO.java": {
-    "mtime": 1785508603.7906072,
+    "mtime": 1785510322.6935346,
     "ast_hash": "97faa11ee5ec7e58273bb21f4ead5218",
     "semantic_hash": ""
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/economia/dto/MovimentacaoEconomiaResponseDTO.java": {
-    "mtime": 1785508603.7906072,
+    "mtime": 1785510322.6940467,
     "ast_hash": "5d4e366339489bbf79f4835858bb6d57",
     "semantic_hash": ""
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/economia/usecase/ListarMovimentacoesEconomiaUseCase.java": {
-    "mtime": 1785508603.7945974,
+    "mtime": 1785510322.7014585,
     "ast_hash": "fa929878519d1b4b789592cad0a2153f",
     "semantic_hash": ""
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/economia/usecase/RegistrarMovimentacaoEconomiaUseCase.java": {
-    "mtime": 1785508603.7974923,
+    "mtime": 1785510322.7024572,
     "ast_hash": "0470f7d35345b3194f00d934f75fa84f",
     "semantic_hash": ""
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/economia/exception/MovimentacaoEconomiaInvalidaException.java": {
-    "mtime": 1785508603.7974923,
+    "mtime": 1785510322.7044592,
     "ast_hash": "2749820cadb57d6d0b54039cf12697ea",
     "semantic_hash": ""
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/economia/model/MovimentacaoEconomia.java": {
-    "mtime": 1785508603.7974923,
+    "mtime": 1785510322.7044592,
     "ast_hash": "a432c95f20a6fc2f745addd14959ce96",
     "semantic_hash": ""
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/economia/port/MovimentacaoEconomiaRepositoryPort.java": {
-    "mtime": 1785508603.7974923,
+    "mtime": 1785510322.706112,
     "ast_hash": "534800a3803e636162b971ca614e49c0",
     "semantic_hash": ""
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/TipoMovimentacaoEconomia.java": {
-    "mtime": 1785508603.7974923,
+    "mtime": 1785510322.706112,
     "ast_hash": "3e37a525b6de8c0d794e008698dce540",
     "semantic_hash": ""
   },
   "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/economia/RegistrarMovimentacaoEconomiaUseCaseTest.java": {
-    "mtime": 1785508603.7974923,
+    "mtime": 1785510322.7074273,
     "ast_hash": "97eff36d22835c6fe91981d9055ca8b8",
     "semantic_hash": ""
   },
   "frontend/fintech_app/src/services/economia/GetMovimentacaoEconomia.js": {
-    "mtime": 1785508603.8068626,
+    "mtime": 1785510322.7104497,
     "ast_hash": "07eadca8749e1d7a9d5be3d466a12260",
     "semantic_hash": ""
   },
   "frontend/fintech_app/src/services/economia/NewMovimentacaoEconomia.js": {
-    "mtime": 1785508603.8089757,
+    "mtime": 1785510322.7104497,
     "ast_hash": "31383548d9afd8b474b99b48a5c63c11",
     "semantic_hash": ""
   },
-  "docs/transacao_economias.png": {
-    "mtime": 1785508603.7974923,
-    "ast_hash": "933206c021249f98a0b2c0d0999515c8",
+  "docs/ajuste_funcionamento.png": {
+    "mtime": 1785510363.1705163,
+    "ast_hash": "6771a7d159e57de109d04d364e417aa2",
     "semantic_hash": ""
   }
 }
