@@ -19,6 +19,8 @@ import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.B
 import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.CriarContaFinanceiraUseCase;
 import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.ListarContasFinanceirasUseCase;
 import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.RemoverContaFinanceiraUseCase;
+import com.enterprise.gustadev.fintech_app.application.economia.usecase.ListarMovimentacoesEconomiaUseCase;
+import com.enterprise.gustadev.fintech_app.application.economia.usecase.RegistrarMovimentacaoEconomiaUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.BuscarExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.CriarExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.ListarExtratosUseCase;
@@ -38,6 +40,7 @@ import com.enterprise.gustadev.fintech_app.domain.motivocancelamento.port.Motivo
 import com.enterprise.gustadev.fintech_app.domain.transacaocancelada.port.TransacaoCanceladaRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.consentimentolgpd.port.ConsentimentoLgpdRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.port.ContaFinanceiraRepositoryPort;
+import com.enterprise.gustadev.fintech_app.domain.economia.port.MovimentacaoEconomiaRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.extrato.port.ExtratoRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.notificacao.port.NotificacaoRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.snapshotfinanceiro.port.SnapshotFinanceiroRepositoryPort;
@@ -97,6 +100,20 @@ public class BeanConfig {
     @Bean
     public RemoverContaFinanceiraUseCase removerContaFinanceiraUseCase(ContaFinanceiraRepositoryPort repository) {
         return new RemoverContaFinanceiraUseCase(repository);
+    }
+
+    // ── Economia (sub-saldo de "Economias" de uma ContaFinanceira) ──────
+    @Bean
+    public RegistrarMovimentacaoEconomiaUseCase registrarMovimentacaoEconomiaUseCase(
+            MovimentacaoEconomiaRepositoryPort repository,
+            ContaFinanceiraRepositoryPort contaRepository) {
+        return new RegistrarMovimentacaoEconomiaUseCase(repository, contaRepository);
+    }
+
+    @Bean
+    public ListarMovimentacoesEconomiaUseCase listarMovimentacoesEconomiaUseCase(
+            MovimentacaoEconomiaRepositoryPort repository) {
+        return new ListarMovimentacoesEconomiaUseCase(repository);
     }
 
     // ── Banco ────────────────────────────────────────────────────────────

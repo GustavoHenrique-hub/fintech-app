@@ -4,6 +4,7 @@ import com.enterprise.gustadev.fintech_app.adapters.out.persistence.banco.BancoE
 import com.enterprise.gustadev.fintech_app.adapters.out.persistence.usuario.UsuarioEntity;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoConta;
+import org.hibernate.annotations.ColumnDefault;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -85,6 +86,10 @@ public class ContaFinanceiraEntity {
     @Column(name = "saldo_atual", nullable = false, precision = 15, scale = 2)
     private BigDecimal saldoAtual = BigDecimal.ZERO;
 
+    @ColumnDefault("0")
+    @Column(name = "saldo_economias", nullable = false, precision = 15, scale = 2)
+    private BigDecimal saldoEconomias = BigDecimal.ZERO;
+
     @Column
     private Boolean padrao = false;
 
@@ -114,6 +119,7 @@ public class ContaFinanceiraEntity {
         entity.bancoCode = domain.getBancoCode();
         entity.saldoInicial = domain.getSaldoInicial();
         entity.saldoAtual = domain.getSaldoAtual() != null ? domain.getSaldoAtual() : BigDecimal.ZERO;
+        entity.saldoEconomias = domain.getSaldoEconomias() != null ? domain.getSaldoEconomias() : BigDecimal.ZERO;
         entity.padrao = domain.isPadrao();
         entity.ativa = domain.isAtiva();
         entity.criadoEm = domain.getCriadoEm();
@@ -126,6 +132,7 @@ public class ContaFinanceiraEntity {
     public ContaFinanceira toDomain() {
         ContaFinanceira c = new ContaFinanceira(id, usuarioId, usuarioCode, tipo, bancoId, bancoCode, saldoInicial,
                 saldoAtual != null ? saldoAtual : BigDecimal.ZERO,
+                saldoEconomias != null ? saldoEconomias : BigDecimal.ZERO,
                 padrao != null && padrao, ativa != null && ativa, criadoEm, atualizadoEm,
                 indDelete, deletedAt);
         c.setCode(code);

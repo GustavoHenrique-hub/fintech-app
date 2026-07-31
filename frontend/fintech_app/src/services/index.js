@@ -26,6 +26,8 @@ import * as GetMotivoCancelamento      from "./motivoCancelamento/GetMotivoCance
 import * as GetNotificacao             from "./notificacao/GetNotificacao";
 import * as NewNotificacao             from "./notificacao/NewNotificacao";
 import * as GetSnapshotFinanceiro      from "./snapshotFinanceiro/GetSnapshotFinanceiro";
+import * as GetEconomia                from "./economia/GetMovimentacaoEconomia";
+import * as NewEconomia                from "./economia/NewMovimentacaoEconomia";
 import * as GetTransacao               from "./transacao/GetTransacao";
 import * as NewTransacao               from "./transacao/NewTransacao";
 import * as EstornarTransacao          from "./transacao/EstornarTransacao";
@@ -37,6 +39,7 @@ import * as NewUsuario                 from "./usuario/NewUsuario";
 import * as UpdateUsuario              from "./usuario/UpdateUsuario";
 
 export const bancoService               = { ...GetBanco, ...NewBanco };
+export const economiaService            = { ...GetEconomia, ...NewEconomia };
 export const categoriaService           = { ...GetCategoria, ...NewCategoria };
 export const consentimentoService       = { ...GetConsentimento, ...NewConsentimento };
 export const contaFinanceiraService     = { ...GetContaFinanceira, ...NewContaFinanceira, ...RemoverContaFinanceira };

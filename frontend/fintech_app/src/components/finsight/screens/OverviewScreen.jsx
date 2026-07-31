@@ -257,7 +257,7 @@ export const OverviewScreen = ({ onNavigate }) => {
           <div>
             <div className="flex items-center gap-1.5">
               <p className="text-[10.5px] uppercase tracking-[0.12em] opacity-80 font-semibold">
-                Saldo Atual
+                Saldo Total
               </p>
               <button
                 onClick={() => setSaldoOculto((v) => !v)}
@@ -268,14 +268,26 @@ export const OverviewScreen = ({ onNavigate }) => {
               </button>
             </div>
             <p className="text-[32px] lg:text-[40px] font-extrabold tracking-tight mt-1 leading-none tabular-nums">
-              {saldoOculto ? "R$ ••••••" : `R$ ${formatNumeroBR(contaAtual?.saldoAtual ?? 0)}`}
+              {saldoOculto
+                ? "R$ ••••••"
+                : `R$ ${formatNumeroBR((contaAtual?.saldoAtual ?? 0) + (contaAtual?.saldoEconomias ?? 0))}`}
             </p>
-            <p className="text-[11.5px] opacity-80 mt-1.5">
-              Disponível ·{" "}
-              <span className="font-semibold">
-                {saldoOculto ? "•••" : formatBRL(contaAtual?.saldoAtual ?? 0)}
-              </span>
-            </p>
+            <div className="flex flex-wrap items-center gap-x-2.5 gap-y-0 mt-1.5">
+              <p className="text-[11.5px] opacity-80">
+                Disponível ·{" "}
+                <span className="font-semibold">
+                  {saldoOculto ? "•••" : formatBRL(contaAtual?.saldoAtual ?? 0)}
+                </span>
+              </p>
+              <span className="opacity-40 text-[11.5px]">·</span>
+              <p className="text-[11.5px] opacity-80 flex items-center gap-1">
+                <PiggyBank className="w-3 h-3" strokeWidth={2} />
+                Guardado ·{" "}
+                <span className="font-semibold">
+                  {saldoOculto ? "•••" : formatBRL(contaAtual?.saldoEconomias ?? 0)}
+                </span>
+              </p>
+            </div>
           </div>
 
           {/* Seletor de conta */}
