@@ -1,4 +1,4 @@
-import { Home, BarChart3, ArrowLeftRight, User, Plus, Wallet, RotateCcw } from "lucide-react";
+import { Home, BarChart3, ArrowLeftRight, User, Plus, Wallet, RotateCcw, FileText } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { useUsuario } from "@/hooks/use-usuario";
 import { getInitials } from "@/lib/format";
@@ -7,6 +7,7 @@ const items = [
   { key: "home",      label: "Visão geral", icon: Home },
   { key: "analytics", label: "Análises",    icon: BarChart3 },
   { key: "payments",  label: "Transações",  icon: ArrowLeftRight },
+  { key: "extratos",  label: "Extratos",    icon: FileText },
   { key: "estorno",   label: "Estornos",    icon: RotateCcw },
   { key: "profile",   label: "Perfil",      icon: User },
 ];

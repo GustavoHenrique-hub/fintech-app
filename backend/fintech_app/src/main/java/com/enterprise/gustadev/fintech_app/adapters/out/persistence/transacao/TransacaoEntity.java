@@ -130,6 +130,12 @@ public class TransacaoEntity {
     @Column(name = "transacao_estornada_id")
     private Long transacaoEstornadaId;
 
+    @Column(name = "extrato_id")
+    private Long extratoId;
+
+    @Column(name = "extrato_code", length = 6)
+    private String extratoCode;
+
     /**
      * Mapeia apenas os campos escalares. A associação {@code conta} é gravada pelo adapter
      * com referência gerenciada (EntityManager) para evitar tentar persistir instância
@@ -162,6 +168,8 @@ public class TransacaoEntity {
         entity.criadoEm = domain.getCriadoEm();
         entity.atualizadoEm = domain.getAtualizadoEm();
         entity.transacaoEstornadaId = domain.getTransacaoEstornadaId();
+        entity.extratoId = domain.getExtratoId();
+        entity.extratoCode = domain.getExtratoCode();
         return entity;
     }
 
@@ -173,6 +181,8 @@ public class TransacaoEntity {
         t.setCode(code);
         t.setTransacaoEstornadaId(transacaoEstornadaId);
         t.setDeletedAt(deletedAt);
+        t.setExtratoId(extratoId);
+        t.setExtratoCode(extratoCode);
         if (categoria != null) {
             t.setCategoriaTipo(categoria.getTipo());
         }

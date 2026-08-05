@@ -4,8 +4,10 @@ import com.enterprise.gustadev.fintech_app.adapters.in.web.extrato.dto.ExtratoRe
 import com.enterprise.gustadev.fintech_app.adapters.in.web.extrato.dto.ExtratoResponseDTO;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.BuscarExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.CriarExtratoUseCase;
+import com.enterprise.gustadev.fintech_app.application.extrato.usecase.ImportarExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.ListarExtratosUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.RemoverExtratoUseCase;
+import com.enterprise.gustadev.fintech_app.domain.extrato.exception.ExtratoInvalidoException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -19,8 +21,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.net.URI;
 import java.util.List;
 
@@ -30,18 +36,47 @@ import java.util.List;
 public class ExtratoController {
 
     private final CriarExtratoUseCase criarUseCase;
+    private final ImportarExtratoUseCase importarUseCase;
     private final ListarExtratosUseCase listarUseCase;
     private final BuscarExtratoUseCase buscarUseCase;
     private final RemoverExtratoUseCase removerUseCase;
 
     public ExtratoController(CriarExtratoUseCase criarUseCase,
+                              ImportarExtratoUseCase importarUseCase,
                               ListarExtratosUseCase listarUseCase,
                               BuscarExtratoUseCase buscarUseCase,
                               RemoverExtratoUseCase removerUseCase) {
         this.criarUseCase = criarUseCase;
+        this.importarUseCase = importarUseCase;
         this.listarUseCase = listarUseCase;
         this.buscarUseCase = buscarUseCase;
         this.removerUseCase = removerUseCase;
+    }
+
+    @Operation(summary = "Upload de extrato", description = "Recebe o arquivo do extrato bancário (PDF, CSV, TXT, XLS ou XLSX), "
+            + "extrai os lançamentos e cria as transações correspondentes com status PENDENTE_REVISAO.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Extrato importado com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Arquivo inválido, formato não suportado ou duplicado")
+    })
+    @PostMapping(value = "/upload", consumes = "multipart/form-data")
+    public ResponseEntity<ExtratoResponseDTO> upload(
+            @RequestParam Long usuarioId,
+            @RequestParam Long contaId,
+            @RequestParam("arquivo") MultipartFile arquivo) {
+        byte[] conteudo;
+        try {
+            conteudo = arquivo.getBytes();
+        } catch (IOException e) {
+            throw new UncheckedIOException("Não foi possível ler o arquivo enviado", e);
+        }
+        if (arquivo.getOriginalFilename() == null || arquivo.getOriginalFilename().isBlank()) {
+            throw new ExtratoInvalidoException("Nome do arquivo é obrigatório");
+        }
+
+        ExtratoResponseDTO response = ExtratoResponseDTO.fromDomain(
+                importarUseCase.executar(usuarioId, contaId, arquivo.getOriginalFilename(), conteudo));
+        return ResponseEntity.created(URI.create("/extratos/" + response.id() + "/" + response.code())).body(response);
     }
 
     @Operation(summary = "Criar extrato", description = "Registra os metadados de um extrato bancário importado (nome_completo, ID e hash do arquivo).")

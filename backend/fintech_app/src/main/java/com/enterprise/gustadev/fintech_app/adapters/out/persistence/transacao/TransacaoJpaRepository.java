@@ -68,7 +68,8 @@ public interface TransacaoJpaRepository extends JpaRepository<TransacaoEntity, L
               WHEN c.tipo = :receita OR (c.tipo = :ambos AND t.valor > 0) THEN t.valor
               ELSE 0 END), 0),
           COALESCE(SUM(CASE
-              WHEN c.tipo = :gasto OR (c.tipo = :ambos AND t.valor < 0) THEN -t.valor
+              WHEN c.tipo = :gasto THEN t.valor
+              WHEN c.tipo = :ambos AND t.valor < 0 THEN -t.valor
               ELSE 0 END), 0)
         FROM TransacaoEntity t
         JOIN t.conta co

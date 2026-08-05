@@ -21,8 +21,10 @@ import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.L
 import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.RemoverContaFinanceiraUseCase;
 import com.enterprise.gustadev.fintech_app.application.economia.usecase.ListarMovimentacoesEconomiaUseCase;
 import com.enterprise.gustadev.fintech_app.application.economia.usecase.RegistrarMovimentacaoEconomiaUseCase;
+import com.enterprise.gustadev.fintech_app.application.extrato.parser.ExtratoParser;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.BuscarExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.CriarExtratoUseCase;
+import com.enterprise.gustadev.fintech_app.application.extrato.usecase.ImportarExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.ListarExtratosUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.RemoverExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.notificacao.usecase.CriarNotificacaoUseCase;
@@ -41,6 +43,7 @@ import com.enterprise.gustadev.fintech_app.domain.transacaocancelada.port.Transa
 import com.enterprise.gustadev.fintech_app.domain.consentimentolgpd.port.ConsentimentoLgpdRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.port.ContaFinanceiraRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.economia.port.MovimentacaoEconomiaRepositoryPort;
+import com.enterprise.gustadev.fintech_app.domain.extrato.port.ArmazenamentoArquivoPort;
 import com.enterprise.gustadev.fintech_app.domain.extrato.port.ExtratoRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.notificacao.port.NotificacaoRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.snapshotfinanceiro.port.SnapshotFinanceiroRepositoryPort;
@@ -48,6 +51,8 @@ import com.enterprise.gustadev.fintech_app.domain.transacao.port.TransacaoReposi
 import com.enterprise.gustadev.fintech_app.domain.usuario.ports.UsuarioRepositoryPort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.List;
 
 @Configuration
 public class BeanConfig {
@@ -168,6 +173,17 @@ public class BeanConfig {
     @Bean
     public RemoverExtratoUseCase removerExtratoUseCase(ExtratoRepositoryPort repository) {
         return new RemoverExtratoUseCase(repository);
+    }
+
+    @Bean
+    public ImportarExtratoUseCase importarExtratoUseCase(ExtratoRepositoryPort extratoRepository,
+                                                           ContaFinanceiraRepositoryPort contaRepository,
+                                                           CategoriaRepositoryPort categoriaRepository,
+                                                           TransacaoRepositoryPort transacaoRepository,
+                                                           ArmazenamentoArquivoPort armazenamento,
+                                                           List<ExtratoParser> parsers) {
+        return new ImportarExtratoUseCase(extratoRepository, contaRepository, categoriaRepository,
+                transacaoRepository, armazenamento, parsers);
     }
 
     // ── Transacao ────────────────────────────────────────────────────────

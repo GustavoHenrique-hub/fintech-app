@@ -43,6 +43,9 @@ public class Transacao {
     /** Quando preenchido, esta linha é um estorno e aponta para o id da transação original revertida. */
     private Long transacaoEstornadaId;
     private OffsetDateTime deletedAt;
+    /** Quando preenchida (origem=importado), aponta para o extrato que gerou esta transação. */
+    private Long extratoId;
+    private String extratoCode;
 
     public Transacao(Long id, ContaFinanceira conta, String indEstorno,
                      String descricao, BigDecimal valor,

@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { SlidersHorizontal, Search, ChevronDown, Inbox, X, RotateCcw } from "lucide-react";
+import { SlidersHorizontal, Search, ChevronDown, Inbox, X, RotateCcw, Upload } from "lucide-react";
 import { format } from "date-fns";
 
 import { useTransacoes } from "@/hooks/use-transacoes";
@@ -260,6 +260,15 @@ export const TransactionsScreen = ({ onAbrirEstorno, onNavigate }) => {
             </p>
           </div>
           <div className="flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              leftIcon={Upload}
+              onClick={() => onNavigate?.("extratos")}
+              aria-label="Importar extrato"
+            >
+              Importar
+            </Button>
             {onAbrirEstorno && (
               <Button
                 variant="ghost"

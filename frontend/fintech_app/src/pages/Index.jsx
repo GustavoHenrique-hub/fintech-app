@@ -17,16 +17,18 @@ import { AddTransactionScreen } from "@/components/finsight/screens/AddTransacti
 import { AnalyticsScreen } from "@/components/finsight/screens/AnalyticsScreen";
 import { ProfileScreen } from "@/components/finsight/screens/ProfileScreen";
 import { EstornoTransacaoScreen } from "@/components/finsight/screens/EstornoTransacaoScreen";
+import { ExtratosScreen } from "@/components/finsight/screens/ExtratosScreen";
 import { ContaSelecionadaProvider } from "@/context/ContaSelecionadaContext";
 
 const Index = () => {
   const [screen, setScreen] = useState("home");
 
   // "add" não tem aba própria em nenhum nav — cai em "payments" nos dois.
-  // "estorno" TEM aba própria na SideNav ("Estornos"), mas não na BottomNav
+  // "estorno" e "extratos" TÊM aba própria na SideNav, mas não na BottomNav
   // (mobile), então cada nav calcula seu próprio destaque.
   const activeForSideNav = screen === "add" ? "payments" : screen;
-  const activeForBottomNav = screen === "add" || screen === "estorno" ? "payments" : screen;
+  const activeForBottomNav =
+    screen === "add" || screen === "estorno" || screen === "extratos" ? "payments" : screen;
 
   return (
     <ContaSelecionadaProvider>
@@ -55,6 +57,7 @@ const Index = () => {
             )}
             {screen === "add" && <AddTransactionScreen />}
             {screen === "estorno" && <EstornoTransacaoScreen />}
+            {screen === "extratos" && <ExtratosScreen />}
             {screen === "profile" && <ProfileScreen />}
           </main>
 

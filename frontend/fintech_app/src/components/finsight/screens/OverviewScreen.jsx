@@ -168,7 +168,7 @@ export const OverviewScreen = ({ onNavigate }) => {
 
   const totalReceitas = Number(resumoMes?.totalReceitas ?? 0);
   const totalGastos = Number(resumoMes?.totalGastos ?? 0);
-  const economia = totalReceitas - totalGastos;
+  const economia = Number(contaAtual?.saldoEconomias ?? 0);
 
   const variacao = useMemo(() => {
     const base = totalReceitas || 1;
