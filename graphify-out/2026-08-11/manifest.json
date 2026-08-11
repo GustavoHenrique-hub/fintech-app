@@ -1,7 +1,7 @@
 {
   ".claude/settings.local.json": {
-    "mtime": 1786469589.1641128,
-    "ast_hash": "8df245329dc6dc6adf0c904bb9da722e",
+    "mtime": 1786474538.6761994,
+    "ast_hash": "42d1fc9b777434baec00fb9258445894",
     "semantic_hash": ""
   },
   "Entregas FIAP/Atividade Fase 4 - RM570791/script.js": {
@@ -1320,8 +1320,8 @@
     "semantic_hash": "4099094ff69411ca42b4b85b45d424c3"
   },
   "scripts/fintech_app_DBCREATION.sql": {
-    "mtime": 1783976412.7385497,
-    "ast_hash": "790b590eb030a866cf7f4cf9e3a52270",
+    "mtime": 1786475733.9213169,
+    "ast_hash": "59b6cf5913ff9a6aef8ea3970ac1224a",
     "semantic_hash": ""
   },
   "scripts/fintechapp_carga.sql": {
@@ -1330,8 +1330,8 @@
     "semantic_hash": ""
   },
   "scripts/fintechapp_schema.sql": {
-    "mtime": 1785510322.616506,
-    "ast_hash": "bc53ca24351417460ff3c878bf100715",
+    "mtime": 1786475730.3334463,
+    "ast_hash": "e49622c57fa0f08de70c978099b64287",
     "semantic_hash": ""
   },
   "scripts/watch-and-commit.ps1": {
@@ -1655,8 +1655,8 @@
     "semantic_hash": ""
   },
   "frontend/fintech_app/src/services/extrato/UploadExtrato.js": {
-    "mtime": 1785963454.0268295,
-    "ast_hash": "175f797faacb501613b955011f39ae1b",
+    "mtime": 1786474398.4206226,
+    "ast_hash": "042407e776d2997c3a54494a91b29ad2",
     "semantic_hash": ""
   },
   "docs/ia-no-projeto.md": {
@@ -1734,9 +1734,9 @@
     "ast_hash": "627bdfb8ff660c1231f4b6bfa13c6763",
     "semantic_hash": ""
   },
-  "docs/revisao_itens.png": {
-    "mtime": 1786473098.997764,
-    "ast_hash": "f0af8559c9b51b170456a2800796dc7a",
+  "docs/unsuported_media_type.png": {
+    "mtime": 1786473880.3098,
+    "ast_hash": "254aa2ee5184f117f361c869949fa409",
     "semantic_hash": ""
   }
 }

@@ -1,11 +1,11 @@
 # Graph Report - fintech-app  (2026-08-11)
 
 ## Corpus Check
-- 326 files · ~96,637 words
+- 326 files · ~96,933 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1879 nodes · 3571 edges · 200 communities (120 shown, 80 thin omitted)
+- 1879 nodes · 3571 edges · 201 communities (120 shown, 81 thin omitted)
 - Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 137 edges (avg confidence: 0.81)
 - Token cost: 0 input · 0 output
 
@@ -180,6 +180,7 @@
 - CategoriaControllerTest
 - CodeGenerator.java
 - Categoria
+- CategoriaThreshold
 - StatusRevisaoTransacao
 - Configuration
 - application-hml.yaml Datasource Config
@@ -212,7 +213,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (200 total, 80 thin omitted)
+## Communities (201 total, 81 thin omitted)
 
 ### Community 0 - "Banco Controller Test & Related"
 Cohesion: 0.05
@@ -554,13 +555,13 @@ Nodes (3): Getter, Setter, SessaoToken
 Cohesion: 0.29
 Nodes (5): CategoriaControllerTest, BeforeEach, ExtendWith, MockMvc, Test
 
-### Community 194 - "CodeGenerator.java"
-Cohesion: 0.14
-Nodes (5): CategoriaThreshold, Getter, Setter, CategoriaThresholdRepositoryPort, CodeGenerator
-
 ### Community 195 - "Categoria"
 Cohesion: 0.15
 Nodes (8): CategoriaInvalidaException, Categoria, Getter, Setter, TipoCategoria, AMBOS, GASTO, RECEITA
+
+### Community 196 - "CategoriaThreshold"
+Cohesion: 0.39
+Nodes (4): CategoriaThreshold, Getter, Setter, CategoriaThresholdRepositoryPort
 
 ### Community 200 - "StatusRevisaoTransacao"
 Cohesion: 0.25
@@ -573,7 +574,7 @@ Nodes (9): CriarNotificacaoUseCase, AlterarSenhaUseCase, AtualizarUsuarioUseCase
 ## Knowledge Gaps
 - **376 isolated node(s):** `points`, `com.enterprise.gustadev:fintech_app`, `CREATE`, `UPDATE`, `DELETE` (+371 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **80 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **81 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
