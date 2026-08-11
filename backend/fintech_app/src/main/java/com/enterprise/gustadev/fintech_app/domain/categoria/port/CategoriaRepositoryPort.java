@@ -12,5 +12,4 @@ public interface CategoriaRepositoryPort {
     List<Categoria> listarPorTipo(TipoCategoria tipo);
     Optional<Categoria> buscarPorId(Long id);
     Optional<Categoria> buscarPorIdECode(Long id, String code);
-    void deletarPorId(Long id);
 }

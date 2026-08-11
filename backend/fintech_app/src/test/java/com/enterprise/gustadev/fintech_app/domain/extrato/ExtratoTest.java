@@ -13,7 +13,8 @@ class ExtratoTest {
     @Test
     void validar_devePassar_quandoDadosCorretos() {
         Extrato extrato = new Extrato(
-                1L, 1L,
+                1L, "USR001",
+                1L, "CTA001",
                 "extrato.pdf", "file-uuid-abc", "abc123hash"
         );
         assertThatCode(extrato::validar).doesNotThrowAnyException();
@@ -21,7 +22,7 @@ class ExtratoTest {
 
     @Test
     void validar_deveLancarExcecao_quandoUsuarioIdNulo() {
-        Extrato extrato = new Extrato(null, 1L, "f.pdf", "uuid", "hash");
+        Extrato extrato = new Extrato(null, "USR001", 1L, "CTA001", "f.pdf", "uuid", "hash");
         assertThatThrownBy(extrato::validar)
                 .isInstanceOf(ExtratoInvalidoException.class)
                 .hasMessageContaining("UsuarioId");
@@ -29,7 +30,7 @@ class ExtratoTest {
 
     @Test
     void validar_deveLancarExcecao_quandoContaIdNula() {
-        Extrato extrato = new Extrato(1L, null, "f.pdf", "uuid", "hash");
+        Extrato extrato = new Extrato(1L, "USR001", null, "CTA001", "f.pdf", "uuid", "hash");
         assertThatThrownBy(extrato::validar)
                 .isInstanceOf(ExtratoInvalidoException.class)
                 .hasMessageContaining("ContaId");
@@ -37,7 +38,7 @@ class ExtratoTest {
 
     @Test
     void validar_deveLancarExcecao_quandoHashArquivoVazio() {
-        Extrato extrato = new Extrato(1L, 1L, "f.pdf", "uuid", "  ");
+        Extrato extrato = new Extrato(1L, "USR001", 1L, "CTA001", "f.pdf", "uuid", "  ");
         assertThatThrownBy(extrato::validar)
                 .isInstanceOf(ExtratoInvalidoException.class)
                 .hasMessageContaining("Hash");

@@ -14,6 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -31,14 +32,28 @@ public class ProcessamentoJobEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "processamento_job_id")
     private Long id;
 
-    @Column(name = "extrato_id")
+    @Column(name = "processamento_job_code", unique = true, nullable = false, length = 6)
+    private String code;
+
+    @Column(name = "extrato_id", nullable = false)
     private Long extratoId;
 
+    @Column(name = "extrato_code", nullable = false, length = 6)
+    private String extratoCode;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "extrato_id", insertable = false, updatable = false,
-            foreignKey = @ForeignKey(name = "fk_processamento_jobs_extrato"))
+    @JoinColumns(
+            value = {
+                    @JoinColumn(name = "extrato_id", referencedColumnName = "extrato_id",
+                            insertable = false, updatable = false),
+                    @JoinColumn(name = "extrato_code", referencedColumnName = "extrato_code",
+                            insertable = false, updatable = false)
+            },
+            foreignKey = @ForeignKey(name = "fk_processamento_jobs_extrato")
+    )
     private ExtratoEntity extrato;
 
     @Enumerated(EnumType.STRING)
@@ -85,7 +100,9 @@ public class ProcessamentoJobEntity {
     public static ProcessamentoJobEntity fromDomain(ProcessamentoJob domain) {
         ProcessamentoJobEntity entity = new ProcessamentoJobEntity();
         entity.id = domain.getId();
+        entity.code = domain.getCode();
         entity.extratoId = domain.getExtratoId();
+        entity.extratoCode = domain.getExtratoCode();
         entity.tipo = domain.getTipo();
         entity.status = domain.getStatus();
         entity.tentativas = domain.getTentativas();
@@ -103,7 +120,7 @@ public class ProcessamentoJobEntity {
     }
 
     public ProcessamentoJob toDomain() {
-        return new ProcessamentoJob(id, extratoId, tipo, status, tentativas, maxTentativas,
+        return new ProcessamentoJob(id, code, extratoId, extratoCode, tipo, status, tentativas, maxTentativas,
                 payload, erroMensagem, workerId, lockExpiresAt, correlationId,
                 enfileiradoEm, iniciadoEm, concluidoEm, proximoRetry);
     }

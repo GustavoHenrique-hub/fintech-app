@@ -21,6 +21,9 @@ build/
 # Spring Boot
 spring-shell.log
 
+# Extratos enviados pelo usuário (upload local, fora de dev não versionar)
+uploads/
+
 # ─── NODE / REACT ─────────────────────────────────────────────────────────────
 node_modules/
 dist/

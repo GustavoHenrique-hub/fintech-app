@@ -1,6 +1,7 @@
 package com.enterprise.gustadev.fintech_app.domain.parserversao.model;
 
 import com.enterprise.gustadev.fintech_app.domain.parserversao.exception.ParserVersaoNaoEncontradaException;
+import com.enterprise.gustadev.fintech_app.domain.shared.util.CodeGenerator;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +13,7 @@ import java.time.OffsetDateTime;
 public class ParserVersao {
 
     private Long id;
+    private String code;
     private String banco;
     private String versao;
     private boolean ativo;
@@ -21,10 +23,11 @@ public class ParserVersao {
     private String descricao;
     private OffsetDateTime depreciadoEm;
 
-    public ParserVersao(Long id, String banco, String versao, boolean ativo,
+    public ParserVersao(Long id, String code, String banco, String versao, boolean ativo,
                         BigDecimal scoreQualidade, int totalUsos, int totalErros,
                         String descricao, OffsetDateTime depreciadoEm) {
         this.id = id;
+        this.code = code;
         this.banco = banco;
         this.versao = versao;
         this.ativo = ativo;
@@ -36,7 +39,8 @@ public class ParserVersao {
     }
 
     public ParserVersao(String banco, String versao, boolean ativo, BigDecimal scoreQualidade, String descricao) {
-        this(null, banco, versao, ativo, scoreQualidade, 0, 0, descricao, null);
+        this(null, null, banco, versao, ativo, scoreQualidade, 0, 0, descricao, null);
+        this.code = CodeGenerator.gerar();
     }
 
     public void validar() {

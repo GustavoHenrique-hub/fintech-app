@@ -15,7 +15,25 @@
       "mcp__ide__getDiagnostics",
       "Bash(mvn -q -DskipTests compile)",
       "Bash(mvn -DskipTests compile)",
-      "Bash(mvn -DskipTests clean compile)"
+      "Bash(mvn -DskipTests clean compile)",
+      "Bash(./mvnw -q compile)",
+      "Bash(./mvnw -q test-compile)",
+      "Bash(./mvnw -q test -Dtest='Transacao*Test,*TransacaoUseCaseTest')",
+      "Bash(grep -E \"Tests run: [0-9]+, Failures.*Skipped: [0-9]+$|BUILD\")",
+      "Bash(powershell.exe *)",
+      "Bash(/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -ExecutionPolicy Bypass -NonInteractive -File \"C:\\\\Users\\\\02.2025\\\\Documents\\\\Codar\\\\fintech-app\\\\scripts\\\\watch-and-commit.ps1\")",
+      "Bash(echo \"PID: $!\")",
+      "Bash(cmd.exe *)",
+      "Bash(mvn compile *)",
+      "Bash(xargs grep -l \"flyway\\\\|jpa\\\\|hibernate\")",
+      "Bash(cat)",
+      "Read(//tmp/**)",
+      "Bash(mvn test *)",
+      "Bash(./mvnw.cmd -q -DskipTests compile)",
+      "Bash(./mvnw.cmd -q test -Dtest=\"TransacaoTest,CriarTransacaoUseCaseTest,EstornarTransacaoUseCaseTest,ListarTransacoesUseCaseTest,TransacaoControllerTest\")",
+      "Bash(./mvnw.cmd test *)",
+      "Bash(findstr /R \"Tests run: BUILD ERROR FAIL\")",
+      "Bash(findstr /C:\"Tests run\" /C:\"BUILD\" /C:\"ERROR\" /C:\"FAIL\")"
     ]
   }
 }

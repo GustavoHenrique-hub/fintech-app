@@ -1,4 +1,4 @@
-$REPO    = "C:\Users\02.2025\Documents\Codar\fintech-app"
+$REPO    = Split-Path -Parent $PSScriptRoot
 $SCRIPT  = "$REPO\scripts\auto-commit.ps1"
 $DEBOUNCE = 30  # segundos de silencio antes de commitar apos ultima mudanca
 

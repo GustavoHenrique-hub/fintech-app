@@ -1,8 +1,9 @@
 package com.enterprise.gustadev.fintech_app.config;
 
+import com.enterprise.gustadev.fintech_app.application.auth.usecase.LoginUseCase;
+import com.enterprise.gustadev.fintech_app.application.auth.usecase.LogoutUseCase;
 import com.enterprise.gustadev.fintech_app.application.banco.usecase.BuscarBancoUseCase;
 import com.enterprise.gustadev.fintech_app.application.banco.usecase.CriarBancoUseCase;
-import com.enterprise.gustadev.fintech_app.application.banco.usecase.DeletarBancoUseCase;
 import com.enterprise.gustadev.fintech_app.application.banco.usecase.ListarBancosUseCase;
 import com.enterprise.gustadev.fintech_app.application.categoria.usecase.BuscarCategoriaUseCase;
 import com.enterprise.gustadev.fintech_app.application.categoria.usecase.CriarCategoriaUseCase;
@@ -16,25 +17,35 @@ import com.enterprise.gustadev.fintech_app.application.consentimentolgpd.usecase
 import com.enterprise.gustadev.fintech_app.application.consentimentolgpd.usecase.RegistrarConsentimentoLgpdUseCase;
 import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.BuscarContaFinanceiraUseCase;
 import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.CriarContaFinanceiraUseCase;
-import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.DeletarContaFinanceiraUseCase;
 import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.ListarContasFinanceirasUseCase;
+import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.RemoverContaFinanceiraUseCase;
+import com.enterprise.gustadev.fintech_app.application.economia.usecase.ListarMovimentacoesEconomiaUseCase;
+import com.enterprise.gustadev.fintech_app.application.economia.usecase.RegistrarMovimentacaoEconomiaUseCase;
+import com.enterprise.gustadev.fintech_app.application.extrato.parser.ExtratoParser;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.BuscarExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.CriarExtratoUseCase;
+import com.enterprise.gustadev.fintech_app.application.extrato.usecase.ImportarExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.ListarExtratosUseCase;
+import com.enterprise.gustadev.fintech_app.application.extrato.usecase.RemoverExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.notificacao.usecase.CriarNotificacaoUseCase;
 import com.enterprise.gustadev.fintech_app.application.notificacao.usecase.ListarNotificacoesUseCase;
 import com.enterprise.gustadev.fintech_app.application.snapshotfinanceiro.usecase.BuscarSnapshotFinanceiroUseCase;
 import com.enterprise.gustadev.fintech_app.application.snapshotfinanceiro.usecase.ListarSnapshotsFinanceirosUseCase;
+import com.enterprise.gustadev.fintech_app.application.usuario.usecase.AlterarSenhaUseCase;
+import com.enterprise.gustadev.fintech_app.application.usuario.usecase.AtualizarUsuarioUseCase;
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.BuscarUsuarioUseCase;
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.CriarUsuarioUseCase;
-import com.enterprise.gustadev.fintech_app.application.usuario.usecase.DeletarUsuarioUseCase;
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.ListarUsuariosUseCase;
+import com.enterprise.gustadev.fintech_app.domain.auth.port.SenhaEncoder;
+import com.enterprise.gustadev.fintech_app.domain.auth.port.SessaoTokenRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.banco.port.BancoRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.categoria.port.CategoriaRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.motivocancelamento.port.MotivoCancelamentoRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.transacaocancelada.port.TransacaoCanceladaRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.consentimentolgpd.port.ConsentimentoLgpdRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.port.ContaFinanceiraRepositoryPort;
+import com.enterprise.gustadev.fintech_app.domain.economia.port.MovimentacaoEconomiaRepositoryPort;
+import com.enterprise.gustadev.fintech_app.domain.extrato.port.ArmazenamentoArquivoPort;
 import com.enterprise.gustadev.fintech_app.domain.extrato.port.ExtratoRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.notificacao.port.NotificacaoRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.snapshotfinanceiro.port.SnapshotFinanceiroRepositoryPort;
@@ -43,13 +54,28 @@ import com.enterprise.gustadev.fintech_app.domain.usuario.ports.UsuarioRepositor
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.List;
+
 @Configuration
 public class BeanConfig {
 
+    // ── Auth ─────────────────────────────────────────────────────────────
+    @Bean
+    public LoginUseCase loginUseCase(UsuarioRepositoryPort usuarioRepository,
+                                     SessaoTokenRepositoryPort sessaoRepository,
+                                     SenhaEncoder senhaEncoder) {
+        return new LoginUseCase(usuarioRepository, sessaoRepository, senhaEncoder);
+    }
+
+    @Bean
+    public LogoutUseCase logoutUseCase(SessaoTokenRepositoryPort sessaoRepository) {
+        return new LogoutUseCase(sessaoRepository);
+    }
+
     // ── Usuario ─────────────────────────────────────────────────────────
     @Bean
-    public CriarUsuarioUseCase criarUsuarioUseCase(UsuarioRepositoryPort repository) {
-        return new CriarUsuarioUseCase(repository);
+    public CriarUsuarioUseCase criarUsuarioUseCase(UsuarioRepositoryPort repository, SenhaEncoder senhaEncoder) {
+        return new CriarUsuarioUseCase(repository, senhaEncoder);
     }
 
     @Bean
@@ -63,8 +89,13 @@ public class BeanConfig {
     }
 
     @Bean
-    public DeletarUsuarioUseCase deletarUsuarioUseCase(UsuarioRepositoryPort repository) {
-        return new DeletarUsuarioUseCase(repository);
+    public AtualizarUsuarioUseCase atualizarUsuarioUseCase(UsuarioRepositoryPort repository) {
+        return new AtualizarUsuarioUseCase(repository);
+    }
+
+    @Bean
+    public AlterarSenhaUseCase alterarSenhaUseCase(UsuarioRepositoryPort repository, SenhaEncoder senhaEncoder) {
+        return new AlterarSenhaUseCase(repository, senhaEncoder);
     }
 
     // ── ContaFinanceira ──────────────────────────────────────────────────
@@ -84,8 +115,22 @@ public class BeanConfig {
     }
 
     @Bean
-    public DeletarContaFinanceiraUseCase deletarContaFinanceiraUseCase(ContaFinanceiraRepositoryPort repository) {
-        return new DeletarContaFinanceiraUseCase(repository);
+    public RemoverContaFinanceiraUseCase removerContaFinanceiraUseCase(ContaFinanceiraRepositoryPort repository) {
+        return new RemoverContaFinanceiraUseCase(repository);
+    }
+
+    // ── Economia (sub-saldo de "Economias" de uma ContaFinanceira) ──────
+    @Bean
+    public RegistrarMovimentacaoEconomiaUseCase registrarMovimentacaoEconomiaUseCase(
+            MovimentacaoEconomiaRepositoryPort repository,
+            ContaFinanceiraRepositoryPort contaRepository) {
+        return new RegistrarMovimentacaoEconomiaUseCase(repository, contaRepository);
+    }
+
+    @Bean
+    public ListarMovimentacoesEconomiaUseCase listarMovimentacoesEconomiaUseCase(
+            MovimentacaoEconomiaRepositoryPort repository) {
+        return new ListarMovimentacoesEconomiaUseCase(repository);
     }
 
     // ── Banco ────────────────────────────────────────────────────────────
@@ -102,11 +147,6 @@ public class BeanConfig {
     @Bean
     public BuscarBancoUseCase buscarBancoUseCase(BancoRepositoryPort repository) {
         return new BuscarBancoUseCase(repository);
-    }
-
-    @Bean
-    public DeletarBancoUseCase deletarBancoUseCase(BancoRepositoryPort repository) {
-        return new DeletarBancoUseCase(repository);
     }
 
     // ── Categoria ────────────────────────────────────────────────────────
@@ -127,8 +167,9 @@ public class BeanConfig {
 
     // ── Extrato ──────────────────────────────────────────────────────────
     @Bean
-    public CriarExtratoUseCase criarExtratoUseCase(ExtratoRepositoryPort repository) {
-        return new CriarExtratoUseCase(repository);
+    public CriarExtratoUseCase criarExtratoUseCase(ExtratoRepositoryPort repository,
+                                                    ContaFinanceiraRepositoryPort contaRepository) {
+        return new CriarExtratoUseCase(repository, contaRepository);
     }
 
     @Bean
@@ -141,10 +182,28 @@ public class BeanConfig {
         return new BuscarExtratoUseCase(repository);
     }
 
+    @Bean
+    public RemoverExtratoUseCase removerExtratoUseCase(ExtratoRepositoryPort repository) {
+        return new RemoverExtratoUseCase(repository);
+    }
+
+    @Bean
+    public ImportarExtratoUseCase importarExtratoUseCase(ExtratoRepositoryPort extratoRepository,
+                                                           ContaFinanceiraRepositoryPort contaRepository,
+                                                           CategoriaRepositoryPort categoriaRepository,
+                                                           TransacaoRepositoryPort transacaoRepository,
+                                                           ArmazenamentoArquivoPort armazenamento,
+                                                           List<ExtratoParser> parsers) {
+        return new ImportarExtratoUseCase(extratoRepository, contaRepository, categoriaRepository,
+                transacaoRepository, armazenamento, parsers);
+    }
+
     // ── Transacao ────────────────────────────────────────────────────────
     @Bean
-    public CriarTransacaoUseCase criarTransacaoUseCase(TransacaoRepositoryPort repository) {
-        return new CriarTransacaoUseCase(repository);
+    public CriarTransacaoUseCase criarTransacaoUseCase(TransacaoRepositoryPort repository,
+                                                        ContaFinanceiraRepositoryPort contaRepository,
+                                                        CategoriaRepositoryPort categoriaRepository) {
+        return new CriarTransacaoUseCase(repository, contaRepository, categoriaRepository);
     }
 
     @Bean
@@ -158,13 +217,20 @@ public class BeanConfig {
     }
 
     @Bean
-    public DeletarTransacaoUseCase deletarTransacaoUseCase(TransacaoRepositoryPort repository) {
-        return new DeletarTransacaoUseCase(repository);
+    public EstornarTransacaoUseCase estornarTransacaoUseCase(TransacaoRepositoryPort repository,
+                                                              ContaFinanceiraRepositoryPort contaRepository) {
+        return new EstornarTransacaoUseCase(repository, contaRepository);
     }
 
     @Bean
-    public EstornarTransacaoUseCase estornarTransacaoUseCase(TransacaoRepositoryPort repository) {
-        return new EstornarTransacaoUseCase(repository);
+    public BuscarResumoPeriodoUseCase buscarResumoPeriodoUseCase(TransacaoRepositoryPort repository) {
+        return new BuscarResumoPeriodoUseCase(repository);
+    }
+
+    @Bean
+    public ConfirmarRevisaoTransacaoUseCase confirmarRevisaoTransacaoUseCase(
+            TransacaoRepositoryPort transacaoRepository, ExtratoRepositoryPort extratoRepository) {
+        return new ConfirmarRevisaoTransacaoUseCase(transacaoRepository, extratoRepository);
     }
 
     // ── MotivoCancelamento ───────────────────────────────────────────────
@@ -180,8 +246,11 @@ public class BeanConfig {
 
     // ── TransacaoCancelada ───────────────────────────────────────────────
     @Bean
-    public CancelarTransacaoUseCase cancelarTransacaoUseCase(TransacaoCanceladaRepositoryPort repository) {
-        return new CancelarTransacaoUseCase(repository);
+    public CancelarTransacaoUseCase cancelarTransacaoUseCase(TransacaoCanceladaRepositoryPort repository,
+                                                              TransacaoRepositoryPort transacaoRepository,
+                                                              ContaFinanceiraRepositoryPort contaRepository,
+                                                              MotivoCancelamentoRepositoryPort motivoRepository) {
+        return new CancelarTransacaoUseCase(repository, transacaoRepository, contaRepository, motivoRepository);
     }
 
     @Bean
@@ -202,8 +271,9 @@ public class BeanConfig {
 
     // ── Notificacao ──────────────────────────────────────────────────────
     @Bean
-    public CriarNotificacaoUseCase criarNotificacaoUseCase(NotificacaoRepositoryPort repository) {
-        return new CriarNotificacaoUseCase(repository);
+    public CriarNotificacaoUseCase criarNotificacaoUseCase(NotificacaoRepositoryPort repository,
+                                                            UsuarioRepositoryPort usuarioRepository) {
+        return new CriarNotificacaoUseCase(repository, usuarioRepository);
     }
 
     @Bean
@@ -213,8 +283,9 @@ public class BeanConfig {
 
     // ── ConsentimentoLgpd ────────────────────────────────────────────────
     @Bean
-    public RegistrarConsentimentoLgpdUseCase registrarConsentimentoLgpdUseCase(ConsentimentoLgpdRepositoryPort repository) {
-        return new RegistrarConsentimentoLgpdUseCase(repository);
+    public RegistrarConsentimentoLgpdUseCase registrarConsentimentoLgpdUseCase(ConsentimentoLgpdRepositoryPort repository,
+                                                                                UsuarioRepositoryPort usuarioRepository) {
+        return new RegistrarConsentimentoLgpdUseCase(repository, usuarioRepository);
     }
 
     @Bean

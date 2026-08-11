@@ -4,6 +4,7 @@ import com.enterprise.gustadev.fintech_app.adapters.out.persistence.banco.BancoE
 import com.enterprise.gustadev.fintech_app.adapters.out.persistence.usuario.UsuarioEntity;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoConta;
+import org.hibernate.annotations.ColumnDefault;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -33,17 +34,28 @@ public class ContaFinanceiraEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "conta_id")
     private Long id;
 
-    @Column(name = "contas_code", unique = true, nullable = false, length = 6)
+    @Column(name = "conta_code", unique = true, nullable = false, length = 6)
     private String code;
 
     @Column(name = "usuario_id", nullable = false)
     private Long usuarioId;
 
+    @Column(name = "usuario_code", nullable = false)
+    private String usuarioCode;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id", insertable = false, updatable = false,
-            foreignKey = @ForeignKey(name = "fk_contas_financeiras_usuario"))
+    @JoinColumns(
+            value = {
+                    @JoinColumn(name = "usuario_id", referencedColumnName = "usuario_id",
+                            insertable = false, updatable = false),
+                    @JoinColumn(name = "usuario_code", referencedColumnName = "usuario_code",
+                            insertable = false, updatable = false)
+            },
+            foreignKey = @ForeignKey(name = "fk_contas_financeiras_usuario")
+    )
     private UsuarioEntity usuario;
 
     @Enumerated(EnumType.STRING)
@@ -71,6 +83,13 @@ public class ContaFinanceiraEntity {
     @Column(name = "saldo_inicial", nullable = false, precision = 15, scale = 2)
     private BigDecimal saldoInicial = BigDecimal.ZERO;
 
+    @Column(name = "saldo_atual", nullable = false, precision = 15, scale = 2)
+    private BigDecimal saldoAtual = BigDecimal.ZERO;
+
+    @ColumnDefault("0")
+    @Column(name = "saldo_economias", nullable = false, precision = 15, scale = 2)
+    private BigDecimal saldoEconomias = BigDecimal.ZERO;
+
     @Column
     private Boolean padrao = false;
 
@@ -83,25 +102,39 @@ public class ContaFinanceiraEntity {
     @Column(name = "atualizado_em")
     private OffsetDateTime atualizadoEm;
 
+    @Column(name = "ind_delete", nullable = false, length = 1)
+    private String indDelete = "N";
+
+    @Column(name = "deleted_at")
+    private OffsetDateTime deletedAt;
+
     public static ContaFinanceiraEntity fromDomain(ContaFinanceira domain) {
         ContaFinanceiraEntity entity = new ContaFinanceiraEntity();
         entity.id = domain.getId();
         entity.code = domain.getCode();
         entity.usuarioId = domain.getUsuarioId();
+        entity.usuarioCode = domain.getUsuarioCode();
         entity.tipo = domain.getTipo();
         entity.bancoId = domain.getBancoId();
         entity.bancoCode = domain.getBancoCode();
         entity.saldoInicial = domain.getSaldoInicial();
+        entity.saldoAtual = domain.getSaldoAtual() != null ? domain.getSaldoAtual() : BigDecimal.ZERO;
+        entity.saldoEconomias = domain.getSaldoEconomias() != null ? domain.getSaldoEconomias() : BigDecimal.ZERO;
         entity.padrao = domain.isPadrao();
         entity.ativa = domain.isAtiva();
         entity.criadoEm = domain.getCriadoEm();
         entity.atualizadoEm = domain.getAtualizadoEm();
+        entity.indDelete = domain.getIndDelete() != null ? domain.getIndDelete() : "N";
+        entity.deletedAt = domain.getDeletedAt();
         return entity;
     }
 
     public ContaFinanceira toDomain() {
-        ContaFinanceira c = new ContaFinanceira(id, usuarioId, tipo, bancoId, bancoCode, saldoInicial,
-                padrao != null && padrao, ativa != null && ativa, criadoEm, atualizadoEm);
+        ContaFinanceira c = new ContaFinanceira(id, usuarioId, usuarioCode, tipo, bancoId, bancoCode, saldoInicial,
+                saldoAtual != null ? saldoAtual : BigDecimal.ZERO,
+                saldoEconomias != null ? saldoEconomias : BigDecimal.ZERO,
+                padrao != null && padrao, ativa != null && ativa, criadoEm, atualizadoEm,
+                indDelete, deletedAt);
         c.setCode(code);
         return c;
     }

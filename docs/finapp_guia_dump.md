@@ -278,10 +278,11 @@ WHERE inhparent = 'auditoria_eventos'::regclass;
 SELECT codigo, nome_completo, email, moeda
 FROM usuarios WHERE codigo = 'FIN-DEMO01';
 
--- Transações do usuário demo
-SELECT tipo, valor, data_transacao, status_revisao
-FROM transacoes
-ORDER BY data_transacao;
+-- Transações do usuário demo (direção agora vem da categoria, não de transacoes.tipo)
+SELECT t.valor, t.data_transacao, t.status_revisao, c.tipo AS categoria_tipo
+FROM transacoes t
+JOIN categorias c ON c.categoria_id = t.categoria_id
+ORDER BY t.data_transacao;
 ```
 
 ---

@@ -31,8 +31,8 @@ class BuscarContaFinanceiraUseCaseTest {
     void executar_deveRetornarConta_quandoEncontrada() {
         Long id = 1L;
         String code = "ABC123";
-        ContaFinanceira conta = new ContaFinanceira(id, 1L,
-                TipoConta.corrente, 10L, "BNK001", BigDecimal.TEN, false, true, null, null);
+        ContaFinanceira conta = new ContaFinanceira(id, 1L, "USER01",
+                TipoConta.corrente, 10L, "BNK001", BigDecimal.TEN, BigDecimal.TEN, false, true, null, null, null, null);
         when(repository.buscarPorIdECode(id, code)).thenReturn(Optional.of(conta));
 
         ContaFinanceira resultado = useCase.executar(id, code);

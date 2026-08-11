@@ -16,42 +16,60 @@ import { TransactionsScreen } from "@/components/finsight/screens/TransactionsSc
 import { AddTransactionScreen } from "@/components/finsight/screens/AddTransactionScreen";
 import { AnalyticsScreen } from "@/components/finsight/screens/AnalyticsScreen";
 import { ProfileScreen } from "@/components/finsight/screens/ProfileScreen";
+import { EstornoTransacaoScreen } from "@/components/finsight/screens/EstornoTransacaoScreen";
+import { ExtratosScreen } from "@/components/finsight/screens/ExtratosScreen";
+import { ContaSelecionadaProvider } from "@/context/ContaSelecionadaContext";
 
 const Index = () => {
   const [screen, setScreen] = useState("home");
-  const activeForNav = screen === "add" ? "payments" : screen;
+
+  // "add" não tem aba própria em nenhum nav — cai em "payments" nos dois.
+  // "estorno" e "extratos" TÊM aba própria na SideNav, mas não na BottomNav
+  // (mobile), então cada nav calcula seu próprio destaque.
+  const activeForSideNav = screen === "add" ? "payments" : screen;
+  const activeForBottomNav =
+    screen === "add" || screen === "estorno" || screen === "extratos" ? "payments" : screen;
 
   return (
-    <div className="min-h-[100dvh] bg-background lg:flex">
-      <h1 className="sr-only">FinSight — Personal Finance</h1>
+    <ContaSelecionadaProvider>
+      <div className="min-h-[100dvh] bg-background lg:flex">
+        <h1 className="sr-only">FinSight — Personal Finance</h1>
 
-      {/* Sidebar (somente desktop). Em telas menores ela não renderiza. */}
-      <SideNav
-        active={activeForNav}
-        onChange={(t) => setScreen(t)}
-        onAdd={() => setScreen("add")}
-      />
-
-      {/* Coluna principal: flex column em qualquer tamanho. */}
-      <div className="flex flex-col min-h-[100dvh] flex-1 min-w-0">
-        <TopBar />
-
-        <main className="flex-1 min-h-0 flex flex-col overflow-hidden">
-          {screen === "home" && <OverviewScreen />}
-          {screen === "analytics" && <AnalyticsScreen />}
-          {screen === "payments" && <TransactionsScreen />}
-          {screen === "add" && <AddTransactionScreen />}
-          {screen === "profile" && <ProfileScreen />}
-        </main>
-
-        {/* BottomNav só em telas menores que lg. */}
-        <BottomNav
-          active={activeForNav}
+        {/* Sidebar (somente desktop). Em telas menores ela não renderiza. */}
+        <SideNav
+          active={activeForSideNav}
           onChange={(t) => setScreen(t)}
           onAdd={() => setScreen("add")}
         />
+
+        {/* Coluna principal: flex column em qualquer tamanho. */}
+        <div className="flex flex-col min-h-[100dvh] flex-1 min-w-0">
+          <TopBar onNavigate={setScreen} />
+
+          <main className="flex-1 min-h-0 flex flex-col overflow-hidden">
+            {screen === "home" && <OverviewScreen onNavigate={setScreen} />}
+            {screen === "analytics" && <AnalyticsScreen />}
+            {screen === "payments" && (
+              <TransactionsScreen
+                onAbrirEstorno={() => setScreen("estorno")}
+                onNavigate={setScreen}
+              />
+            )}
+            {screen === "add" && <AddTransactionScreen />}
+            {screen === "estorno" && <EstornoTransacaoScreen />}
+            {screen === "extratos" && <ExtratosScreen />}
+            {screen === "profile" && <ProfileScreen />}
+          </main>
+
+          {/* BottomNav só em telas menores que lg. */}
+          <BottomNav
+            active={activeForBottomNav}
+            onChange={(t) => setScreen(t)}
+            onAdd={() => setScreen("add")}
+          />
+        </div>
       </div>
-    </div>
+    </ContaSelecionadaProvider>
   );
 };
 

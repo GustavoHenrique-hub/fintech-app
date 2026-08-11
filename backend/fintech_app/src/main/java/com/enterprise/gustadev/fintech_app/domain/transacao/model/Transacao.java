@@ -1,7 +1,9 @@
 package com.enterprise.gustadev.fintech_app.domain.transacao.model;
 
+import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusRevisaoTransacao;
+import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoCategoria;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.util.CodeGenerator;
 import com.enterprise.gustadev.fintech_app.domain.transacao.exception.TransacaoInvalidaException;
@@ -18,16 +20,15 @@ public class Transacao {
 
     private Long id;
     private String code;
-    private Long usuarioId;
-    private String usuarioCode;
-    private Long contaId;
-    private String contaCode;
+    private ContaFinanceira conta;
     private String indEstorno;
-    private TipoTransacao tipo;
     private String descricao;
     private BigDecimal valor;
     private LocalDate dataTransacao;
     private Long categoriaId;
+    private String categoriaCode;
+    /** Tipo da categoria associada (RECEITA/GASTO/AMBOS), resolvido pelo chamador — não persistido em transacoes. */
+    private TipoCategoria categoriaTipo;
     private String estabelecimento;
     private OrigemTransacao origem;
     private StatusRevisaoTransacao statusRevisao;
@@ -35,27 +36,33 @@ public class Transacao {
     private boolean recorrente;
     private LocalDate periodoRecorrencia;
     private String observacao;
-    private OffsetDateTime deletedAt;
+    private OffsetDateTime estornadoAt;
     private int versao;
     private OffsetDateTime criadoEm;
     private OffsetDateTime atualizadoEm;
+    /** Quando preenchido, esta linha é um estorno e aponta para o id da transação original revertida. */
+    private Long transacaoEstornadaId;
+    private OffsetDateTime deletedAt;
+    /** Quando preenchida (origem=importado), aponta para o extrato que gerou esta transação. */
+    private Long extratoId;
+    private String extratoCode;
 
-    public Transacao(Long id, Long usuarioId, Long contaId, String indEstorno,
-                     TipoTransacao tipo, String descricao, BigDecimal valor,
-                     LocalDate dataTransacao, Long categoriaId, String estabelecimento,
+    public Transacao(Long id, ContaFinanceira conta, String indEstorno,
+                     String descricao, BigDecimal valor,
+                     LocalDate dataTransacao, Long categoriaId, String categoriaCode,
+                     String estabelecimento,
                      OrigemTransacao origem, StatusRevisaoTransacao statusRevisao,
                      Short confiancaIa, boolean recorrente, LocalDate periodoRecorrencia,
-                     String observacao, OffsetDateTime deletedAt, int versao,
-                     OffsetDateTime criadoEm, OffsetDateTime atualizadoEm) {
+                     String observacao, int versao,
+                     OffsetDateTime criadoEm, OffsetDateTime atualizadoEm, OffsetDateTime estornadoAt) {
         this.id = id;
-        this.usuarioId = usuarioId;
-        this.contaId = contaId;
+        this.conta = conta;
         this.indEstorno = indEstorno;
-        this.tipo = tipo;
         this.descricao = descricao;
         this.valor = valor;
         this.dataTransacao = dataTransacao;
         this.categoriaId = categoriaId;
+        this.categoriaCode = categoriaCode;
         this.estabelecimento = estabelecimento;
         this.origem = origem;
         this.statusRevisao = statusRevisao;
@@ -63,44 +70,92 @@ public class Transacao {
         this.recorrente = recorrente;
         this.periodoRecorrencia = periodoRecorrencia;
         this.observacao = observacao;
-        this.deletedAt = deletedAt;
+        this.estornadoAt = estornadoAt;
         this.versao = versao;
         this.criadoEm = criadoEm;
         this.atualizadoEm = atualizadoEm;
     }
 
-    public Transacao(Long usuarioId, Long contaId, TipoTransacao tipo,
+    public Transacao(ContaFinanceira conta,
                      BigDecimal valor, LocalDate dataTransacao, Long categoriaId,
-                     OrigemTransacao origem) {
-        this(null, usuarioId, contaId, "N", tipo, null,
-             valor, dataTransacao, categoriaId, null, origem,
-             StatusRevisaoTransacao.EXTRAIDA, null, false, null, null, null,
-             1, OffsetDateTime.now(), null);
+                     String categoriaCode, OrigemTransacao origem) {
+        this(null, conta, "N", null,
+             valor, dataTransacao, categoriaId, categoriaCode, null, origem,
+             StatusRevisaoTransacao.EXTRAIDA, null, false, null, null,
+             1, OffsetDateTime.now(), null, null);
         this.code = CodeGenerator.gerar();
     }
 
-    public void estornar() {
+    /**
+     * Cria uma nova transação de estorno (cópia idêntica desta, com indEstorno='S').
+     * Marca esta transação como estornada (estornadoAt) e cria nova linha com indEstorno='S'.
+     */
+    public Transacao criarEstorno() {
         if ("S".equals(indEstorno)) {
-            return;
+            throw new TransacaoInvalidaException("Não é possível estornar uma transação que já é um estorno");
         }
-        if (deletedAt != null) {
-            throw new TransacaoInvalidaException("Transação deletada não pode ser estornada");
+        this.estornadoAt = OffsetDateTime.now();
+        Transacao estorno = new Transacao(
+                null, conta, "S", descricao, valor, dataTransacao,
+                categoriaId, categoriaCode, estabelecimento, origem, statusRevisao, confiancaIa,
+                recorrente, periodoRecorrencia, observacao, 1,
+                OffsetDateTime.now(), null, null);
+        estorno.code = CodeGenerator.gerar();
+        estorno.transacaoEstornadaId = this.id;
+        estorno.categoriaTipo = this.categoriaTipo;
+        return estorno;
+    }
+
+    /**
+     * Direção efetiva (RECEITA/GASTO) desta transação. Para categoria RECEITA/GASTO
+     * a direção vem direto da categoria; para AMBOS (ex: categoria "Outros"), o
+     * sinal de {@code valor} desempata (negativo = GASTO, positivo = RECEITA).
+     */
+    public TipoTransacao tipoEfetivo() {
+        if (categoriaTipo == null) {
+            throw new TransacaoInvalidaException("Tipo da categoria da transação não foi resolvido");
         }
-        this.indEstorno = "S";
+        return switch (categoriaTipo) {
+            case RECEITA -> TipoTransacao.RECEITA;
+            case GASTO -> TipoTransacao.GASTO;
+            case AMBOS -> valor.signum() < 0 ? TipoTransacao.GASTO : TipoTransacao.RECEITA;
+        };
+    }
+
+    public void arquivar() {
+        this.statusRevisao = StatusRevisaoTransacao.ARQUIVADA;
+        this.deletedAt = OffsetDateTime.now();
+        this.atualizadoEm = OffsetDateTime.now();
+    }
+
+    /**
+     * Confirma a revisão manual de um lançamento importado de extrato: só é permitida
+     * a partir de PENDENTE_REVISAO — o usuário já viu o lançamento e a conta a que
+     * pertence antes de clicar em "Revisado".
+     */
+    public void confirmarRevisao() {
+        if (statusRevisao != StatusRevisaoTransacao.PENDENTE_REVISAO) {
+            throw new TransacaoInvalidaException(
+                    "Só é possível confirmar revisão de uma transação PENDENTE_REVISAO (status atual: " + statusRevisao + ")");
+        }
+        this.statusRevisao = StatusRevisaoTransacao.CONFIRMADA;
         this.atualizadoEm = OffsetDateTime.now();
     }
 
     public void validar() {
-        if (usuarioId == null) {
-            throw new TransacaoInvalidaException("UsuarioId é obrigatório");
+        if (conta == null) {
+            throw new TransacaoInvalidaException("Conta é obrigatório");
         }
-        if (contaId == null) {
-            throw new TransacaoInvalidaException("ContaId é obrigatório");
+        if (categoriaId == null) {
+            throw new TransacaoInvalidaException("CategoriaId é obrigatório");
         }
-        if (tipo == null) {
-            throw new TransacaoInvalidaException("Tipo é obrigatório");
+        if (categoriaTipo == null) {
+            throw new TransacaoInvalidaException("Tipo da categoria é obrigatório");
         }
-        if (valor == null || valor.compareTo(BigDecimal.ZERO) <= 0) {
+        if (valor == null || valor.signum() == 0) {
+            throw new TransacaoInvalidaException("Valor deve ser diferente de zero");
+        }
+        if (categoriaTipo != TipoCategoria.AMBOS && valor.signum() < 0) {
             throw new TransacaoInvalidaException("Valor deve ser maior que zero");
         }
         if (dataTransacao == null) {
@@ -108,9 +163,6 @@ public class Transacao {
         }
         if (origem == null) {
             throw new TransacaoInvalidaException("Origem é obrigatória");
-        }
-        if (categoriaId == null) {
-            throw new TransacaoInvalidaException("CategoriaId é obrigatório");
         }
     }
 }

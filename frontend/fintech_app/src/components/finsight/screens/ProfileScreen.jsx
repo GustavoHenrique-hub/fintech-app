@@ -1,14 +1,12 @@
-// ProfileScreen: dados da conta + preferências + segurança.
-// Lê o usuario do mock; quando integrar, troque por useQuery(["usuario", id]).
-//
-// Inclui modal de confirmação de "excluir conta" (Modal do design system).
 import { useState } from "react";
 import {
-  Mail, Phone, CreditCard, Bell, Globe, Languages, Lock, ShieldCheck,
-  Crown, LogOut, Trash2, ChevronRight, Check, Pencil, AlertTriangle,
+  Mail, Phone, CreditCard, Bell, Languages, Lock, ShieldCheck,
+  LogOut, Trash2, ChevronRight, Pencil, AlertTriangle,
 } from "lucide-react";
 
-import { usuarioAtual, contas } from "@/mocks";
+import { useUsuario } from "@/hooks/use-usuario";
+import { useContas } from "@/hooks/use-contas";
+import { useAuth } from "@/context/AuthContext";
 import { formatCPF, getInitials, maskEmail, maskCPF } from "@/lib/format";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,30 +14,53 @@ import {
   ModalDescription, ModalFooter, ModalClose,
 } from "@/components/ui/modal";
 import { toast } from "@/hooks/use-toast";
+import { SkeletonCard } from "@/components/ui/skeleton";
+import { EditarContatoModal } from "@/components/finsight/EditarContatoModal";
+import { AlterarSenhaModal } from "@/components/finsight/AlterarSenhaModal";
+import { ContasVinculadasModal } from "@/components/finsight/ContasVinculadasModal";
+import { IdiomaModal } from "@/components/finsight/IdiomaModal";
+import { IDIOMAS } from "@/lib/idiomas";
 
-// ── Componentes auxiliares (só usados aqui) ─────────────────────────
-// Linha clicável padrão (ícone + label + valor + chevron).
 const Row = ({
   icon: Icon, iconColor = "text-foreground", iconBg = "bg-secondary",
-  label, value, trailing, danger,
-}) => (
-  <button
-    className={`w-full flex items-center gap-3 px-3.5 py-3 row-press text-left ${
-      danger ? "text-destructive" : ""
-    }`}
-  >
-    <div className={`w-8 h-8 rounded-lg ${iconBg} ${iconColor} flex items-center justify-center shrink-0`}>
-      <Icon className="w-4 h-4" strokeWidth={2.25} />
-    </div>
-    <span className={`flex-1 text-[13px] font-semibold ${danger ? "text-destructive" : "text-foreground"}`}>
-      {label}
-    </span>
-    {value && <span className="text-[12px] text-muted-foreground font-medium truncate max-w-[160px]">{value}</span>}
-    {trailing ?? <ChevronRight className="w-4 h-4 text-muted-foreground" />}
-  </button>
-);
+  label, value, trailing, danger, onClick, disabled,
+}) => {
+  const inner = (
+    <>
+      <div className={`w-8 h-8 rounded-lg ${iconBg} ${iconColor} flex items-center justify-center shrink-0`}>
+        <Icon className="w-4 h-4" strokeWidth={2.25} />
+      </div>
+      <span className={`flex-1 text-[13px] font-semibold ${danger ? "text-destructive" : "text-foreground"}`}>
+        {label}
+      </span>
+      {value && <span className="text-[12px] text-muted-foreground font-medium truncate max-w-[160px]">{value}</span>}
+      {trailing ?? (disabled ? null : <ChevronRight className="w-4 h-4 text-muted-foreground" />)}
+    </>
+  );
 
-// Switch on/off controlado pelo pai.
+  if (disabled) {
+    return (
+      <div
+        aria-disabled="true"
+        className="w-full flex items-center gap-3 px-3.5 py-3 cursor-default select-none"
+      >
+        {inner}
+      </div>
+    );
+  }
+
+  return (
+    <button
+      onClick={onClick}
+      className={`w-full flex items-center gap-3 px-3.5 py-3 row-press text-left ${
+        danger ? "text-destructive" : ""
+      }`}
+    >
+      {inner}
+    </button>
+  );
+};
+
 const Toggle = ({ on, onChange, label }) => (
   <button
     onClick={(e) => {
@@ -56,20 +77,31 @@ const Toggle = ({ on, onChange, label }) => (
   </button>
 );
 
-// ── Tela principal ─────────────────────────────────────────────────
 export const ProfileScreen = () => {
   const [notif, setNotif] = useState(true);
   const [twoFA, setTwoFA] = useState(true);
   const [showCPF, setShowCPF] = useState(false);
   const [deletando, setDeletando] = useState(false);
+  const [idioma, setIdioma] = useState("pt-BR");
 
-  const usuario = usuarioAtual;
-  const iniciais = getInitials(usuario.nome);
+  // Modais de edição — um por campo, controlados via estado local.
+  const [campoContatoAberto, setCampoContatoAberto] = useState(null); // "email" | "telefone" | null
+  const [senhaModalAberto, setSenhaModalAberto] = useState(false);
+  const [contasModalAberto, setContasModalAberto] = useState(false);
+  const [idiomaModalAberto, setIdiomaModalAberto] = useState(false);
+
+  const { logout } = useAuth();
+  const { data: usuario, isLoading: loadingUsuario } = useUsuario();
+  const { data: contas = [], isLoading: loadingContas } = useContas();
+
+  const isLoading = loadingUsuario || loadingContas;
+
+  const iniciais = getInitials(usuario?.nome ?? "");
   const contasAtivas = contas.filter((c) => c.ativa).length;
+  const idiomaLabel = IDIOMAS.find((i) => i.value === idioma)?.label ?? "Português (Brasil)";
 
   const handleDelete = async () => {
     setDeletando(true);
-    // Simulação. Na integração: await axios.delete(`/usuarios/${usuario.id}`)
     await new Promise((r) => setTimeout(r, 800));
     setDeletando(false);
     toast.error({
@@ -78,10 +110,21 @@ export const ProfileScreen = () => {
     });
   };
 
+  if (isLoading) {
+    return (
+      <div className="flex-1 min-h-0 overflow-y-auto px-4 sm:px-5 lg:px-8 pt-4 lg:pt-8 pb-6 lg:pb-10 no-scrollbar">
+        <div className="max-w-5xl mx-auto w-full space-y-5">
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex-1 min-h-0 overflow-y-auto px-4 sm:px-5 lg:px-8 pt-4 lg:pt-8 pb-6 lg:pb-10 no-scrollbar">
      <div className="max-w-5xl mx-auto w-full space-y-5 lg:space-y-7">
-      {/* Header */}
       <div>
         <h1 className="text-[22px] lg:text-[28px] font-extrabold tracking-tight text-foreground leading-tight">
           Perfil
@@ -89,7 +132,6 @@ export const ProfileScreen = () => {
         <p className="text-[12px] lg:text-[13px] text-muted-foreground mt-0.5">Conta e preferências</p>
       </div>
 
-      {/* Card do usuário */}
       <section className="card-soft p-4 flex items-center gap-3">
         <div className="relative">
           <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-[18px] font-extrabold text-primary-foreground shadow-md shadow-primary/30">
@@ -104,18 +146,14 @@ export const ProfileScreen = () => {
         </div>
         <div className="flex-1 min-w-0">
           <p className="text-[15px] font-extrabold text-foreground leading-tight truncate">
-            {usuario.nome}
+            {usuario?.nome ?? "—"}
           </p>
           <p className="text-[11.5px] text-muted-foreground mt-0.5 truncate">
-            {maskEmail(usuario.email)}
+            {maskEmail(usuario?.email ?? "")}
           </p>
-          <span className="inline-flex items-center gap-1 mt-1.5 px-2 py-0.5 rounded-full bg-accent text-accent-foreground text-[10px] font-bold">
-            <Crown className="w-2.5 h-2.5" strokeWidth={2.75} /> Premium Personal
-          </span>
         </div>
       </section>
 
-      {/* Conta + Preferências em 2 colunas no desktop. */}
       <div className="grid lg:grid-cols-2 gap-5 lg:gap-6">
       <section>
         <p className="section-label mb-1.5">Conta</p>
@@ -125,23 +163,29 @@ export const ProfileScreen = () => {
             iconBg="bg-surface-purple"
             iconColor="text-primary"
             label="E-mail"
-            value={maskEmail(usuario.email)}
+            value={maskEmail(usuario?.email ?? "")}
+            onClick={() => setCampoContatoAberto("email")}
           />
           <Row
             icon={Phone}
             iconBg="bg-surface-green"
             iconColor="text-success"
             label="Telefone"
-            value={usuario.telefone}
+            value={usuario?.telefone ?? "—"}
+            onClick={() => setCampoContatoAberto("telefone")}
           />
           <Row
             icon={CreditCard}
             iconBg="bg-surface-yellow"
             iconColor="text-foreground"
             label="CPF"
-            value={showCPF ? formatCPF(usuario.cpf) : maskCPF(usuario.cpf)}
+            value={showCPF ? formatCPF(usuario?.cpf ?? "") : maskCPF(usuario?.cpf ?? "")}
+            disabled
             trailing={
-              <Toggle on={showCPF} onChange={setShowCPF} label="Mostrar CPF completo" />
+              <div className="flex items-center gap-2">
+                <Lock className="w-3 h-3 text-muted-foreground" strokeWidth={2.25} aria-hidden="true" />
+                <Toggle on={showCPF} onChange={setShowCPF} label="Mostrar CPF completo" />
+              </div>
             }
           />
           <Row
@@ -150,11 +194,14 @@ export const ProfileScreen = () => {
             iconColor="text-primary"
             label="Contas vinculadas"
             value={`${contasAtivas} ${contasAtivas === 1 ? "ativa" : "ativas"}`}
+            onClick={() => setContasModalAberto(true)}
           />
         </div>
+        <p className="text-[10.5px] text-muted-foreground mt-1.5 px-1">
+          CPF é dado sensível: alteração só via ofício, diretamente no banco de dados.
+        </p>
       </section>
 
-      {/* Preferências */}
       <section>
         <p className="section-label mb-1.5">Preferências</p>
         <div className="card-soft divide-y divide-border">
@@ -165,19 +212,22 @@ export const ProfileScreen = () => {
             label="Notificações"
             trailing={<Toggle on={notif} onChange={setNotif} label="Notificações" />}
           />
-          <Row icon={Globe}     iconBg="bg-surface-purple" iconColor="text-primary"    label="Moeda"  value="BRL (R$)" />
-          <Row icon={Languages} iconBg="bg-surface-yellow" iconColor="text-foreground" label="Idioma" value="Português (BR)" />
+          <Row
+            icon={Languages}
+            iconBg="bg-surface-yellow"
+            iconColor="text-foreground"
+            label="Idioma"
+            value={idiomaLabel}
+            onClick={() => setIdiomaModalAberto(true)}
+          />
         </div>
       </section>
       </div>
 
-      {/* Segurança + Card upgrade em 2 colunas no desktop. */}
-      <div className="grid lg:grid-cols-2 gap-5 lg:gap-6">
-      {/* Segurança */}
       <section>
         <p className="section-label mb-1.5">Segurança</p>
         <div className="card-soft divide-y divide-border">
-          <Row icon={Lock} iconBg="bg-secondary" label="Alterar senha" />
+          <Row icon={Lock} iconBg="bg-secondary" label="Alterar senha" onClick={() => setSenhaModalAberto(true)} />
           <Row
             icon={ShieldCheck}
             iconBg="bg-surface-green"
@@ -188,33 +238,11 @@ export const ProfileScreen = () => {
         </div>
       </section>
 
-      {/* Card de upgrade */}
-      <section className="relative overflow-hidden card-soft p-4 bg-gradient-to-br from-accent/40 to-accent/10 border-accent/40">
-        <div className="flex items-center gap-2">
-          <Crown className="w-4 h-4 text-foreground" strokeWidth={2.5} />
-          <p className="text-[13px] font-extrabold text-foreground">FinSight Premium</p>
-        </div>
-        <p className="text-[11.5px] text-muted-foreground mt-1">
-          Análises avançadas, categorias ilimitadas e suporte prioritário.
-        </p>
-        <div className="grid grid-cols-2 gap-1.5 mt-3">
-          {["Gráficos avançados", "Orçamentos ilimitados", "Insights por IA", "Suporte prioritário"].map((b) => (
-            <div key={b} className="flex items-center gap-1 text-[11px] font-medium text-foreground">
-              <Check className="w-3 h-3 text-success" strokeWidth={3} /> {b}
-            </div>
-          ))}
-        </div>
-        <Button className="w-full mt-3" size="sm">Fazer upgrade para Empresarial</Button>
-      </section>
-      </div>
-
-      {/* Ações da conta */}
       <section>
         <p className="section-label mb-1.5">Conta</p>
         <div className="card-soft divide-y divide-border">
-          <Row icon={LogOut} iconBg="bg-secondary" label="Sair" />
+          <Row icon={LogOut} iconBg="bg-secondary" label="Sair" onClick={logout} />
 
-          {/* Excluir conta: usa Modal do design system para confirmar. */}
           <Modal>
             <ModalTrigger asChild>
               <Row
@@ -257,10 +285,33 @@ export const ProfileScreen = () => {
           </Modal>
         </div>
         <p className="text-[10.5px] text-muted-foreground mt-2 px-1">
-          FinSight v2.4.0 · Build 2026.04 · Usuário {usuario.usercode}
+          FinSight v2.4.0 · Build 2026.04 · Usuário {usuario?.usercode ?? "—"}
         </p>
       </section>
      </div>
+
+      <EditarContatoModal
+        open={!!campoContatoAberto}
+        onOpenChange={(v) => setCampoContatoAberto(v ? campoContatoAberto : null)}
+        campo={campoContatoAberto ?? "email"}
+        usuarioId={usuario?.id}
+        valorAtual={campoContatoAberto === "telefone" ? usuario?.telefone : usuario?.email}
+      />
+      <AlterarSenhaModal
+        open={senhaModalAberto}
+        onOpenChange={setSenhaModalAberto}
+        usuarioId={usuario?.id}
+      />
+      <ContasVinculadasModal
+        open={contasModalAberto}
+        onOpenChange={setContasModalAberto}
+      />
+      <IdiomaModal
+        open={idiomaModalAberto}
+        onOpenChange={setIdiomaModalAberto}
+        value={idioma}
+        onChange={setIdioma}
+      />
     </div>
   );
 };

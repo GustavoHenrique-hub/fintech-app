@@ -9,8 +9,6 @@ import java.time.OffsetDateTime;
 public record TransacaoResponseDTO(
         Long id,
         String code,
-        Long usuarioId,
-        String  usuarioCode,
         Long contaId,
         String contaCode,
         String indEstorno,
@@ -24,18 +22,17 @@ public record TransacaoResponseDTO(
         String statusRevisao,
         Short confiancaIa,
         boolean recorrente,
-        OffsetDateTime criadoEm
+        OffsetDateTime criadoEm,
+        OffsetDateTime estornadoAt
 ) {
     public static TransacaoResponseDTO fromDomain(Transacao domain) {
         return new TransacaoResponseDTO(
                 domain.getId(),
                 domain.getCode(),
-                domain.getUsuarioId(),
-                domain.getUsuarioCode(),
-                domain.getContaId(),
-                domain.getContaCode(),
+                domain.getConta().getId(),
+                domain.getConta().getCode(),
                 domain.getIndEstorno(),
-                domain.getTipo().name(),
+                domain.tipoEfetivo().name(),
                 domain.getDescricao(),
                 domain.getValor(),
                 domain.getDataTransacao(),
@@ -45,7 +42,8 @@ public record TransacaoResponseDTO(
                 domain.getStatusRevisao().name(),
                 domain.getConfiancaIa(),
                 domain.isRecorrente(),
-                domain.getCriadoEm()
+                domain.getCriadoEm(),
+                domain.getEstornadoAt()
         );
     }
 }

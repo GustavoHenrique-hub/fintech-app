@@ -225,10 +225,12 @@ Todas as rotas usam JSON. Campos obrigatórios são validados com `@Valid` no co
 }
 
 // POST /transacoes
+// A direção (receita/gasto) é derivada da categoria informada, não é mais
+// um campo próprio: valor positivo para categorias RECEITA/GASTO; para
+// categoria AMBOS o sinal de valor decide (negativo = gasto).
 {
   "usuarioId": "550e8400-...",
   "contaId": "661f9511-...",
-  "tipo": "gasto",
   "valor": 89.90,
   "dataTransacao": "2025-05-22",
   "origem": "manual",

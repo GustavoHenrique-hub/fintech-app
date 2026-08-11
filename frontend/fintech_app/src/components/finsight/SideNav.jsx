@@ -1,21 +1,24 @@
-// SideNav: barra lateral fixa exibida apenas em telas largas (lg+ = 1024px).
-// Substitui a BottomNav em desktop, oferecendo um layout de "web app" real
-// (estilo Linear/Notion/banco digital) com nav vertical e o botão "+" no topo.
-import { Home, BarChart3, ArrowLeftRight, User, Plus, Wallet } from "lucide-react";
-
-import { usuarioAtual } from "@/mocks";
+import { Home, BarChart3, ArrowLeftRight, User, Plus, Wallet, RotateCcw, FileText } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
+import { useUsuario } from "@/hooks/use-usuario";
 import { getInitials } from "@/lib/format";
 
 const items = [
   { key: "home",      label: "Visão geral", icon: Home },
   { key: "analytics", label: "Análises",    icon: BarChart3 },
   { key: "payments",  label: "Transações",  icon: ArrowLeftRight },
+  { key: "extratos",  label: "Extratos",    icon: FileText },
+  { key: "estorno",   label: "Estornos",    icon: RotateCcw },
   { key: "profile",   label: "Perfil",      icon: User },
 ];
 
 export const SideNav = ({ active, onChange, onAdd }) => {
-  const usuario = usuarioAtual;
-  const iniciais = getInitials(usuario.nome);
+  const { user } = useAuth();
+  const { data: usuario } = useUsuario();
+
+  const nome    = usuario?.nome    ?? user?.usuarioCode ?? "—";
+  const email   = usuario?.email   ?? "";
+  const iniciais = getInitials(nome);
 
   return (
     <aside className="hidden lg:flex sticky top-0 h-[100dvh] w-64 shrink-0 flex-col border-r border-border bg-card/60 backdrop-blur px-4 py-6">
@@ -64,8 +67,8 @@ export const SideNav = ({ active, onChange, onAdd }) => {
           {iniciais}
         </div>
         <div className="min-w-0">
-          <p className="text-[12.5px] font-semibold text-foreground truncate">{usuario.nome}</p>
-          <p className="text-[10.5px] text-muted-foreground truncate">{usuario.email}</p>
+          <p className="text-[12.5px] font-semibold text-foreground truncate">{nome}</p>
+          <p className="text-[10.5px] text-muted-foreground truncate">{email}</p>
         </div>
       </div>
     </aside>

@@ -1,6 +1,7 @@
 package com.enterprise.gustadev.fintech_app.domain.transacaocancelada.model;
 
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.CanceladoPor;
+import com.enterprise.gustadev.fintech_app.domain.shared.util.CodeGenerator;
 import com.enterprise.gustadev.fintech_app.domain.transacaocancelada.exception.TransacaoCanceladaInvalidaException;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,20 +14,25 @@ import java.time.OffsetDateTime;
 public class TransacaoCancelada {
 
     private Long id;
+    private String code;
     private Long transacaoId;
+    private String transacaoCode;
     private Long motivoId;
+    private String motivoCode;
     private CanceladoPor canceladoPor;
     private BigDecimal valorOriginal;
     private String observacao;
     private String ipOrigem;
     private OffsetDateTime canceladoEm;
 
-    public TransacaoCancelada(Long id, Long transacaoId, Long motivoId,
+    public TransacaoCancelada(Long id, Long transacaoId, String transacaoCode, Long motivoId, String motivoCode,
                                CanceladoPor canceladoPor, BigDecimal valorOriginal,
                                String observacao, String ipOrigem, OffsetDateTime canceladoEm) {
         this.id = id;
         this.transacaoId = transacaoId;
+        this.transacaoCode = transacaoCode;
         this.motivoId = motivoId;
+        this.motivoCode = motivoCode;
         this.canceladoPor = canceladoPor;
         this.valorOriginal = valorOriginal;
         this.observacao = observacao;
@@ -34,9 +40,11 @@ public class TransacaoCancelada {
         this.canceladoEm = canceladoEm;
     }
 
-    public TransacaoCancelada(Long transacaoId, Long motivoId, CanceladoPor canceladoPor,
-                               BigDecimal valorOriginal, String observacao, String ipOrigem) {
-        this(null, transacaoId, motivoId, canceladoPor, valorOriginal, observacao, ipOrigem, null);
+    public TransacaoCancelada(Long transacaoId, String transacaoCode, Long motivoId, String motivoCode,
+                               CanceladoPor canceladoPor, BigDecimal valorOriginal, String observacao, String ipOrigem) {
+        this(null, transacaoId, transacaoCode, motivoId, motivoCode, canceladoPor,
+                valorOriginal, observacao, ipOrigem, null);
+        this.code = CodeGenerator.gerar();
     }
 
     public void validar() {

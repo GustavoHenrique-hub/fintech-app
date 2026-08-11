@@ -11,5 +11,4 @@ public interface ProcessamentoJobRepositoryPort {
     List<ProcessamentoJob> listarPorStatus(StatusJob status);
     List<ProcessamentoJob> listarPorExtrato(Long extratoId);
     Optional<ProcessamentoJob> buscarPorId(Long id);
-    void deletarPorId(Long id);
 }

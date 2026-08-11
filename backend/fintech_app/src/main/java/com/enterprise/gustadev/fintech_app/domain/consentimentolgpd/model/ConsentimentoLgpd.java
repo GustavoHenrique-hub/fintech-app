@@ -2,6 +2,7 @@ package com.enterprise.gustadev.fintech_app.domain.consentimentolgpd.model;
 
 import com.enterprise.gustadev.fintech_app.domain.consentimentolgpd.exception.ConsentimentoLgpdInvalidoException;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoConsentimentoLgpd;
+import com.enterprise.gustadev.fintech_app.domain.shared.util.CodeGenerator;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +13,9 @@ import java.time.OffsetDateTime;
 public class ConsentimentoLgpd {
 
     private Long id;
+    private String code;
     private Long usuarioId;
+    private String usuarioCode;
     private TipoConsentimentoLgpd tipo;
     private String versaoPolitica;
     private boolean consentido;
@@ -21,12 +24,14 @@ public class ConsentimentoLgpd {
     private OffsetDateTime revogadoEm;
     private String revogadoMotivo;
 
-    public ConsentimentoLgpd(Long id, Long usuarioId, TipoConsentimentoLgpd tipo,
-                              String versaoPolitica, boolean consentido, String ipOrigem,
-                              OffsetDateTime criadoEm, OffsetDateTime revogadoEm,
+    public ConsentimentoLgpd(Long id, String code, Long usuarioId, String usuarioCode,
+                              TipoConsentimentoLgpd tipo, String versaoPolitica, boolean consentido,
+                              String ipOrigem, OffsetDateTime criadoEm, OffsetDateTime revogadoEm,
                               String revogadoMotivo) {
         this.id = id;
+        this.code = code;
         this.usuarioId = usuarioId;
+        this.usuarioCode = usuarioCode;
         this.tipo = tipo;
         this.versaoPolitica = versaoPolitica;
         this.consentido = consentido;
@@ -36,14 +41,19 @@ public class ConsentimentoLgpd {
         this.revogadoMotivo = revogadoMotivo;
     }
 
-    public ConsentimentoLgpd(Long usuarioId, TipoConsentimentoLgpd tipo,
+    public ConsentimentoLgpd(Long usuarioId, String usuarioCode, TipoConsentimentoLgpd tipo,
                               String versaoPolitica, boolean consentido, String ipOrigem) {
-        this(null, usuarioId, tipo, versaoPolitica, consentido, ipOrigem, OffsetDateTime.now(), null, null);
+        this(null, null, usuarioId, usuarioCode, tipo, versaoPolitica, consentido, ipOrigem,
+             OffsetDateTime.now(), null, null);
+        this.code = CodeGenerator.gerar();
     }
 
     public void validar() {
         if (usuarioId == null) {
             throw new ConsentimentoLgpdInvalidoException("UsuarioId é obrigatório");
+        }
+        if (usuarioCode == null || usuarioCode.isBlank()) {
+            throw new ConsentimentoLgpdInvalidoException("UsuarioCode é obrigatório");
         }
         if (tipo == null) {
             throw new ConsentimentoLgpdInvalidoException("Tipo é obrigatório");

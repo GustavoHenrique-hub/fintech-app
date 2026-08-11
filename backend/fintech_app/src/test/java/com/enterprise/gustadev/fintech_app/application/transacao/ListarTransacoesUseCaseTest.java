@@ -1,8 +1,8 @@
 package com.enterprise.gustadev.fintech_app.application.transacao;
 
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.ListarTransacoesUseCase;
+import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;
-import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoTransacao;
 import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;
 import com.enterprise.gustadev.fintech_app.domain.transacao.port.TransacaoRepositoryPort;
 import org.junit.jupiter.api.Test;
@@ -28,15 +28,15 @@ class ListarTransacoesUseCaseTest {
     @InjectMocks
     private ListarTransacoesUseCase useCase;
 
-    private Transacao criarTransacao(Long usuarioId, Long contaId) {
-        return new Transacao(usuarioId, contaId, TipoTransacao.GASTO,
-                new BigDecimal("50.00"), LocalDate.now(), 1L, OrigemTransacao.manual);
+    private Transacao criarTransacao(Long contaId) {
+        return new Transacao(new ContaFinanceira(contaId, "C1"),
+                new BigDecimal("50.00"), LocalDate.now(), 1L, "CAT001", OrigemTransacao.manual);
     }
 
     @Test
     void executarPorUsuario_deveRetornarTransacoesDoUsuario() {
         Long usuarioId = 1L;
-        List<Transacao> lista = List.of(criarTransacao(usuarioId, 1L));
+        List<Transacao> lista = List.of(criarTransacao(1L));
         when(repository.listarPorUsuario(usuarioId)).thenReturn(lista);
 
         List<Transacao> resultado = useCase.executarPorUsuario(usuarioId);
@@ -48,7 +48,7 @@ class ListarTransacoesUseCaseTest {
     @Test
     void executarPorConta_deveRetornarTransacoesDaConta() {
         Long contaId = 1L;
-        List<Transacao> lista = List.of(criarTransacao(1L, contaId));
+        List<Transacao> lista = List.of(criarTransacao(contaId));
         when(repository.listarPorConta(contaId)).thenReturn(lista);
 
         List<Transacao> resultado = useCase.executarPorConta(contaId);

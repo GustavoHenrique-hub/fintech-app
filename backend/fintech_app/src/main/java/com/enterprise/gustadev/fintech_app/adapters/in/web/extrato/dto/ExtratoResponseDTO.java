@@ -19,7 +19,9 @@ public record ExtratoResponseDTO(
         int totalLancamentos,
         int lancamentosConfirmados,
         int lancamentosPendentes,
-        OffsetDateTime criadoEm
+        String indDelete,
+        OffsetDateTime criadoEm,
+        OffsetDateTime deletedAt
 ) {
     public static ExtratoResponseDTO fromDomain(Extrato domain) {
         return new ExtratoResponseDTO(
@@ -36,7 +38,9 @@ public record ExtratoResponseDTO(
                 domain.getTotalLancamentos(),
                 domain.getLancamentosConfirmados(),
                 domain.getLancamentosPendentes(),
-                domain.getCriadoEm()
+                domain.getIndDelete(),
+                domain.getCriadoEm(),
+                domain.getDeletedAt()
         );
     }
 }

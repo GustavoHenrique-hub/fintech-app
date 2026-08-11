@@ -36,7 +36,8 @@ public class UsuarioRepositoryAdapter implements UsuarioRepositoryPort {
     }
 
     @Override
-    public void deletarPorId(Long id) {
-        jpaRepository.deleteById(id);
+    public Optional<Usuario> buscarPorEmail(String email) {
+        return jpaRepository.findByEmail(email).map(UsuarioEntity::toDomain);
     }
+
 }

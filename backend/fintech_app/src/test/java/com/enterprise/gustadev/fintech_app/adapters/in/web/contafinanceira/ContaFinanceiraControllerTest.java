@@ -2,7 +2,7 @@ package com.enterprise.gustadev.fintech_app.adapters.in.web.contafinanceira;
 
 import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.BuscarContaFinanceiraUseCase;
 import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.CriarContaFinanceiraUseCase;
-import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.DeletarContaFinanceiraUseCase;
+import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.RemoverContaFinanceiraUseCase;
 import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.ListarContasFinanceirasUseCase;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoConta;
@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.math.BigDecimal;
+import java.security.SecureRandom;
 import java.time.OffsetDateTime;
 import java.util.List;
 
@@ -43,7 +44,7 @@ class ContaFinanceiraControllerTest {
     private BuscarContaFinanceiraUseCase buscarUseCase;
 
     @Mock
-    private DeletarContaFinanceiraUseCase deletarUseCase;
+    private RemoverContaFinanceiraUseCase removerUseCase;
 
     @InjectMocks
     private ContaFinanceiraController controller;
@@ -55,18 +56,19 @@ class ContaFinanceiraControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
-    private ContaFinanceira contaCompleta(Long id, Long usuarioId, Long bancoId, String bancoCode) {
-        return new ContaFinanceira(id, usuarioId, TipoConta.corrente,
-                bancoId, bancoCode, new BigDecimal("1000.00"), true, true,
-                OffsetDateTime.now(), null);
+    private ContaFinanceira contaCompleta(Long id, Long usuarioId, String usuarioCode, Long bancoId, String bancoCode) {
+        return new ContaFinanceira(id, usuarioId, usuarioCode, TipoConta.corrente,
+                bancoId, bancoCode, new BigDecimal("1000.00"), new BigDecimal("1000.00"), true, true,
+                OffsetDateTime.now(), null, "N", null);
     }
 
     @Test
     void criar_deveRetornar201_eVincularUsuarioAoBanco_quandoDadosValidos() throws Exception {
         Long usuarioId = 1L;
+        String usuarioCode = "USER01";
         Long bancoId = 10L;
         String bancoCode = "NUBANK";
-        when(criarUseCase.executar(any())).thenReturn(contaCompleta(1L, usuarioId, bancoId, bancoCode));
+        when(criarUseCase.executar(any())).thenReturn(contaCompleta(1L, usuarioId, usuarioCode, bancoId, bancoCode));
 
         mockMvc.perform(post("/contas")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -106,10 +108,11 @@ class ContaFinanceiraControllerTest {
     @Test
     void listarPorUsuario_deveRetornar200ComContasDeMultiplosBancos() throws Exception {
         Long usuarioId = 1L;
+        String usuarioCode = "USER01";
         when(listarUseCase.executar(usuarioId))
                 .thenReturn(List.of(
-                        contaCompleta(1L, usuarioId, 10L, "NUBANK"),
-                        contaCompleta(2L, usuarioId, 20L, "ITAU01")
+                        contaCompleta(1L, usuarioId, usuarioCode,10L, "NUBANK"),
+                        contaCompleta(2L, usuarioId, usuarioCode,20L, "ITAU01")
                 ));
 
         mockMvc.perform(get("/contas/usuario/{usuarioId}", usuarioId))
@@ -122,8 +125,9 @@ class ContaFinanceiraControllerTest {
     @Test
     void buscarPorId_deveRetornar200ComConta() throws Exception {
         Long id = 1L;
+        String usuarioCode = "USER01";
         when(buscarUseCase.executar(any(), anyString()))
-                .thenReturn(contaCompleta(id, 1L, 10L, "NUBANK"));
+                .thenReturn(contaCompleta(id, 1L, usuarioCode,10L, "NUBANK"));
 
         mockMvc.perform(get("/contas/{id_contas}/{contas_code}", id, "ABC123"))
                 .andExpect(status().isOk())
@@ -134,7 +138,7 @@ class ContaFinanceiraControllerTest {
     @Test
     void deletar_deveRetornar204() throws Exception {
         Long id = 1L;
-        doNothing().when(deletarUseCase).executar(any(), anyString());
+        doNothing().when(removerUseCase).executar(any(), anyString());
 
         mockMvc.perform(delete("/contas/{id_contas}/{contas_code}", id, "ABC123"))
                 .andExpect(status().isNoContent());

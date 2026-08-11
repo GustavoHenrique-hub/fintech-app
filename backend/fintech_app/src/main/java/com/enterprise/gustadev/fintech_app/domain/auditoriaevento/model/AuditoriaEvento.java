@@ -2,6 +2,7 @@ package com.enterprise.gustadev.fintech_app.domain.auditoriaevento.model;
 
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.AcaoAuditoria;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemAuditoria;
+import com.enterprise.gustadev.fintech_app.domain.shared.util.CodeGenerator;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,8 +13,10 @@ import java.time.OffsetDateTime;
 public class AuditoriaEvento {
 
     private Long id;
+    private String code;
     private Long correlationId;
     private Long usuarioId;
+    private String usuarioCode;
     private String entidade;
     private Long entidadeId;
     private AcaoAuditoria acao;
@@ -24,13 +27,19 @@ public class AuditoriaEvento {
     private OrigemAuditoria origem;
     private OffsetDateTime criadoEm;
 
-    public AuditoriaEvento(Long id, Long correlationId, Long usuarioId, String entidade,
+    /**
+     * Construtor de reconstrução (a partir da persistência).
+     */
+    public AuditoriaEvento(Long id, String code, Long correlationId, Long usuarioId,
+                            String usuarioCode, String entidade,
                             Long entidadeId, AcaoAuditoria acao, String dadosAnteriores,
                             String dadosNovos, String ipOrigem, String userAgent,
                             OrigemAuditoria origem, OffsetDateTime criadoEm) {
         this.id = id;
+        this.code = code;
         this.correlationId = correlationId;
         this.usuarioId = usuarioId;
+        this.usuarioCode = usuarioCode;
         this.entidade = entidade;
         this.entidadeId = entidadeId;
         this.acao = acao;
@@ -42,10 +51,13 @@ public class AuditoriaEvento {
         this.criadoEm = criadoEm;
     }
 
-    public AuditoriaEvento(Long correlationId, Long usuarioId, String entidade,
+    /**
+     * Construtor de criação (gera novo {@code code}).
+     */
+    public AuditoriaEvento(Long correlationId, Long usuarioId, String usuarioCode, String entidade,
                             Long entidadeId, AcaoAuditoria acao, String dadosNovos,
                             String ipOrigem, OrigemAuditoria origem) {
-        this(null, correlationId, usuarioId, entidade, entidadeId, acao,
-             null, dadosNovos, ipOrigem, null, origem, null);
+        this(null, CodeGenerator.gerar(), correlationId, usuarioId, usuarioCode, entidade,
+             entidadeId, acao, null, dadosNovos, ipOrigem, null, origem, null);
     }
 }

@@ -15,9 +15,14 @@ public record ContaFinanceiraResponseDTO(
         @Schema(description = "ID do banco vinculado", example = "10") Long bancoId,
         @Schema(description = "Código do banco vinculado", example = "NUBANK") String bancoCode,
         @Schema(description = "Saldo inicial registrado", example = "1500.00") BigDecimal saldoInicial,
+        @Schema(description = "Saldo atual da conta", example = "1800.00") BigDecimal saldoAtual,
+        @Schema(description = "Sub-saldo reservado em economias (parte de saldoAtual movida para \"Economias\")",
+                example = "200.00") BigDecimal saldoEconomias,
         @Schema(description = "Indica se é a conta padrão do usuário") boolean padrao,
         @Schema(description = "Indica se a conta está ativa") boolean ativa,
-        @Schema(description = "Data/hora de criação") OffsetDateTime criadoEm
+        @Schema(description = "Indicador de remoção lógica (S=removida, N=ativa)") String indDelete,
+        @Schema(description = "Data/hora de criação") OffsetDateTime criadoEm,
+        @Schema(description = "Data/hora da remoção lógica") OffsetDateTime deletedAt
 ) {
     public static ContaFinanceiraResponseDTO fromDomain(ContaFinanceira domain) {
         return new ContaFinanceiraResponseDTO(
@@ -28,9 +33,13 @@ public record ContaFinanceiraResponseDTO(
                 domain.getBancoId(),
                 domain.getBancoCode(),
                 domain.getSaldoInicial(),
+                domain.getSaldoAtual(),
+                domain.getSaldoEconomias() != null ? domain.getSaldoEconomias() : java.math.BigDecimal.ZERO,
                 domain.isPadrao(),
                 domain.isAtiva(),
-                domain.getCriadoEm()
+                domain.getIndDelete(),
+                domain.getCriadoEm(),
+                domain.getDeletedAt()
         );
     }
 }

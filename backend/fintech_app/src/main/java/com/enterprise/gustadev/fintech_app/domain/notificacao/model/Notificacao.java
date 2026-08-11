@@ -1,6 +1,7 @@
 package com.enterprise.gustadev.fintech_app.domain.notificacao.model;
 
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.CanalNotificacao;
+import com.enterprise.gustadev.fintech_app.domain.shared.util.CodeGenerator;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +12,9 @@ import java.time.OffsetDateTime;
 public class Notificacao {
 
     private Long id;
+    private String code;
     private Long usuarioId;
+    private String usuarioCode;
     private CanalNotificacao canal;
     private String tipo;
     private String titulo;
@@ -22,11 +25,14 @@ public class Notificacao {
     private short tentativas;
     private OffsetDateTime criadoEm;
 
-    public Notificacao(Long id, Long usuarioId, CanalNotificacao canal, String tipo,
+    public Notificacao(Long id, String code, Long usuarioId, String usuarioCode,
+                        CanalNotificacao canal, String tipo,
                         String titulo, String mensagem, boolean enviada, OffsetDateTime enviadaEm,
                         String erro, short tentativas, OffsetDateTime criadoEm) {
         this.id = id;
+        this.code = code;
         this.usuarioId = usuarioId;
+        this.usuarioCode = usuarioCode;
         this.canal = canal;
         this.tipo = tipo;
         this.titulo = titulo;
@@ -38,8 +44,9 @@ public class Notificacao {
         this.criadoEm = criadoEm;
     }
 
-    public Notificacao(Long usuarioId, CanalNotificacao canal, String tipo,
+    public Notificacao(Long usuarioId, String usuarioCode, CanalNotificacao canal, String tipo,
                         String titulo, String mensagem) {
-        this(null, usuarioId, canal, tipo, titulo, mensagem, false, null, null, (short) 0, OffsetDateTime.now());
+        this(null, CodeGenerator.gerar(), usuarioId, usuarioCode, canal, tipo, titulo, mensagem,
+             false, null, null, (short) 0, OffsetDateTime.now());
     }
 }

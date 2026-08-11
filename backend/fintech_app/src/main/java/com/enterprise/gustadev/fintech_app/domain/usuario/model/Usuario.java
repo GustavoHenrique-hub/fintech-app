@@ -41,6 +41,12 @@ public class Usuario {
         this(null, null, cpf, nome, email, senha, telefone, telegramChatID, whatsappChatID, emailVerificado, dtNascimento);
     }
 
+    /** Referência por identidade (id + code), usada quando só a chave do usuário é conhecida. */
+    public Usuario(Long idUsuario, String usuarioCode) {
+        this.idUsuario = idUsuario;
+        this.usuarioCode = usuarioCode;
+    }
+
     public void validar() {
         if (cpf == null || cpf.isBlank()) {
             throw new UsuarioInvalidoException("CPF e obrigatorio");

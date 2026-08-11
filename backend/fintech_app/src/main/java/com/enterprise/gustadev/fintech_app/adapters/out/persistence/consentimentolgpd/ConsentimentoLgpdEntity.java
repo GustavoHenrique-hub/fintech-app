@@ -13,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -30,14 +31,28 @@ public class ConsentimentoLgpdEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "consentimento_lgpd_id")
     private Long id;
+
+    @Column(name = "consentimento_lgpd_code", unique = true, nullable = false, length = 6)
+    private String code;
 
     @Column(name = "usuario_id", nullable = false)
     private Long usuarioId;
 
+    @Column(name = "usuario_code", nullable = false, length = 6)
+    private String usuarioCode;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id", insertable = false, updatable = false,
-            foreignKey = @ForeignKey(name = "fk_consentimentos_lgpd_usuario"))
+    @JoinColumns(
+            value = {
+                    @JoinColumn(name = "usuario_id", referencedColumnName = "usuario_id",
+                            insertable = false, updatable = false),
+                    @JoinColumn(name = "usuario_code", referencedColumnName = "usuario_code",
+                            insertable = false, updatable = false)
+            },
+            foreignKey = @ForeignKey(name = "fk_consentimentos_lgpd_usuario")
+    )
     private UsuarioEntity usuario;
 
     @Enumerated(EnumType.STRING)
@@ -65,7 +80,9 @@ public class ConsentimentoLgpdEntity {
     public static ConsentimentoLgpdEntity fromDomain(ConsentimentoLgpd domain) {
         ConsentimentoLgpdEntity entity = new ConsentimentoLgpdEntity();
         entity.id = domain.getId();
+        entity.code = domain.getCode();
         entity.usuarioId = domain.getUsuarioId();
+        entity.usuarioCode = domain.getUsuarioCode();
         entity.tipo = domain.getTipo();
         entity.versaoPolitica = domain.getVersaoPolitica();
         entity.consentido = domain.isConsentido();
@@ -77,7 +94,7 @@ public class ConsentimentoLgpdEntity {
     }
 
     public ConsentimentoLgpd toDomain() {
-        return new ConsentimentoLgpd(id, usuarioId, tipo, versaoPolitica, consentido,
+        return new ConsentimentoLgpd(id, code, usuarioId, usuarioCode, tipo, versaoPolitica, consentido,
                 ipOrigem, criadoEm, revogadoEm, revogadoMotivo);
     }
 }

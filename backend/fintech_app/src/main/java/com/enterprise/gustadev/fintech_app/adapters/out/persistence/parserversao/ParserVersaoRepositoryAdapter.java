@@ -41,8 +41,4 @@ public class ParserVersaoRepositoryAdapter implements ParserVersaoRepositoryPort
         return jpaRepository.findByBancoAndVersao(banco, versao).map(ParserVersaoEntity::toDomain);
     }
 
-    @Override
-    public void deletarPorId(Long id) {
-        jpaRepository.deleteById(id);
-    }
 }

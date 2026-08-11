@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -25,14 +26,28 @@ public class CategoriaThresholdEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "categoria_threshold_id")
     private Long id;
+
+    @Column(name = "categoria_threshold_code", unique = true, nullable = false, length = 6)
+    private String code;
 
     @Column(name = "categoria_id", nullable = false, unique = true)
     private Long categoriaId;
 
+    @Column(name = "categoria_code", nullable = false, length = 6)
+    private String categoriaCode;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "categoria_id", insertable = false, updatable = false,
-            foreignKey = @ForeignKey(name = "fk_categoria_thresholds_categoria"))
+    @JoinColumns(
+            value = {
+                    @JoinColumn(name = "categoria_id", referencedColumnName = "categoria_id",
+                            insertable = false, updatable = false),
+                    @JoinColumn(name = "categoria_code", referencedColumnName = "categoria_code",
+                            insertable = false, updatable = false)
+            },
+            foreignKey = @ForeignKey(name = "fk_categoria_thresholds_categoria")
+    )
     private CategoriaEntity categoria;
 
     @Column(name = "threshold_auto", nullable = false)
@@ -47,7 +62,9 @@ public class CategoriaThresholdEntity {
     public static CategoriaThresholdEntity fromDomain(CategoriaThreshold domain) {
         CategoriaThresholdEntity entity = new CategoriaThresholdEntity();
         entity.id = domain.getId();
+        entity.code = domain.getCode();
         entity.categoriaId = domain.getCategoriaId();
+        entity.categoriaCode = domain.getCategoriaCode();
         entity.thresholdAuto = domain.getThresholdAuto();
         entity.thresholdAlerta = domain.getThresholdAlerta();
         entity.ambiguidadeAlta = domain.isAmbiguidadeAlta();
@@ -55,6 +72,9 @@ public class CategoriaThresholdEntity {
     }
 
     public CategoriaThreshold toDomain() {
-        return new CategoriaThreshold(id, categoriaId, thresholdAuto, thresholdAlerta, ambiguidadeAlta);
+        CategoriaThreshold t = new CategoriaThreshold(id, categoriaId, categoriaCode,
+                thresholdAuto, thresholdAlerta, ambiguidadeAlta);
+        t.setCode(code);
+        return t;
     }
 }

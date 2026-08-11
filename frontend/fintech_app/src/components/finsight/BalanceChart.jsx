@@ -1,28 +1,100 @@
-// BalanceChart: gráfico de linha desenhado em SVG puro mostrando o saldo
-// nos últimos 7 dias. Sem bibliotecas externas — controle total do visual e
-// bundle leve.
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import { formatBRL } from "@/lib/format";
 
-// Cada ponto: x/y em coordenadas internas do SVG (viewBox 320x130), o rótulo
-// do dia e o valor formatado para exibir no tooltip.
-const points = [
-  { x: 0, y: 95, label: "Mon", v: "$12.4k" },
-  { x: 53, y: 78, label: "Tue", v: "$13.1k" },
-  { x: 106, y: 88, label: "Wed", v: "$12.8k" },
-  { x: 160, y: 55, label: "Thu", v: "$14.0k" },
-  { x: 213, y: 42, label: "Fri", v: "$14.5k" },
-  { x: 266, y: 28, label: "Sat", v: "$14.7k" },
-  { x: 320, y: 18, label: "Sun", v: "$14.87k" },
-];
+const W = 320;
+const YMIN = 10;
+const YMAX = 120;
+const DIAS_LABEL = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+const MESES_LABEL = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
 
-export const BalanceChart = () => {
-  // Índice do ponto atualmente "hovered" — 6 (Sun) é o padrão (mais recente).
-  const [hover, setHover] = useState(6);
+// Monta pontos (x, y, label, v) a partir de uma série de saldos já calculada —
+// escala os valores para o viewBox fixo do SVG (0..W, YMIN..YMAX).
+function montarPontos(saldos, labels) {
+  const saldoMax = Math.max(...saldos);
+  const saldoMin = Math.min(...saldos);
+  const range = saldoMax - saldoMin || 1;
+  const n = saldos.length;
 
-  // Monta o "d" do <path> conectando os pontos com curvas suaves (quadráticas).
-  // Para cada ponto a partir do segundo, calcula um ponto de controle no meio
-  // entre o ponto anterior e o atual para criar a sensação de curva natural.
-  const path = points
+  const pontos = saldos.map((saldo, i) => ({
+    x: Math.round((i / (n - 1 || 1)) * W),
+    y: Math.round(YMAX - ((saldo - saldoMin) / range) * (YMAX - YMIN)),
+    label: labels[i],
+    v: formatBRL(saldo),
+  }));
+
+  return { pontos, saldoMax };
+}
+
+// Reconstrói o saldo dia a dia trabalhando de hoje para trás: saldos[last] =
+// saldoFinal (hoje). Para cada dia anterior, remove o efeito líquido das
+// transações do dia seguinte.
+function buildPointsDiario(transacoes, saldoFinal, n, labelFn) {
+  const hoje = new Date();
+  const diasStr = Array.from({ length: n }, (_, i) => {
+    const d = new Date(hoje);
+    d.setDate(d.getDate() - (n - 1 - i));
+    return d.toISOString().slice(0, 10);
+  });
+
+  const saldos = Array(n).fill(0);
+  saldos[n - 1] = Number(saldoFinal);
+  for (let i = n - 2; i >= 0; i--) {
+    const netDia = (transacoes ?? [])
+      .filter((t) => t.dataTransacao === diasStr[i + 1])
+      .reduce((acc, t) => acc + (t.tipo === "RECEITA" ? +t.valor : -t.valor), 0);
+    saldos[i] = saldos[i + 1] - netDia;
+  }
+
+  const labels = diasStr.map((dateStr, i) => labelFn(new Date(dateStr + "T12:00:00"), i, n));
+  return montarPontos(saldos, labels);
+}
+
+// Mesma reconstrução "de trás pra frente", mas por mês — usado no range "Ano".
+function buildPointsMensal(transacoes, saldoFinal, n = 12) {
+  const hoje = new Date();
+  const meses = Array.from({ length: n }, (_, i) => {
+    const d = new Date(hoje.getFullYear(), hoje.getMonth() - (n - 1 - i), 1);
+    return { ano: d.getFullYear(), mes: d.getMonth() + 1 };
+  });
+
+  const saldos = Array(n).fill(0);
+  saldos[n - 1] = Number(saldoFinal);
+  for (let i = n - 2; i >= 0; i--) {
+    const { ano, mes } = meses[i + 1];
+    const prefixo = `${ano}-${String(mes).padStart(2, "0")}`;
+    const netMes = (transacoes ?? [])
+      .filter((t) => t.dataTransacao.startsWith(prefixo))
+      .reduce((acc, t) => acc + (t.tipo === "RECEITA" ? +t.valor : -t.valor), 0);
+    saldos[i] = saldos[i + 1] - netMes;
+  }
+
+  const labels = meses.map(({ mes }) => MESES_LABEL[mes - 1]);
+  return montarPontos(saldos, labels);
+}
+
+function buildPoints(transacoes, saldoFinal, range) {
+  if (range === "Ano") return buildPointsMensal(transacoes, saldoFinal, 12);
+  if (range === "Mês") {
+    // 30 dias: rotular só a cada ~5 dias para não lotar o eixo.
+    return buildPointsDiario(transacoes, saldoFinal, 30, (d, i, n) =>
+      i % 5 === 0 || i === n - 1 ? String(d.getDate()).padStart(2, "0") : "",
+    );
+  }
+  // "Semana" (default): 7 dias, rótulo por dia da semana — comportamento original.
+  return buildPointsDiario(transacoes, saldoFinal, 7, (d) => DIAS_LABEL[d.getDay()]);
+}
+
+export const BalanceChart = ({ transacoes = [], saldoFinal = 0, range = "Semana" }) => {
+  const { pontos, saldoMax } = useMemo(
+    () => buildPoints(transacoes, saldoFinal, range),
+    [transacoes, saldoFinal, range],
+  );
+  const [hover, setHover] = useState(pontos.length - 1);
+
+  // Se o range mudar e o índice de hover ficar fora da nova série, volta pro último ponto.
+  const hoverAtivo = hover < pontos.length ? hover : pontos.length - 1;
+
+  const path = pontos
     .map((p, i, arr) => {
       if (i === 0) return `M${p.x},${p.y}`;
       const prev = arr[i - 1];
@@ -31,16 +103,17 @@ export const BalanceChart = () => {
     })
     .join(" ");
 
-  // Área sob a curva: mesmo caminho da linha + dois pontos no eixo X para fechar.
-  const areaPath = `${path} L320,130 L0,130 Z`;
-  const active = hover !== null ? points[hover] : null;
+  const lastX = pontos[pontos.length - 1]?.x ?? W;
+  const firstX = pontos[0]?.x ?? 0;
+  const areaPath = `${path} L${lastX},130 L${firstX},130 Z`;
+  const active = pontos[hoverAtivo] ?? pontos[pontos.length - 1];
+  const hitWidth = Math.max(W / pontos.length, 8);
 
   return (
     <div className="w-full">
-      {/* Topo: limite máximo do eixo Y + valor do ponto ativo. */}
       <div className="flex justify-between text-[9px] text-muted-foreground/70 font-medium mb-1 px-0.5">
-        <span>$15k</span>
-        <span className="text-primary font-bold">{active?.v ?? "$14.87k"}</span>
+        <span>{formatBRL(saldoMax)}</span>
+        <span className="text-primary font-bold">{active?.v}</span>
       </div>
 
       <div className="w-full h-[130px] relative">
@@ -48,9 +121,8 @@ export const BalanceChart = () => {
           viewBox="0 0 320 130"
           className="w-full h-full overflow-visible"
           preserveAspectRatio="none"
-          onMouseLeave={() => setHover(6)}
+          onMouseLeave={() => setHover(pontos.length - 1)}
         >
-          {/* Gradientes reutilizáveis: área de preenchimento + linha. */}
           <defs>
             <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.3" />
@@ -62,18 +134,14 @@ export const BalanceChart = () => {
             </linearGradient>
           </defs>
 
-          {/* Linhas-guia horizontais (eixo Y). */}
           {[20, 60, 100].map((y) => (
             <line
-              key={y}
-              x1="0" y1={y} x2="320" y2={y}
-              stroke="hsl(var(--border))"
-              strokeDasharray="2 4"
-              strokeWidth="1"
+              key={y} x1="0" y1={y} x2="320" y2={y}
+              stroke="hsl(var(--border))" strokeDasharray="2 4" strokeWidth="1"
             />
           ))}
 
-          {/* Linha tracejada de comparação (período anterior). */}
+          {/* Linha de comparação (período anterior) */}
           <path
             d="M0,100 Q40,92 80,96 T160,86 T240,80 T320,72"
             fill="none"
@@ -84,7 +152,6 @@ export const BalanceChart = () => {
             strokeLinecap="round"
           />
 
-          {/* Área preenchida + linha principal. */}
           <path d={areaPath} fill="url(#areaGrad)" />
           <path
             d={path}
@@ -95,19 +162,16 @@ export const BalanceChart = () => {
             strokeLinejoin="round"
           />
 
-          {/* "Hitboxes" invisíveis em cima de cada ponto: capturam o hover do mouse
-              em uma área maior que o pontinho visível, melhorando a usabilidade. */}
-          {points.map((p, i) => (
+          {pontos.map((p, i) => (
             <g key={i}>
               <rect
-                x={p.x - 22} y={0} width={44} height={130}
+                x={p.x - hitWidth / 2} y={0} width={hitWidth} height={130}
                 fill="transparent"
                 onMouseEnter={() => setHover(i)}
                 style={{ cursor: "pointer" }}
               />
-              {hover === i && (
+              {hoverAtivo === i && (
                 <>
-                  {/* Linha vertical tracejada no ponto ativo. */}
                   <line
                     x1={p.x} y1={0} x2={p.x} y2={130}
                     stroke="hsl(var(--primary))"
@@ -115,7 +179,6 @@ export const BalanceChart = () => {
                     strokeWidth="1"
                     strokeDasharray="2 2"
                   />
-                  {/* Halo + bolinha do ponto ativo. */}
                   <circle cx={p.x} cy={p.y} r="7" fill="hsl(var(--primary))" fillOpacity="0.15" />
                   <circle
                     cx={p.x} cy={p.y} r="3.75"
@@ -130,10 +193,9 @@ export const BalanceChart = () => {
         </svg>
       </div>
 
-      {/* Rótulos dos dias da semana — o ativo recebe destaque. */}
       <div className="flex justify-between text-[9.5px] text-muted-foreground font-medium mt-1.5 px-0.5">
-        {points.map((p, i) => (
-          <span key={i} className={hover === i ? "text-primary font-bold" : ""}>
+        {pontos.map((p, i) => (
+          <span key={i} className={hoverAtivo === i ? "text-primary font-bold" : ""}>
             {p.label}
           </span>
         ))}

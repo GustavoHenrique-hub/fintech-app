@@ -1,10 +1,13 @@
 package com.enterprise.gustadev.fintech_app.adapters.in.web.usuario;
 
+import com.enterprise.gustadev.fintech_app.adapters.in.web.usuario.dto.AlterarSenhaRequestDTO;
+import com.enterprise.gustadev.fintech_app.adapters.in.web.usuario.dto.AtualizarUsuarioRequestDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.usuario.dto.UsuarioRequestDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.usuario.dto.UsuarioResponseDTO;
+import com.enterprise.gustadev.fintech_app.application.usuario.usecase.AlterarSenhaUseCase;
+import com.enterprise.gustadev.fintech_app.application.usuario.usecase.AtualizarUsuarioUseCase;
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.BuscarUsuarioUseCase;
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.CriarUsuarioUseCase;
-import com.enterprise.gustadev.fintech_app.application.usuario.usecase.DeletarUsuarioUseCase;
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.ListarUsuariosUseCase;
 import com.enterprise.gustadev.fintech_app.domain.usuario.model.Usuario;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,8 +17,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,18 +36,21 @@ public class UsuarioController {
     private final CriarUsuarioUseCase criarUseCase;
     private final ListarUsuariosUseCase listarUseCase;
     private final BuscarUsuarioUseCase buscarUseCase;
-    private final DeletarUsuarioUseCase deletarUseCase;
+    private final AtualizarUsuarioUseCase atualizarUseCase;
+    private final AlterarSenhaUseCase alterarSenhaUseCase;
 
     public UsuarioController(
             CriarUsuarioUseCase criarUseCase,
             ListarUsuariosUseCase listarUseCase,
             BuscarUsuarioUseCase buscarUseCase,
-            DeletarUsuarioUseCase deletarUseCase
+            AtualizarUsuarioUseCase atualizarUseCase,
+            AlterarSenhaUseCase alterarSenhaUseCase
     ) {
         this.criarUseCase = criarUseCase;
         this.listarUseCase = listarUseCase;
         this.buscarUseCase = buscarUseCase;
-        this.deletarUseCase = deletarUseCase;
+        this.atualizarUseCase = atualizarUseCase;
+        this.alterarSenhaUseCase = alterarSenhaUseCase;
     }
 
     @Operation(summary = "Criar usuário", description = "Cadastra um novo usuário no sistema com CPF, e-mail e senha.")
@@ -93,15 +99,36 @@ public class UsuarioController {
         return ResponseEntity.ok(UsuarioResponseDTO.fromDomain(buscarUseCase.executar(id)));
     }
 
-    @Operation(summary = "Deletar usuário", description = "Remove permanentemente um usuário pelo ID numérico.")
+    @Operation(summary = "Atualizar dados de contato",
+            description = "Atualiza e-mail e/ou telefone do usuário. CPF é imutável por este endpoint — " +
+                    "alteração de CPF é dado sensível e exige ofício com execução direta no banco de dados.")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Usuário removido com sucesso"),
+            @ApiResponse(responseCode = "200", description = "Usuário atualizado com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos ou e-mail já em uso"),
             @ApiResponse(responseCode = "404", description = "Usuário não encontrado")
     })
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(
-            @Parameter(description = "ID numérico (Long) do usuário") @PathVariable Long id) {
-        deletarUseCase.executar(id);
-        return ResponseEntity.ok().build();
+    @PatchMapping("/{id}")
+    public ResponseEntity<UsuarioResponseDTO> atualizar(
+            @Parameter(description = "ID numérico (Long) do usuário") @PathVariable Long id,
+            @Valid @RequestBody AtualizarUsuarioRequestDTO dto) {
+        Usuario usuario = atualizarUseCase.executar(id, dto.email(), dto.telefone());
+        return ResponseEntity.ok(UsuarioResponseDTO.fromDomain(usuario));
     }
+
+    @Operation(summary = "Alterar senha",
+            description = "Altera a senha do usuário mediante confirmação da senha atual.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Senha alterada com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Nova senha inválida"),
+            @ApiResponse(responseCode = "401", description = "Senha atual incorreta"),
+            @ApiResponse(responseCode = "404", description = "Usuário não encontrado")
+    })
+    @PatchMapping("/{id}/senha")
+    public ResponseEntity<Void> alterarSenha(
+            @Parameter(description = "ID numérico (Long) do usuário") @PathVariable Long id,
+            @Valid @RequestBody AlterarSenhaRequestDTO dto) {
+        alterarSenhaUseCase.executar(id, dto.senhaAtual(), dto.novaSenha());
+        return ResponseEntity.noContent().build();
+    }
+
 }

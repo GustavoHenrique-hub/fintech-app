@@ -23,7 +23,11 @@ public class ParserVersaoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "parser_versao_id")
     private Long id;
+
+    @Column(name = "parser_versao_code", unique = true, nullable = false, length = 6)
+    private String code;
 
     @Column(nullable = false, length = 100)
     private String banco;
@@ -52,6 +56,7 @@ public class ParserVersaoEntity {
     public static ParserVersaoEntity fromDomain(ParserVersao domain) {
         ParserVersaoEntity entity = new ParserVersaoEntity();
         entity.id = domain.getId();
+        entity.code = domain.getCode();
         entity.banco = domain.getBanco();
         entity.versao = domain.getVersao();
         entity.ativo = domain.isAtivo();
@@ -64,6 +69,6 @@ public class ParserVersaoEntity {
     }
 
     public ParserVersao toDomain() {
-        return new ParserVersao(id, banco, versao, ativo, scoreQualidade, totalUsos, totalErros, descricao, depreciadoEm);
+        return new ParserVersao(id, code, banco, versao, ativo, scoreQualidade, totalUsos, totalErros, descricao, depreciadoEm);
     }
 }
