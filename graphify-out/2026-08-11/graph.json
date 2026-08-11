@@ -6563,7 +6563,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_categoria_model_categoriathreshold",
-      "community": 196,
+      "community": 194,
       "norm_label": "categoriathreshold.java"
     },
     {
@@ -6573,7 +6573,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_categoria_model_categoriathreshold_categoriathreshold",
-      "community": 196,
+      "community": 194,
       "norm_label": "categoriathreshold"
     },
     {
@@ -6583,7 +6583,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_categoria_model_categoriathreshold_java_getter",
-      "community": 196,
+      "community": 194,
       "norm_label": "getter"
     },
     {
@@ -6593,7 +6593,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_categoria_model_categoriathreshold_java_setter",
-      "community": 196,
+      "community": 194,
       "norm_label": "setter"
     },
     {
@@ -6683,7 +6683,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_categoria_port_categoriathresholdrepositoryport",
-      "community": 196,
+      "community": 194,
       "norm_label": "categoriathresholdrepositoryport.java"
     },
     {
@@ -6693,7 +6693,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_categoria_port_categoriathresholdrepositoryport_categoriathresholdrepositoryport",
-      "community": 196,
+      "community": 194,
       "norm_label": "categoriathresholdrepositoryport"
     },
     {
@@ -6703,7 +6703,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_categoria_port_categoriathresholdrepositoryport_categoriathresholdrepositoryport_salvar",
-      "community": 196,
+      "community": 194,
       "norm_label": ".salvar()"
     },
     {
@@ -6713,7 +6713,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_categoria_port_categoriathresholdrepositoryport_categoriathresholdrepositoryport_buscarporcategoriaid",
-      "community": 196,
+      "community": 194,
       "norm_label": ".buscarporcategoriaid()"
     },
     {
@@ -54041,7 +54041,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/fintech_app/src/services/extrato/UploadExtrato.js",
-      "source_location": "L23",
+      "source_location": "L18",
       "weight": 1.0,
       "source": "frontend_fintech_app_src_services_extrato_uploadextrato_upload",
       "target": "frontend_fintech_app_src_services_api_apiunwrap"

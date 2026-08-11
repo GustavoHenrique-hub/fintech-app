@@ -151,7 +151,7 @@ CREATE TABLE transacoes (
     categoria_code VARCHAR(6) NOT NULL,
     estabelecimento VARCHAR(255),
     origem VARCHAR(20) NOT NULL DEFAULT 'manual'
-        CHECK (origem IN ('manual','pdf','api')),
+        CHECK (origem IN ('manual','pdf','api','importado')),
     status_revisao VARCHAR(30) NOT NULL DEFAULT 'EXTRAIDA'
         CHECK (status_revisao IN (
             'EXTRAIDA','CLASSIFICADA','PENDENTE_REVISAO',

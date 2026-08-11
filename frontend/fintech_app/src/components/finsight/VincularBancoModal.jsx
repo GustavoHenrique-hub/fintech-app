@@ -184,7 +184,7 @@ export function VincularBancoModal({ open, onOpenChange }) {
                     <button
                       key={t.value}
                       onClick={() => setTipo(t.value)}
-                      className={`h-9 px-2 rounded-xl text-[11.5px] font-semibold border transition-all ${
+                      className={`h-9 px-2 rounded-xl text-[10px] font-semibold border transition-all ${
                         tipo === t.value
                           ? "bg-primary text-primary-foreground border-primary"
                           : "bg-card border-border text-foreground hover:bg-secondary"

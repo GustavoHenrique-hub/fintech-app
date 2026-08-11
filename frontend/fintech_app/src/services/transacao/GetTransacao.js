@@ -14,6 +14,11 @@ export function listarPorConta(contaId) {
   return apiUnwrap(api.get(`/transacoes/conta/${contaId}`));
 }
 
+/** Lista os lançamentos criados a partir de um extrato importado. */
+export function listarPorExtrato(extratoId) {
+  return apiUnwrap(api.get(`/transacoes/extrato/${extratoId}`));
+}
+
 /** Busca uma transação pela chave composta (id, code). */
 export function buscarPorChave(id, code) {
   return apiUnwrap(api.get(`/transacoes/${id}/${code}`));

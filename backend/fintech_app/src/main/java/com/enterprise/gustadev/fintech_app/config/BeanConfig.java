@@ -31,6 +31,8 @@ import com.enterprise.gustadev.fintech_app.application.notificacao.usecase.Criar
 import com.enterprise.gustadev.fintech_app.application.notificacao.usecase.ListarNotificacoesUseCase;
 import com.enterprise.gustadev.fintech_app.application.snapshotfinanceiro.usecase.BuscarSnapshotFinanceiroUseCase;
 import com.enterprise.gustadev.fintech_app.application.snapshotfinanceiro.usecase.ListarSnapshotsFinanceirosUseCase;
+import com.enterprise.gustadev.fintech_app.application.usuario.usecase.AlterarSenhaUseCase;
+import com.enterprise.gustadev.fintech_app.application.usuario.usecase.AtualizarUsuarioUseCase;
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.BuscarUsuarioUseCase;
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.CriarUsuarioUseCase;
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.ListarUsuariosUseCase;
@@ -84,6 +86,16 @@ public class BeanConfig {
     @Bean
     public BuscarUsuarioUseCase buscarUsuarioUseCase(UsuarioRepositoryPort repository) {
         return new BuscarUsuarioUseCase(repository);
+    }
+
+    @Bean
+    public AtualizarUsuarioUseCase atualizarUsuarioUseCase(UsuarioRepositoryPort repository) {
+        return new AtualizarUsuarioUseCase(repository);
+    }
+
+    @Bean
+    public AlterarSenhaUseCase alterarSenhaUseCase(UsuarioRepositoryPort repository, SenhaEncoder senhaEncoder) {
+        return new AlterarSenhaUseCase(repository, senhaEncoder);
     }
 
     // ── ContaFinanceira ──────────────────────────────────────────────────
@@ -213,6 +225,12 @@ public class BeanConfig {
     @Bean
     public BuscarResumoPeriodoUseCase buscarResumoPeriodoUseCase(TransacaoRepositoryPort repository) {
         return new BuscarResumoPeriodoUseCase(repository);
+    }
+
+    @Bean
+    public ConfirmarRevisaoTransacaoUseCase confirmarRevisaoTransacaoUseCase(
+            TransacaoRepositoryPort transacaoRepository, ExtratoRepositoryPort extratoRepository) {
+        return new ConfirmarRevisaoTransacaoUseCase(transacaoRepository, extratoRepository);
     }
 
     // ── MotivoCancelamento ───────────────────────────────────────────────

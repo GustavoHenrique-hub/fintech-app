@@ -15,5 +15,12 @@ export function upload(usuarioId, contaId, arquivo) {
   formData.append("usuarioId", usuarioId);
   formData.append("contaId", contaId);
   formData.append("arquivo", arquivo);
-  return apiUnwrap(api.post("/extratos/upload", formData));
+  // A instância `api` define Content-Type: application/json por padrão (ver api.js).
+  // Nesse caso específico o corpo é multipart — sem este override, o transformRequest
+  // do axios vê o Content-Type json e serializa o FormData como JSON (formDataToJSON),
+  // quebrando o upload com 415 Unsupported Media Type. `undefined` remove o header
+  // explícito e deixa o navegador definir "multipart/form-data; boundary=...".
+  return apiUnwrap(api.post("/extratos/upload", formData, {
+    headers: { "Content-Type": undefined },
+  }));
 }

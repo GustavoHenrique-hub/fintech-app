@@ -128,6 +128,20 @@ public class Transacao {
         this.atualizadoEm = OffsetDateTime.now();
     }
 
+    /**
+     * Confirma a revisão manual de um lançamento importado de extrato: só é permitida
+     * a partir de PENDENTE_REVISAO — o usuário já viu o lançamento e a conta a que
+     * pertence antes de clicar em "Revisado".
+     */
+    public void confirmarRevisao() {
+        if (statusRevisao != StatusRevisaoTransacao.PENDENTE_REVISAO) {
+            throw new TransacaoInvalidaException(
+                    "Só é possível confirmar revisão de uma transação PENDENTE_REVISAO (status atual: " + statusRevisao + ")");
+        }
+        this.statusRevisao = StatusRevisaoTransacao.CONFIRMADA;
+        this.atualizadoEm = OffsetDateTime.now();
+    }
+
     public void validar() {
         if (conta == null) {
             throw new TransacaoInvalidaException("Conta é obrigatório");

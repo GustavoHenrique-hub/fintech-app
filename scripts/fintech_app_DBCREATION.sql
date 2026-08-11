@@ -146,7 +146,7 @@ CREATE TABLE transacoes (
     estabelecimento                VARCHAR(255),
     origem                          VARCHAR(20)   NOT NULL
                                        CONSTRAINT CK_transacoes_origem
-                                       CHECK (origem IN ('manual','pdf','api')),
+                                       CHECK (origem IN ('manual','pdf','api','importado')),
     status_revisao                   VARCHAR(30)   NOT NULL
                                        CONSTRAINT CK_transacoes_status
                                        CHECK (status_revisao IN (

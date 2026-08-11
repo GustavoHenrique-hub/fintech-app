@@ -47,6 +47,12 @@ public class TransacaoRepositoryAdapter implements TransacaoRepositoryPort {
     }
 
     @Override
+    public List<Transacao> listarPorExtrato(Long extratoId) {
+        return jpaRepository.findByExtratoIdAndDeletedAtIsNullOrderByDataTransacaoDesc(extratoId)
+                .stream().map(TransacaoEntity::toDomain).toList();
+    }
+
+    @Override
     public List<Transacao> listarPorUsuarioNoPeriodoComCategoriaEConta(
             Long usuarioId, LocalDate inicio, LocalDate fim) {
         return jpaRepository

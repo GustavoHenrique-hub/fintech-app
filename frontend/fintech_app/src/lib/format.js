@@ -90,7 +90,7 @@ export function formatDataRelativa(dataIso) {
 /** "12345678909" → "123.456.789-09". Recebe só dígitos. */
 export function formatCPF(digits) {
   if (!digits) return "";
-  const d = String(digits).padStart(11, "0").slice(-11);
+  const d = String(digits);
   return `${d.slice(0, 3)}.${d.slice(3, 6)}.${d.slice(6, 9)}-${d.slice(9)}`;
 }
 

@@ -19,6 +19,9 @@ public interface TransacaoJpaRepository extends JpaRepository<TransacaoEntity, L
     List<TransacaoEntity> findByConta_IdAndDeletedAtIsNull(Long contaId);
 
     @EntityGraph(attributePaths = {"conta"})
+    List<TransacaoEntity> findByExtratoIdAndDeletedAtIsNullOrderByDataTransacaoDesc(Long extratoId);
+
+    @EntityGraph(attributePaths = {"conta"})
     Optional<TransacaoEntity> findByIdAndCode(Long id, String code);
 
     @Override

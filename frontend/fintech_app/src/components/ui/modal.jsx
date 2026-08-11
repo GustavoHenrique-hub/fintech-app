@@ -39,13 +39,18 @@ const ModalOverlay = React.forwardRef(({ className, ...props }, ref) => (
 ModalOverlay.displayName = "ModalOverlay";
 
 // Conteúdo do modal centralizado.
-// `onPointerDownOutside` é o hook do Radix para clique no overlay.
+// `onPointerDownOutside` é o hook do Radix para clique no overlay. Por padrão
+// bloqueamos o dismiss por clique fora — o usuário só fecha pelo "X" ou por um
+// botão explícito (ex.: Cancelar) dentro da modal. Esc continua funcionando
+// (mantém a modal acessível via teclado). Para reabilitar o clique fora em um
+// caso específico, passe `onPointerDownOutside={() => {}}`.
 const ModalContent = React.forwardRef(
-  ({ className, children, hideClose = false, ...props }, ref) => (
+  ({ className, children, hideClose = false, onPointerDownOutside, ...props }, ref) => (
     <DialogPrimitive.Portal>
       <ModalOverlay />
       <DialogPrimitive.Content
         ref={ref}
+        onPointerDownOutside={onPointerDownOutside ?? ((e) => e.preventDefault())}
         className={cn(
           "fixed left-1/2 top-1/2 z-50 grid w-[92vw] max-w-md -translate-x-1/2 -translate-y-1/2 " +
             "gap-4 rounded-2xl border border-border bg-card p-5 shadow-2xl " +

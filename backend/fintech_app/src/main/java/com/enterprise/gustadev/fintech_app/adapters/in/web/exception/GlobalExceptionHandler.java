@@ -6,6 +6,7 @@ import com.enterprise.gustadev.fintech_app.domain.contafinanceira.exception.Cont
 import com.enterprise.gustadev.fintech_app.domain.extrato.exception.ExtratoInvalidoException;
 import com.enterprise.gustadev.fintech_app.domain.transacao.exception.TransacaoInvalidaException;
 import com.enterprise.gustadev.fintech_app.domain.transacao.exception.TransacaoNaoEncontradaException;
+import com.enterprise.gustadev.fintech_app.domain.usuario.exception.UsuarioInvalidoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -49,6 +50,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(CategoriaInvalidaException.class)
     public ResponseEntity<Map<String, String>> handleCategoriaInvalida(CategoriaInvalidaException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Map.of("error", ex.getMessage()));
+    }
+
+    @ExceptionHandler(UsuarioInvalidoException.class)
+    public ResponseEntity<Map<String, String>> handleUsuarioInvalido(UsuarioInvalidoException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Map.of("error", ex.getMessage()));
     }

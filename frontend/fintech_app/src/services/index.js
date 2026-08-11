@@ -32,6 +32,7 @@ import * as NewEconomia                from "./economia/NewMovimentacaoEconomia"
 import * as GetTransacao               from "./transacao/GetTransacao";
 import * as NewTransacao               from "./transacao/NewTransacao";
 import * as EstornarTransacao          from "./transacao/EstornarTransacao";
+import * as RevisarTransacao           from "./transacao/RevisarTransacao";
 import * as GetResumoPeriodo           from "./transacao/GetResumoPeriodo";
 import * as GetTransacaoCancelada      from "./transacaoCancelada/GetTransacaoCancelada";
 import * as NewTransacaoCancelada      from "./transacaoCancelada/NewTransacaoCancelada";
@@ -48,6 +49,6 @@ export const extratoService             = { ...GetExtrato, ...NewExtrato, ...Rem
 export const motivoCancelamentoService  = { ...GetMotivoCancelamento };
 export const notificacaoService         = { ...GetNotificacao, ...NewNotificacao };
 export const snapshotFinanceiroService  = { ...GetSnapshotFinanceiro };
-export const transacaoService           = { ...GetTransacao, ...NewTransacao, ...EstornarTransacao, ...GetResumoPeriodo };
+export const transacaoService           = { ...GetTransacao, ...NewTransacao, ...EstornarTransacao, ...RevisarTransacao, ...GetResumoPeriodo };
 export const transacaoCanceladaService  = { ...GetTransacaoCancelada, ...NewTransacaoCancelada };
 export const usuarioService             = { ...GetUsuario, ...NewUsuario, ...UpdateUsuario };

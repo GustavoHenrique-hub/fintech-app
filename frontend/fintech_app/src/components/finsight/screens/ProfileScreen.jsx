@@ -1,7 +1,7 @@
 import { useState } from "react";
 import {
-  Mail, Phone, CreditCard, Bell, Globe, Languages, Lock, ShieldCheck,
-  Crown, LogOut, Trash2, ChevronRight, Check, Pencil, AlertTriangle,
+  Mail, Phone, CreditCard, Bell, Languages, Lock, ShieldCheck,
+  LogOut, Trash2, ChevronRight, Pencil, AlertTriangle,
 } from "lucide-react";
 
 import { useUsuario } from "@/hooks/use-usuario";
@@ -15,27 +15,51 @@ import {
 } from "@/components/ui/modal";
 import { toast } from "@/hooks/use-toast";
 import { SkeletonCard } from "@/components/ui/skeleton";
+import { EditarContatoModal } from "@/components/finsight/EditarContatoModal";
+import { AlterarSenhaModal } from "@/components/finsight/AlterarSenhaModal";
+import { ContasVinculadasModal } from "@/components/finsight/ContasVinculadasModal";
+import { IdiomaModal } from "@/components/finsight/IdiomaModal";
+import { IDIOMAS } from "@/lib/idiomas";
 
 const Row = ({
   icon: Icon, iconColor = "text-foreground", iconBg = "bg-secondary",
-  label, value, trailing, danger, onClick,
-}) => (
-  <button
-    onClick={onClick}
-    className={`w-full flex items-center gap-3 px-3.5 py-3 row-press text-left ${
-      danger ? "text-destructive" : ""
-    }`}
-  >
-    <div className={`w-8 h-8 rounded-lg ${iconBg} ${iconColor} flex items-center justify-center shrink-0`}>
-      <Icon className="w-4 h-4" strokeWidth={2.25} />
-    </div>
-    <span className={`flex-1 text-[13px] font-semibold ${danger ? "text-destructive" : "text-foreground"}`}>
-      {label}
-    </span>
-    {value && <span className="text-[12px] text-muted-foreground font-medium truncate max-w-[160px]">{value}</span>}
-    {trailing ?? <ChevronRight className="w-4 h-4 text-muted-foreground" />}
-  </button>
-);
+  label, value, trailing, danger, onClick, disabled,
+}) => {
+  const inner = (
+    <>
+      <div className={`w-8 h-8 rounded-lg ${iconBg} ${iconColor} flex items-center justify-center shrink-0`}>
+        <Icon className="w-4 h-4" strokeWidth={2.25} />
+      </div>
+      <span className={`flex-1 text-[13px] font-semibold ${danger ? "text-destructive" : "text-foreground"}`}>
+        {label}
+      </span>
+      {value && <span className="text-[12px] text-muted-foreground font-medium truncate max-w-[160px]">{value}</span>}
+      {trailing ?? (disabled ? null : <ChevronRight className="w-4 h-4 text-muted-foreground" />)}
+    </>
+  );
+
+  if (disabled) {
+    return (
+      <div
+        aria-disabled="true"
+        className="w-full flex items-center gap-3 px-3.5 py-3 cursor-default select-none"
+      >
+        {inner}
+      </div>
+    );
+  }
+
+  return (
+    <button
+      onClick={onClick}
+      className={`w-full flex items-center gap-3 px-3.5 py-3 row-press text-left ${
+        danger ? "text-destructive" : ""
+      }`}
+    >
+      {inner}
+    </button>
+  );
+};
 
 const Toggle = ({ on, onChange, label }) => (
   <button
@@ -58,6 +82,13 @@ export const ProfileScreen = () => {
   const [twoFA, setTwoFA] = useState(true);
   const [showCPF, setShowCPF] = useState(false);
   const [deletando, setDeletando] = useState(false);
+  const [idioma, setIdioma] = useState("pt-BR");
+
+  // Modais de edição — um por campo, controlados via estado local.
+  const [campoContatoAberto, setCampoContatoAberto] = useState(null); // "email" | "telefone" | null
+  const [senhaModalAberto, setSenhaModalAberto] = useState(false);
+  const [contasModalAberto, setContasModalAberto] = useState(false);
+  const [idiomaModalAberto, setIdiomaModalAberto] = useState(false);
 
   const { logout } = useAuth();
   const { data: usuario, isLoading: loadingUsuario } = useUsuario();
@@ -67,6 +98,7 @@ export const ProfileScreen = () => {
 
   const iniciais = getInitials(usuario?.nome ?? "");
   const contasAtivas = contas.filter((c) => c.ativa).length;
+  const idiomaLabel = IDIOMAS.find((i) => i.value === idioma)?.label ?? "Português (Brasil)";
 
   const handleDelete = async () => {
     setDeletando(true);
@@ -119,9 +151,6 @@ export const ProfileScreen = () => {
           <p className="text-[11.5px] text-muted-foreground mt-0.5 truncate">
             {maskEmail(usuario?.email ?? "")}
           </p>
-          <span className="inline-flex items-center gap-1 mt-1.5 px-2 py-0.5 rounded-full bg-accent text-accent-foreground text-[10px] font-bold">
-            <Crown className="w-2.5 h-2.5" strokeWidth={2.75} /> Premium Personal
-          </span>
         </div>
       </section>
 
@@ -135,6 +164,7 @@ export const ProfileScreen = () => {
             iconColor="text-primary"
             label="E-mail"
             value={maskEmail(usuario?.email ?? "")}
+            onClick={() => setCampoContatoAberto("email")}
           />
           <Row
             icon={Phone}
@@ -142,6 +172,7 @@ export const ProfileScreen = () => {
             iconColor="text-success"
             label="Telefone"
             value={usuario?.telefone ?? "—"}
+            onClick={() => setCampoContatoAberto("telefone")}
           />
           <Row
             icon={CreditCard}
@@ -149,8 +180,12 @@ export const ProfileScreen = () => {
             iconColor="text-foreground"
             label="CPF"
             value={showCPF ? formatCPF(usuario?.cpf ?? "") : maskCPF(usuario?.cpf ?? "")}
+            disabled
             trailing={
-              <Toggle on={showCPF} onChange={setShowCPF} label="Mostrar CPF completo" />
+              <div className="flex items-center gap-2">
+                <Lock className="w-3 h-3 text-muted-foreground" strokeWidth={2.25} aria-hidden="true" />
+                <Toggle on={showCPF} onChange={setShowCPF} label="Mostrar CPF completo" />
+              </div>
             }
           />
           <Row
@@ -159,8 +194,12 @@ export const ProfileScreen = () => {
             iconColor="text-primary"
             label="Contas vinculadas"
             value={`${contasAtivas} ${contasAtivas === 1 ? "ativa" : "ativas"}`}
+            onClick={() => setContasModalAberto(true)}
           />
         </div>
+        <p className="text-[10.5px] text-muted-foreground mt-1.5 px-1">
+          CPF é dado sensível: alteração só via ofício, diretamente no banco de dados.
+        </p>
       </section>
 
       <section>
@@ -173,17 +212,22 @@ export const ProfileScreen = () => {
             label="Notificações"
             trailing={<Toggle on={notif} onChange={setNotif} label="Notificações" />}
           />
-          <Row icon={Globe}     iconBg="bg-surface-purple" iconColor="text-primary"    label="Moeda"  value="BRL (R$)" />
-          <Row icon={Languages} iconBg="bg-surface-yellow" iconColor="text-foreground" label="Idioma" value="Português (BR)" />
+          <Row
+            icon={Languages}
+            iconBg="bg-surface-yellow"
+            iconColor="text-foreground"
+            label="Idioma"
+            value={idiomaLabel}
+            onClick={() => setIdiomaModalAberto(true)}
+          />
         </div>
       </section>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-5 lg:gap-6">
       <section>
         <p className="section-label mb-1.5">Segurança</p>
         <div className="card-soft divide-y divide-border">
-          <Row icon={Lock} iconBg="bg-secondary" label="Alterar senha" />
+          <Row icon={Lock} iconBg="bg-secondary" label="Alterar senha" onClick={() => setSenhaModalAberto(true)} />
           <Row
             icon={ShieldCheck}
             iconBg="bg-surface-green"
@@ -193,25 +237,6 @@ export const ProfileScreen = () => {
           />
         </div>
       </section>
-
-      <section className="relative overflow-hidden card-soft p-4 bg-gradient-to-br from-accent/40 to-accent/10 border-accent/40">
-        <div className="flex items-center gap-2">
-          <Crown className="w-4 h-4 text-foreground" strokeWidth={2.5} />
-          <p className="text-[13px] font-extrabold text-foreground">FinSight Premium</p>
-        </div>
-        <p className="text-[11.5px] text-muted-foreground mt-1">
-          Análises avançadas, categorias ilimitadas e suporte prioritário.
-        </p>
-        <div className="grid grid-cols-2 gap-1.5 mt-3">
-          {["Gráficos avançados", "Orçamentos ilimitados", "Insights por IA", "Suporte prioritário"].map((b) => (
-            <div key={b} className="flex items-center gap-1 text-[11px] font-medium text-foreground">
-              <Check className="w-3 h-3 text-success" strokeWidth={3} /> {b}
-            </div>
-          ))}
-        </div>
-        <Button className="w-full mt-3" size="sm">Fazer upgrade para Empresarial</Button>
-      </section>
-      </div>
 
       <section>
         <p className="section-label mb-1.5">Conta</p>
@@ -264,6 +289,29 @@ export const ProfileScreen = () => {
         </p>
       </section>
      </div>
+
+      <EditarContatoModal
+        open={!!campoContatoAberto}
+        onOpenChange={(v) => setCampoContatoAberto(v ? campoContatoAberto : null)}
+        campo={campoContatoAberto ?? "email"}
+        usuarioId={usuario?.id}
+        valorAtual={campoContatoAberto === "telefone" ? usuario?.telefone : usuario?.email}
+      />
+      <AlterarSenhaModal
+        open={senhaModalAberto}
+        onOpenChange={setSenhaModalAberto}
+        usuarioId={usuario?.id}
+      />
+      <ContasVinculadasModal
+        open={contasModalAberto}
+        onOpenChange={setContasModalAberto}
+      />
+      <IdiomaModal
+        open={idiomaModalAberto}
+        onOpenChange={setIdiomaModalAberto}
+        value={idioma}
+        onChange={setIdioma}
+      />
     </div>
   );
 };

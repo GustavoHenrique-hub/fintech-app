@@ -6,6 +6,7 @@ import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.Transac
 import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.TransacaoResponseDTO;
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.BuscarResumoPeriodoUseCase;
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.BuscarTransacaoUseCase;
+import com.enterprise.gustadev.fintech_app.application.transacao.usecase.ConfirmarRevisaoTransacaoUseCase;
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.CriarTransacaoUseCase;
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.EstornarTransacaoUseCase;
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.ListarTransacoesUseCase;
@@ -35,17 +36,20 @@ public class TransacaoController {
     private final BuscarTransacaoUseCase buscarUseCase;
     private final EstornarTransacaoUseCase estornarUseCase;
     private final BuscarResumoPeriodoUseCase resumoPeriodoUseCase;
+    private final ConfirmarRevisaoTransacaoUseCase confirmarRevisaoUseCase;
 
     public TransacaoController(CriarTransacaoUseCase criarUseCase,
                                ListarTransacoesUseCase listarUseCase,
                                BuscarTransacaoUseCase buscarUseCase,
                                EstornarTransacaoUseCase estornarUseCase,
-                               BuscarResumoPeriodoUseCase resumoPeriodoUseCase) {
+                               BuscarResumoPeriodoUseCase resumoPeriodoUseCase,
+                               ConfirmarRevisaoTransacaoUseCase confirmarRevisaoUseCase) {
         this.criarUseCase = criarUseCase;
         this.listarUseCase = listarUseCase;
         this.buscarUseCase = buscarUseCase;
         this.estornarUseCase = estornarUseCase;
         this.resumoPeriodoUseCase = resumoPeriodoUseCase;
+        this.confirmarRevisaoUseCase = confirmarRevisaoUseCase;
     }
 
     @Operation(summary = "Criar transação", description = "Registra uma nova transação financeira. O campo origem deve conter um valor válido do enum OrigemTransacao. A direção (receita/gasto) é derivada da categoria informada; para categorias do tipo AMBOS, o sinal de valor decide (negativo = gasto).")
@@ -88,6 +92,15 @@ public class TransacaoController {
                 .map(TransacaoResponseDTO::fromDomain).toList());
     }
 
+    @Operation(summary = "Listar transações de um extrato", description = "Retorna os lançamentos criados a partir de um extrato importado, para a tela de revisão manual.")
+    @ApiResponse(responseCode = "200", description = "Lista de transações retornada com sucesso")
+    @GetMapping("/extrato/{extratoId}")
+    public ResponseEntity<List<TransacaoResponseDTO>> listarPorExtrato(
+            @Parameter(description = "ID do extrato") @PathVariable Long extratoId) {
+        return ResponseEntity.ok(listarUseCase.executarPorExtrato(extratoId).stream()
+                .map(TransacaoResponseDTO::fromDomain).toList());
+    }
+
     @Operation(summary = "Buscar transação por ID e código",
             description = "Retorna a transação identificada pela chave composta (id_transacoes + transacoes_code).")
     @ApiResponses({
@@ -117,6 +130,23 @@ public class TransacaoController {
                 idTransacoes, transacoesCode,
                 dto.contaId(), dto.contaCode());
         return ResponseEntity.ok(TransacaoResponseDTO.fromDomain(estornada));
+    }
+
+    @Operation(summary = "Confirmar revisão de um lançamento importado",
+            description = "Marca a transação como CONFIRMADA após o usuário revisar o lançamento pendente " +
+                    "(ex.: originado de um extrato importado) e conferir a conta a que ele pertence. " +
+                    "Só é permitido a partir do status PENDENTE_REVISAO.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Revisão confirmada com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Transação não está pendente de revisão"),
+            @ApiResponse(responseCode = "404", description = "Transação não encontrada")
+    })
+    @PatchMapping("/{id_transacoes}/{transacoes_code}/revisar")
+    public ResponseEntity<TransacaoResponseDTO> revisar(
+            @Parameter(description = "ID da transação (id_transacoes)") @PathVariable("id_transacoes") Long idTransacoes,
+            @Parameter(description = "Código alfanumérico de 6 caracteres (transacoes_code)") @PathVariable("transacoes_code") String transacoesCode) {
+        Transacao revisada = confirmarRevisaoUseCase.executar(idTransacoes, transacoesCode);
+        return ResponseEntity.ok(TransacaoResponseDTO.fromDomain(revisada));
     }
 
     @Operation(summary = "Resumo por período e conta",

@@ -94,6 +94,22 @@ public class Extrato {
         this.deletedAt = OffsetDateTime.now();
     }
 
+    /**
+     * Reflete a confirmação manual de um lançamento pendente: move o contador de
+     * pendente para confirmado e recalcula o status agregado do extrato —
+     * concluido quando não sobra nenhum pendente, parcialmente_revisado enquanto
+     * ainda houver.
+     */
+    public void confirmarLancamento() {
+        if (lancamentosPendentes <= 0) {
+            throw new ExtratoInvalidoException("Extrato não possui lançamentos pendentes de revisão");
+        }
+        this.lancamentosPendentes--;
+        this.lancamentosConfirmados++;
+        this.status = lancamentosPendentes == 0 ? StatusExtrato.concluido : StatusExtrato.parcialmente_revisado;
+        this.atualizadoEm = OffsetDateTime.now();
+    }
+
     public void validar() {
         if (usuarioId == null) {
             throw new ExtratoInvalidoException("UsuarioId é obrigatório");
