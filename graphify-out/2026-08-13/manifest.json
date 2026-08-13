@@ -1,7 +1,7 @@
 {
   ".claude/settings.local.json": {
-    "mtime": 1786635925.8419833,
-    "ast_hash": "43b22a703a72ecb403c09f76d8030c7e",
+    "mtime": 1786474538.6761994,
+    "ast_hash": "42d1fc9b777434baec00fb9258445894",
     "semantic_hash": ""
   },
   "Entregas FIAP/Atividade Fase 4 - RM570791/script.js": {
@@ -1737,31 +1737,6 @@
   "docs/unsuported_media_type.png": {
     "mtime": 1786473880.3098,
     "ast_hash": "254aa2ee5184f117f361c869949fa409",
-    "semantic_hash": ""
-  },
-  "automacao/n8n/01-extratos-core-ia.json": {
-    "mtime": 1786643490.9396892,
-    "ast_hash": "2ae60e90c7bcb05bdffcd5829106d4b0",
-    "semantic_hash": ""
-  },
-  "automacao/n8n/02-extratos-entrada-app.json": {
-    "mtime": 1786643490.9431424,
-    "ast_hash": "d3df9f9214099c42ec20a244589a7987",
-    "semantic_hash": ""
-  },
-  "automacao/n8n/03-extratos-entrada-telegram.json": {
-    "mtime": 1786643490.9431424,
-    "ast_hash": "88013db0ecdd46b682838cbe13e38c1d",
-    "semantic_hash": ""
-  },
-  "automacao/n8n/04-extratos-entrada-whatsapp.json": {
-    "mtime": 1786643490.944151,
-    "ast_hash": "feb499b2e05bac89efd58cfcf11709ea",
-    "semantic_hash": ""
-  },
-  "docs/docker-monorepo.md": {
-    "mtime": 1786634298.5090225,
-    "ast_hash": "0d6f9140351d3cb1bfd85e15c575c900",
     "semantic_hash": ""
   }
 }

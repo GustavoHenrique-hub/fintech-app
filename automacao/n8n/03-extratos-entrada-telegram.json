@@ -1,0 +1,542 @@
+{
+  "name": "Extratos · Entrada Telegram",
+  "nodes": [
+    {
+      "id": "sticky-31",
+      "name": "Nota telegram",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -620,
+        -40
+      ],
+      "parameters": {
+        "content": "## Entrada 2 · Telegram\n\nO bot **não** fala com o Postgres. Ele passa pelo backend:\n\n1. resolve o usuário pelo `chat_id` (exige `ConsentimentoLgpd` ativo)\n2. faz o upload normal em `POST /extratos/upload` → dedup por `hash_arquivo`\n3. só então chama o core de IA\n\nAssim o caminho do bot herda **a mesma** validação, dedup e\nmáquina de estados do caminho do app.\n\n⚠️ `POST /extratos/upload` hoje é **síncrono** e já roda o `PdfExtratoParser`\n(`ImportarExtratoUseCase:86-118`). Este fluxo envia `?assincrono=true`, que o\nbackend precisa implementar: cria `Extrato` + `hash_arquivo` + storage, devolve\n`202` com status `na_fila` e **não** cria transações. Sem isso os lançamentos\nentram duas vezes (parser local + callback da IA) e o saldo da conta é\naplicado em dobro.\n\n⚠️ Um `400` no upload normalmente significa **extrato duplicado** —\né o dedup funcionando, não um bug.",
+        "height": 560,
+        "width": 460,
+        "color": 3
+      }
+    },
+    {
+      "id": "tgtrigger-32",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -120,
+        300
+      ],
+      "webhookId": "fintech-extratos-telegram",
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {
+          "download": true
+        }
+      }
+    },
+    {
+      "id": "if-33",
+      "name": "Tem arquivo?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        100,
+        300
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "cond-34",
+              "leftValue": "={{ !!$json.message?.document || !!$json.message?.photo }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      }
+    },
+    {
+      "id": "extract-35",
+      "name": "Arquivo → base64",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        340,
+        180
+      ],
+      "parameters": {
+        "operation": "binaryToPropery",
+        "binaryPropertyName": "data",
+        "destinationKey": "arquivoBase64",
+        "options": {}
+      }
+    },
+    {
+      "id": "http-36",
+      "name": "Resolver usuário pelo chat",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        560,
+        180
+      ],
+      "parameters": {
+        "options": {
+          "timeout": 10000
+        },
+        "method": "GET",
+        "url": "={{ $env.FINTECH_API_URL || 'http://backend:8080' }}/usuarios/telegram/{{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Internal-Api-Key",
+              "value": "={{ $env.INTERNAL_API_KEY }}"
+            }
+          ]
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "id": "code-37",
+      "name": "Montar contexto",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        780,
+        180
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Junta arquivo (trigger) + usuario resolvido no backend em um unico contexto.\nconst msg = $('Telegram Trigger').first().json.message || {};\nconst arq = $('Arquivo → base64').first().json;\nconst u = $input.first().json;\n\nconst doc = msg.document || null;\nconst foto = Array.isArray(msg.photo) ? msg.photo[msg.photo.length - 1] : null;\n\nconst nome = doc?.file_name || ('extrato-' + Date.now() + (foto ? '.jpg' : '.pdf'));\nconst mime = doc?.mime_type || (foto ? 'image/jpeg' : 'application/pdf');\n\nif (!u.id && !u.usuarioId) {\n  throw new Error('Backend nao retornou usuario para o chat ' + msg.chat.id);\n}\n\nreturn [{ json: {\n  chatId: msg.chat.id,\n  usuarioId: u.usuarioId ?? u.id,\n  contaId: u.contaPadraoId ?? u.contaId ?? null,\n  arquivoNome: nome,\n  mimeType: mime,\n  arquivoBase64: arq.arquivoBase64\n} }];"
+      }
+    },
+    {
+      "id": "tobin-38",
+      "name": "base64 → binário",
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1000,
+        180
+      ],
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "arquivoBase64",
+        "options": {
+          "fileName": "={{ $json.arquivoNome }}",
+          "mimeType": "={{ $json.mimeType }}"
+        }
+      }
+    },
+    {
+      "id": "http-39",
+      "name": "Registrar extrato (dedup)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1220,
+        180
+      ],
+      "parameters": {
+        "options": {
+          "timeout": 30000
+        },
+        "method": "POST",
+        "url": "={{ $env.FINTECH_API_URL || 'http://backend:8080' }}/extratos/upload",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "usuarioId",
+              "value": "={{ $json.usuarioId }}"
+            },
+            {
+              "name": "contaId",
+              "value": "={{ $json.contaId }}"
+            },
+            {
+              "name": "assincrono",
+              "value": "true"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Internal-Api-Key",
+              "value": "={{ $env.INTERNAL_API_KEY }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "arquivo",
+              "inputDataFieldName": "data"
+            }
+          ]
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "id": "exec-40",
+      "name": "Executar core IA",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1460,
+        180
+      ],
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "COLE_AQUI_O_ID_DO_WORKFLOW_CORE",
+          "mode": "id"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "extratoId": "={{ $json.id }}",
+            "extratoCode": "={{ $json.code }}",
+            "usuarioId": "={{ $json.usuarioId }}",
+            "contaId": "={{ $json.contaId }}",
+            "arquivoNome": "={{ $('Montar contexto').first().json.arquivoNome }}",
+            "mimeType": "={{ $('Montar contexto').first().json.mimeType }}",
+            "arquivoBase64": "={{ $('Montar contexto').first().json.arquivoBase64 }}",
+            "origem": "telegram",
+            "canalRetorno": "telegram",
+            "chatIdRetorno": "={{ $('Montar contexto').first().json.chatId }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "extratoId",
+              "displayName": "extratoId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "number"
+            },
+            {
+              "id": "extratoCode",
+              "displayName": "extratoCode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "usuarioId",
+              "displayName": "usuarioId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "number"
+            },
+            {
+              "id": "contaId",
+              "displayName": "contaId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "number"
+            },
+            {
+              "id": "arquivoNome",
+              "displayName": "arquivoNome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "mimeType",
+              "displayName": "mimeType",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "arquivoBase64",
+              "displayName": "arquivoBase64",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "origem",
+              "displayName": "origem",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "canalRetorno",
+              "displayName": "canalRetorno",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "chatIdRetorno",
+              "displayName": "chatIdRetorno",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": true,
+          "convertFieldsToString": false
+        },
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      }
+    },
+    {
+      "id": "tg-41",
+      "name": "Telegram · resultado",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1700,
+        180
+      ],
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $('Montar contexto').first().json.chatId }}",
+        "text": "={{ $json.mensagemUsuario }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      }
+    },
+    {
+      "id": "tg-42",
+      "name": "Telegram · pedir arquivo",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        340,
+        460
+      ],
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $json.message.chat.id }}",
+        "text": "Me envie o extrato como *PDF* ou *foto* que eu importo pra você. 📄",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      }
+    },
+    {
+      "id": "tg-43",
+      "name": "Telegram · conta não vinculada",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        780,
+        460
+      ],
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "Não encontrei uma conta vinculada a este Telegram. Abra o app em *Perfil → Integrações* e vincule seu chat para poder enviar extratos por aqui.",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      }
+    },
+    {
+      "id": "tg-44",
+      "name": "Telegram · falha no upload",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1460,
+        460
+      ],
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $('Montar contexto').first().json.chatId }}",
+        "text": "Não consegui registrar esse extrato. Se você já enviou esse mesmo arquivo antes, ele foi recusado como duplicado — confira em *Extratos* no app.",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Tem arquivo?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tem arquivo?": {
+      "main": [
+        [
+          {
+            "node": "Arquivo → base64",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Telegram · pedir arquivo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Arquivo → base64": {
+      "main": [
+        [
+          {
+            "node": "Resolver usuário pelo chat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resolver usuário pelo chat": {
+      "main": [
+        [
+          {
+            "node": "Montar contexto",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Telegram · conta não vinculada",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Montar contexto": {
+      "main": [
+        [
+          {
+            "node": "base64 → binário",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "base64 → binário": {
+      "main": [
+        [
+          {
+            "node": "Registrar extrato (dedup)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Registrar extrato (dedup)": {
+      "main": [
+        [
+          {
+            "node": "Executar core IA",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Telegram · falha no upload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Executar core IA": {
+      "main": [
+        [
+          {
+            "node": "Telegram · resultado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "pinData": {},
+  "meta": {
+    "instanceId": "fintech-app"
+  },
+  "tags": [
+    {
+      "name": "fintech"
+    },
+    {
+      "name": "extratos"
+    }
+  ]
+}

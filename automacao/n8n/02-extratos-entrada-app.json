@@ -1,0 +1,298 @@
+{
+  "name": "Extratos · Entrada App (backend)",
+  "nodes": [
+    {
+      "id": "sticky-24",
+      "name": "Nota backend",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -620,
+        -20
+      ],
+      "parameters": {
+        "content": "## Entrada 1 · App (backend Spring)\n\n`ImportarExtratoUseCase` já criou o `Extrato` (`upload_recebido`),\njá calculou o `hash_arquivo` (dedup) e já devolveu `202` ao app.\nAqui ele só empurra o arquivo — fire-and-forget.\n\n**POST** `/webhook/extratos/processar`\n```json\n{\n  \"extratoId\": 42,\n  \"extratoCode\": \"A1B2C3\",\n  \"usuarioId\": 7,\n  \"contaId\": 3,\n  \"arquivoNome\": \"extrato-092025.pdf\",\n  \"mimeType\": \"application/pdf\",\n  \"arquivoBase64\": \"JVBERi0xLjQK...\",\n  \"origem\": \"app\"\n}\n```\nHeader obrigatório: `X-Internal-Api-Key: $INTERNAL_API_KEY`",
+        "height": 520,
+        "width": 460,
+        "color": 4
+      }
+    },
+    {
+      "id": "webhook-25",
+      "name": "Webhook · backend",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -120,
+        300
+      ],
+      "webhookId": "fintech-extratos-processar",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "extratos/processar",
+        "responseMode": "responseNode",
+        "options": {
+          "rawBody": false
+        }
+      }
+    },
+    {
+      "id": "if-26",
+      "name": "Chave interna válida?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        100,
+        300
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "cond-27",
+              "leftValue": "={{ !!$env.INTERNAL_API_KEY && $json.headers['x-internal-api-key'] === $env.INTERNAL_API_KEY }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      }
+    },
+    {
+      "id": "resp-28",
+      "name": "Responder 202",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        340,
+        180
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ aceito: true, extratoId: $json.body.extratoId, status: \"na_fila\", execucaoN8n: $execution.id }) }}",
+        "options": {
+          "responseCode": 202
+        }
+      }
+    },
+    {
+      "id": "resp-29",
+      "name": "Responder 401",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        340,
+        440
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ aceito: false, erro: \"chave interna invalida\" }) }}",
+        "options": {
+          "responseCode": 401
+        }
+      }
+    },
+    {
+      "id": "exec-30",
+      "name": "Executar core IA",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        580,
+        180
+      ],
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "COLE_AQUI_O_ID_DO_WORKFLOW_CORE",
+          "mode": "id"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "extratoId": "={{ $json.body.extratoId }}",
+            "extratoCode": "={{ $json.body.extratoCode }}",
+            "usuarioId": "={{ $json.body.usuarioId }}",
+            "contaId": "={{ $json.body.contaId }}",
+            "arquivoNome": "={{ $json.body.arquivoNome }}",
+            "mimeType": "={{ $json.body.mimeType }}",
+            "arquivoBase64": "={{ $json.body.arquivoBase64 }}",
+            "origem": "={{ $json.body.origem || 'app' }}",
+            "canalRetorno": "nenhum",
+            "chatIdRetorno": ""
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "extratoId",
+              "displayName": "extratoId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "number"
+            },
+            {
+              "id": "extratoCode",
+              "displayName": "extratoCode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "usuarioId",
+              "displayName": "usuarioId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "number"
+            },
+            {
+              "id": "contaId",
+              "displayName": "contaId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "number"
+            },
+            {
+              "id": "arquivoNome",
+              "displayName": "arquivoNome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "mimeType",
+              "displayName": "mimeType",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "arquivoBase64",
+              "displayName": "arquivoBase64",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "origem",
+              "displayName": "origem",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "canalRetorno",
+              "displayName": "canalRetorno",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "chatIdRetorno",
+              "displayName": "chatIdRetorno",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": true,
+          "convertFieldsToString": false
+        },
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook · backend": {
+      "main": [
+        [
+          {
+            "node": "Chave interna válida?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chave interna válida?": {
+      "main": [
+        [
+          {
+            "node": "Responder 202",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Responder 401",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Responder 202": {
+      "main": [
+        [
+          {
+            "node": "Executar core IA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "pinData": {},
+  "meta": {
+    "instanceId": "fintech-app"
+  },
+  "tags": [
+    {
+      "name": "fintech"
+    },
+    {
+      "name": "extratos"
+    }
+  ]
+}
