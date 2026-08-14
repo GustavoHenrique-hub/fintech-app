@@ -142,6 +142,23 @@ public class Transacao {
         this.atualizadoEm = OffsetDateTime.now();
     }
 
+    /**
+     * Tira o lançamento da contabilidade de receitas/gastos sem apagá-lo: é o que
+     * acontece quando o usuário revisa um lançamento importado e diz que aquilo é
+     * movimentação de economias — o valor passa a viver no ledger de
+     * {@code MovimentacaoEconomia} e esta linha some das listagens
+     * (elas filtram {@code deletedAt IS NULL}).
+     */
+    public void ignorar() {
+        if (statusRevisao != StatusRevisaoTransacao.PENDENTE_REVISAO) {
+            throw new TransacaoInvalidaException(
+                    "Só é possível ignorar uma transação PENDENTE_REVISAO (status atual: " + statusRevisao + ")");
+        }
+        this.statusRevisao = StatusRevisaoTransacao.IGNORADA;
+        this.deletedAt = OffsetDateTime.now();
+        this.atualizadoEm = OffsetDateTime.now();
+    }
+
     public void validar() {
         if (conta == null) {
             throw new TransacaoInvalidaException("Conta é obrigatório");

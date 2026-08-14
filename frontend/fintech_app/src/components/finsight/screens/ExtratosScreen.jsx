@@ -21,9 +21,17 @@ function extensao(nomeArquivo) {
   return nomeArquivo?.split(".").pop()?.toLowerCase() ?? "";
 }
 
+// Status de StatusExtrato em que a automação (N8N + IA) ainda está lendo o arquivo.
+const STATUS_EM_PROCESSAMENTO = [
+  "upload_recebido", "validando", "na_fila", "extraindo",
+  "classificando", "aguardando_ia", "reprocessando",
+];
+
 export const ExtratosScreen = () => {
   const [arrastando, setArrastando] = useState(false);
-  const [extratoAberto, setExtratoAberto] = useState(null);
+  // Guarda só o id: o extrato em si vem sempre da lista, que se atualiza sozinha
+  // enquanto a automação processa — assim o modal acompanha a mudança de status.
+  const [extratoAbertoId, setExtratoAbertoId] = useState(null);
   const inputRef = useRef(null);
 
   const queryClient = useQueryClient();
@@ -31,16 +39,27 @@ export const ExtratosScreen = () => {
   const { contaAtual, loadingContas } = useContaSelecionada();
   const { data: extratos = [], isLoading: loadingExtratos } = useExtratos();
 
+  const extratoAberto = extratos.find((e) => e.id === extratoAbertoId) ?? null;
+
   const { mutate: enviarArquivo, isPending } = useMutation({
     mutationFn: (arquivo) => extratoService.upload(user?.idUsuario, contaAtual?.id, arquivo),
     onSuccess: (extrato) => {
       queryClient.invalidateQueries({ queryKey: ["extratos", user?.idUsuario] });
       queryClient.invalidateQueries({ queryKey: ["transacoes", user?.idUsuario] });
       queryClient.invalidateQueries({ queryKey: ["contas", user?.idUsuario] });
-      toast.success({
-        title: "Extrato importado",
-        description: `${extrato.totalLancamentos} lançamento(s) aguardando revisão em Transações.`,
-      });
+      // Já abre a revisão: é onde o usuário escolhe o tipo de cada lançamento.
+      setExtratoAbertoId(extrato.id);
+      toast.success(
+        STATUS_EM_PROCESSAMENTO.includes(extrato.status)
+          ? {
+              title: "Extrato enviado para leitura",
+              description: "A IA está extraindo os lançamentos — eles aparecem na revisão em instantes.",
+            }
+          : {
+              title: "Extrato importado",
+              description: `${extrato.totalLancamentos} lançamento(s) aguardando revisão.`,
+            },
+      );
     },
     onError: (error) => {
       toast.error({
@@ -145,7 +164,7 @@ export const ExtratosScreen = () => {
               {extratos.map((e) => (
                 <button
                   key={e.id}
-                  onClick={() => setExtratoAberto(e)}
+                  onClick={() => setExtratoAbertoId(e.id)}
                   className="w-full flex items-center gap-3 px-3.5 py-3 text-left row-press"
                 >
                   <div className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center shrink-0">
@@ -169,7 +188,7 @@ export const ExtratosScreen = () => {
 
       <RevisarExtratoModal
         open={!!extratoAberto}
-        onOpenChange={(v) => setExtratoAberto(v ? extratoAberto : null)}
+        onOpenChange={(v) => setExtratoAbertoId(v ? extratoAbertoId : null)}
         extrato={extratoAberto}
       />
     </div>

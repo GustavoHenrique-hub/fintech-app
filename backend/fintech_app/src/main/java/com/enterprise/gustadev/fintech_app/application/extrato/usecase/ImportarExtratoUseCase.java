@@ -3,7 +3,6 @@ package com.enterprise.gustadev.fintech_app.application.extrato.usecase;
 import com.enterprise.gustadev.fintech_app.application.extrato.parser.DetectorFormatoExtrato;
 import com.enterprise.gustadev.fintech_app.application.extrato.parser.ExtratoParser;
 import com.enterprise.gustadev.fintech_app.application.extrato.parser.LancamentoExtraido;
-import com.enterprise.gustadev.fintech_app.domain.categoria.exception.CategoriaInvalidaException;
 import com.enterprise.gustadev.fintech_app.domain.categoria.model.Categoria;
 import com.enterprise.gustadev.fintech_app.domain.categoria.port.CategoriaRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.exception.ContaFinanceiraInvalidaException;
@@ -11,13 +10,14 @@ import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFin
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.port.ContaFinanceiraRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.extrato.exception.ExtratoInvalidoException;
 import com.enterprise.gustadev.fintech_app.domain.extrato.model.Extrato;
+import com.enterprise.gustadev.fintech_app.domain.extrato.model.SolicitacaoProcessamentoExtrato;
 import com.enterprise.gustadev.fintech_app.domain.extrato.port.ArmazenamentoArquivoPort;
 import com.enterprise.gustadev.fintech_app.domain.extrato.port.ExtratoRepositoryPort;
+import com.enterprise.gustadev.fintech_app.domain.extrato.port.ProcessamentoExtratoPort;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.FormatoExtrato;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.OrigemTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusExtrato;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusRevisaoTransacao;
-import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoCategoria;
 import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;
 import com.enterprise.gustadev.fintech_app.domain.transacao.port.TransacaoRepositoryPort;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,18 +28,36 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Recebe o extrato bruto (PDF/CSV/TXT/XLS/XLSX), extrai os lançamentos por formato e
- * cria as transações com {@code statusRevisao=PENDENTE_REVISAO} numa categoria
- * genérica — a classificação por IA (categoria final, confiança) é um passo
- * posterior, ainda não automatizado nesta versão.
+ * Recebe o extrato bruto (PDF/CSV/TXT/XLS/XLSX) e o encaminha para quem sabe
+ * extrair os lançamentos:
+ *
+ * <ul>
+ *   <li><b>PDF</b> → automação N8N + IA ({@link ProcessamentoExtratoPort}). O extrato
+ *       fica {@code na_fila} e as transações nascem depois, no callback
+ *       ({@code POST /extratos/{id}/callback}).</li>
+ *   <li><b>CSV/TXT/XLS/XLSX</b> → parser local, síncrono (a automação só entende
+ *       PDF e imagem — ver o nó "Preparar arquivo" do workflow 01-extratos-core-ia).</li>
+ * </ul>
+ *
+ * Se o envio ao N8N falhar (automação desligada ou fora do ar), o PDF cai no
+ * parser local — a importação nunca fica sem resposta.
+ *
+ * <p>Os lançamentos criados aqui nascem em uma categoria genérica com
+ * {@code statusRevisao=PENDENTE_REVISAO}: o tipo final (gasto/receita/economias)
+ * é escolhido pelo usuário na revisão do extrato.
  */
 public class ImportarExtratoUseCase {
+
+    private static final String MIME_PDF = "application/pdf";
+    /** Canal de entrada do extrato, na nomenclatura dos workflows do N8N. */
+    private static final String ORIGEM_APP = "app";
 
     private final ExtratoRepositoryPort extratoRepository;
     private final ContaFinanceiraRepositoryPort contaRepository;
     private final CategoriaRepositoryPort categoriaRepository;
     private final TransacaoRepositoryPort transacaoRepository;
     private final ArmazenamentoArquivoPort armazenamento;
+    private final ProcessamentoExtratoPort processamento;
     private final List<ExtratoParser> parsers;
 
     public ImportarExtratoUseCase(ExtratoRepositoryPort extratoRepository,
@@ -47,12 +65,14 @@ public class ImportarExtratoUseCase {
                                    CategoriaRepositoryPort categoriaRepository,
                                    TransacaoRepositoryPort transacaoRepository,
                                    ArmazenamentoArquivoPort armazenamento,
+                                   ProcessamentoExtratoPort processamento,
                                    List<ExtratoParser> parsers) {
         this.extratoRepository = extratoRepository;
         this.contaRepository = contaRepository;
         this.categoriaRepository = categoriaRepository;
         this.transacaoRepository = transacaoRepository;
         this.armazenamento = armazenamento;
+        this.processamento = processamento;
         this.parsers = parsers;
     }
 
@@ -83,6 +103,18 @@ public class ImportarExtratoUseCase {
         extrato.validar();
         extrato = extratoRepository.salvar(extrato);
 
+        // PDF é o único formato que a automação entende hoje; para os demais o
+        // parser local continua sendo o caminho principal.
+        if (formato == FormatoExtrato.PDF) {
+            boolean aceito = processamento.enviarParaProcessamento(new SolicitacaoProcessamentoExtrato(
+                    extrato.getId(), extrato.getCode(), usuarioId, conta.getId(),
+                    nomeArquivo, MIME_PDF, conteudo, ORIGEM_APP));
+            if (aceito) {
+                extrato.setStatus(StatusExtrato.na_fila);
+                return extratoRepository.salvar(extrato);
+            }
+        }
+
         ExtratoParser parser = parsers.stream()
                 .filter(p -> p.suporta(formato))
                 .findFirst()
@@ -98,7 +130,7 @@ public class ImportarExtratoUseCase {
             throw e;
         }
 
-        Categoria categoriaFallback = resolverCategoriaFallback();
+        Categoria categoriaFallback = CatalogoCategoriasImportacao.carregar(categoriaRepository).fallback();
         int criadas = 0;
         for (LancamentoExtraido lancamento : lancamentos) {
             if (lancamento.valor().signum() == 0) continue;
@@ -122,16 +154,6 @@ public class ImportarExtratoUseCase {
         extrato.setLancamentosPendentes(criadas);
         extrato.setStatus(criadas > 0 ? StatusExtrato.pendente_revisao : StatusExtrato.erro_extracao);
         return extratoRepository.salvar(extrato);
-    }
-
-    private Categoria resolverCategoriaFallback() {
-        List<Categoria> categoriasAmbos = categoriaRepository.listarPorTipo(TipoCategoria.AMBOS);
-        return categoriasAmbos.stream()
-                .filter(Categoria::isPadrao)
-                .findFirst()
-                .or(() -> categoriasAmbos.stream().findFirst())
-                .orElseThrow(() -> new CategoriaInvalidaException(
-                        "Nenhuma categoria do tipo AMBOS cadastrada para classificar lançamentos importados"));
     }
 
     private String calcularHash(byte[] conteudo) {

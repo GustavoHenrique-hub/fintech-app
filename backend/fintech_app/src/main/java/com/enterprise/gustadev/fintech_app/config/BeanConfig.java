@@ -22,10 +22,12 @@ import com.enterprise.gustadev.fintech_app.application.contafinanceira.usecase.R
 import com.enterprise.gustadev.fintech_app.application.economia.usecase.ListarMovimentacoesEconomiaUseCase;
 import com.enterprise.gustadev.fintech_app.application.economia.usecase.RegistrarMovimentacaoEconomiaUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.parser.ExtratoParser;
+import com.enterprise.gustadev.fintech_app.application.extrato.usecase.AtualizarStatusExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.BuscarExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.CriarExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.ImportarExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.ListarExtratosUseCase;
+import com.enterprise.gustadev.fintech_app.application.extrato.usecase.RegistrarResultadoExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.RemoverExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.notificacao.usecase.CriarNotificacaoUseCase;
 import com.enterprise.gustadev.fintech_app.application.notificacao.usecase.ListarNotificacoesUseCase;
@@ -47,6 +49,7 @@ import com.enterprise.gustadev.fintech_app.domain.contafinanceira.port.ContaFina
 import com.enterprise.gustadev.fintech_app.domain.economia.port.MovimentacaoEconomiaRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.extrato.port.ArmazenamentoArquivoPort;
 import com.enterprise.gustadev.fintech_app.domain.extrato.port.ExtratoRepositoryPort;
+import com.enterprise.gustadev.fintech_app.domain.extrato.port.ProcessamentoExtratoPort;
 import com.enterprise.gustadev.fintech_app.domain.notificacao.port.NotificacaoRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.snapshotfinanceiro.port.SnapshotFinanceiroRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.transacao.port.TransacaoRepositoryPort;
@@ -193,9 +196,25 @@ public class BeanConfig {
                                                            CategoriaRepositoryPort categoriaRepository,
                                                            TransacaoRepositoryPort transacaoRepository,
                                                            ArmazenamentoArquivoPort armazenamento,
+                                                           ProcessamentoExtratoPort processamento,
                                                            List<ExtratoParser> parsers) {
         return new ImportarExtratoUseCase(extratoRepository, contaRepository, categoriaRepository,
-                transacaoRepository, armazenamento, parsers);
+                transacaoRepository, armazenamento, processamento, parsers);
+    }
+
+    @Bean
+    public AtualizarStatusExtratoUseCase atualizarStatusExtratoUseCase(ExtratoRepositoryPort repository) {
+        return new AtualizarStatusExtratoUseCase(repository);
+    }
+
+    @Bean
+    public RegistrarResultadoExtratoUseCase registrarResultadoExtratoUseCase(
+            ExtratoRepositoryPort extratoRepository,
+            ContaFinanceiraRepositoryPort contaRepository,
+            CategoriaRepositoryPort categoriaRepository,
+            TransacaoRepositoryPort transacaoRepository) {
+        return new RegistrarResultadoExtratoUseCase(extratoRepository, contaRepository,
+                categoriaRepository, transacaoRepository);
     }
 
     // ── Transacao ────────────────────────────────────────────────────────
@@ -229,8 +248,11 @@ public class BeanConfig {
 
     @Bean
     public ConfirmarRevisaoTransacaoUseCase confirmarRevisaoTransacaoUseCase(
-            TransacaoRepositoryPort transacaoRepository, ExtratoRepositoryPort extratoRepository) {
-        return new ConfirmarRevisaoTransacaoUseCase(transacaoRepository, extratoRepository);
+            TransacaoRepositoryPort transacaoRepository, ExtratoRepositoryPort extratoRepository,
+            ContaFinanceiraRepositoryPort contaRepository, CategoriaRepositoryPort categoriaRepository,
+            MovimentacaoEconomiaRepositoryPort movimentacaoEconomiaRepository) {
+        return new ConfirmarRevisaoTransacaoUseCase(transacaoRepository, extratoRepository,
+                contaRepository, categoriaRepository, movimentacaoEconomiaRepository);
     }
 
     // ── MotivoCancelamento ───────────────────────────────────────────────

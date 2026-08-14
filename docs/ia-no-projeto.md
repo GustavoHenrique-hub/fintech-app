@@ -1,5 +1,11 @@
 # IA no projeto — como e onde aplicar
 
+> **Atualização:** a etapa de extração + classificação por IA já está ligada para PDF,
+> via automação N8N (backend → webhook → Claude → callback). O caminho real, com
+> endereços e configuração, está em [`n8n-extratos.md`](./n8n-extratos.md). O texto
+> abaixo continua valendo como desenho da classificação em cascata (regras →
+> dicionário → IA), que ainda não foi construída dentro do backend.
+
 Este documento explica, de forma prática, onde a IA entra no fluxo do app e como
 plugar isso no código que já existe. Não é uma proposta especulativa: usa o desenho
 que já está documentado em `organizacao/todo-list/src/todo_fintech_cloud.jsx` e o

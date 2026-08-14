@@ -59,7 +59,7 @@ export const EstornoTransacaoScreen = () => {
       .filter((t) => t.statusRevisao === "CONFIRMADA")
       .filter((t) => {
         if (!q) return true;
-        const h = [t.descricaoUsuario, t.descricaoNormalizada, t.estabelecimento]
+        const h = [t.descricao, t.estabelecimento]
           .filter(Boolean).join(" ").toLowerCase();
         return h.includes(q);
       })
@@ -118,7 +118,7 @@ export const EstornoTransacaoScreen = () => {
       return;
     }
 
-    const desc = selecionada.descricaoUsuario ?? selecionada.estabelecimento ?? selecionada.descricaoNormalizada;
+    const desc = selecionada.descricao ?? selecionada.estabelecimento ?? "Lançamento";
     // O backend (EstornarTransacaoRequestDTO) exige usuarioId/usuarioCode/contaId/contaCode,
     // todos presentes na própria transação (TransacaoResponseDTO). motivo/observacao são
     // apenas UX no cliente — o endpoint de estorno não os consome.
@@ -218,7 +218,7 @@ export const EstornoTransacaoScreen = () => {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="font-semibold text-[13.5px] text-foreground truncate leading-tight">
-                      {t.descricaoUsuario ?? t.estabelecimento ?? t.descricaoNormalizada}
+                      {t.descricao ?? t.estabelecimento ?? "Lançamento"}
                     </p>
                     <p className="text-[11px] text-muted-foreground mt-0.5 truncate">
                       {categoria?.nome ?? "Sem categoria"} · {formatDataRelativa(t.dataTransacao)} · {formatHora(t.criadoEm)}
@@ -280,7 +280,7 @@ export const EstornoTransacaoScreen = () => {
               <div className="card-soft p-3 flex items-center gap-3">
                 <div className="flex-1 min-w-0">
                   <p className="text-[12px] text-muted-foreground font-semibold">
-                    {selecionada.estabelecimento ?? selecionada.descricaoNormalizada}
+                    {selecionada.estabelecimento ?? selecionada.descricao}
                   </p>
                   <p className="text-[15px] font-extrabold text-foreground tracking-tight tabular-nums">
                     {formatBRL(selecionada.valor)}

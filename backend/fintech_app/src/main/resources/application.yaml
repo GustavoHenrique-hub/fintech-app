@@ -28,6 +28,23 @@ app:
   upload:
     dir: ${APP_UPLOAD_DIR:./uploads/extratos}
 
+# Automação de extratos (N8N + IA). O backend empurra o PDF para o webhook e o N8N
+# devolve o resultado em PATCH /extratos/{id}/status e POST /extratos/{id}/callback.
+#
+# Do outro lado (variáveis de ambiente do n8n) precisam bater:
+#   FINTECH_API_URL    = http://localhost:8082   (onde esta API responde)
+#   INTERNAL_API_KEY   = mesmo valor de n8n.internal-api-key
+#   N8N_CALLBACK_SECRET= mesmo valor de n8n.callback-secret
+#
+# Sem INTERNAL_API_KEY/N8N_CALLBACK_SECRET configurados a verificação é pulada
+# (com aviso no log) para não travar o desenvolvimento local.
+n8n:
+  enabled: ${N8N_ENABLED:true}
+  webhook-url: ${N8N_WEBHOOK_URL:http://localhost:5678/webhook/extratos/processar}
+  internal-api-key: ${INTERNAL_API_KEY:}
+  callback-secret: ${N8N_CALLBACK_SECRET:}
+  timeout-ms: ${N8N_TIMEOUT_MS:10000}
+
 logging:
   level:
     org:

@@ -12,6 +12,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 @Component
 public class SessaoTokenFilter extends OncePerRequestFilter {
@@ -22,6 +23,9 @@ public class SessaoTokenFilter extends OncePerRequestFilter {
         this.sessaoRepository = sessaoRepository;
     }
 
+    /** Rotas da automação (N8N): não têm usuário logado, autenticam por X-Internal-Api-Key. */
+    private static final Pattern ROTAS_AUTOMACAO = Pattern.compile("^/extratos/\\d+/(status|callback)$");
+
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getRequestURI();
@@ -31,6 +35,7 @@ public class SessaoTokenFilter extends OncePerRequestFilter {
                 || path.startsWith("/swagger-ui")
                 || path.startsWith("/v3/api-docs")
                 || path.startsWith("/actuator")
+                || ROTAS_AUTOMACAO.matcher(path).matches()
                 || (path.equals("/usuarios") && "POST".equalsIgnoreCase(method));
     }
 

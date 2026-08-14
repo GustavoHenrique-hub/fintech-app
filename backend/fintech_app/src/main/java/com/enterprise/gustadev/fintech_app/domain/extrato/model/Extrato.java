@@ -110,6 +110,57 @@ public class Extrato {
         this.atualizadoEm = OffsetDateTime.now();
     }
 
+    /**
+     * Reflete a decisão do usuário de tirar um lançamento pendente de receitas/gastos
+     * (ex.: marcou como "economias"): sai de pendente e entra em ignorados, sem contar
+     * como confirmado. O status agregado segue a mesma regra de
+     * {@link #confirmarLancamento()} — o que importa é não sobrar pendente.
+     */
+    public void ignorarLancamento() {
+        if (lancamentosPendentes <= 0) {
+            throw new ExtratoInvalidoException("Extrato não possui lançamentos pendentes de revisão");
+        }
+        this.lancamentosPendentes--;
+        this.lancamentosIgnorados++;
+        this.status = lancamentosPendentes == 0 ? StatusExtrato.concluido : StatusExtrato.parcialmente_revisado;
+        this.atualizadoEm = OffsetDateTime.now();
+    }
+
+    /**
+     * Aplica o resultado da extração feita pela automação externa (N8N + IA):
+     * metadados do documento + contadores, deixando o extrato pronto para a revisão
+     * manual. Só faz sentido a partir de um extrato ainda em processamento.
+     */
+    public void registrarResultadoProcessamento(String bancoDetectado, LocalDate periodoInicio,
+                                                 LocalDate periodoFim, int totalLancamentos) {
+        this.bancoDetectado = bancoDetectado;
+        this.periodoInicio = periodoInicio;
+        this.periodoFim = periodoFim;
+        this.totalLancamentos = totalLancamentos;
+        this.lancamentosPendentes = totalLancamentos;
+        this.lancamentosConfirmados = 0;
+        this.lancamentosIgnorados = 0;
+        this.status = totalLancamentos > 0 ? StatusExtrato.pendente_revisao : StatusExtrato.erro_extracao;
+        this.atualizadoEm = OffsetDateTime.now();
+    }
+
+    /** Registra que o processamento externo terminou em erro (erro_extracao, erro_timeout...). */
+    public void registrarErroProcessamento(StatusExtrato statusErro) {
+        this.status = statusErro;
+        this.atualizadoEm = OffsetDateTime.now();
+    }
+
+    /** {@code true} enquanto o extrato ainda está em alguma etapa de processamento. */
+    public boolean emProcessamento() {
+        return status == StatusExtrato.upload_recebido
+                || status == StatusExtrato.validando
+                || status == StatusExtrato.na_fila
+                || status == StatusExtrato.extraindo
+                || status == StatusExtrato.classificando
+                || status == StatusExtrato.aguardando_ia
+                || status == StatusExtrato.reprocessando;
+    }
+
     public void validar() {
         if (usuarioId == null) {
             throw new ExtratoInvalidoException("UsuarioId é obrigatório");

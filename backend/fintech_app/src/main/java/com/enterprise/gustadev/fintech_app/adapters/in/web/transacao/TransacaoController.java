@@ -2,6 +2,7 @@ package com.enterprise.gustadev.fintech_app.adapters.in.web.transacao;
 
 import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.EstornarTransacaoRequestDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.ResumoPeriodoResponseDTO;
+import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.RevisarTransacaoRequestDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.TransacaoRequestDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.TransacaoResponseDTO;
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.BuscarResumoPeriodoUseCase;
@@ -133,19 +134,25 @@ public class TransacaoController {
     }
 
     @Operation(summary = "Confirmar revisão de um lançamento importado",
-            description = "Marca a transação como CONFIRMADA após o usuário revisar o lançamento pendente " +
-                    "(ex.: originado de um extrato importado) e conferir a conta a que ele pertence. " +
-                    "Só é permitido a partir do status PENDENTE_REVISAO.")
+            description = "Fecha a revisão de um lançamento pendente vindo de extrato. No corpo (opcional) o usuário " +
+                    "informa o destino escolhido na tela de revisão: GASTO ou RECEITA confirmam a transação " +
+                    "(ajustando categoria e saldo quando a direção muda); ECONOMIA converte o valor em aporte no " +
+                    "sub-saldo de economias da conta e tira a transação das listagens. Sem corpo, mantém a " +
+                    "classificação que veio do extrato. Só é permitido a partir do status PENDENTE_REVISAO.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Revisão confirmada com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Transação não está pendente de revisão"),
+            @ApiResponse(responseCode = "400", description = "Transação não está pendente de revisão, destino ou categoria inválidos"),
             @ApiResponse(responseCode = "404", description = "Transação não encontrada")
     })
     @PatchMapping("/{id_transacoes}/{transacoes_code}/revisar")
     public ResponseEntity<TransacaoResponseDTO> revisar(
             @Parameter(description = "ID da transação (id_transacoes)") @PathVariable("id_transacoes") Long idTransacoes,
-            @Parameter(description = "Código alfanumérico de 6 caracteres (transacoes_code)") @PathVariable("transacoes_code") String transacoesCode) {
-        Transacao revisada = confirmarRevisaoUseCase.executar(idTransacoes, transacoesCode);
+            @Parameter(description = "Código alfanumérico de 6 caracteres (transacoes_code)") @PathVariable("transacoes_code") String transacoesCode,
+            @RequestBody(required = false) RevisarTransacaoRequestDTO dto) {
+        Transacao revisada = dto == null
+                ? confirmarRevisaoUseCase.executar(idTransacoes, transacoesCode)
+                : confirmarRevisaoUseCase.executar(idTransacoes, transacoesCode,
+                        dto.destinoDomain(), dto.categoriaId(), dto.categoriaCode());
         return ResponseEntity.ok(TransacaoResponseDTO.fromDomain(revisada));
     }
 

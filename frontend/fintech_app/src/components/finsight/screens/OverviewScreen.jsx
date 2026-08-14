@@ -391,7 +391,7 @@ export const OverviewScreen = ({ onNavigate }) => {
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-[13px] font-semibold text-foreground truncate">
-                    {t.descricaoUsuario ?? t.estabelecimento ?? t.descricaoNormalizada}
+                    {t.descricao ?? t.estabelecimento ?? "Lançamento"}
                   </p>
                   <p className="text-[11px] text-muted-foreground">
                     {categoria?.nome ?? "Sem categoria"} · {formatDataRelativa(t.dataTransacao)}

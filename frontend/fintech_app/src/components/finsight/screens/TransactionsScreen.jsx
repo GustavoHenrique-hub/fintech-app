@@ -208,7 +208,8 @@ export const TransactionsScreen = ({ onAbrirEstorno, onNavigate }) => {
       if (periodoInicio && t.dataTransacao < periodoInicio) return false;
       if (periodoFim && t.dataTransacao > periodoFim) return false;
       if (!q) return true;
-      const haystack = [t.descricaoUsuario, t.descricaoNormalizada, t.estabelecimento]
+      // TransacaoResponseDTO expõe `descricao` (não descricaoUsuario/Normalizada).
+      const haystack = [t.descricao, t.estabelecimento]
         .filter(Boolean)
         .map(normalize)
         .join(" ");
@@ -366,7 +367,7 @@ export const TransactionsScreen = ({ onAbrirEstorno, onNavigate }) => {
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="font-semibold text-[13.5px] text-foreground truncate leading-tight">
-                            {t.descricaoUsuario ?? t.estabelecimento ?? t.descricaoNormalizada}
+                            {t.descricao ?? t.estabelecimento ?? "Lançamento"}
                           </p>
                           <p className="text-[11px] text-muted-foreground mt-0.5 truncate">
                             {categoria?.nome ?? "Sem categoria"} · {formatHora(t.criadoEm)}
