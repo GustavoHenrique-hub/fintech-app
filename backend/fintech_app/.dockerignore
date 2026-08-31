@@ -1,0 +1,14 @@
+# Tudo que NÃO deve entrar no contexto de build do Docker.
+# Sem isto, o target/ (com o .war de 88MB) e o .idea/ seriam enviados ao daemon
+# a cada build, deixando tudo lento e invalidando o cache de camadas à toa.
+
+target/
+uploads/
+.idea/
+.vscode/
+.claude/
+*.iml
+*.log
+.git
+.gitignore
+HELP.md

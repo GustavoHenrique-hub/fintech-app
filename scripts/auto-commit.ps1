@@ -98,6 +98,22 @@ if ($LASTEXITCODE -ne 0) {
     git push $REMOTE "HEAD:$TARGET"
 }
 
+# ── PR: so faz sentido se o gh existir E estiver autenticado ──────────────────
+# Sem esta guarda o watcher (watch-and-commit.ps1) despeja o erro do gh a cada
+# commit, escondendo problemas reais. O commit e o push ja aconteceram acima;
+# a ausencia do gh nao e motivo para o script sair com erro.
+$ghDisponivel = $false
+if (Get-Command gh -ErrorAction SilentlyContinue) {
+    gh auth status 2>&1 | Out-Null
+    $ghDisponivel = ($LASTEXITCODE -eq 0)
+}
+
+if (-not $ghDisponivel) {
+    Write-Host "[$Source] gh ausente ou nao autenticado - etapa de PR ignorada."
+    Write-Host "           Rode 'gh auth login' para habilitar a criacao automatica de PR."
+    exit 0
+}
+
 # ── PR: fecha o anterior e cria um novo com base no commit atual ──────────────
 $openPRs = gh pr list --base $BASE --head $TARGET --state open --json number --jq '.[].number' 2>&1
 foreach ($prNum in ($openPRs -split "`n" | Where-Object { $_ -match '^\d+$' })) {

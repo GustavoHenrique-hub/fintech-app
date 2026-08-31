@@ -1,0 +1,152 @@
+# ==============================================================================
+#  FinTech App — stack local completa (monorepo)
+#
+#  Sobe, numa rede Docker única, as quatro peças do projeto:
+#
+#    postgres  :5432  banco de dados (fintech_app_dev / _hml / _prd)
+#    backend   :8082  API Spring Boot (mesma porta do setup local, sem surpresa)
+#    frontend  :3000  build de produção do Vite servido por nginx (+ proxy /api)
+#    n8n       :5678  automação de extratos (workflows em ../automacao/n8n)
+#
+#  Uso:
+#    cd infra
+#    cp .env.example .env      # preencha os segredos (veja os comentários lá)
+#    docker compose up -d --build
+#
+#  Dentro da rede os serviços se enxergam pelo NOME (backend, postgres, n8n).
+#  É por isso que FINTECH_API_URL aqui é http://backend:8082 e não localhost:
+#  "localhost" dentro do container do n8n é o próprio container do n8n.
+# ==============================================================================
+
+name: fintech-app
+
+services:
+
+  # ── Banco ───────────────────────────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: fintech-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: fintech_app_dev          # casa com application-dev.yaml
+      TZ: ${TZ:-America/Sao_Paulo}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"       # exposto só para você plugar o DBeaver
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./postgres/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      # O backend só sobe depois que este teste passa (depends_on: service_healthy).
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d fintech_app_dev"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+
+  # ── API Spring Boot ─────────────────────────────────────────────────────────
+  backend:
+    build:
+      context: ../backend/fintech_app
+      dockerfile: ../../infra/backend.Dockerfile
+    image: fintech-app/backend:local
+    container_name: fintech-backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SERVER_PORT: 8082
+      SPRING_PROFILE: ${SPRING_PROFILE:-dev}
+
+      # Datasource — application-{dev,hml,prd}.yaml montam a URL com estes valores.
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USERNAME: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+
+      # Onde os PDFs enviados ficam gravados (volume nomeado, sobrevive ao rebuild).
+      APP_UPLOAD_DIR: /app/uploads/extratos
+
+      # Automação. O backend empurra o PDF para o n8n e recebe o resultado de volta
+      # em PATCH /extratos/{id}/status e POST /extratos/{id}/callback.
+      N8N_ENABLED: ${N8N_ENABLED:-true}
+      N8N_WEBHOOK_URL: http://n8n:5678/webhook/extratos/processar
+      INTERNAL_API_KEY: ${INTERNAL_API_KEY}
+      N8N_CALLBACK_SECRET: ${N8N_CALLBACK_SECRET}
+      N8N_TIMEOUT_MS: ${N8N_TIMEOUT_MS:-10000}
+
+      TZ: ${TZ:-America/Sao_Paulo}
+    ports:
+      - "${BACKEND_PORT:-8082}:8082"
+    volumes:
+      - backend_uploads:/app/uploads
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8082/actuator/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
+
+  # ── Frontend (build estático + nginx com proxy /api) ────────────────────────
+  frontend:
+    build:
+      context: ../frontend/fintech_app
+      dockerfile: ../../infra/frontend.Dockerfile
+    image: fintech-app/frontend:local
+    container_name: fintech-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "${FRONTEND_PORT:-3000}:80"
+    environment:
+      TZ: ${TZ:-America/Sao_Paulo}
+
+  # ── Automação n8n (self-hosted, Community Edition — gratuito) ───────────────
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:latest
+    container_name: fintech-n8n
+    restart: unless-stopped
+    environment:
+      # --- servidor ---
+      N8N_HOST: localhost
+      N8N_PORT: 5678
+      N8N_PROTOCOL: http
+      WEBHOOK_URL: ${N8N_WEBHOOK_PUBLIC_URL:-http://localhost:5678/}
+      N8N_SECURE_COOKIE: "false"            # permite login via http em dev
+      N8N_DIAGNOSTICS_ENABLED: "false"
+      N8N_RUNNERS_ENABLED: "true"           # exigido pelo n8n >= 1.7x
+      GENERIC_TIMEZONE: ${TZ:-America/Sao_Paulo}
+      TZ: ${TZ:-America/Sao_Paulo}
+
+      # Criptografa as credenciais salvas (a chave da Anthropic, o token do
+      # Telegram...). Se este valor mudar, TODAS as credenciais salvas viram lixo.
+      N8N_ENCRYPTION_KEY: ${N8N_ENCRYPTION_KEY}
+
+      # O nó "Config" dos workflows lê $env.*. No n8n Cloud isso é bloqueado;
+      # no self-hosted precisa estar explicitamente liberado.
+      N8N_BLOCK_ENV_ACCESS_IN_NODE: "false"
+
+      # --- lidos pelo nó ⚙️ Config de 01-extratos-core-ia ---
+      FINTECH_API_URL: http://backend:8082
+      INTERNAL_API_KEY: ${INTERNAL_API_KEY}
+      N8N_CALLBACK_SECRET: ${N8N_CALLBACK_SECRET}
+      CLAUDE_MODEL: ${CLAUDE_MODEL:-claude-sonnet-5}
+
+      # Opcional: permite referenciar a chave como {{ $env.ANTHROPIC_API_KEY }}
+      # dentro da credencial, em vez de colar o valor na UI.
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+    ports:
+      - "${N8N_PORT:-5678}:5678"
+    volumes:
+      - n8n_data:/home/node/.n8n
+      # Os 4 JSONs versionados ficam visíveis dentro do container em /workflows,
+      # o que permite importar por linha de comando (veja docs/docker-local.md).
+      - ../automacao/n8n:/workflows:ro
+
+volumes:
+  pgdata:
+  n8n_data:
+  backend_uploads:

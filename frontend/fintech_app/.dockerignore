@@ -1,0 +1,14 @@
+# node_modules é reinstalado dentro da imagem com `npm ci` (binários nativos
+# precisam ser os do Linux da imagem, não os do Windows da sua máquina).
+
+node_modules/
+dist/
+coverage/
+.vscode/
+.claude/
+.env
+.env.local
+*.log
+.git
+.gitignore
+bun.lockb

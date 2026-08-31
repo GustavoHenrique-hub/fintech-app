@@ -15,11 +15,13 @@
 
 ```
 fintech-app/
-├── backend/        # API REST — Java 17 + Spring Boot
-├── frontend/       # Interface — React 18 + TypeScript
-├── infra/          # Docker Compose e configurações de infraestrutura
-├── docs/           # Documentação, ADRs e diagramas
-└── organizacao/    # Roadmap, to-do list e planejamento
+├── backend/fintech_app/    # API REST — Java 17 + Spring Boot 4
+├── frontend/fintech_app/   # Interface — React 18 + Vite
+├── infra/                  # Docker Compose, Dockerfiles e nginx
+├── automacao/n8n/          # Workflows de importação de extratos (JSON)
+├── docs/                   # Documentação, ADRs e diagramas
+├── scripts/                # SQL de schema/carga e auto-commit
+└── organizacao/            # Roadmap, to-do list e planejamento
 ```
 
 ---
@@ -38,73 +40,72 @@ Antes de rodar o projeto, instale:
 
 ---
 
-## 🚀 Setup local em 5 passos
+## 🚀 Setup local
 
-### 1. Clonar o repositório
+### Opção A — tudo em Docker (recomendado)
+
+Sobe backend, frontend, PostgreSQL e n8n de uma vez. Detalhes completos em
+[`docs/docker-local.md`](docs/docker-local.md).
 
 ```bash
 git clone https://github.com/SEU_USUARIO/NOME_DO_REPO.git
-cd fintech-app
+cd fintech-app/infra
+
+cp .env.example .env      # preencha os campos marcados <<< PREENCHER >>>
+docker compose up -d --build
 ```
 
-### 2. Configurar variáveis de ambiente
+| O quê | Onde |
+|---|---|
+| App | [localhost:3000](http://localhost:3000) |
+| Swagger | [localhost:8082/swagger-ui.html](http://localhost:8082/swagger-ui.html) |
+| Health | [localhost:8082/actuator/health](http://localhost:8082/actuator/health) |
+| n8n | [localhost:5678](http://localhost:5678) |
+
+Na primeira subida, importe os workflows de automação no n8n:
 
 ```bash
-cp infra/.env.example infra/.env
+docker compose exec n8n n8n import:workflow --separate --input=/workflows
 ```
 
-Abra o arquivo `infra/.env` e preencha os valores:
+Depois cadastre a credencial **Anthropic API** na UI do n8n e ative o workflow
+`Extratos · Entrada App (backend)`. Credenciais não vêm no export do JSON.
 
-```env
-# Banco de dados
-POSTGRES_USER=fintech
-POSTGRES_PASSWORD=fintech123
-POSTGRES_DB=fintech_db
+### Opção B — rodar na máquina
 
-# JWT
-JWT_SECRET=sua_chave_secreta_muito_longa_aqui
-
-# IA
-AI_API_KEY=sua_api_key_claude_ou_openai
-
-# Interno (N8N → API)
-INTERNAL_API_KEY=chave_interna_para_n8n
-```
-
-### 3. Subir a infraestrutura
+Útil para desenvolver com hot-reload. O banco e o n8n continuam vindo do Docker.
 
 ```bash
-cd infra
-docker-compose up -d
+cd infra && docker compose up -d postgres n8n
+
+# backend  → http://localhost:8082
+cd backend/fintech_app
+./mvnw spring-boot:run
+
+# frontend → http://localhost:3000
+cd frontend/fintech_app
+npm install && npm run dev
 ```
 
-Aguarde todos os serviços ficarem saudáveis:
+O backend precisa de `DB_USERNAME`, `DB_PASSWORD` e `INTERNAL_API_KEY` no
+ambiente — os mesmos valores que estão em `infra/.env`.
 
-```bash
-docker-compose ps
-# PostgreSQL, Redis e RabbitMQ devem estar com status "healthy"
-```
+---
 
-### 4. Rodar o backend
+## 🔑 Onde ficam as chaves e segredos
 
-```bash
-cd backend
-mvn spring-boot:run -Dspring-boot.run.profiles=dev
-```
+Tudo em **`infra/.env`** (copiado de `infra/.env.example`, ignorado pelo Git),
+com uma exceção: as credenciais de terceiros do n8n ficam na UI dele.
 
-Acesse a documentação da API em: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
-
-Health check: [http://localhost:8080/actuator/health](http://localhost:8080/actuator/health)
-
-### 5. Rodar o frontend
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Acesse o sistema em: [http://localhost:5173](http://localhost:5173)
+| Segredo | Onde | Para quê |
+|---|---|---|
+| `POSTGRES_PASSWORD` | `infra/.env` | banco + datasource do backend |
+| `INTERNAL_API_KEY` | `infra/.env` | header `X-Internal-Api-Key` entre backend e n8n |
+| `N8N_CALLBACK_SECRET` | `infra/.env` | HMAC do header `X-N8N-Signature` |
+| `N8N_ENCRYPTION_KEY` | `infra/.env` | criptografa as credenciais salvas no n8n |
+| Chave da Anthropic | UI do n8n → Credentials | nó *Claude - Extrair e Classificar* |
+| Token do bot Telegram | UI do n8n → Credentials | workflow 03 |
+| Chave da Evolution API | UI do n8n → Credentials | workflow 04 |
 
 ---
 
@@ -112,11 +113,11 @@ Acesse o sistema em: [http://localhost:5173](http://localhost:5173)
 
 ```bash
 # Backend — testes unitários e de integração
-cd backend
-mvn verify
+cd backend/fintech_app
+./mvnw verify
 
 # Frontend — testes de componentes
-cd frontend
+cd frontend/fintech_app
 npm test
 ```
 
@@ -124,12 +125,14 @@ npm test
 
 ## 🐳 Serviços do Docker Compose
 
-| Serviço | Porta | Painel |
+Definidos em [`infra/docker-compose.yml`](infra/docker-compose.yml).
+
+| Serviço | Porta | Imagem / build |
 |---|---|---|
-| PostgreSQL | 5432 | — |
-| Redis | 6379 | — |
-| RabbitMQ | 5672 | [localhost:15672](http://localhost:15672) (guest/guest) |
-| pgAdmin *(dev)* | 5050 | [localhost:5050](http://localhost:5050) |
+| `frontend` | 3000 | build do Vite servido por nginx (proxy `/api` → backend) |
+| `backend` | 8082 | Spring Boot 4 / Java 17, WAR executável |
+| `postgres` | 5432 | `postgres:16-alpine` |
+| `n8n` | 5678 | `n8nio/n8n` — self-hosted, Community Edition (gratuito) |
 
 ---
 
