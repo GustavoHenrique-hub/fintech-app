@@ -1315,9 +1315,9 @@
     "semantic_hash": "88439104b3c207f17d33ef3160e3b080"
   },
   "scripts/auto-commit.ps1": {
-    "mtime": 1782314255.1294255,
-    "ast_hash": "4099094ff69411ca42b4b85b45d424c3",
-    "semantic_hash": "4099094ff69411ca42b4b85b45d424c3"
+    "mtime": 1788204552.8800013,
+    "ast_hash": "338192aa42a7dc3d34f69e03479840f0",
+    "semantic_hash": ""
   },
   "scripts/fintech_app_DBCREATION.sql": {
     "mtime": 1786475733.9213169,
@@ -1345,9 +1345,9 @@
     "semantic_hash": "3ba42795370353038ed2952300fe53d5"
   },
   "README.md": {
-    "mtime": 1779911509.310928,
-    "ast_hash": "f64d046939b6dd14d8bb07b249cba256",
-    "semantic_hash": "f64d046939b6dd14d8bb07b249cba256"
+    "mtime": 1788202390.2441976,
+    "ast_hash": "a2da84195594ab50669f918a6cf9cfeb",
+    "semantic_hash": ""
   },
   "backend/fintech_app/HELP.md": {
     "mtime": 1775566551.9212627,
@@ -1837,6 +1837,21 @@
   "docs/erro_n8n_3.png": {
     "mtime": 1787679167.660061,
     "ast_hash": "684fa39b040847eeffa2b3b2f3e82d67",
+    "semantic_hash": ""
+  },
+  "infra/postgres/init/01-create-databases.sql": {
+    "mtime": 1788202156.4836485,
+    "ast_hash": "1e415ad6cca9ace6760a0572bdb9e387",
+    "semantic_hash": ""
+  },
+  "docs/docker-local.md": {
+    "mtime": 1788202334.4019122,
+    "ast_hash": "edb0a6654064a74b0894183df41cda2f",
+    "semantic_hash": ""
+  },
+  "infra/docker-compose.yml": {
+    "mtime": 1788202079.7679136,
+    "ast_hash": "9eecb11eee3f7c0278d2d37407060a45",
     "semantic_hash": ""
   }
 }

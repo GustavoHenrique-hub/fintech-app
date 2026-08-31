@@ -5,12 +5,12 @@
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 2014 nodes · 4018 edges · 213 communities (130 shown, 83 thin omitted)
+- 2010 nodes · 4018 edges · 209 communities (130 shown, 79 thin omitted)
 - Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 184 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `bbcad95d`
+- Built from commit: `afd80636`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -134,8 +134,6 @@
 - React.svg
 - Vite.svg
 - Pom.xml
-- README
-- README #2
 - ListarTransacoesUseCaseTest.java
 - IA no projeto — como e onde aplicar
 - transacoes Table Schema Recommendation
@@ -165,8 +163,6 @@
 - tailwind.config.js Semantic Tokens
 - AuditoriaEvento Business Rules (append-only)
 - Todo-list Vite+React Boilerplate README
-- Branch Strategy (main/develop/feature/hotfix)
-- FinTech App Technology Stack
 - ResumoPeriodo
 - SessaoTokenRepositoryPort
 - CategoriaTest.java
@@ -227,7 +223,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (213 total, 83 thin omitted)
+## Communities (209 total, 79 thin omitted)
 
 ### Community 0 - "Banco Controller Test & Related"
 Cohesion: 0.05
@@ -634,21 +630,21 @@ Cohesion: 0.27
 Nodes (5): ConfirmarRevisaoTransacaoUseCase, Transactional, TipoTransacao, GASTO, RECEITA
 
 ## Knowledge Gaps
-- **406 isolated node(s):** `points`, `com.enterprise.gustadev:fintech_app`, `CREATE`, `UPDATE`, `DELETE` (+401 more)
+- **402 isolated node(s):** `📁 Estrutura do repositório`, `⚙ Pré-requisitos`, `Opção A — tudo em Docker (recomendado)`, `Opção B — rodar na máquina`, `🔑 Onde ficam as chaves e segredos` (+397 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **83 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **79 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `ExtratoInvalidoException` connect `Extrato Repository Port & Related` to `Tipo Conta`, `CodeGenerator.java`, `ListarContasFinanceirasUseCase`, `GlobalExceptionHandler.java`, `StatusRevisaoTransacao`, `TransacaoCanceladaController.java`, `Conta Financeira Test`, `Extrato Controller & Related`, `TipoTransacao.java`, `VincularBancoModal.jsx`, `ListarTransacoesUseCaseTest.java`, `Status Extrato`, `Global Exception Handler & Related`?**
-  _High betweenness centrality (0.056) - this node is a cross-community bridge._
 - **Why does `ContaFinanceiraRepositoryPort` connect `CriarTransacaoUseCaseTest.java` to `Categoria Repository Port & Related`, `Bean Config`, `Transacao Controller Test & Related`, `Extrato Repository Port & Related`, `Transacao Cancelada Repository Port & Related`, `Conta Financeira Controller & Related`, `Status Extrato`, `Tipo Conta`, `Conta Financeira Test`, `Tipo Job`, `ResumoPeriodo`, `SessaoToken`, `ImportarExtratoUseCase.java`, `BuscarContaFinanceiraUseCase`, `StatusRevisaoTransacao`, `RemoverContaFinanceiraUseCase`, `TipoTransacao`, `TipoTransacao.java`, `Transactional`, `Mock Mvc`?**
-  _High betweenness centrality (0.039) - this node is a cross-community bridge._
+  _High betweenness centrality (0.042) - this node is a cross-community bridge._
+- **Why does `TransacaoRepositoryPort` connect `Notificacao` to `Tipo Conta`, `Categoria Repository Port & Related`, `Bean Config`, `Transacao Controller Test & Related`, `ResultadoProcessamentoExtrato`, `Transactional`, `Extrato Repository Port & Related`, `StatusRevisaoTransacao`, `Transacao Cancelada Repository Port & Related`, `Tipo Job`, `TipoTransacao.java`, `ResumoPeriodo`, `SessaoToken`, `Status Extrato`, `ImportarExtratoUseCase.java`, `SessaoToken`?**
+  _High betweenness centrality (0.038) - this node is a cross-community bridge._
 - **Why does `ContaFinanceira` connect `Conta Financeira Test` to `Tipo Conta`, `Conta Financeira Controller Test`, `Categoria Repository Port & Related`, `Transactional`, `BuscarContaFinanceiraUseCase`, `StatusRevisaoTransacao`, `RemoverContaFinanceiraUseCase`, `Mock Mvc`, `TipoTransacao`, `Tipo Job`, `CriarTransacaoUseCaseTest.java`, `TipoTransacao.java`, `Notificacao`, `ResumoPeriodo`, `Conta Financeira Controller & Related`, `Status Extrato`, `ImportarExtratoUseCase.java`?**
-  _High betweenness centrality (0.031) - this node is a cross-community bridge._
-- **What connects `points`, `com.enterprise.gustadev:fintech_app`, `CREATE` to the rest of the system?**
-  _437 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _High betweenness centrality (0.028) - this node is a cross-community bridge._
+- **What connects `📁 Estrutura do repositório`, `⚙ Pré-requisitos`, `Opção A — tudo em Docker (recomendado)` to the rest of the system?**
+  _433 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Banco Controller Test & Related` be split into smaller, more focused modules?**
   _Cohesion score 0.05126050420168067 - nodes in this community are weakly interconnected._
 - **Should `Index & Related` be split into smaller, more focused modules?**

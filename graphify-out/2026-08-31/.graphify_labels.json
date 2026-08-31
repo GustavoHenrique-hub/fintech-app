@@ -210,14 +210,6 @@
   "208": ".criarNotificacaoUseCase",
   "209": "TipoTransacao.java",
   "210": "VincularBancoModal.jsx",
-  "211": "ExtratoRequestDTO.java",
-  "212": "EstornarTransacaoRequestDTO.java",
-  "213": "TransacaoRequestDTO.java",
-  "214": "Override",
-  "215": "Pattern",
-  "216": "Bean",
-  "217": "Configuration",
-  "218": "BeforeEach",
   "222": "application-hml.yaml Datasource Config",
   "223": "application-prd.yaml Datasource Config"
 }

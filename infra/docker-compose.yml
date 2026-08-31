@@ -139,7 +139,7 @@ services:
       # dentro da credencial, em vez de colar o valor na UI.
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
     ports:
-      - "${N8N_PORT:-5678}:5678"
+      - "${N8N_HOST_PORT:-5678}:5678"
     volumes:
       - n8n_data:/home/node/.n8n
       # Os 4 JSONs versionados ficam visíveis dentro do container em /workflows,
