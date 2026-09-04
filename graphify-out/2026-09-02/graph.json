@@ -4,234 +4,14 @@
   "graph": {},
   "nodes": [
     {
-      "label": "n8n-self-hosted-e-stack-docker.md",
-      "file_type": "document",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "docs_n8n_self_hosted_e_stack_docker",
-      "community": 26,
-      "norm_label": "n8n-self-hosted-e-stack-docker.md"
-    },
-    {
-      "label": "n8n sem o Cloud: self-hosted + stack Docker local",
-      "file_type": "document",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "docs_n8n_self_hosted_e_stack_docker_n8n_sem_o_cloud_self_hosted_stack_docker_local",
-      "community": 26,
-      "norm_label": "n8n sem o cloud: self-hosted + stack docker local"
-    },
-    {
-      "label": "Contexto",
-      "file_type": "document",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L11",
-      "_origin": "ast",
-      "id": "docs_n8n_self_hosted_e_stack_docker_contexto",
-      "community": 26,
-      "norm_label": "contexto"
-    },
-    {
-      "label": "1. Existe alternativa gratuita?",
-      "file_type": "document",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L25",
-      "_origin": "ast",
-      "id": "docs_n8n_self_hosted_e_stack_docker_1_existe_alternativa_gratuita",
-      "community": 26,
-      "norm_label": "1. existe alternativa gratuita?"
-    },
-    {
-      "label": "O self-hosted \u00e9 melhor para estes workflows, n\u00e3o s\u00f3 mais barato",
-      "file_type": "document",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L34",
-      "_origin": "ast",
-      "id": "docs_n8n_self_hosted_e_stack_docker_o_self_hosted_\u00e9_melhor_para_estes_workflows_n\u00e3o_s\u00f3_mais_barato",
-      "community": 26,
-      "norm_label": "o self-hosted e melhor para estes workflows, nao so mais barato"
-    },
-    {
-      "label": "Alternativas avaliadas e descartadas",
-      "file_type": "document",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L50",
-      "_origin": "ast",
-      "id": "docs_n8n_self_hosted_e_stack_docker_alternativas_avaliadas_e_descartadas",
-      "community": 26,
-      "norm_label": "alternativas avaliadas e descartadas"
-    },
-    {
-      "label": "A op\u00e7\u00e3o \"matar o n8n\" (adiada, n\u00e3o descartada)",
-      "file_type": "document",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L58",
-      "_origin": "ast",
-      "id": "docs_n8n_self_hosted_e_stack_docker_a_op\u00e7\u00e3o_matar_o_n8n_adiada_n\u00e3o_descartada",
-      "community": 26,
-      "norm_label": "a opcao \"matar o n8n\" (adiada, nao descartada)"
-    },
-    {
-      "label": "2. E hospedar no Heroku?",
-      "file_type": "document",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L76",
-      "_origin": "ast",
-      "id": "docs_n8n_self_hosted_e_stack_docker_2_e_hospedar_no_heroku",
-      "community": 26,
-      "norm_label": "2. e hospedar no heroku?"
-    },
-    {
-      "label": "N\u00e3o \u00e9 gr\u00e1tis",
-      "file_type": "document",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L84",
-      "_origin": "ast",
-      "id": "docs_n8n_self_hosted_e_stack_docker_n\u00e3o_\u00e9_gr\u00e1tis",
-      "community": 26,
-      "norm_label": "nao e gratis"
-    },
-    {
-      "label": "O bloqueio real",
-      "file_type": "document",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L96",
-      "_origin": "ast",
-      "id": "docs_n8n_self_hosted_e_stack_docker_o_bloqueio_real",
-      "community": 26,
-      "norm_label": "o bloqueio real"
-    },
-    {
-      "label": "Outras armadilhas",
-      "file_type": "document",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L109",
-      "_origin": "ast",
-      "id": "docs_n8n_self_hosted_e_stack_docker_outras_armadilhas",
-      "community": 26,
-      "norm_label": "outras armadilhas"
-    },
-    {
-      "label": "Se o objetivo for URL p\u00fablica gratuita",
-      "file_type": "document",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L121",
-      "_origin": "ast",
-      "id": "docs_n8n_self_hosted_e_stack_docker_se_o_objetivo_for_url_p\u00fablica_gratuita",
-      "community": 26,
-      "norm_label": "se o objetivo for url publica gratuita"
-    },
-    {
-      "label": "3. O que foi implementado",
-      "file_type": "document",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L135",
-      "_origin": "ast",
-      "id": "docs_n8n_self_hosted_e_stack_docker_3_o_que_foi_implementado",
-      "community": 26,
-      "norm_label": "3. o que foi implementado"
-    },
-    {
-      "label": "Tr\u00eas decis\u00f5es que n\u00e3o s\u00e3o cosm\u00e9ticas",
-      "file_type": "document",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L153",
-      "_origin": "ast",
-      "id": "docs_n8n_self_hosted_e_stack_docker_tr\u00eas_decis\u00f5es_que_n\u00e3o_s\u00e3o_cosm\u00e9ticas",
-      "community": 26,
-      "norm_label": "tres decisoes que nao sao cosmeticas"
-    },
-    {
-      "label": "Topologia",
-      "file_type": "document",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L171",
-      "_origin": "ast",
-      "id": "docs_n8n_self_hosted_e_stack_docker_topologia",
-      "community": 26,
-      "norm_label": "topologia"
-    },
-    {
-      "label": "Onde vai cada segredo",
-      "file_type": "document",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L184",
-      "_origin": "ast",
-      "id": "docs_n8n_self_hosted_e_stack_docker_onde_vai_cada_segredo",
-      "community": 26,
-      "norm_label": "onde vai cada segredo"
-    },
-    {
-      "label": "O que foi verificado",
-      "file_type": "document",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L199",
-      "_origin": "ast",
-      "id": "docs_n8n_self_hosted_e_stack_docker_o_que_foi_verificado",
-      "community": 26,
-      "norm_label": "o que foi verificado"
-    },
-    {
-      "label": "4. Pend\u00eancias conhecidas",
-      "file_type": "document",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L214",
-      "_origin": "ast",
-      "id": "docs_n8n_self_hosted_e_stack_docker_4_pend\u00eancias_conhecidas",
-      "community": 26,
-      "norm_label": "4. pendencias conhecidas"
-    },
-    {
-      "label": "HMAC do callback assinado com segredo vazio",
-      "file_type": "document",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L216",
-      "_origin": "ast",
-      "id": "docs_n8n_self_hosted_e_stack_docker_hmac_do_callback_assinado_com_segredo_vazio",
-      "community": 26,
-      "norm_label": "hmac do callback assinado com segredo vazio"
-    },
-    {
-      "label": "Churn do graphify no auto-commit",
-      "file_type": "document",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L229",
-      "_origin": "ast",
-      "id": "docs_n8n_self_hosted_e_stack_docker_churn_do_graphify_no_auto_commit",
-      "community": 26,
-      "norm_label": "churn do graphify no auto-commit"
-    },
-    {
-      "label": "Migrar o Core IA para o backend",
-      "file_type": "document",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L238",
-      "_origin": "ast",
-      "id": "docs_n8n_self_hosted_e_stack_docker_migrar_o_core_ia_para_o_backend",
-      "community": 26,
-      "norm_label": "migrar o core ia para o backend"
-    },
-    {
-      "label": "Refer\u00eancias",
-      "file_type": "document",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L244",
-      "_origin": "ast",
-      "id": "docs_n8n_self_hosted_e_stack_docker_refer\u00eancias",
-      "community": 26,
-      "norm_label": "referencias"
-    },
-    {
       "label": "README.md",
       "file_type": "document",
       "source_file": "README.md",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "readme",
       "community": 57,
-      "norm_label": "readme.md",
-      "id": "readme"
+      "norm_label": "readme.md"
     },
     {
       "label": "\ud83d\udcb8 FinTech App",
@@ -239,9 +19,9 @@
       "source_file": "README.md",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "readme_fintech_app",
       "community": 57,
-      "norm_label": "\ud83d\udcb8 fintech app",
-      "id": "readme_fintech_app"
+      "norm_label": "\ud83d\udcb8 fintech app"
     },
     {
       "label": "\ud83d\udcc1 Estrutura do reposit\u00f3rio",
@@ -249,9 +29,9 @@
       "source_file": "README.md",
       "source_location": "L14",
       "_origin": "ast",
+      "id": "readme_estrutura_do_reposit\u00f3rio",
       "community": 57,
-      "norm_label": "\ud83d\udcc1 estrutura do repositorio",
-      "id": "readme_estrutura_do_reposit\u00f3rio"
+      "norm_label": "\ud83d\udcc1 estrutura do repositorio"
     },
     {
       "label": "\u2699 Pr\u00e9-requisitos",
@@ -259,9 +39,9 @@
       "source_file": "README.md",
       "source_location": "L29",
       "_origin": "ast",
+      "id": "readme_pr\u00e9_requisitos",
       "community": 57,
-      "norm_label": "\u2699 pre-requisitos",
-      "id": "readme_pr\u00e9_requisitos"
+      "norm_label": "\u2699 pre-requisitos"
     },
     {
       "label": "\ud83d\ude80 Setup local",
@@ -269,9 +49,9 @@
       "source_file": "README.md",
       "source_location": "L43",
       "_origin": "ast",
+      "id": "readme_setup_local",
       "community": 57,
-      "norm_label": "\ud83d\ude80 setup local",
-      "id": "readme_setup_local"
+      "norm_label": "\ud83d\ude80 setup local"
     },
     {
       "label": "Op\u00e7\u00e3o A \u2014 tudo em Docker (recomendado)",
@@ -279,9 +59,9 @@
       "source_file": "README.md",
       "source_location": "L45",
       "_origin": "ast",
+      "id": "readme_op\u00e7\u00e3o_a_tudo_em_docker_recomendado",
       "community": 57,
-      "norm_label": "opcao a \u2014 tudo em docker (recomendado)",
-      "id": "readme_op\u00e7\u00e3o_a_tudo_em_docker_recomendado"
+      "norm_label": "opcao a \u2014 tudo em docker (recomendado)"
     },
     {
       "label": "Op\u00e7\u00e3o B \u2014 rodar na m\u00e1quina",
@@ -289,9 +69,9 @@
       "source_file": "README.md",
       "source_location": "L74",
       "_origin": "ast",
+      "id": "readme_op\u00e7\u00e3o_b_rodar_na_m\u00e1quina",
       "community": 57,
-      "norm_label": "opcao b \u2014 rodar na maquina",
-      "id": "readme_op\u00e7\u00e3o_b_rodar_na_m\u00e1quina"
+      "norm_label": "opcao b \u2014 rodar na maquina"
     },
     {
       "label": "\ud83d\udd11 Onde ficam as chaves e segredos",
@@ -299,9 +79,9 @@
       "source_file": "README.md",
       "source_location": "L95",
       "_origin": "ast",
+      "id": "readme_onde_ficam_as_chaves_e_segredos",
       "community": 57,
-      "norm_label": "\ud83d\udd11 onde ficam as chaves e segredos",
-      "id": "readme_onde_ficam_as_chaves_e_segredos"
+      "norm_label": "\ud83d\udd11 onde ficam as chaves e segredos"
     },
     {
       "label": "\ud83e\uddea Rodar os testes",
@@ -309,9 +89,9 @@
       "source_file": "README.md",
       "source_location": "L112",
       "_origin": "ast",
+      "id": "readme_rodar_os_testes",
       "community": 57,
-      "norm_label": "\ud83e\uddea rodar os testes",
-      "id": "readme_rodar_os_testes"
+      "norm_label": "\ud83e\uddea rodar os testes"
     },
     {
       "label": "\ud83d\udc33 Servi\u00e7os do Docker Compose",
@@ -319,9 +99,9 @@
       "source_file": "README.md",
       "source_location": "L126",
       "_origin": "ast",
+      "id": "readme_servi\u00e7os_do_docker_compose",
       "community": 57,
-      "norm_label": "\ud83d\udc33 servicos do docker compose",
-      "id": "readme_servi\u00e7os_do_docker_compose"
+      "norm_label": "\ud83d\udc33 servicos do docker compose"
     },
     {
       "label": "\ud83c\udf3f Estrat\u00e9gia de branches",
@@ -329,9 +109,9 @@
       "source_file": "README.md",
       "source_location": "L139",
       "_origin": "ast",
+      "id": "readme_estrat\u00e9gia_de_branches",
       "community": 57,
-      "norm_label": "\ud83c\udf3f estrategia de branches",
-      "id": "readme_estrat\u00e9gia_de_branches"
+      "norm_label": "\ud83c\udf3f estrategia de branches"
     },
     {
       "label": "\ud83d\udce6 Tecnologias utilizadas",
@@ -339,9 +119,9 @@
       "source_file": "README.md",
       "source_location": "L152",
       "_origin": "ast",
+      "id": "readme_tecnologias_utilizadas",
       "community": 57,
-      "norm_label": "\ud83d\udce6 tecnologias utilizadas",
-      "id": "readme_tecnologias_utilizadas"
+      "norm_label": "\ud83d\udce6 tecnologias utilizadas"
     },
     {
       "label": "\ud83d\udc65 Time",
@@ -349,9 +129,9 @@
       "source_file": "README.md",
       "source_location": "L176",
       "_origin": "ast",
+      "id": "readme_time",
       "community": 57,
-      "norm_label": "\ud83d\udc65 time",
-      "id": "readme_time"
+      "norm_label": "\ud83d\udc65 time"
     },
     {
       "label": "docker-local.md",
@@ -359,9 +139,9 @@
       "source_file": "docs/docker-local.md",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "docs_docker_local",
       "community": 57,
-      "norm_label": "docker-local.md",
-      "id": "docs_docker_local"
+      "norm_label": "docker-local.md"
     },
     {
       "label": "Stack local em Docker \u2014 backend + frontend + banco + n8n",
@@ -369,9 +149,9 @@
       "source_file": "docs/docker-local.md",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "docs_docker_local_stack_local_em_docker_backend_frontend_banco_n8n",
       "community": 57,
-      "norm_label": "stack local em docker \u2014 backend + frontend + banco + n8n",
-      "id": "docs_docker_local_stack_local_em_docker_backend_frontend_banco_n8n"
+      "norm_label": "stack local em docker \u2014 backend + frontend + banco + n8n"
     },
     {
       "label": "Por que isso resolve o problema do n8n",
@@ -379,9 +159,9 @@
       "source_file": "docs/docker-local.md",
       "source_location": "L8",
       "_origin": "ast",
+      "id": "docs_docker_local_por_que_isso_resolve_o_problema_do_n8n",
       "community": 57,
-      "norm_label": "por que isso resolve o problema do n8n",
-      "id": "docs_docker_local_por_que_isso_resolve_o_problema_do_n8n"
+      "norm_label": "por que isso resolve o problema do n8n"
     },
     {
       "label": "Os servi\u00e7os",
@@ -389,9 +169,9 @@
       "source_file": "docs/docker-local.md",
       "source_location": "L19",
       "_origin": "ast",
+      "id": "docs_docker_local_os_servi\u00e7os",
       "community": 57,
-      "norm_label": "os servicos",
-      "id": "docs_docker_local_os_servi\u00e7os"
+      "norm_label": "os servicos"
     },
     {
       "label": "Quem enxerga quem",
@@ -399,9 +179,9 @@
       "source_file": "docs/docker-local.md",
       "source_location": "L32",
       "_origin": "ast",
+      "id": "docs_docker_local_quem_enxerga_quem",
       "community": 57,
-      "norm_label": "quem enxerga quem",
-      "id": "docs_docker_local_quem_enxerga_quem"
+      "norm_label": "quem enxerga quem"
     },
     {
       "label": "Subir",
@@ -409,9 +189,9 @@
       "source_file": "docs/docker-local.md",
       "source_location": "L58",
       "_origin": "ast",
+      "id": "docs_docker_local_subir",
       "community": 57,
-      "norm_label": "subir",
-      "id": "docs_docker_local_subir"
+      "norm_label": "subir"
     },
     {
       "label": "Importar os workflows no n8n",
@@ -419,9 +199,9 @@
       "source_file": "docs/docker-local.md",
       "source_location": "L85",
       "_origin": "ast",
+      "id": "docs_docker_local_importar_os_workflows_no_n8n",
       "community": 57,
-      "norm_label": "importar os workflows no n8n",
-      "id": "docs_docker_local_importar_os_workflows_no_n8n"
+      "norm_label": "importar os workflows no n8n"
     },
     {
       "label": "Onde vai cada segredo",
@@ -429,9 +209,9 @@
       "source_file": "docs/docker-local.md",
       "source_location": "L108",
       "_origin": "ast",
+      "id": "docs_docker_local_onde_vai_cada_segredo",
       "community": 57,
-      "norm_label": "onde vai cada segredo",
-      "id": "docs_docker_local_onde_vai_cada_segredo"
+      "norm_label": "onde vai cada segredo"
     },
     {
       "label": "Pend\u00eancia conhecida: HMAC do callback",
@@ -439,9 +219,9 @@
       "source_file": "docs/docker-local.md",
       "source_location": "L125",
       "_origin": "ast",
+      "id": "docs_docker_local_pend\u00eancia_conhecida_hmac_do_callback",
       "community": 57,
-      "norm_label": "pendencia conhecida: hmac do callback",
-      "id": "docs_docker_local_pend\u00eancia_conhecida_hmac_do_callback"
+      "norm_label": "pendencia conhecida: hmac do callback"
     },
     {
       "label": "Desenvolver com hot-reload",
@@ -449,9 +229,9 @@
       "source_file": "docs/docker-local.md",
       "source_location": "L141",
       "_origin": "ast",
+      "id": "docs_docker_local_desenvolver_com_hot_reload",
       "community": 57,
-      "norm_label": "desenvolver com hot-reload",
-      "id": "docs_docker_local_desenvolver_com_hot_reload"
+      "norm_label": "desenvolver com hot-reload"
     },
     {
       "label": "Banco de dados",
@@ -459,9 +239,9 @@
       "source_file": "docs/docker-local.md",
       "source_location": "L155",
       "_origin": "ast",
+      "id": "docs_docker_local_banco_de_dados",
       "community": 57,
-      "norm_label": "banco de dados",
-      "id": "docs_docker_local_banco_de_dados"
+      "norm_label": "banco de dados"
     },
     {
       "label": "Problemas comuns",
@@ -469,9 +249,9 @@
       "source_file": "docs/docker-local.md",
       "source_location": "L168",
       "_origin": "ast",
+      "id": "docs_docker_local_problemas_comuns",
       "community": 57,
-      "norm_label": "problemas comuns",
-      "id": "docs_docker_local_problemas_comuns"
+      "norm_label": "problemas comuns"
     },
     {
       "label": "auto-commit.ps1",
@@ -479,9 +259,9 @@
       "source_file": "scripts/auto-commit.ps1",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "scripts_auto_commit",
       "community": 100,
-      "norm_label": "auto-commit.ps1",
-      "id": "scripts_auto_commit"
+      "norm_label": "auto-commit.ps1"
     },
     {
       "label": "Get-CommitType()",
@@ -489,9 +269,9 @@
       "source_file": "scripts/auto-commit.ps1",
       "source_location": "L36",
       "_origin": "ast",
+      "id": "scripts_auto_commit_get_committype",
       "community": 100,
-      "norm_label": "get-committype()",
-      "id": "scripts_auto_commit_get_committype"
+      "norm_label": "get-committype()"
     },
     {
       "label": "script.js",
@@ -593,7 +373,7 @@
         "kind": "file"
       },
       "_origin": "ast",
-      "community": 35,
+      "community": 204,
       "norm_label": "mvnw",
       "id": "backend_fintech_app_mvnw"
     },
@@ -607,7 +387,7 @@
         "kind": "bash_entrypoint"
       },
       "_origin": "ast",
-      "community": 35,
+      "community": 204,
       "norm_label": "mvnw script",
       "id": "backend_fintech_app_mvnw__entry"
     },
@@ -621,7 +401,7 @@
         "kind": "bash_function"
       },
       "_origin": "ast",
-      "community": 35,
+      "community": 204,
       "norm_label": "native_path()",
       "id": "backend_fintech_app_mvnw_native_path"
     },
@@ -635,7 +415,7 @@
         "kind": "bash_function"
       },
       "_origin": "ast",
-      "community": 35,
+      "community": 204,
       "norm_label": "set_java_home()",
       "id": "backend_fintech_app_mvnw_set_java_home"
     },
@@ -649,7 +429,7 @@
         "kind": "bash_function"
       },
       "_origin": "ast",
-      "community": 35,
+      "community": 204,
       "norm_label": "hash_string()",
       "id": "backend_fintech_app_mvnw_hash_string"
     },
@@ -663,7 +443,7 @@
         "kind": "bash_function"
       },
       "_origin": "ast",
-      "community": 35,
+      "community": 204,
       "norm_label": "verbose()",
       "id": "backend_fintech_app_mvnw_verbose"
     },
@@ -677,7 +457,7 @@
         "kind": "bash_function"
       },
       "_origin": "ast",
-      "community": 35,
+      "community": 204,
       "norm_label": "die()",
       "id": "backend_fintech_app_mvnw_die"
     },
@@ -705,7 +485,7 @@
         "kind": "bash_function"
       },
       "_origin": "ast",
-      "community": 35,
+      "community": 204,
       "norm_label": "exec_maven()",
       "id": "backend_fintech_app_mvnw_exec_maven"
     },
@@ -719,7 +499,7 @@
         "kind": "bash_function"
       },
       "_origin": "ast",
-      "community": 35,
+      "community": 204,
       "norm_label": "clean()",
       "id": "backend_fintech_app_mvnw_clean"
     },
@@ -1392,7 +1172,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/categoria/dto/CategoriaResponseDTO.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 15,
+      "community": 42,
       "norm_label": "categoriaresponsedto.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_categoria_dto_categoriaresponsedto"
     },
@@ -1682,7 +1462,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/contafinanceira/ContaFinanceiraController.java",
       "source_location": "L43",
       "_origin": "ast",
-      "community": 32,
+      "community": 20,
       "norm_label": ".contafinanceiracontroller()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_contafinanceira_contafinanceiracontroller_contafinanceiracontroller_contafinanceiracontroller"
     },
@@ -1922,7 +1702,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/economia/EconomiaController.java",
       "source_location": "L39",
       "_origin": "ast",
-      "community": 13,
+      "community": 32,
       "norm_label": ".economiacontroller()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_economia_economiacontroller_economiacontroller_economiacontroller"
     },
@@ -2642,7 +2422,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/extrato/dto/ExtratoResponseDTO.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 7,
+      "community": 16,
       "norm_label": "extratoresponsedto.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_extrato_dto_extratoresponsedto"
     },
@@ -3362,7 +3142,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/TransacaoController.java",
       "source_location": "L42",
       "_origin": "ast",
-      "community": 18,
+      "community": 4,
       "norm_label": ".transacaocontroller()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_transacaocontroller_transacaocontroller_transacaocontroller"
     },
@@ -3542,7 +3322,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/dto/ResumoPeriodoResponseDTO.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 82,
+      "community": 197,
       "norm_label": "resumoperiodoresponsedto.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_resumoperiodoresponsedto"
     },
@@ -3552,7 +3332,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/dto/ResumoPeriodoResponseDTO.java",
       "source_location": "L8",
       "_origin": "ast",
-      "community": 82,
+      "community": 197,
       "norm_label": "resumoperiodoresponsedto",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_resumoperiodoresponsedto_resumoperiodoresponsedto"
     },
@@ -3562,7 +3342,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/dto/ResumoPeriodoResponseDTO.java",
       "source_location": "L17",
       "_origin": "ast",
-      "community": 82,
+      "community": 197,
       "norm_label": ".fromdomain()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_resumoperiodoresponsedto_resumoperiodoresponsedto_fromdomain"
     },
@@ -3572,7 +3352,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/dto/RevisarTransacaoRequestDTO.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 200,
+      "community": 206,
       "norm_label": "revisartransacaorequestdto.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_revisartransacaorequestdto"
     },
@@ -3582,7 +3362,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/dto/RevisarTransacaoRequestDTO.java",
       "source_location": "L13",
       "_origin": "ast",
-      "community": 18,
+      "community": 206,
       "norm_label": "revisartransacaorequestdto",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_revisartransacaorequestdto_revisartransacaorequestdto"
     },
@@ -3592,7 +3372,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/dto/RevisarTransacaoRequestDTO.java",
       "source_location": "L19",
       "_origin": "ast",
-      "community": 18,
+      "community": 206,
       "norm_label": ".destinodomain()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_revisartransacaorequestdto_revisartransacaorequestdto_destinodomain"
     },
@@ -3622,7 +3402,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/dto/TransacaoResponseDTO.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 18,
+      "community": 82,
       "norm_label": "transacaoresponsedto.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_transacaoresponsedto"
     },
@@ -3642,7 +3422,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/transacao/dto/TransacaoResponseDTO.java",
       "source_location": "L28",
       "_origin": "ast",
-      "community": 18,
+      "community": 1,
       "norm_label": ".fromdomain()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_transacao_dto_transacaoresponsedto_transacaoresponsedto_fromdomain"
     },
@@ -3882,7 +3662,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/usuario/UsuarioController.java",
       "source_location": "L42",
       "_origin": "ast",
-      "community": 3,
+      "community": 181,
       "norm_label": ".usuariocontroller()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_usuario_usuariocontroller_usuariocontroller_usuariocontroller"
     },
@@ -4072,7 +3852,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/usuario/dto/UsuarioResponseDTO.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 6,
+      "community": 104,
       "norm_label": "usuarioresponsedto.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_adapters_in_web_usuario_dto_usuarioresponsedto"
     },
@@ -4102,7 +3882,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/auth/usecase/LoginUseCase.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 182,
+      "community": 181,
       "norm_label": "loginusecase.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_auth_usecase_loginusecase"
     },
@@ -4302,7 +4082,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/categoria/usecase/BuscarCategoriaUseCase.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 15,
+      "community": 202,
       "norm_label": "buscarcategoriausecase.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_categoria_usecase_buscarcategoriausecase"
     },
@@ -4312,7 +4092,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/categoria/usecase/BuscarCategoriaUseCase.java",
       "source_location": "L8",
       "_origin": "ast",
-      "community": 15,
+      "community": 202,
       "norm_label": "buscarcategoriausecase",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_categoria_usecase_buscarcategoriausecase_buscarcategoriausecase"
     },
@@ -4322,7 +4102,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/categoria/usecase/BuscarCategoriaUseCase.java",
       "source_location": "L12",
       "_origin": "ast",
-      "community": 15,
+      "community": 202,
       "norm_label": ".buscarcategoriausecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_categoria_usecase_buscarcategoriausecase_buscarcategoriausecase_buscarcategoriausecase"
     },
@@ -4332,7 +4112,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/categoria/usecase/BuscarCategoriaUseCase.java",
       "source_location": "L16",
       "_origin": "ast",
-      "community": 15,
+      "community": 202,
       "norm_label": ".executar()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_categoria_usecase_buscarcategoriausecase_buscarcategoriausecase_executar"
     },
@@ -4502,7 +4282,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/contafinanceira/usecase/BuscarContaFinanceiraUseCase.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 32,
+      "community": 199,
       "norm_label": "buscarcontafinanceirausecase.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_usecase_buscarcontafinanceirausecase"
     },
@@ -4512,7 +4292,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/contafinanceira/usecase/BuscarContaFinanceiraUseCase.java",
       "source_location": "L8",
       "_origin": "ast",
-      "community": 32,
+      "community": 199,
       "norm_label": "buscarcontafinanceirausecase",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_usecase_buscarcontafinanceirausecase_buscarcontafinanceirausecase"
     },
@@ -4522,7 +4302,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/contafinanceira/usecase/BuscarContaFinanceiraUseCase.java",
       "source_location": "L12",
       "_origin": "ast",
-      "community": 32,
+      "community": 199,
       "norm_label": ".buscarcontafinanceirausecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_usecase_buscarcontafinanceirausecase_buscarcontafinanceirausecase_buscarcontafinanceirausecase"
     },
@@ -4532,7 +4312,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/contafinanceira/usecase/BuscarContaFinanceiraUseCase.java",
       "source_location": "L16",
       "_origin": "ast",
-      "community": 32,
+      "community": 199,
       "norm_label": ".executar()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_usecase_buscarcontafinanceirausecase_buscarcontafinanceirausecase_executar"
     },
@@ -4542,7 +4322,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/contafinanceira/usecase/CriarContaFinanceiraUseCase.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 32,
+      "community": 47,
       "norm_label": "criarcontafinanceirausecase.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_usecase_criarcontafinanceirausecase"
     },
@@ -4552,7 +4332,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/contafinanceira/usecase/CriarContaFinanceiraUseCase.java",
       "source_location": "L6",
       "_origin": "ast",
-      "community": 32,
+      "community": 47,
       "norm_label": "criarcontafinanceirausecase",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_usecase_criarcontafinanceirausecase_criarcontafinanceirausecase"
     },
@@ -4562,7 +4342,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/contafinanceira/usecase/CriarContaFinanceiraUseCase.java",
       "source_location": "L10",
       "_origin": "ast",
-      "community": 32,
+      "community": 47,
       "norm_label": ".criarcontafinanceirausecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_usecase_criarcontafinanceirausecase_criarcontafinanceirausecase_criarcontafinanceirausecase"
     },
@@ -4572,7 +4352,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/contafinanceira/usecase/CriarContaFinanceiraUseCase.java",
       "source_location": "L14",
       "_origin": "ast",
-      "community": 32,
+      "community": 47,
       "norm_label": ".executar()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_usecase_criarcontafinanceirausecase_criarcontafinanceirausecase_executar"
     },
@@ -4582,7 +4362,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/contafinanceira/usecase/ListarContasFinanceirasUseCase.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 32,
+      "community": 47,
       "norm_label": "listarcontasfinanceirasusecase.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_usecase_listarcontasfinanceirasusecase"
     },
@@ -4592,7 +4372,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/contafinanceira/usecase/ListarContasFinanceirasUseCase.java",
       "source_location": "L8",
       "_origin": "ast",
-      "community": 32,
+      "community": 47,
       "norm_label": "listarcontasfinanceirasusecase",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_usecase_listarcontasfinanceirasusecase_listarcontasfinanceirasusecase"
     },
@@ -4602,7 +4382,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/contafinanceira/usecase/ListarContasFinanceirasUseCase.java",
       "source_location": "L12",
       "_origin": "ast",
-      "community": 32,
+      "community": 47,
       "norm_label": ".listarcontasfinanceirasusecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_usecase_listarcontasfinanceirasusecase_listarcontasfinanceirasusecase_listarcontasfinanceirasusecase"
     },
@@ -4612,7 +4392,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/contafinanceira/usecase/ListarContasFinanceirasUseCase.java",
       "source_location": "L16",
       "_origin": "ast",
-      "community": 32,
+      "community": 47,
       "norm_label": ".executar()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_usecase_listarcontasfinanceirasusecase_listarcontasfinanceirasusecase_executar"
     },
@@ -4632,7 +4412,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/contafinanceira/usecase/RemoverContaFinanceiraUseCase.java",
       "source_location": "L8",
       "_origin": "ast",
-      "community": 32,
+      "community": 20,
       "norm_label": "removercontafinanceirausecase",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_usecase_removercontafinanceirausecase_removercontafinanceirausecase"
     },
@@ -4642,7 +4422,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/contafinanceira/usecase/RemoverContaFinanceiraUseCase.java",
       "source_location": "L12",
       "_origin": "ast",
-      "community": 32,
+      "community": 20,
       "norm_label": ".removercontafinanceirausecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_usecase_removercontafinanceirausecase_removercontafinanceirausecase_removercontafinanceirausecase"
     },
@@ -4672,7 +4452,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/economia/usecase/ListarMovimentacoesEconomiaUseCase.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 13,
+      "community": 32,
       "norm_label": "listarmovimentacoeseconomiausecase.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_economia_usecase_listarmovimentacoeseconomiausecase"
     },
@@ -4682,7 +4462,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/economia/usecase/ListarMovimentacoesEconomiaUseCase.java",
       "source_location": "L8",
       "_origin": "ast",
-      "community": 13,
+      "community": 32,
       "norm_label": "listarmovimentacoeseconomiausecase",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_economia_usecase_listarmovimentacoeseconomiausecase_listarmovimentacoeseconomiausecase"
     },
@@ -4692,7 +4472,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/economia/usecase/ListarMovimentacoesEconomiaUseCase.java",
       "source_location": "L12",
       "_origin": "ast",
-      "community": 13,
+      "community": 32,
       "norm_label": ".listarmovimentacoeseconomiausecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_economia_usecase_listarmovimentacoeseconomiausecase_listarmovimentacoeseconomiausecase_listarmovimentacoeseconomiausecase"
     },
@@ -4702,7 +4482,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/economia/usecase/ListarMovimentacoesEconomiaUseCase.java",
       "source_location": "L16",
       "_origin": "ast",
-      "community": 13,
+      "community": 32,
       "norm_label": ".executar()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_economia_usecase_listarmovimentacoeseconomiausecase_listarmovimentacoeseconomiausecase_executar"
     },
@@ -4752,7 +4532,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 39,
+      "community": 32,
       "norm_label": "transactional",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_economia_usecase_registrarmovimentacaoeconomiausecase_java_transactional"
     },
@@ -4852,7 +4632,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/DetectorFormatoExtrato.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 177,
+      "community": 7,
       "norm_label": "detectorformatoextrato.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_detectorformatoextrato"
     },
@@ -4862,7 +4642,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/DetectorFormatoExtrato.java",
       "source_location": "L6",
       "_origin": "ast",
-      "community": 177,
+      "community": 7,
       "norm_label": "detectorformatoextrato",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_detectorformatoextrato_detectorformatoextrato"
     },
@@ -4872,7 +4652,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/DetectorFormatoExtrato.java",
       "source_location": "L8",
       "_origin": "ast",
-      "community": 177,
+      "community": 7,
       "norm_label": ".detectorformatoextrato()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_detectorformatoextrato_detectorformatoextrato_detectorformatoextrato"
     },
@@ -4882,7 +4662,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/DetectorFormatoExtrato.java",
       "source_location": "L10",
       "_origin": "ast",
-      "community": 177,
+      "community": 7,
       "norm_label": ".detectar()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_detectorformatoextrato_detectorformatoextrato_detectar"
     },
@@ -4892,7 +4672,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/DetectorFormatoExtrato.java",
       "source_location": "L24",
       "_origin": "ast",
-      "community": 177,
+      "community": 7,
       "norm_label": ".extensao()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_detectorformatoextrato_detectorformatoextrato_extensao"
     },
@@ -4902,7 +4682,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/ExtratoParser.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 35,
+      "community": 105,
       "norm_label": "extratoparser.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_extratoparser"
     },
@@ -4912,7 +4692,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/ExtratoParser.java",
       "source_location": "L7",
       "_origin": "ast",
-      "community": 24,
+      "community": 105,
       "norm_label": "extratoparser",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_extratoparser_extratoparser"
     },
@@ -4922,7 +4702,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/ExtratoParser.java",
       "source_location": "L9",
       "_origin": "ast",
-      "community": 35,
+      "community": 105,
       "norm_label": ".suporta()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_extratoparser_extratoparser_suporta"
     },
@@ -5022,7 +4802,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/PdfExtratoParser.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 35,
+      "community": 105,
       "norm_label": "pdfextratoparser.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_pdfextratoparser"
     },
@@ -5032,7 +4812,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/PdfExtratoParser.java",
       "source_location": "L24",
       "_origin": "ast",
-      "community": 35,
+      "community": 105,
       "norm_label": "pdfextratoparser",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_pdfextratoparser_pdfextratoparser"
     },
@@ -5042,7 +4822,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 35,
+      "community": 105,
       "norm_label": "component",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_pdfextratoparser_java_component"
     },
@@ -5052,7 +4832,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 35,
+      "community": 105,
       "norm_label": "pattern",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_pdfextratoparser_java_pattern"
     },
@@ -5062,7 +4842,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/PdfExtratoParser.java",
       "source_location": "L30",
       "_origin": "ast",
-      "community": 35,
+      "community": 105,
       "norm_label": ".suporta()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_pdfextratoparser_pdfextratoparser_suporta"
     },
@@ -5072,7 +4852,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 35,
+      "community": 105,
       "norm_label": "override",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_pdfextratoparser_java_override"
     },
@@ -5092,7 +4872,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/XlsExtratoParser.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 35,
+      "community": 194,
       "norm_label": "xlsextratoparser.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_xlsextratoparser"
     },
@@ -5102,7 +4882,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/XlsExtratoParser.java",
       "source_location": "L23",
       "_origin": "ast",
-      "community": 35,
+      "community": 194,
       "norm_label": "xlsextratoparser",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_xlsextratoparser_xlsextratoparser"
     },
@@ -5112,7 +4892,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 35,
+      "community": 194,
       "norm_label": "component",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_xlsextratoparser_java_component"
     },
@@ -5122,7 +4902,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/XlsExtratoParser.java",
       "source_location": "L26",
       "_origin": "ast",
-      "community": 35,
+      "community": 194,
       "norm_label": ".suporta()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_xlsextratoparser_xlsextratoparser_suporta"
     },
@@ -5132,7 +4912,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 35,
+      "community": 194,
       "norm_label": "override",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_xlsextratoparser_java_override"
     },
@@ -5142,7 +4922,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/XlsExtratoParser.java",
       "source_location": "L31",
       "_origin": "ast",
-      "community": 35,
+      "community": 194,
       "norm_label": ".parsear()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_xlsextratoparser_xlsextratoparser_parsear"
     },
@@ -5152,7 +4932,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/XlsExtratoParser.java",
       "source_location": "L50",
       "_origin": "ast",
-      "community": 35,
+      "community": 194,
       "norm_label": ".interpretar()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_xlsextratoparser_xlsextratoparser_interpretar"
     },
@@ -5162,7 +4942,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 35,
+      "community": 194,
       "norm_label": "row",
       "id": "row"
     },
@@ -5172,7 +4952,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/XlsExtratoParser.java",
       "source_location": "L70",
       "_origin": "ast",
-      "community": 35,
+      "community": 194,
       "norm_label": ".lerdata()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_xlsextratoparser_xlsextratoparser_lerdata"
     },
@@ -5182,7 +4962,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 35,
+      "community": 194,
       "norm_label": "cell",
       "id": "cell"
     },
@@ -5192,7 +4972,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/XlsExtratoParser.java",
       "source_location": "L78",
       "_origin": "ast",
-      "community": 35,
+      "community": 194,
       "norm_label": ".lervalor()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_xlsextratoparser_xlsextratoparser_lervalor"
     },
@@ -5202,7 +4982,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/XlsExtratoParser.java",
       "source_location": "L86",
       "_origin": "ast",
-      "community": 35,
+      "community": 194,
       "norm_label": ".lertexto()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_xlsextratoparser_xlsextratoparser_lertexto"
     },
@@ -5302,7 +5082,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/usecase/CatalogoCategoriasImportacao.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 200,
+      "community": 15,
       "norm_label": "catalogocategoriasimportacao.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_usecase_catalogocategoriasimportacao"
     },
@@ -5312,7 +5092,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/usecase/CatalogoCategoriasImportacao.java",
       "source_location": "L25",
       "_origin": "ast",
-      "community": 105,
+      "community": 15,
       "norm_label": "catalogocategoriasimportacao",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_usecase_catalogocategoriasimportacao_catalogocategoriasimportacao"
     },
@@ -5322,7 +5102,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/usecase/CatalogoCategoriasImportacao.java",
       "source_location": "L30",
       "_origin": "ast",
-      "community": 105,
+      "community": 15,
       "norm_label": ".catalogocategoriasimportacao()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_usecase_catalogocategoriasimportacao_catalogocategoriasimportacao_catalogocategoriasimportacao"
     },
@@ -5332,7 +5112,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/usecase/CatalogoCategoriasImportacao.java",
       "source_location": "L34",
       "_origin": "ast",
-      "community": 105,
+      "community": 15,
       "norm_label": ".listar()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_usecase_catalogocategoriasimportacao_catalogocategoriasimportacao_listar"
     },
@@ -5342,7 +5122,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/usecase/CatalogoCategoriasImportacao.java",
       "source_location": "L38",
       "_origin": "ast",
-      "community": 105,
+      "community": 15,
       "norm_label": ".carregar()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_usecase_catalogocategoriasimportacao_catalogocategoriasimportacao_carregar"
     },
@@ -5352,7 +5132,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/usecase/CatalogoCategoriasImportacao.java",
       "source_location": "L47",
       "_origin": "ast",
-      "community": 105,
+      "community": 15,
       "norm_label": ".fallback()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_usecase_catalogocategoriasimportacao_catalogocategoriasimportacao_fallback"
     },
@@ -5362,7 +5142,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/usecase/CatalogoCategoriasImportacao.java",
       "source_location": "L62",
       "_origin": "ast",
-      "community": 105,
+      "community": 15,
       "norm_label": ".pornomesugerido()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_usecase_catalogocategoriasimportacao_catalogocategoriasimportacao_pornomesugerido"
     },
@@ -5372,7 +5152,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/usecase/CatalogoCategoriasImportacao.java",
       "source_location": "L75",
       "_origin": "ast",
-      "community": 105,
+      "community": 15,
       "norm_label": ".normalizar()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_usecase_catalogocategoriasimportacao_catalogocategoriasimportacao_normalizar"
     },
@@ -5422,7 +5202,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/usecase/ImportarExtratoUseCase.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 24,
+      "community": 7,
       "norm_label": "importarextratousecase.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_usecase_importarextratousecase"
     },
@@ -5532,7 +5312,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/usecase/RegistrarResultadoExtratoUseCase.java",
       "source_location": "L35",
       "_origin": "ast",
-      "community": 24,
+      "community": 200,
       "norm_label": "registrarresultadoextratousecase",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_usecase_registrarresultadoextratousecase_registrarresultadoextratousecase"
     },
@@ -5552,7 +5332,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/usecase/RegistrarResultadoExtratoUseCase.java",
       "source_location": "L44",
       "_origin": "ast",
-      "community": 24,
+      "community": 200,
       "norm_label": ".registrarresultadoextratousecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_usecase_registrarresultadoextratousecase_registrarresultadoextratousecase_registrarresultadoextratousecase"
     },
@@ -5562,7 +5342,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/usecase/RegistrarResultadoExtratoUseCase.java",
       "source_location": "L54",
       "_origin": "ast",
-      "community": 105,
+      "community": 148,
       "norm_label": ".executar()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_usecase_registrarresultadoextratousecase_registrarresultadoextratousecase_executar"
     },
@@ -5572,7 +5352,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 105,
+      "community": 148,
       "norm_label": "transactional",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_usecase_registrarresultadoextratousecase_java_transactional"
     },
@@ -5582,7 +5362,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/usecase/RegistrarResultadoExtratoUseCase.java",
       "source_location": "L124",
       "_origin": "ast",
-      "community": 105,
+      "community": 148,
       "norm_label": ".statusreportado()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_extrato_usecase_registrarresultadoextratousecase_registrarresultadoextratousecase_statusreportado"
     },
@@ -5882,7 +5662,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/BuscarResumoPeriodoUseCase.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 82,
+      "community": 197,
       "norm_label": "buscarresumoperiodousecase.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumoperiodousecase"
     },
@@ -5892,7 +5672,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/BuscarResumoPeriodoUseCase.java",
       "source_location": "L8",
       "_origin": "ast",
-      "community": 82,
+      "community": 197,
       "norm_label": "buscarresumoperiodousecase",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumoperiodousecase_buscarresumoperiodousecase"
     },
@@ -5902,7 +5682,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/BuscarResumoPeriodoUseCase.java",
       "source_location": "L12",
       "_origin": "ast",
-      "community": 82,
+      "community": 197,
       "norm_label": ".buscarresumoperiodousecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumoperiodousecase_buscarresumoperiodousecase_buscarresumoperiodousecase"
     },
@@ -5912,7 +5692,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/BuscarResumoPeriodoUseCase.java",
       "source_location": "L16",
       "_origin": "ast",
-      "community": 82,
+      "community": 197,
       "norm_label": ".executar()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_buscarresumoperiodousecase_buscarresumoperiodousecase_executar"
     },
@@ -5962,7 +5742,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/ConfirmarRevisaoTransacaoUseCase.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 200,
+      "community": 32,
       "norm_label": "confirmarrevisaotransacaousecase.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_confirmarrevisaotransacaousecase"
     },
@@ -5972,7 +5752,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/ConfirmarRevisaoTransacaoUseCase.java",
       "source_location": "L44",
       "_origin": "ast",
-      "community": 18,
+      "community": 209,
       "norm_label": "confirmarrevisaotransacaousecase",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_confirmarrevisaotransacaousecase_confirmarrevisaotransacaousecase"
     },
@@ -6032,7 +5812,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/ConfirmarRevisaoTransacaoUseCase.java",
       "source_location": "L160",
       "_origin": "ast",
-      "community": 200,
+      "community": 209,
       "norm_label": ".resolvercategoria()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_confirmarrevisaotransacaousecase_confirmarrevisaotransacaousecase_resolvercategoria"
     },
@@ -6042,7 +5822,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/ConfirmarRevisaoTransacaoUseCase.java",
       "source_location": "L180",
       "_origin": "ast",
-      "community": 200,
+      "community": 209,
       "norm_label": ".compativel()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_confirmarrevisaotransacaousecase_confirmarrevisaotransacaousecase_compativel"
     },
@@ -6072,7 +5852,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/CriarTransacaoUseCase.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 200,
+      "community": 179,
       "norm_label": "criartransacaousecase.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_criartransacaousecase"
     },
@@ -6082,7 +5862,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/CriarTransacaoUseCase.java",
       "source_location": "L13",
       "_origin": "ast",
-      "community": 18,
+      "community": 4,
       "norm_label": "criartransacaousecase",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_criartransacaousecase_criartransacaousecase"
     },
@@ -6092,7 +5872,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/CriarTransacaoUseCase.java",
       "source_location": "L19",
       "_origin": "ast",
-      "community": 18,
+      "community": 4,
       "norm_label": ".criartransacaousecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_criartransacaousecase_criartransacaousecase_criartransacaousecase"
     },
@@ -6102,7 +5882,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/CriarTransacaoUseCase.java",
       "source_location": "L27",
       "_origin": "ast",
-      "community": 200,
+      "community": 202,
       "norm_label": ".executar()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_criartransacaousecase_criartransacaousecase_executar"
     },
@@ -6112,7 +5892,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 200,
+      "community": 202,
       "norm_label": "transactional",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_criartransacaousecase_java_transactional"
     },
@@ -6122,7 +5902,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/EstornarTransacaoUseCase.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 200,
+      "community": 179,
       "norm_label": "estornartransacaousecase.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_estornartransacaousecase"
     },
@@ -6132,7 +5912,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/EstornarTransacaoUseCase.java",
       "source_location": "L11",
       "_origin": "ast",
-      "community": 18,
+      "community": 4,
       "norm_label": "estornartransacaousecase",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_estornartransacaousecase_estornartransacaousecase"
     },
@@ -6142,7 +5922,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/EstornarTransacaoUseCase.java",
       "source_location": "L16",
       "_origin": "ast",
-      "community": 18,
+      "community": 4,
       "norm_label": ".estornartransacaousecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_estornartransacaousecase_estornartransacaousecase_estornartransacaousecase"
     },
@@ -6152,7 +5932,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/EstornarTransacaoUseCase.java",
       "source_location": "L22",
       "_origin": "ast",
-      "community": 209,
+      "community": 82,
       "norm_label": ".executar()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_estornartransacaousecase_estornartransacaousecase_executar"
     },
@@ -6162,7 +5942,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 209,
+      "community": 82,
       "norm_label": "transactional",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_estornartransacaousecase_java_transactional"
     },
@@ -6182,7 +5962,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/ListarTransacoesUseCase.java",
       "source_location": "L8",
       "_origin": "ast",
-      "community": 18,
+      "community": 189,
       "norm_label": "listartransacoesusecase",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_listartransacoesusecase_listartransacoesusecase"
     },
@@ -6192,7 +5972,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/ListarTransacoesUseCase.java",
       "source_location": "L12",
       "_origin": "ast",
-      "community": 18,
+      "community": 189,
       "norm_label": ".listartransacoesusecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_listartransacoesusecase_listartransacoesusecase_listartransacoesusecase"
     },
@@ -6202,7 +5982,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/ListarTransacoesUseCase.java",
       "source_location": "L16",
       "_origin": "ast",
-      "community": 18,
+      "community": 189,
       "norm_label": ".executarporusuario()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_listartransacoesusecase_listartransacoesusecase_executarporusuario"
     },
@@ -6212,7 +5992,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/ListarTransacoesUseCase.java",
       "source_location": "L20",
       "_origin": "ast",
-      "community": 18,
+      "community": 189,
       "norm_label": ".executarporconta()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_listartransacoesusecase_listartransacoesusecase_executarporconta"
     },
@@ -6222,7 +6002,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacao/usecase/ListarTransacoesUseCase.java",
       "source_location": "L24",
       "_origin": "ast",
-      "community": 18,
+      "community": 189,
       "norm_label": ".executarporextrato()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacao_usecase_listartransacoesusecase_listartransacoesusecase_executarporextrato"
     },
@@ -6232,7 +6012,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/transacaocancelada/usecase/CancelarTransacaoUseCase.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 200,
+      "community": 179,
       "norm_label": "cancelartransacaousecase.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_transacaocancelada_usecase_cancelartransacaousecase"
     },
@@ -6322,7 +6102,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/usuario/usecase/AlterarSenhaUseCase.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 3,
+      "community": 181,
       "norm_label": "alterarsenhausecase.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_usuario_usecase_alterarsenhausecase"
     },
@@ -6332,7 +6112,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/usuario/usecase/AlterarSenhaUseCase.java",
       "source_location": "L9",
       "_origin": "ast",
-      "community": 3,
+      "community": 181,
       "norm_label": "alterarsenhausecase",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_usuario_usecase_alterarsenhausecase_alterarsenhausecase"
     },
@@ -6342,7 +6122,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/usuario/usecase/AlterarSenhaUseCase.java",
       "source_location": "L14",
       "_origin": "ast",
-      "community": 3,
+      "community": 181,
       "norm_label": ".alterarsenhausecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_usuario_usecase_alterarsenhausecase_alterarsenhausecase_alterarsenhausecase"
     },
@@ -6362,7 +6142,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/usuario/usecase/AtualizarUsuarioUseCase.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 3,
+      "community": 6,
       "norm_label": "atualizarusuariousecase.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_usuario_usecase_atualizarusuariousecase"
     },
@@ -6372,7 +6152,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/usuario/usecase/AtualizarUsuarioUseCase.java",
       "source_location": "L11",
       "_origin": "ast",
-      "community": 3,
+      "community": 6,
       "norm_label": "atualizarusuariousecase",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_usuario_usecase_atualizarusuariousecase_atualizarusuariousecase"
     },
@@ -6382,7 +6162,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/usuario/usecase/AtualizarUsuarioUseCase.java",
       "source_location": "L15",
       "_origin": "ast",
-      "community": 3,
+      "community": 6,
       "norm_label": ".atualizarusuariousecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_usuario_usecase_atualizarusuariousecase_atualizarusuariousecase_atualizarusuariousecase"
     },
@@ -6402,7 +6182,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/usuario/usecase/BuscarUsuarioUseCase.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 3,
+      "community": 6,
       "norm_label": "buscarusuariousecase.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_usuario_usecase_buscarusuariousecase"
     },
@@ -6412,7 +6192,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/usuario/usecase/BuscarUsuarioUseCase.java",
       "source_location": "L7",
       "_origin": "ast",
-      "community": 3,
+      "community": 6,
       "norm_label": "buscarusuariousecase",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_usuario_usecase_buscarusuariousecase_buscarusuariousecase"
     },
@@ -6422,7 +6202,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/usuario/usecase/BuscarUsuarioUseCase.java",
       "source_location": "L11",
       "_origin": "ast",
-      "community": 3,
+      "community": 6,
       "norm_label": ".buscarusuariousecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_usuario_usecase_buscarusuariousecase_buscarusuariousecase_buscarusuariousecase"
     },
@@ -6442,7 +6222,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/usuario/usecase/CriarUsuarioUseCase.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 3,
+      "community": 181,
       "norm_label": "criarusuariousecase.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_usuario_usecase_criarusuariousecase"
     },
@@ -6452,7 +6232,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/usuario/usecase/CriarUsuarioUseCase.java",
       "source_location": "L7",
       "_origin": "ast",
-      "community": 3,
+      "community": 181,
       "norm_label": "criarusuariousecase",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_usuario_usecase_criarusuariousecase_criarusuariousecase"
     },
@@ -6462,7 +6242,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/usuario/usecase/CriarUsuarioUseCase.java",
       "source_location": "L12",
       "_origin": "ast",
-      "community": 3,
+      "community": 181,
       "norm_label": ".criarusuariousecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_usuario_usecase_criarusuariousecase_criarusuariousecase_criarusuariousecase"
     },
@@ -6482,7 +6262,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/usuario/usecase/ListarUsuariosUseCase.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 3,
+      "community": 6,
       "norm_label": "listarusuariosusecase.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_usuario_usecase_listarusuariosusecase"
     },
@@ -6492,7 +6272,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/usuario/usecase/ListarUsuariosUseCase.java",
       "source_location": "L8",
       "_origin": "ast",
-      "community": 3,
+      "community": 6,
       "norm_label": "listarusuariosusecase",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_usuario_usecase_listarusuariosusecase_listarusuariosusecase"
     },
@@ -6502,7 +6282,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/usuario/usecase/ListarUsuariosUseCase.java",
       "source_location": "L12",
       "_origin": "ast",
-      "community": 3,
+      "community": 6,
       "norm_label": ".listarusuariosusecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_application_usuario_usecase_listarusuariosusecase_listarusuariosusecase_listarusuariosusecase"
     },
@@ -6522,7 +6302,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/config/BeanConfig.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 24,
+      "community": 182,
       "norm_label": "beanconfig.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig"
     },
@@ -6542,7 +6322,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 24,
+      "community": 182,
       "norm_label": "configuration",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_java_configuration"
     },
@@ -6552,7 +6332,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/config/BeanConfig.java",
       "source_location": "L66",
       "_origin": "ast",
-      "community": 3,
+      "community": 182,
       "norm_label": ".loginusecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_loginusecase"
     },
@@ -6582,7 +6362,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/config/BeanConfig.java",
       "source_location": "L79",
       "_origin": "ast",
-      "community": 3,
+      "community": 181,
       "norm_label": ".criarusuariousecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_criarusuariousecase"
     },
@@ -6592,7 +6372,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/config/BeanConfig.java",
       "source_location": "L84",
       "_origin": "ast",
-      "community": 3,
+      "community": 6,
       "norm_label": ".listarusuariosusecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_listarusuariosusecase"
     },
@@ -6602,7 +6382,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/config/BeanConfig.java",
       "source_location": "L89",
       "_origin": "ast",
-      "community": 3,
+      "community": 6,
       "norm_label": ".buscarusuariousecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_buscarusuariousecase"
     },
@@ -6612,7 +6392,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/config/BeanConfig.java",
       "source_location": "L94",
       "_origin": "ast",
-      "community": 3,
+      "community": 6,
       "norm_label": ".atualizarusuariousecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_atualizarusuariousecase"
     },
@@ -6622,7 +6402,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/config/BeanConfig.java",
       "source_location": "L99",
       "_origin": "ast",
-      "community": 3,
+      "community": 181,
       "norm_label": ".alterarsenhausecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_alterarsenhausecase"
     },
@@ -6712,7 +6492,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/config/BeanConfig.java",
       "source_location": "L150",
       "_origin": "ast",
-      "community": 0,
+      "community": 3,
       "norm_label": ".buscarbancousecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_buscarbancousecase"
     },
@@ -6752,7 +6532,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/config/BeanConfig.java",
       "source_location": "L172",
       "_origin": "ast",
-      "community": 3,
+      "community": 7,
       "norm_label": ".criarextratousecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_criarextratousecase"
     },
@@ -6772,7 +6552,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/config/BeanConfig.java",
       "source_location": "L183",
       "_origin": "ast",
-      "community": 3,
+      "community": 7,
       "norm_label": ".buscarextratousecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_buscarextratousecase"
     },
@@ -6782,7 +6562,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/config/BeanConfig.java",
       "source_location": "L188",
       "_origin": "ast",
-      "community": 7,
+      "community": 3,
       "norm_label": ".removerextratousecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_removerextratousecase"
     },
@@ -6812,7 +6592,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/config/BeanConfig.java",
       "source_location": "L210",
       "_origin": "ast",
-      "community": 24,
+      "community": 3,
       "norm_label": ".registrarresultadoextratousecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_registrarresultadoextratousecase"
     },
@@ -6832,7 +6612,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/config/BeanConfig.java",
       "source_location": "L228",
       "_origin": "ast",
-      "community": 18,
+      "community": 3,
       "norm_label": ".listartransacoesusecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_listartransacoesusecase"
     },
@@ -6842,7 +6622,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/config/BeanConfig.java",
       "source_location": "L233",
       "_origin": "ast",
-      "community": 82,
+      "community": 3,
       "norm_label": ".buscartransacaousecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_buscartransacaousecase"
     },
@@ -6862,7 +6642,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/config/BeanConfig.java",
       "source_location": "L244",
       "_origin": "ast",
-      "community": 82,
+      "community": 3,
       "norm_label": ".buscarresumoperiodousecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_buscarresumoperiodousecase"
     },
@@ -6872,7 +6652,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/config/BeanConfig.java",
       "source_location": "L249",
       "_origin": "ast",
-      "community": 32,
+      "community": 3,
       "norm_label": ".confirmarrevisaotransacaousecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_confirmarrevisaotransacaousecase"
     },
@@ -6942,7 +6722,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/config/BeanConfig.java",
       "source_location": "L295",
       "_origin": "ast",
-      "community": 3,
+      "community": 6,
       "norm_label": ".criarnotificacaousecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_criarnotificacaousecase"
     },
@@ -6962,7 +6742,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/config/BeanConfig.java",
       "source_location": "L307",
       "_origin": "ast",
-      "community": 3,
+      "community": 6,
       "norm_label": ".registrarconsentimentolgpdusecase()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_beanconfig_beanconfig_registrarconsentimentolgpdusecase"
     },
@@ -6982,7 +6762,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/config/OpenApiConfig.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 104,
+      "community": 195,
       "norm_label": "openapiconfig.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_openapiconfig"
     },
@@ -6992,7 +6772,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/config/OpenApiConfig.java",
       "source_location": "L10",
       "_origin": "ast",
-      "community": 104,
+      "community": 195,
       "norm_label": "openapiconfig",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_openapiconfig_openapiconfig"
     },
@@ -7002,7 +6782,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 104,
+      "community": 195,
       "norm_label": "configuration",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_openapiconfig_java_configuration"
     },
@@ -7012,7 +6792,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/config/OpenApiConfig.java",
       "source_location": "L13",
       "_origin": "ast",
-      "community": 104,
+      "community": 195,
       "norm_label": ".openapi()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_openapiconfig_openapiconfig_openapi"
     },
@@ -7022,7 +6802,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 104,
+      "community": 195,
       "norm_label": "openapi",
       "id": "openapi"
     },
@@ -7032,7 +6812,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 104,
+      "community": 195,
       "norm_label": "bean",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_config_openapiconfig_java_bean"
     },
@@ -7172,7 +6952,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/auth/model/SessaoToken.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 146,
+      "community": 23,
       "norm_label": "sessaotoken.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_auth_model_sessaotoken"
     },
@@ -7182,7 +6962,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/auth/model/SessaoToken.java",
       "source_location": "L9",
       "_origin": "ast",
-      "community": 146,
+      "community": 23,
       "norm_label": "sessaotoken",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_auth_model_sessaotoken_sessaotoken"
     },
@@ -7192,7 +6972,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 146,
+      "community": 23,
       "norm_label": "getter",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_auth_model_sessaotoken_java_getter"
     },
@@ -7202,7 +6982,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 146,
+      "community": 23,
       "norm_label": "setter",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_auth_model_sessaotoken_java_setter"
     },
@@ -7212,7 +6992,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/auth/model/SessaoToken.java",
       "source_location": "L24",
       "_origin": "ast",
-      "community": 146,
+      "community": 23,
       "norm_label": ".sessaotoken()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_auth_model_sessaotoken_sessaotoken_sessaotoken"
     },
@@ -7232,7 +7012,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/auth/port/SenhaEncoder.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 3,
+      "community": 181,
       "norm_label": "senhaencoder.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_auth_port_senhaencoder"
     },
@@ -7242,7 +7022,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/auth/port/SenhaEncoder.java",
       "source_location": "L3",
       "_origin": "ast",
-      "community": 3,
+      "community": 181,
       "norm_label": "senhaencoder",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_auth_port_senhaencoder_senhaencoder"
     },
@@ -7272,7 +7052,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/auth/port/SessaoTokenRepositoryPort.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 146,
+      "community": 23,
       "norm_label": "sessaotokenrepositoryport.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_auth_port_sessaotokenrepositoryport"
     },
@@ -7292,7 +7072,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/auth/port/SessaoTokenRepositoryPort.java",
       "source_location": "L8",
       "_origin": "ast",
-      "community": 146,
+      "community": 23,
       "norm_label": ".salvar()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_auth_port_sessaotokenrepositoryport_sessaotokenrepositoryport_salvar"
     },
@@ -7472,7 +7252,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/categoria/exception/CategoriaInvalidaException.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 15,
+      "community": 202,
       "norm_label": "categoriainvalidaexception.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_categoria_exception_categoriainvalidaexception"
     },
@@ -7482,7 +7262,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/categoria/exception/CategoriaInvalidaException.java",
       "source_location": "L3",
       "_origin": "ast",
-      "community": 15,
+      "community": 202,
       "norm_label": "categoriainvalidaexception",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_categoria_exception_categoriainvalidaexception_categoriainvalidaexception"
     },
@@ -7492,7 +7272,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/categoria/exception/CategoriaInvalidaException.java",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 15,
+      "community": 202,
       "norm_label": ".categoriainvalidaexception()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_categoria_exception_categoriainvalidaexception_categoriainvalidaexception_categoriainvalidaexception"
     },
@@ -7542,7 +7322,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/categoria/model/Categoria.java",
       "source_location": "L24",
       "_origin": "ast",
-      "community": 200,
+      "community": 15,
       "norm_label": ".categoria()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_categoria_model_categoria_categoria_categoria"
     },
@@ -7552,7 +7332,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/categoria/model/Categoria.java",
       "source_location": "L40",
       "_origin": "ast",
-      "community": 15,
+      "community": 202,
       "norm_label": ".validar()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_categoria_model_categoria_categoria_validar"
     },
@@ -7612,7 +7392,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/categoria/port/CategoriaRepositoryPort.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 200,
+      "community": 15,
       "norm_label": "categoriarepositoryport.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_categoria_port_categoriarepositoryport"
     },
@@ -7652,7 +7432,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/categoria/port/CategoriaRepositoryPort.java",
       "source_location": "L12",
       "_origin": "ast",
-      "community": 33,
+      "community": 24,
       "norm_label": ".listarportipo()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_categoria_port_categoriarepositoryport_categoriarepositoryport_listarportipo"
     },
@@ -7862,7 +7642,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/contafinanceira/exception/ContaFinanceiraInvalidaException.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 200,
+      "community": 39,
       "norm_label": "contafinanceirainvalidaexception.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_contafinanceira_exception_contafinanceirainvalidaexception"
     },
@@ -7872,7 +7652,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/contafinanceira/exception/ContaFinanceiraInvalidaException.java",
       "source_location": "L3",
       "_origin": "ast",
-      "community": 200,
+      "community": 39,
       "norm_label": "contafinanceirainvalidaexception",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_contafinanceira_exception_contafinanceirainvalidaexception_contafinanceirainvalidaexception"
     },
@@ -7882,7 +7662,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/contafinanceira/exception/ContaFinanceiraInvalidaException.java",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 200,
+      "community": 39,
       "norm_label": ".contafinanceirainvalidaexception()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_contafinanceira_exception_contafinanceirainvalidaexception_contafinanceirainvalidaexception_contafinanceirainvalidaexception"
     },
@@ -7892,7 +7672,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/contafinanceira/model/ContaFinanceira.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 200,
+      "community": 179,
       "norm_label": "contafinanceira.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_contafinanceira_model_contafinanceira"
     },
@@ -7912,7 +7692,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 39,
+      "community": 179,
       "norm_label": "getter",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_contafinanceira_model_contafinanceira_java_getter"
     },
@@ -7922,7 +7702,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 39,
+      "community": 179,
       "norm_label": "setter",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_contafinanceira_model_contafinanceira_java_setter"
     },
@@ -7932,7 +7712,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/contafinanceira/model/ContaFinanceira.java",
       "source_location": "L35",
       "_origin": "ast",
-      "community": 207,
+      "community": 201,
       "norm_label": ".contafinanceira()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_contafinanceira_model_contafinanceira_contafinanceira_contafinanceira"
     },
@@ -7952,7 +7732,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/contafinanceira/model/ContaFinanceira.java",
       "source_location": "L79",
       "_origin": "ast",
-      "community": 200,
+      "community": 209,
       "norm_label": ".aplicartransacao()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_contafinanceira_model_contafinanceira_contafinanceira_aplicartransacao"
     },
@@ -8012,7 +7792,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/contafinanceira/port/ContaFinanceiraRepositoryPort.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 39,
+      "community": 47,
       "norm_label": "contafinanceirarepositoryport.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_contafinanceira_port_contafinanceirarepositoryport"
     },
@@ -8022,7 +7802,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/contafinanceira/port/ContaFinanceiraRepositoryPort.java",
       "source_location": "L8",
       "_origin": "ast",
-      "community": 32,
+      "community": 47,
       "norm_label": "contafinanceirarepositoryport",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_contafinanceira_port_contafinanceirarepositoryport_contafinanceirarepositoryport"
     },
@@ -8032,7 +7812,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/contafinanceira/port/ContaFinanceiraRepositoryPort.java",
       "source_location": "L9",
       "_origin": "ast",
-      "community": 39,
+      "community": 47,
       "norm_label": ".salvar()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_contafinanceira_port_contafinanceirarepositoryport_contafinanceirarepositoryport_salvar"
     },
@@ -8042,7 +7822,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/contafinanceira/port/ContaFinanceiraRepositoryPort.java",
       "source_location": "L10",
       "_origin": "ast",
-      "community": 39,
+      "community": 47,
       "norm_label": ".listarporusuario()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_contafinanceira_port_contafinanceirarepositoryport_contafinanceirarepositoryport_listarporusuario"
     },
@@ -8052,7 +7832,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/contafinanceira/port/ContaFinanceiraRepositoryPort.java",
       "source_location": "L11",
       "_origin": "ast",
-      "community": 39,
+      "community": 47,
       "norm_label": ".buscarporid()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_contafinanceira_port_contafinanceirarepositoryport_contafinanceirarepositoryport_buscarporid"
     },
@@ -8062,7 +7842,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/contafinanceira/port/ContaFinanceiraRepositoryPort.java",
       "source_location": "L12",
       "_origin": "ast",
-      "community": 39,
+      "community": 47,
       "norm_label": ".buscarporidecode()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_contafinanceira_port_contafinanceirarepositoryport_contafinanceirarepositoryport_buscarporidecode"
     },
@@ -8072,7 +7852,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/economia/exception/MovimentacaoEconomiaInvalidaException.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 13,
+      "community": 32,
       "norm_label": "movimentacaoeconomiainvalidaexception.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_economia_exception_movimentacaoeconomiainvalidaexception"
     },
@@ -8082,7 +7862,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/economia/exception/MovimentacaoEconomiaInvalidaException.java",
       "source_location": "L3",
       "_origin": "ast",
-      "community": 13,
+      "community": 32,
       "norm_label": "movimentacaoeconomiainvalidaexception",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_economia_exception_movimentacaoeconomiainvalidaexception_movimentacaoeconomiainvalidaexception"
     },
@@ -8092,7 +7872,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/economia/exception/MovimentacaoEconomiaInvalidaException.java",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 13,
+      "community": 32,
       "norm_label": ".movimentacaoeconomiainvalidaexception()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_economia_exception_movimentacaoeconomiainvalidaexception_movimentacaoeconomiainvalidaexception_movimentacaoeconomiainvalidaexception"
     },
@@ -8102,7 +7882,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/economia/model/MovimentacaoEconomia.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 13,
+      "community": 32,
       "norm_label": "movimentacaoeconomia.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_economia_model_movimentacaoeconomia"
     },
@@ -8112,7 +7892,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/economia/model/MovimentacaoEconomia.java",
       "source_location": "L21",
       "_origin": "ast",
-      "community": 13,
+      "community": 32,
       "norm_label": "movimentacaoeconomia",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_economia_model_movimentacaoeconomia_movimentacaoeconomia"
     },
@@ -8122,7 +7902,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 13,
+      "community": 32,
       "norm_label": "getter",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_economia_model_movimentacaoeconomia_java_getter"
     },
@@ -8132,7 +7912,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 13,
+      "community": 32,
       "norm_label": "setter",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_economia_model_movimentacaoeconomia_java_setter"
     },
@@ -8142,7 +7922,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/economia/model/MovimentacaoEconomia.java",
       "source_location": "L35",
       "_origin": "ast",
-      "community": 13,
+      "community": 32,
       "norm_label": ".movimentacaoeconomia()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_economia_model_movimentacaoeconomia_movimentacaoeconomia_movimentacaoeconomia"
     },
@@ -8152,7 +7932,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/economia/model/MovimentacaoEconomia.java",
       "source_location": "L57",
       "_origin": "ast",
-      "community": 13,
+      "community": 32,
       "norm_label": ".validar()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_economia_model_movimentacaoeconomia_movimentacaoeconomia_validar"
     },
@@ -8162,7 +7942,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/economia/port/MovimentacaoEconomiaRepositoryPort.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 13,
+      "community": 32,
       "norm_label": "movimentacaoeconomiarepositoryport.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_economia_port_movimentacaoeconomiarepositoryport"
     },
@@ -8182,7 +7962,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/economia/port/MovimentacaoEconomiaRepositoryPort.java",
       "source_location": "L8",
       "_origin": "ast",
-      "community": 13,
+      "community": 32,
       "norm_label": ".salvar()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_economia_port_movimentacaoeconomiarepositoryport_movimentacaoeconomiarepositoryport_salvar"
     },
@@ -8192,7 +7972,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/economia/port/MovimentacaoEconomiaRepositoryPort.java",
       "source_location": "L11",
       "_origin": "ast",
-      "community": 13,
+      "community": 32,
       "norm_label": ".listarporconta()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_economia_port_movimentacaoeconomiarepositoryport_movimentacaoeconomiarepositoryport_listarporconta"
     },
@@ -8312,7 +8092,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/extrato/model/Extrato.java",
       "source_location": "L134",
       "_origin": "ast",
-      "community": 105,
+      "community": 148,
       "norm_label": ".registrarresultadoprocessamento()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_extrato_model_extrato_extrato_registrarresultadoprocessamento"
     },
@@ -8322,7 +8102,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/extrato/model/Extrato.java",
       "source_location": "L148",
       "_origin": "ast",
-      "community": 105,
+      "community": 148,
       "norm_label": ".registrarerroprocessamento()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_extrato_model_extrato_extrato_registrarerroprocessamento"
     },
@@ -8492,7 +8272,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/extrato/port/ExtratoRepositoryPort.java",
       "source_location": "L13",
       "_origin": "ast",
-      "community": 33,
+      "community": 24,
       "norm_label": ".buscarporhash()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_extrato_port_extratorepositoryport_extratorepositoryport_buscarporhash"
     },
@@ -8522,7 +8302,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/extrato/port/ProcessamentoExtratoPort.java",
       "source_location": "L12",
       "_origin": "ast",
-      "community": 33,
+      "community": 24,
       "norm_label": ".enviarparaprocessamento()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_extrato_port_processamentoextratoport_processamentoextratoport_enviarparaprocessamento"
     },
@@ -9322,7 +9102,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/DestinoRevisaoLancamento.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 200,
+      "community": 206,
       "norm_label": "destinorevisaolancamento.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_destinorevisaolancamento"
     },
@@ -9332,7 +9112,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/DestinoRevisaoLancamento.java",
       "source_location": "L10",
       "_origin": "ast",
-      "community": 200,
+      "community": 206,
       "norm_label": "destinorevisaolancamento",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_destinorevisaolancamento_destinorevisaolancamento"
     },
@@ -9342,7 +9122,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/DestinoRevisaoLancamento.java",
       "source_location": "L11",
       "_origin": "ast",
-      "community": 200,
+      "community": 206,
       "norm_label": "gasto",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_destinorevisaolancamento_destinorevisaolancamento_gasto"
     },
@@ -9352,7 +9132,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/DestinoRevisaoLancamento.java",
       "source_location": "L11",
       "_origin": "ast",
-      "community": 200,
+      "community": 206,
       "norm_label": "receita",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_destinorevisaolancamento_destinorevisaolancamento_receita"
     },
@@ -9362,7 +9142,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/DestinoRevisaoLancamento.java",
       "source_location": "L11",
       "_origin": "ast",
-      "community": 200,
+      "community": 206,
       "norm_label": "economia",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_destinorevisaolancamento_destinorevisaolancamento_economia"
     },
@@ -9372,7 +9152,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/FormatoExtrato.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 35,
+      "community": 26,
       "norm_label": "formatoextrato.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_formatoextrato"
     },
@@ -9382,7 +9162,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/FormatoExtrato.java",
       "source_location": "L3",
       "_origin": "ast",
-      "community": 35,
+      "community": 105,
       "norm_label": "formatoextrato",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_formatoextrato_formatoextrato"
     },
@@ -9392,7 +9172,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/FormatoExtrato.java",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 35,
+      "community": 105,
       "norm_label": "pdf",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_formatoextrato_formatoextrato_pdf"
     },
@@ -9402,7 +9182,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/FormatoExtrato.java",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 35,
+      "community": 105,
       "norm_label": "csv",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_formatoextrato_formatoextrato_csv"
     },
@@ -9412,7 +9192,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/FormatoExtrato.java",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 35,
+      "community": 105,
       "norm_label": "txt",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_formatoextrato_formatoextrato_txt"
     },
@@ -9422,7 +9202,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/FormatoExtrato.java",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 35,
+      "community": 105,
       "norm_label": "xls",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_formatoextrato_formatoextrato_xls"
     },
@@ -9432,7 +9212,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/FormatoExtrato.java",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 35,
+      "community": 105,
       "norm_label": "xlsx",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_formatoextrato_formatoextrato_xlsx"
     },
@@ -9632,7 +9412,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/StatusExtrato.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 24,
+      "community": 7,
       "norm_label": "statusextrato.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_statusextrato"
     },
@@ -9952,7 +9732,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/StatusRevisaoTransacao.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 145,
+      "community": 200,
       "norm_label": "statusrevisaotransacao.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_statusrevisaotransacao"
     },
@@ -9962,7 +9742,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/StatusRevisaoTransacao.java",
       "source_location": "L3",
       "_origin": "ast",
-      "community": 145,
+      "community": 200,
       "norm_label": "statusrevisaotransacao",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_statusrevisaotransacao_statusrevisaotransacao"
     },
@@ -9972,7 +9752,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/StatusRevisaoTransacao.java",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 145,
+      "community": 200,
       "norm_label": "extraida",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_statusrevisaotransacao_statusrevisaotransacao_extraida"
     },
@@ -9982,7 +9762,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/StatusRevisaoTransacao.java",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 145,
+      "community": 200,
       "norm_label": "classificada",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_statusrevisaotransacao_statusrevisaotransacao_classificada"
     },
@@ -9992,7 +9772,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/StatusRevisaoTransacao.java",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 145,
+      "community": 200,
       "norm_label": "pendente_revisao",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_statusrevisaotransacao_statusrevisaotransacao_pendente_revisao"
     },
@@ -10002,7 +9782,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/StatusRevisaoTransacao.java",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 145,
+      "community": 200,
       "norm_label": "confirmada",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_statusrevisaotransacao_statusrevisaotransacao_confirmada"
     },
@@ -10012,7 +9792,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/StatusRevisaoTransacao.java",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 145,
+      "community": 200,
       "norm_label": "ignorada",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_statusrevisaotransacao_statusrevisaotransacao_ignorada"
     },
@@ -10022,7 +9802,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/StatusRevisaoTransacao.java",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 145,
+      "community": 200,
       "norm_label": "arquivada",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_statusrevisaotransacao_statusrevisaotransacao_arquivada"
     },
@@ -10042,7 +9822,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/TipoCategoria.java",
       "source_location": "L3",
       "_origin": "ast",
-      "community": 200,
+      "community": 15,
       "norm_label": "tipocategoria",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_tipocategoria_tipocategoria"
     },
@@ -10052,7 +9832,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/TipoCategoria.java",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 200,
+      "community": 15,
       "norm_label": "receita",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_tipocategoria_tipocategoria_receita"
     },
@@ -10062,7 +9842,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/TipoCategoria.java",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 200,
+      "community": 15,
       "norm_label": "gasto",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_tipocategoria_tipocategoria_gasto"
     },
@@ -10072,7 +9852,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/TipoCategoria.java",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 200,
+      "community": 15,
       "norm_label": "ambos",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_tipocategoria_tipocategoria_ambos"
     },
@@ -10152,7 +9932,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/TipoConta.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 47,
+      "community": 201,
       "norm_label": "tipoconta.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_tipoconta"
     },
@@ -10162,7 +9942,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/TipoConta.java",
       "source_location": "L3",
       "_origin": "ast",
-      "community": 47,
+      "community": 201,
       "norm_label": "tipoconta",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_tipoconta_tipoconta"
     },
@@ -10172,7 +9952,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/TipoConta.java",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 47,
+      "community": 201,
       "norm_label": "corrente",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_tipoconta_tipoconta_corrente"
     },
@@ -10182,7 +9962,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/TipoConta.java",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 47,
+      "community": 201,
       "norm_label": "poupanca",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_tipoconta_tipoconta_poupanca"
     },
@@ -10192,7 +9972,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/TipoConta.java",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 47,
+      "community": 201,
       "norm_label": "cartao",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_tipoconta_tipoconta_cartao"
     },
@@ -10202,7 +9982,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/TipoConta.java",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 47,
+      "community": 201,
       "norm_label": "dinheiro",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_tipoconta_tipoconta_dinheiro"
     },
@@ -10212,7 +9992,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/TipoConta.java",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 47,
+      "community": 201,
       "norm_label": "investimento",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_tipoconta_tipoconta_investimento"
     },
@@ -10302,7 +10082,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/TipoMovimentacaoEconomia.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 13,
+      "community": 32,
       "norm_label": "tipomovimentacaoeconomia.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_tipomovimentacaoeconomia"
     },
@@ -10312,7 +10092,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/TipoMovimentacaoEconomia.java",
       "source_location": "L3",
       "_origin": "ast",
-      "community": 13,
+      "community": 32,
       "norm_label": "tipomovimentacaoeconomia",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_tipomovimentacaoeconomia_tipomovimentacaoeconomia"
     },
@@ -10322,7 +10102,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/TipoMovimentacaoEconomia.java",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 13,
+      "community": 32,
       "norm_label": "aporte",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_tipomovimentacaoeconomia_tipomovimentacaoeconomia_aporte"
     },
@@ -10332,7 +10112,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/TipoMovimentacaoEconomia.java",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 13,
+      "community": 32,
       "norm_label": "resgate",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_tipomovimentacaoeconomia_tipomovimentacaoeconomia_resgate"
     },
@@ -10352,7 +10132,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/TipoTransacao.java",
       "source_location": "L3",
       "_origin": "ast",
-      "community": 200,
+      "community": 209,
       "norm_label": "tipotransacao",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_tipotransacao_tipotransacao"
     },
@@ -10362,7 +10142,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/TipoTransacao.java",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 200,
+      "community": 209,
       "norm_label": "receita",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_tipotransacao_tipotransacao_receita"
     },
@@ -10372,7 +10152,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/enums/TipoTransacao.java",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 200,
+      "community": 209,
       "norm_label": "gasto",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_enums_tipotransacao_tipotransacao_gasto"
     },
@@ -10382,7 +10162,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/shared/util/CodeGenerator.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 207,
+      "community": 32,
       "norm_label": "codegenerator.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_shared_util_codegenerator"
     },
@@ -10532,7 +10312,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/transacao/exception/TransacaoInvalidaException.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 200,
+      "community": 82,
       "norm_label": "transacaoinvalidaexception.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_exception_transacaoinvalidaexception"
     },
@@ -10542,7 +10322,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/transacao/exception/TransacaoInvalidaException.java",
       "source_location": "L3",
       "_origin": "ast",
-      "community": 200,
+      "community": 82,
       "norm_label": "transacaoinvalidaexception",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_exception_transacaoinvalidaexception_transacaoinvalidaexception"
     },
@@ -10552,7 +10332,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/transacao/exception/TransacaoInvalidaException.java",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 200,
+      "community": 82,
       "norm_label": ".transacaoinvalidaexception()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_exception_transacaoinvalidaexception_transacaoinvalidaexception_transacaoinvalidaexception"
     },
@@ -10562,7 +10342,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/transacao/exception/TransacaoNaoEncontradaException.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 209,
+      "community": 179,
       "norm_label": "transacaonaoencontradaexception.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_exception_transacaonaoencontradaexception"
     },
@@ -10572,7 +10352,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/transacao/exception/TransacaoNaoEncontradaException.java",
       "source_location": "L3",
       "_origin": "ast",
-      "community": 209,
+      "community": 179,
       "norm_label": "transacaonaoencontradaexception",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_exception_transacaonaoencontradaexception_transacaonaoencontradaexception"
     },
@@ -10582,7 +10362,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/transacao/exception/TransacaoNaoEncontradaException.java",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 209,
+      "community": 179,
       "norm_label": ".transacaonaoencontradaexception()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_exception_transacaonaoencontradaexception_transacaonaoencontradaexception_transacaonaoencontradaexception"
     },
@@ -10592,7 +10372,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/transacao/model/ResumoPeriodo.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 82,
+      "community": 197,
       "norm_label": "resumoperiodo.java",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumoperiodo"
     },
@@ -10602,7 +10382,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/transacao/model/ResumoPeriodo.java",
       "source_location": "L6",
       "_origin": "ast",
-      "community": 82,
+      "community": 197,
       "norm_label": "resumoperiodo",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumoperiodo_resumoperiodo"
     },
@@ -10612,7 +10392,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/transacao/model/ResumoPeriodo.java",
       "source_location": "L14",
       "_origin": "ast",
-      "community": 82,
+      "community": 197,
       "norm_label": ".saldoperiodo()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_resumoperiodo_resumoperiodo_saldoperiodo"
     },
@@ -10642,7 +10422,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 200,
+      "community": 82,
       "norm_label": "getter",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_transacao_java_getter"
     },
@@ -10652,7 +10432,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 200,
+      "community": 82,
       "norm_label": "setter",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_transacao_java_setter"
     },
@@ -10662,7 +10442,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/transacao/model/Transacao.java",
       "source_location": "L50",
       "_origin": "ast",
-      "community": 145,
+      "community": 200,
       "norm_label": ".transacao()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_transacao_transacao_transacao"
     },
@@ -10672,7 +10452,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/transacao/model/Transacao.java",
       "source_location": "L93",
       "_origin": "ast",
-      "community": 145,
+      "community": 82,
       "norm_label": ".criarestorno()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_transacao_transacao_criarestorno"
     },
@@ -10702,7 +10482,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/transacao/model/Transacao.java",
       "source_location": "L136",
       "_origin": "ast",
-      "community": 209,
+      "community": 82,
       "norm_label": ".confirmarrevisao()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_transacao_transacao_confirmarrevisao"
     },
@@ -10712,7 +10492,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/transacao/model/Transacao.java",
       "source_location": "L152",
       "_origin": "ast",
-      "community": 209,
+      "community": 82,
       "norm_label": ".ignorar()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_transacao_transacao_ignorar"
     },
@@ -10722,7 +10502,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/transacao/model/Transacao.java",
       "source_location": "L162",
       "_origin": "ast",
-      "community": 200,
+      "community": 82,
       "norm_label": ".validar()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_model_transacao_transacao_validar"
     },
@@ -10842,7 +10622,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/transacao/port/TransacaoRepositoryPort.java",
       "source_location": "L20",
       "_origin": "ast",
-      "community": 82,
+      "community": 197,
       "norm_label": ".somarporusuariocontanoperiodo()",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_transacao_port_transacaorepositoryport_transacaorepositoryport_somarporusuariocontanoperiodo"
     },
@@ -11092,7 +10872,7 @@
       "source_file": "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/usuario/ports/UsuarioRepositoryPort.java",
       "source_location": "L8",
       "_origin": "ast",
-      "community": 3,
+      "community": 6,
       "norm_label": "usuariorepositoryport",
       "id": "backend_fintech_app_src_main_java_com_enterprise_gustadev_fintech_app_domain_usuario_ports_usuariorepositoryport_usuariorepositoryport"
     },
@@ -11422,7 +11202,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/adapters/in/web/contafinanceira/ContaFinanceiraControllerTest.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 39,
+      "community": 33,
       "norm_label": "contafinanceiracontrollertest.java",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_adapters_in_web_contafinanceira_contafinanceiracontrollertest"
     },
@@ -11432,7 +11212,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/adapters/in/web/contafinanceira/ContaFinanceiraControllerTest.java",
       "source_location": "L34",
       "_origin": "ast",
-      "community": 39,
+      "community": 33,
       "norm_label": "contafinanceiracontrollertest",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_adapters_in_web_contafinanceira_contafinanceiracontrollertest_contafinanceiracontrollertest"
     },
@@ -11442,7 +11222,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 39,
+      "community": 33,
       "norm_label": "extendwith",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_adapters_in_web_contafinanceira_contafinanceiracontrollertest_java_extendwith"
     },
@@ -11452,7 +11232,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 39,
+      "community": 33,
       "norm_label": "mockmvc",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_adapters_in_web_contafinanceira_contafinanceiracontrollertest_java_mockmvc"
     },
@@ -11462,7 +11242,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/adapters/in/web/contafinanceira/ContaFinanceiraControllerTest.java",
       "source_location": "L54",
       "_origin": "ast",
-      "community": 39,
+      "community": 33,
       "norm_label": ".setup()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_adapters_in_web_contafinanceira_contafinanceiracontrollertest_contafinanceiracontrollertest_setup"
     },
@@ -11472,7 +11252,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 39,
+      "community": 33,
       "norm_label": "beforeeach",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_adapters_in_web_contafinanceira_contafinanceiracontrollertest_java_beforeeach"
     },
@@ -11482,7 +11262,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/adapters/in/web/contafinanceira/ContaFinanceiraControllerTest.java",
       "source_location": "L59",
       "_origin": "ast",
-      "community": 39,
+      "community": 33,
       "norm_label": ".contacompleta()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_adapters_in_web_contafinanceira_contafinanceiracontrollertest_contafinanceiracontrollertest_contacompleta"
     },
@@ -11492,7 +11272,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/adapters/in/web/contafinanceira/ContaFinanceiraControllerTest.java",
       "source_location": "L65",
       "_origin": "ast",
-      "community": 39,
+      "community": 33,
       "norm_label": ".criar_deveretornar201_evincularusuarioaobanco_quandodadosvalidos()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_adapters_in_web_contafinanceira_contafinanceiracontrollertest_contafinanceiracontrollertest_criar_deveretornar201_evincularusuarioaobanco_quandodadosvalidos"
     },
@@ -11502,7 +11282,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 39,
+      "community": 33,
       "norm_label": "test",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_adapters_in_web_contafinanceira_contafinanceiracontrollertest_java_test"
     },
@@ -11512,7 +11292,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/adapters/in/web/contafinanceira/ContaFinanceiraControllerTest.java",
       "source_location": "L92",
       "_origin": "ast",
-      "community": 39,
+      "community": 33,
       "norm_label": ".criar_deveretornar400_quandobancoidausente()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_adapters_in_web_contafinanceira_contafinanceiracontrollertest_contafinanceiracontrollertest_criar_deveretornar400_quandobancoidausente"
     },
@@ -11522,7 +11302,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/adapters/in/web/contafinanceira/ContaFinanceiraControllerTest.java",
       "source_location": "L108",
       "_origin": "ast",
-      "community": 39,
+      "community": 33,
       "norm_label": ".listarporusuario_deveretornar200comcontasdemultiplosbancos()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_adapters_in_web_contafinanceira_contafinanceiracontrollertest_contafinanceiracontrollertest_listarporusuario_deveretornar200comcontasdemultiplosbancos"
     },
@@ -11532,7 +11312,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/adapters/in/web/contafinanceira/ContaFinanceiraControllerTest.java",
       "source_location": "L125",
       "_origin": "ast",
-      "community": 39,
+      "community": 33,
       "norm_label": ".buscarporid_deveretornar200comconta()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_adapters_in_web_contafinanceira_contafinanceiracontrollertest_contafinanceiracontrollertest_buscarporid_deveretornar200comconta"
     },
@@ -11542,7 +11322,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/adapters/in/web/contafinanceira/ContaFinanceiraControllerTest.java",
       "source_location": "L138",
       "_origin": "ast",
-      "community": 39,
+      "community": 33,
       "norm_label": ".deletar_deveretornar204()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_adapters_in_web_contafinanceira_contafinanceiracontrollertest_contafinanceiracontrollertest_deletar_deveretornar204"
     },
@@ -11922,7 +11702,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/contafinanceira/BuscarContaFinanceiraUseCaseTest.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 47,
+      "community": 199,
       "norm_label": "buscarcontafinanceirausecasetest.java",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_buscarcontafinanceirausecasetest"
     },
@@ -11932,7 +11712,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/contafinanceira/BuscarContaFinanceiraUseCaseTest.java",
       "source_location": "L21",
       "_origin": "ast",
-      "community": 47,
+      "community": 199,
       "norm_label": "buscarcontafinanceirausecasetest",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_buscarcontafinanceirausecasetest_buscarcontafinanceirausecasetest"
     },
@@ -11942,7 +11722,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 47,
+      "community": 199,
       "norm_label": "extendwith",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_buscarcontafinanceirausecasetest_java_extendwith"
     },
@@ -11952,7 +11732,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/contafinanceira/BuscarContaFinanceiraUseCaseTest.java",
       "source_location": "L30",
       "_origin": "ast",
-      "community": 47,
+      "community": 199,
       "norm_label": ".executar_deveretornarconta_quandoencontrada()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_buscarcontafinanceirausecasetest_buscarcontafinanceirausecasetest_executar_deveretornarconta_quandoencontrada"
     },
@@ -11962,7 +11742,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 47,
+      "community": 199,
       "norm_label": "test",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_buscarcontafinanceirausecasetest_java_test"
     },
@@ -11972,7 +11752,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/contafinanceira/BuscarContaFinanceiraUseCaseTest.java",
       "source_location": "L44",
       "_origin": "ast",
-      "community": 47,
+      "community": 199,
       "norm_label": ".executar_develancarexcecao_quandonaoencontrada()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_buscarcontafinanceirausecasetest_buscarcontafinanceirausecasetest_executar_develancarexcecao_quandonaoencontrada"
     },
@@ -12042,7 +11822,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/contafinanceira/DeletarContaFinanceiraUseCaseTest.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 32,
+      "community": 201,
       "norm_label": "deletarcontafinanceirausecasetest.java",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_deletarcontafinanceirausecasetest"
     },
@@ -12052,7 +11832,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/contafinanceira/DeletarContaFinanceiraUseCaseTest.java",
       "source_location": "L19",
       "_origin": "ast",
-      "community": 32,
+      "community": 201,
       "norm_label": "deletarcontafinanceirausecasetest",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_deletarcontafinanceirausecasetest_deletarcontafinanceirausecasetest"
     },
@@ -12062,7 +11842,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 32,
+      "community": 201,
       "norm_label": "extendwith",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_deletarcontafinanceirausecasetest_java_extendwith"
     },
@@ -12072,7 +11852,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/contafinanceira/DeletarContaFinanceiraUseCaseTest.java",
       "source_location": "L28",
       "_origin": "ast",
-      "community": 32,
+      "community": 201,
       "norm_label": ".executar_devedelegarremoveraorepository()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_deletarcontafinanceirausecasetest_deletarcontafinanceirausecasetest_executar_devedelegarremoveraorepository"
     },
@@ -12082,7 +11862,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 32,
+      "community": 201,
       "norm_label": "test",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_contafinanceira_deletarcontafinanceirausecasetest_java_test"
     },
@@ -12152,7 +11932,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/economia/RegistrarMovimentacaoEconomiaUseCaseTest.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 13,
+      "community": 203,
       "norm_label": "registrarmovimentacaoeconomiausecasetest.java",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_economia_registrarmovimentacaoeconomiausecasetest"
     },
@@ -12162,7 +11942,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/economia/RegistrarMovimentacaoEconomiaUseCaseTest.java",
       "source_location": "L30",
       "_origin": "ast",
-      "community": 13,
+      "community": 203,
       "norm_label": "registrarmovimentacaoeconomiausecasetest",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_economia_registrarmovimentacaoeconomiausecasetest_registrarmovimentacaoeconomiausecasetest"
     },
@@ -12172,7 +11952,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 13,
+      "community": 203,
       "norm_label": "extendwith",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_economia_registrarmovimentacaoeconomiausecasetest_java_extendwith"
     },
@@ -12182,7 +11962,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/economia/RegistrarMovimentacaoEconomiaUseCaseTest.java",
       "source_location": "L42",
       "_origin": "ast",
-      "community": 13,
+      "community": 203,
       "norm_label": ".conta()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_economia_registrarmovimentacaoeconomiausecasetest_registrarmovimentacaoeconomiausecasetest_conta"
     },
@@ -12192,7 +11972,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/economia/RegistrarMovimentacaoEconomiaUseCaseTest.java",
       "source_location": "L51",
       "_origin": "ast",
-      "community": 13,
+      "community": 203,
       "norm_label": ".executar_aporte_devemoversaldoesalvarmovimentacao_quandosaldosuficiente()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_economia_registrarmovimentacaoeconomiausecasetest_registrarmovimentacaoeconomiausecasetest_executar_aporte_devemoversaldoesalvarmovimentacao_quandosaldosuficiente"
     },
@@ -12202,7 +11982,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 13,
+      "community": 203,
       "norm_label": "test",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_economia_registrarmovimentacaoeconomiausecasetest_java_test"
     },
@@ -12212,7 +11992,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/economia/RegistrarMovimentacaoEconomiaUseCaseTest.java",
       "source_location": "L75",
       "_origin": "ast",
-      "community": 13,
+      "community": 203,
       "norm_label": ".executar_aporte_naodevesalvar_quandosaldoinsuficiente()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_economia_registrarmovimentacaoeconomiausecasetest_registrarmovimentacaoeconomiausecasetest_executar_aporte_naodevesalvar_quandosaldoinsuficiente"
     },
@@ -12222,7 +12002,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/economia/RegistrarMovimentacaoEconomiaUseCaseTest.java",
       "source_location": "L89",
       "_origin": "ast",
-      "community": 13,
+      "community": 203,
       "norm_label": ".executar_resgate_devemoversaldoesalvarmovimentacao_quandoeconomiassuficientes()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_economia_registrarmovimentacaoeconomiausecasetest_registrarmovimentacaoeconomiausecasetest_executar_resgate_devemoversaldoesalvarmovimentacao_quandoeconomiassuficientes"
     },
@@ -12232,7 +12012,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/economia/RegistrarMovimentacaoEconomiaUseCaseTest.java",
       "source_location": "L109",
       "_origin": "ast",
-      "community": 13,
+      "community": 203,
       "norm_label": ".executar_resgate_naodevesalvar_quandoeconomiasinsuficientes()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_economia_registrarmovimentacaoeconomiausecasetest_registrarmovimentacaoeconomiausecasetest_executar_resgate_naodevesalvar_quandoeconomiasinsuficientes"
     },
@@ -12242,7 +12022,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/economia/RegistrarMovimentacaoEconomiaUseCaseTest.java",
       "source_location": "L123",
       "_origin": "ast",
-      "community": 13,
+      "community": 203,
       "norm_label": ".executar_develancarexcecao_quandocontanaoencontrada()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_economia_registrarmovimentacaoeconomiausecasetest_registrarmovimentacaoeconomiausecasetest_executar_develancarexcecao_quandocontanaoencontrada"
     },
@@ -12252,7 +12032,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/extrato/CriarExtratoUseCaseTest.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 106,
+      "community": 39,
       "norm_label": "criarextratousecasetest.java",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_extrato_criarextratousecasetest"
     },
@@ -12342,7 +12122,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/extrato/ImportarExtratoUseCaseTest.java",
       "source_location": "L44",
       "_origin": "ast",
-      "community": 33,
+      "community": 24,
       "norm_label": "importarextratousecasetest",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_extrato_importarextratousecasetest_importarextratousecasetest"
     },
@@ -12352,7 +12132,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 33,
+      "community": 24,
       "norm_label": "extendwith",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_extrato_importarextratousecasetest_java_extendwith"
     },
@@ -12382,7 +12162,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/extrato/ImportarExtratoUseCaseTest.java",
       "source_location": "L74",
       "_origin": "ast",
-      "community": 33,
+      "community": 24,
       "norm_label": ".contavalida()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_extrato_importarextratousecasetest_importarextratousecasetest_contavalida"
     },
@@ -12392,7 +12172,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/extrato/ImportarExtratoUseCaseTest.java",
       "source_location": "L82",
       "_origin": "ast",
-      "community": 33,
+      "community": 24,
       "norm_label": ".categoriaoutros()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_extrato_importarextratousecasetest_importarextratousecasetest_categoriaoutros"
     },
@@ -12402,7 +12182,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/extrato/ImportarExtratoUseCaseTest.java",
       "source_location": "L86",
       "_origin": "ast",
-      "community": 33,
+      "community": 24,
       "norm_label": ".executar_deveimportarlancamentosecriartransacoespendentesderevisao()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_extrato_importarextratousecasetest_importarextratousecasetest_executar_deveimportarlancamentosecriartransacoespendentesderevisao"
     },
@@ -12412,7 +12192,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 33,
+      "community": 24,
       "norm_label": "test",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_extrato_importarextratousecasetest_java_test"
     },
@@ -12422,7 +12202,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/extrato/ImportarExtratoUseCaseTest.java",
       "source_location": "L109",
       "_origin": "ast",
-      "community": 33,
+      "community": 24,
       "norm_label": ".executar_deveencaminharpdfparaautomacao_semleroarquivolocalmente()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_extrato_importarextratousecasetest_importarextratousecasetest_executar_deveencaminharpdfparaautomacao_semleroarquivolocalmente"
     },
@@ -12432,7 +12212,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/extrato/ImportarExtratoUseCaseTest.java",
       "source_location": "L136",
       "_origin": "ast",
-      "community": 33,
+      "community": 24,
       "norm_label": ".executar_naodevechamarautomacao_paraformatosqueoparserlocaljaresolve()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_extrato_importarextratousecasetest_importarextratousecasetest_executar_naodevechamarautomacao_paraformatosqueoparserlocaljaresolve"
     },
@@ -12442,7 +12222,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/extrato/ImportarExtratoUseCaseTest.java",
       "source_location": "L150",
       "_origin": "ast",
-      "community": 33,
+      "community": 24,
       "norm_label": ".executar_develancarexcecao_quandohashjaprocessado()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_extrato_importarextratousecasetest_importarextratousecasetest_executar_develancarexcecao_quandohashjaprocessado"
     },
@@ -12452,7 +12232,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/extrato/ImportarExtratoUseCaseTest.java",
       "source_location": "L164",
       "_origin": "ast",
-      "community": 33,
+      "community": 24,
       "norm_label": ".executar_develancarexcecao_quandoformatonaosuportado()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_extrato_importarextratousecasetest_importarextratousecasetest_executar_develancarexcecao_quandoformatonaosuportado"
     },
@@ -12462,7 +12242,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/extrato/ImportarExtratoUseCaseTest.java",
       "source_location": "L175",
       "_origin": "ast",
-      "community": 33,
+      "community": 24,
       "norm_label": ".executar_develancarexcecao_quandoarquivovazio()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_extrato_importarextratousecasetest_importarextratousecasetest_executar_develancarexcecao_quandoarquivovazio"
     },
@@ -12472,7 +12252,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/extrato/ImportarExtratoUseCaseTest.java",
       "source_location": "L183",
       "_origin": "ast",
-      "community": 33,
+      "community": 24,
       "norm_label": ".executar_develancarexcecao_quandonenhumacategoriaamboscadastrada()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_extrato_importarextratousecasetest_importarextratousecasetest_executar_develancarexcecao_quandonenhumacategoriaamboscadastrada"
     },
@@ -12482,7 +12262,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/extrato/RegistrarResultadoExtratoUseCaseTest.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 43,
+      "community": 200,
       "norm_label": "registrarresultadoextratousecasetest.java",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_extrato_registrarresultadoextratousecasetest"
     },
@@ -12602,7 +12382,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/CsvExtratoParserTest.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 35,
+      "community": 26,
       "norm_label": "csvextratoparsertest.java",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_csvextratoparsertest"
     },
@@ -12612,7 +12392,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/CsvExtratoParserTest.java",
       "source_location": "L15",
       "_origin": "ast",
-      "community": 35,
+      "community": 26,
       "norm_label": "csvextratoparsertest",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_csvextratoparsertest_csvextratoparsertest"
     },
@@ -12622,7 +12402,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/CsvExtratoParserTest.java",
       "source_location": "L19",
       "_origin": "ast",
-      "community": 35,
+      "community": 26,
       "norm_label": ".suporta_csvetxt_masnaooutrosformatos()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_csvextratoparsertest_csvextratoparsertest_suporta_csvetxt_masnaooutrosformatos"
     },
@@ -12632,7 +12412,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 35,
+      "community": 26,
       "norm_label": "test",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_csvextratoparsertest_java_test"
     },
@@ -12642,7 +12422,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/CsvExtratoParserTest.java",
       "source_location": "L27",
       "_origin": "ast",
-      "community": 35,
+      "community": 26,
       "norm_label": ".parsear_deveextrairlancamentos_comdelimitadorpontoevirgulaevalorbr()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_csvextratoparsertest_csvextratoparsertest_parsear_deveextrairlancamentos_comdelimitadorpontoevirgulaevalorbr"
     },
@@ -12652,7 +12432,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/CsvExtratoParserTest.java",
       "source_location": "L42",
       "_origin": "ast",
-      "community": 35,
+      "community": 26,
       "norm_label": ".parsear_deveextrairlancamentos_comdelimitadorvirgulaesemcabecalho()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_csvextratoparsertest_csvextratoparsertest_parsear_deveextrairlancamentos_comdelimitadorvirgulaesemcabecalho"
     },
@@ -12662,7 +12442,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/CsvExtratoParserTest.java",
       "source_location": "L54",
       "_origin": "ast",
-      "community": 35,
+      "community": 26,
       "norm_label": ".parsear_deveresolversinalpelosufixodc()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_csvextratoparsertest_csvextratoparsertest_parsear_deveresolversinalpelosufixodc"
     },
@@ -12672,7 +12452,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/CsvExtratoParserTest.java",
       "source_location": "L65",
       "_origin": "ast",
-      "community": 35,
+      "community": 26,
       "norm_label": ".parsear_develancarexcecao_quandonenhumalinhareconhecida()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_csvextratoparsertest_csvextratoparsertest_parsear_develancarexcecao_quandonenhumalinhareconhecida"
     },
@@ -12682,7 +12462,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/XlsExtratoParserTest.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 35,
+      "community": 26,
       "norm_label": "xlsextratoparsertest.java",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_xlsextratoparsertest"
     },
@@ -12692,7 +12472,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/XlsExtratoParserTest.java",
       "source_location": "L19",
       "_origin": "ast",
-      "community": 35,
+      "community": 26,
       "norm_label": "xlsextratoparsertest",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_xlsextratoparsertest_xlsextratoparsertest"
     },
@@ -12702,7 +12482,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/XlsExtratoParserTest.java",
       "source_location": "L23",
       "_origin": "ast",
-      "community": 35,
+      "community": 26,
       "norm_label": ".suporta_xlsexlsx_masnaooutrosformatos()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_xlsextratoparsertest_xlsextratoparsertest_suporta_xlsexlsx_masnaooutrosformatos"
     },
@@ -12712,7 +12492,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 35,
+      "community": 26,
       "norm_label": "test",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_xlsextratoparsertest_java_test"
     },
@@ -12722,7 +12502,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/XlsExtratoParserTest.java",
       "source_location": "L30",
       "_origin": "ast",
-      "community": 35,
+      "community": 26,
       "norm_label": ".parsear_deveextrairlancamentos_deuplanilhacomcabecalho()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_xlsextratoparsertest_xlsextratoparsertest_parsear_deveextrairlancamentos_deuplanilhacomcabecalho"
     },
@@ -12732,7 +12512,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/XlsExtratoParserTest.java",
       "source_location": "L47",
       "_origin": "ast",
-      "community": 35,
+      "community": 26,
       "norm_label": ".parsear_develancarexcecao_quandonenhumalinhareconhecida()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_xlsextratoparsertest_xlsextratoparsertest_parsear_develancarexcecao_quandonenhumalinhareconhecida"
     },
@@ -12742,7 +12522,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/XlsExtratoParserTest.java",
       "source_location": "L53",
       "_origin": "ast",
-      "community": 35,
+      "community": 26,
       "norm_label": ".planilhacomlinhas()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_extrato_parser_xlsextratoparsertest_xlsextratoparsertest_planilhacomlinhas"
     },
@@ -12772,7 +12552,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 200,
+      "community": 1,
       "norm_label": "extendwith",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_transacao_confirmarrevisaotransacaousecasetest_java_extendwith"
     },
@@ -12892,7 +12672,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/transacao/CriarTransacaoUseCaseTest.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 200,
+      "community": 188,
       "norm_label": "criartransacaousecasetest.java",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_transacao_criartransacaousecasetest"
     },
@@ -12902,7 +12682,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/transacao/CriarTransacaoUseCaseTest.java",
       "source_location": "L34",
       "_origin": "ast",
-      "community": 39,
+      "community": 188,
       "norm_label": "criartransacaousecasetest",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_transacao_criartransacaousecasetest_criartransacaousecasetest"
     },
@@ -12912,7 +12692,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 39,
+      "community": 188,
       "norm_label": "extendwith",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_transacao_criartransacaousecasetest_java_extendwith"
     },
@@ -12922,7 +12702,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/transacao/CriarTransacaoUseCaseTest.java",
       "source_location": "L49",
       "_origin": "ast",
-      "community": 39,
+      "community": 188,
       "norm_label": ".contacomsaldo()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_transacao_criartransacaousecasetest_criartransacaousecasetest_contacomsaldo"
     },
@@ -12932,7 +12712,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/transacao/CriarTransacaoUseCaseTest.java",
       "source_location": "L55",
       "_origin": "ast",
-      "community": 39,
+      "community": 188,
       "norm_label": ".categoria()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_transacao_criartransacaousecasetest_criartransacaousecasetest_categoria"
     },
@@ -12942,7 +12722,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/transacao/CriarTransacaoUseCaseTest.java",
       "source_location": "L59",
       "_origin": "ast",
-      "community": 39,
+      "community": 188,
       "norm_label": ".executar_devesalvartransacaoeatualizarsaldo_quandodadosvalidos()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_transacao_criartransacaousecasetest_criartransacaousecasetest_executar_devesalvartransacaoeatualizarsaldo_quandodadosvalidos"
     },
@@ -12952,7 +12732,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 39,
+      "community": 188,
       "norm_label": "test",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_transacao_criartransacaousecasetest_java_test"
     },
@@ -12962,7 +12742,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/transacao/CriarTransacaoUseCaseTest.java",
       "source_location": "L84",
       "_origin": "ast",
-      "community": 39,
+      "community": 188,
       "norm_label": ".executar_naodevesalvar_quandovalorinvalido()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_transacao_criartransacaousecasetest_criartransacaousecasetest_executar_naodevesalvar_quandovalorinvalido"
     },
@@ -12972,7 +12752,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/transacao/EstornarTransacaoUseCaseTest.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 102,
+      "community": 200,
       "norm_label": "estornartransacaousecasetest.java",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_transacao_estornartransacaousecasetest"
     },
@@ -13062,7 +12842,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/transacao/ListarTransacoesUseCaseTest.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 18,
+      "community": 189,
       "norm_label": "listartransacoesusecasetest.java",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_transacao_listartransacoesusecasetest"
     },
@@ -13072,7 +12852,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/transacao/ListarTransacoesUseCaseTest.java",
       "source_location": "L22",
       "_origin": "ast",
-      "community": 18,
+      "community": 189,
       "norm_label": "listartransacoesusecasetest",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_transacao_listartransacoesusecasetest_listartransacoesusecasetest"
     },
@@ -13082,7 +12862,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 18,
+      "community": 189,
       "norm_label": "extendwith",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_transacao_listartransacoesusecasetest_java_extendwith"
     },
@@ -13092,7 +12872,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/transacao/ListarTransacoesUseCaseTest.java",
       "source_location": "L31",
       "_origin": "ast",
-      "community": 18,
+      "community": 189,
       "norm_label": ".criartransacao()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_transacao_listartransacoesusecasetest_listartransacoesusecasetest_criartransacao"
     },
@@ -13102,7 +12882,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/transacao/ListarTransacoesUseCaseTest.java",
       "source_location": "L36",
       "_origin": "ast",
-      "community": 18,
+      "community": 189,
       "norm_label": ".executarporusuario_deveretornartransacoesdousuario()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_transacao_listartransacoesusecasetest_listartransacoesusecasetest_executarporusuario_deveretornartransacoesdousuario"
     },
@@ -13112,7 +12892,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 18,
+      "community": 189,
       "norm_label": "test",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_transacao_listartransacoesusecasetest_java_test"
     },
@@ -13122,7 +12902,7 @@
       "source_file": "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/transacao/ListarTransacoesUseCaseTest.java",
       "source_location": "L48",
       "_origin": "ast",
-      "community": 18,
+      "community": 189,
       "norm_label": ".executarporconta_deveretornartransacoesdaconta()",
       "id": "backend_fintech_app_src_test_java_com_enterprise_gustadev_fintech_app_application_transacao_listartransacoesusecasetest_listartransacoesusecasetest_executarporconta_deveretornartransacoesdaconta"
     },
@@ -20630,224 +20410,14 @@
   ],
   "links": [
     {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L1",
-      "weight": 1.0,
-      "source": "docs_n8n_self_hosted_e_stack_docker",
-      "target": "docs_n8n_self_hosted_e_stack_docker_n8n_sem_o_cloud_self_hosted_stack_docker_local",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L25",
-      "weight": 1.0,
-      "source": "docs_n8n_self_hosted_e_stack_docker_n8n_sem_o_cloud_self_hosted_stack_docker_local",
-      "target": "docs_n8n_self_hosted_e_stack_docker_1_existe_alternativa_gratuita",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L76",
-      "weight": 1.0,
-      "source": "docs_n8n_self_hosted_e_stack_docker_n8n_sem_o_cloud_self_hosted_stack_docker_local",
-      "target": "docs_n8n_self_hosted_e_stack_docker_2_e_hospedar_no_heroku",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L135",
-      "weight": 1.0,
-      "source": "docs_n8n_self_hosted_e_stack_docker_n8n_sem_o_cloud_self_hosted_stack_docker_local",
-      "target": "docs_n8n_self_hosted_e_stack_docker_3_o_que_foi_implementado",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L214",
-      "weight": 1.0,
-      "source": "docs_n8n_self_hosted_e_stack_docker_n8n_sem_o_cloud_self_hosted_stack_docker_local",
-      "target": "docs_n8n_self_hosted_e_stack_docker_4_pend\u00eancias_conhecidas",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L11",
-      "weight": 1.0,
-      "source": "docs_n8n_self_hosted_e_stack_docker_n8n_sem_o_cloud_self_hosted_stack_docker_local",
-      "target": "docs_n8n_self_hosted_e_stack_docker_contexto",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L244",
-      "weight": 1.0,
-      "source": "docs_n8n_self_hosted_e_stack_docker_n8n_sem_o_cloud_self_hosted_stack_docker_local",
-      "target": "docs_n8n_self_hosted_e_stack_docker_refer\u00eancias",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L58",
-      "weight": 1.0,
-      "source": "docs_n8n_self_hosted_e_stack_docker_1_existe_alternativa_gratuita",
-      "target": "docs_n8n_self_hosted_e_stack_docker_a_op\u00e7\u00e3o_matar_o_n8n_adiada_n\u00e3o_descartada",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L50",
-      "weight": 1.0,
-      "source": "docs_n8n_self_hosted_e_stack_docker_1_existe_alternativa_gratuita",
-      "target": "docs_n8n_self_hosted_e_stack_docker_alternativas_avaliadas_e_descartadas",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L34",
-      "weight": 1.0,
-      "source": "docs_n8n_self_hosted_e_stack_docker_1_existe_alternativa_gratuita",
-      "target": "docs_n8n_self_hosted_e_stack_docker_o_self_hosted_\u00e9_melhor_para_estes_workflows_n\u00e3o_s\u00f3_mais_barato",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L84",
-      "weight": 1.0,
-      "source": "docs_n8n_self_hosted_e_stack_docker_2_e_hospedar_no_heroku",
-      "target": "docs_n8n_self_hosted_e_stack_docker_n\u00e3o_\u00e9_gr\u00e1tis",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L96",
-      "weight": 1.0,
-      "source": "docs_n8n_self_hosted_e_stack_docker_2_e_hospedar_no_heroku",
-      "target": "docs_n8n_self_hosted_e_stack_docker_o_bloqueio_real",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L109",
-      "weight": 1.0,
-      "source": "docs_n8n_self_hosted_e_stack_docker_2_e_hospedar_no_heroku",
-      "target": "docs_n8n_self_hosted_e_stack_docker_outras_armadilhas",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L121",
-      "weight": 1.0,
-      "source": "docs_n8n_self_hosted_e_stack_docker_2_e_hospedar_no_heroku",
-      "target": "docs_n8n_self_hosted_e_stack_docker_se_o_objetivo_for_url_p\u00fablica_gratuita",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L199",
-      "weight": 1.0,
-      "source": "docs_n8n_self_hosted_e_stack_docker_3_o_que_foi_implementado",
-      "target": "docs_n8n_self_hosted_e_stack_docker_o_que_foi_verificado",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L184",
-      "weight": 1.0,
-      "source": "docs_n8n_self_hosted_e_stack_docker_3_o_que_foi_implementado",
-      "target": "docs_n8n_self_hosted_e_stack_docker_onde_vai_cada_segredo",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L171",
-      "weight": 1.0,
-      "source": "docs_n8n_self_hosted_e_stack_docker_3_o_que_foi_implementado",
-      "target": "docs_n8n_self_hosted_e_stack_docker_topologia",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L153",
-      "weight": 1.0,
-      "source": "docs_n8n_self_hosted_e_stack_docker_3_o_que_foi_implementado",
-      "target": "docs_n8n_self_hosted_e_stack_docker_tr\u00eas_decis\u00f5es_que_n\u00e3o_s\u00e3o_cosm\u00e9ticas",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L229",
-      "weight": 1.0,
-      "source": "docs_n8n_self_hosted_e_stack_docker_4_pend\u00eancias_conhecidas",
-      "target": "docs_n8n_self_hosted_e_stack_docker_churn_do_graphify_no_auto_commit",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L216",
-      "weight": 1.0,
-      "source": "docs_n8n_self_hosted_e_stack_docker_4_pend\u00eancias_conhecidas",
-      "target": "docs_n8n_self_hosted_e_stack_docker_hmac_do_callback_assinado_com_segredo_vazio",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/n8n-self-hosted-e-stack-docker.md",
-      "source_location": "L238",
-      "weight": 1.0,
-      "source": "docs_n8n_self_hosted_e_stack_docker_4_pend\u00eancias_conhecidas",
-      "target": "docs_n8n_self_hosted_e_stack_docker_migrar_o_core_ia_para_o_backend",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
       "source_location": "L48",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "readme",
-      "target": "docs_docker_local"
+      "target": "docs_docker_local",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -20855,9 +20425,9 @@
       "source_file": "README.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "readme",
-      "target": "readme_fintech_app"
+      "target": "readme_fintech_app",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -20865,9 +20435,9 @@
       "source_file": "README.md",
       "source_location": "L139",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "readme_fintech_app",
-      "target": "readme_estrat\u00e9gia_de_branches"
+      "target": "readme_estrat\u00e9gia_de_branches",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -20875,9 +20445,9 @@
       "source_file": "README.md",
       "source_location": "L14",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "readme_fintech_app",
-      "target": "readme_estrutura_do_reposit\u00f3rio"
+      "target": "readme_estrutura_do_reposit\u00f3rio",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -20885,9 +20455,9 @@
       "source_file": "README.md",
       "source_location": "L95",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "readme_fintech_app",
-      "target": "readme_onde_ficam_as_chaves_e_segredos"
+      "target": "readme_onde_ficam_as_chaves_e_segredos",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -20895,9 +20465,9 @@
       "source_file": "README.md",
       "source_location": "L29",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "readme_fintech_app",
-      "target": "readme_pr\u00e9_requisitos"
+      "target": "readme_pr\u00e9_requisitos",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -20905,9 +20475,9 @@
       "source_file": "README.md",
       "source_location": "L112",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "readme_fintech_app",
-      "target": "readme_rodar_os_testes"
+      "target": "readme_rodar_os_testes",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -20915,9 +20485,9 @@
       "source_file": "README.md",
       "source_location": "L126",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "readme_fintech_app",
-      "target": "readme_servi\u00e7os_do_docker_compose"
+      "target": "readme_servi\u00e7os_do_docker_compose",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -20925,9 +20495,9 @@
       "source_file": "README.md",
       "source_location": "L43",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "readme_fintech_app",
-      "target": "readme_setup_local"
+      "target": "readme_setup_local",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -20935,9 +20505,9 @@
       "source_file": "README.md",
       "source_location": "L152",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "readme_fintech_app",
-      "target": "readme_tecnologias_utilizadas"
+      "target": "readme_tecnologias_utilizadas",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -20945,9 +20515,9 @@
       "source_file": "README.md",
       "source_location": "L176",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "readme_fintech_app",
-      "target": "readme_time"
+      "target": "readme_time",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -20955,9 +20525,9 @@
       "source_file": "README.md",
       "source_location": "L45",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "readme_setup_local",
-      "target": "readme_op\u00e7\u00e3o_a_tudo_em_docker_recomendado"
+      "target": "readme_op\u00e7\u00e3o_a_tudo_em_docker_recomendado",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -20965,9 +20535,9 @@
       "source_file": "README.md",
       "source_location": "L74",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "readme_setup_local",
-      "target": "readme_op\u00e7\u00e3o_b_rodar_na_m\u00e1quina"
+      "target": "readme_op\u00e7\u00e3o_b_rodar_na_m\u00e1quina",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -20975,9 +20545,9 @@
       "source_file": "docs/docker-local.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "docs_docker_local",
-      "target": "docs_docker_local_stack_local_em_docker_backend_frontend_banco_n8n"
+      "target": "docs_docker_local_stack_local_em_docker_backend_frontend_banco_n8n",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -20985,9 +20555,9 @@
       "source_file": "docs/docker-local.md",
       "source_location": "L155",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "docs_docker_local_stack_local_em_docker_backend_frontend_banco_n8n",
-      "target": "docs_docker_local_banco_de_dados"
+      "target": "docs_docker_local_banco_de_dados",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -20995,9 +20565,9 @@
       "source_file": "docs/docker-local.md",
       "source_location": "L141",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "docs_docker_local_stack_local_em_docker_backend_frontend_banco_n8n",
-      "target": "docs_docker_local_desenvolver_com_hot_reload"
+      "target": "docs_docker_local_desenvolver_com_hot_reload",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -21005,9 +20575,9 @@
       "source_file": "docs/docker-local.md",
       "source_location": "L85",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "docs_docker_local_stack_local_em_docker_backend_frontend_banco_n8n",
-      "target": "docs_docker_local_importar_os_workflows_no_n8n"
+      "target": "docs_docker_local_importar_os_workflows_no_n8n",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -21015,9 +20585,9 @@
       "source_file": "docs/docker-local.md",
       "source_location": "L108",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "docs_docker_local_stack_local_em_docker_backend_frontend_banco_n8n",
-      "target": "docs_docker_local_onde_vai_cada_segredo"
+      "target": "docs_docker_local_onde_vai_cada_segredo",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -21025,9 +20595,9 @@
       "source_file": "docs/docker-local.md",
       "source_location": "L19",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "docs_docker_local_stack_local_em_docker_backend_frontend_banco_n8n",
-      "target": "docs_docker_local_os_servi\u00e7os"
+      "target": "docs_docker_local_os_servi\u00e7os",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -21035,9 +20605,9 @@
       "source_file": "docs/docker-local.md",
       "source_location": "L8",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "docs_docker_local_stack_local_em_docker_backend_frontend_banco_n8n",
-      "target": "docs_docker_local_por_que_isso_resolve_o_problema_do_n8n"
+      "target": "docs_docker_local_por_que_isso_resolve_o_problema_do_n8n",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -21045,9 +20615,9 @@
       "source_file": "docs/docker-local.md",
       "source_location": "L168",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "docs_docker_local_stack_local_em_docker_backend_frontend_banco_n8n",
-      "target": "docs_docker_local_problemas_comuns"
+      "target": "docs_docker_local_problemas_comuns",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -21055,9 +20625,9 @@
       "source_file": "docs/docker-local.md",
       "source_location": "L58",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "docs_docker_local_stack_local_em_docker_backend_frontend_banco_n8n",
-      "target": "docs_docker_local_subir"
+      "target": "docs_docker_local_subir",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -21065,9 +20635,9 @@
       "source_file": "docs/docker-local.md",
       "source_location": "L32",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "docs_docker_local_os_servi\u00e7os",
-      "target": "docs_docker_local_quem_enxerga_quem"
+      "target": "docs_docker_local_quem_enxerga_quem",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -21075,9 +20645,9 @@
       "source_file": "docs/docker-local.md",
       "source_location": "L125",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "docs_docker_local_onde_vai_cada_segredo",
-      "target": "docs_docker_local_pend\u00eancia_conhecida_hmac_do_callback"
+      "target": "docs_docker_local_pend\u00eancia_conhecida_hmac_do_callback",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -21085,9 +20655,9 @@
       "source_file": "scripts/auto-commit.ps1",
       "source_location": "L36",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_auto_commit",
-      "target": "scripts_auto_commit_get_committype"
+      "target": "scripts_auto_commit_get_committype",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -63690,5 +63260,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "a33f905d5ad342c1440cc33480d60685623be194"
+  "built_at_commit": "afd80636f7c773b681cccd4617ade14b5a0e3890"
 }

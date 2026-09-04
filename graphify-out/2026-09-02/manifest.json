@@ -1853,10 +1853,5 @@
     "mtime": 1788204662.0858438,
     "ast_hash": "d6d1d469caada9901398c3909ebec715",
     "semantic_hash": ""
-  },
-  "docs/n8n-self-hosted-e-stack-docker.md": {
-    "mtime": 1788384753.1923332,
-    "ast_hash": "9605f6284ee5c3267b7010244f44a78d",
-    "semantic_hash": ""
   }
 }
