@@ -1730,8 +1730,8 @@
     "semantic_hash": ""
   },
   "automacao/n8n/01-extratos-core-ia.json": {
-    "mtime": 1790274946.0976255,
-    "ast_hash": "e271aa8a77b5d8bf8e81803928e19422",
+    "mtime": 1790278988.493163,
+    "ast_hash": "ccadd527f5ea5d9f1ff1c3b53009c3b7",
     "semantic_hash": ""
   },
   "automacao/n8n/02-extratos-entrada-app.json": {
@@ -1820,8 +1820,8 @@
     "semantic_hash": ""
   },
   "docs/n8n-extratos.md": {
-    "mtime": 1790274995.997481,
-    "ast_hash": "72c46792252370531ad9d8d51a5fe991",
+    "mtime": 1790279014.9182715,
+    "ast_hash": "9db9da391652c198bf4d9e80286c499d",
     "semantic_hash": ""
   },
   "infra/postgres/init/01-create-databases.sql": {
@@ -1830,13 +1830,13 @@
     "semantic_hash": ""
   },
   "docs/docker-local.md": {
-    "mtime": 1790274995.993964,
-    "ast_hash": "cb090cbfb5670e792e834716bd3d4831",
+    "mtime": 1790278810.0204654,
+    "ast_hash": "aab9bdff161806a09baa8c26ea50bf37",
     "semantic_hash": ""
   },
   "infra/docker-compose.yml": {
-    "mtime": 1790274980.7910807,
-    "ast_hash": "0157d6e5a0ed1e3f9580f958d70255c3",
+    "mtime": 1790279014.764889,
+    "ast_hash": "191040069dcc5b42aaf65146d16d3951",
     "semantic_hash": ""
   },
   "docs/n8n-self-hosted-e-stack-docker.md": {

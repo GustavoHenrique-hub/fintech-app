@@ -1,12 +1,12 @@
 # Graph Report - fintech-app  (2026-09-24)
 
 ## Corpus Check
-- 360 files · ~117,164 words
+- 366 files · ~131,951 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 2183 nodes · 4217 edges · 218 communities (140 shown, 78 thin omitted)
-- Extraction: 94% EXTRACTED · 6% INFERRED · 0% AMBIGUOUS · INFERRED: 256 edges (avg confidence: 0.8)
+- 2237 nodes · 4452 edges · 224 communities (137 shown, 87 thin omitted)
+- Extraction: 94% EXTRACTED · 6% INFERRED · 0% AMBIGUOUS · INFERRED: 271 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
@@ -169,11 +169,14 @@
 - ContaFinanceiraControllerTest
 - ListarTransacoesUseCaseTest.java
 - SessaoTokenRepositoryPort
+- EstornarTransacaoUseCaseTest.java
+- mvnw
 - .detectar
 - ExtratosScreen.jsx
 - use-extratos.js
 - MotivoCancelamentoController.java
 - Stack local em Docker — backend + frontend + banco + n8n
+- CsvExtratoParserTest
 - RegistrarMovimentacaoEconomiaUseCaseTest.java
 - CategoriaControllerTest
 - XlsExtratoParser
@@ -185,9 +188,11 @@
 - CancelarTransacaoUseCase.java
 - StatusRevisaoTransacao
 - OrigemPermitidaCancelamento
+- AuthService.js
 - TipoTransacao
 - Transacao
 - 2. E hospedar no Heroku?
+- GetExtrato.js
 - .criarNotificacaoUseCase
 - TipoTransacao.java
 - VincularBancoModal.jsx
@@ -196,6 +201,7 @@
 - BuscarResumoPeriodoUseCase
 - ContaPoupanca
 - ContaCorrente
+- NewConsentimento.js
 - CriarExtratoUseCaseTest.java
 - CategoriaTest
 - OpenApiConfig.java
@@ -204,15 +210,15 @@
 - application-prd.yaml Datasource Config
 
 ## God Nodes (most connected - your core abstractions)
-1. `ContaFinanceiraRepositoryPort` - 76 edges
-2. `apiUnwrap()` - 74 edges
-3. `ContaFinanceira` - 60 edges
-4. `TransacaoRepositoryPort` - 60 edges
-5. `CategoriaRepositoryPort` - 49 edges
-6. `ExtratoRepositoryPort` - 47 edges
-7. `BeanConfig` - 44 edges
-8. `ExtratoInvalidoException` - 40 edges
-9. `Extrato` - 40 edges
+1. `ContaFinanceiraRepositoryPort` - 85 edges
+2. `apiUnwrap()` - 77 edges
+3. `TransacaoRepositoryPort` - 67 edges
+4. `ContaFinanceira` - 64 edges
+5. `ExtratoRepositoryPort` - 62 edges
+6. `Extrato` - 59 edges
+7. `CategoriaRepositoryPort` - 56 edges
+8. `ExtratoInvalidoException` - 50 edges
+9. `BeanConfig` - 46 edges
 10. `UsuarioRepositoryPort` - 38 edges
 
 ## Surprising Connections (you probably didn't know these)
@@ -230,55 +236,55 @@
 ## Import Cycles
 - None detected.
 
-## Communities (218 total, 78 thin omitted)
+## Communities (224 total, 87 thin omitted)
 
 ### Community 0 - "Banco Controller Test & Related"
 Cohesion: 0.05
 Nodes (38): BancoController, ApiResponse, ApiResponses, GetMapping, Operation, PostMapping, RequestMapping, ResponseEntity (+30 more)
 
 ### Community 1 - "Categoria Repository Port & Related"
-Cohesion: 0.16
-Nodes (8): CriarCategoriaUseCase, Categoria, ListarCategoriasUseCase, CategoriaRepositoryPort, Categoria, CriarCategoriaUseCaseTest, ExtendWith, Test
+Cohesion: 0.11
+Nodes (11): BuscarCategoriaUseCase, CriarCategoriaUseCase, Categoria, ListarCategoriasUseCase, Logger, Transactional, RegistrarResultadoExtratoUseCase, CategoriaRepositoryPort (+3 more)
 
 ### Community 2 - "Index & Related"
-Cohesion: 0.05
-Nodes (60): AuthContext, AuthProvider(), readUser(), api, apiUnwrap(), login(), buscarPorChave(), listar() (+52 more)
+Cohesion: 0.12
+Nodes (12): api, criar(), criar(), criar(), remover(), listarPorConta(), criar(), upload() (+4 more)
 
 ### Community 3 - "Bean Config"
-Cohesion: 0.13
-Nodes (3): BeanConfig, Bean, ContaFinanceiraRepositoryPort
+Cohesion: 0.11
+Nodes (4): BeanConfig, Bean, Configuration, ContaFinanceiraRepositoryPort
 
 ### Community 4 - "Transacao Controller Test & Related"
-Cohesion: 0.24
-Nodes (7): Categoria, CategoriaControllerTest, BeforeEach, Categoria, ExtendWith, MockMvc, Test
+Cohesion: 0.15
+Nodes (16): apiUnwrap(), buscarPorChave(), listar(), buscarPorChave(), listarPadrao(), buscarPorChave(), listarPorUsuario(), cancelar() (+8 more)
 
 ### Community 5 - "Mvnw & Related"
-Cohesion: 0.08
-Nodes (25): AuthController, ApiResponse, Operation, PostMapping, RequestMapping, ResponseEntity, RestController, Tag (+17 more)
+Cohesion: 0.13
+Nodes (13): Component, Override, Pattern, SessaoTokenFilter, LogoutUseCase, Getter, Setter, SessaoToken (+5 more)
 
 ### Community 6 - "Usuario Controller & Related"
-Cohesion: 0.10
-Nodes (11): AtualizarUsuarioUseCase, BuscarUsuarioUseCase, Usuario, Usuario, ListarUsuariosUseCase, UsuarioInvalidoException, Getter, Setter (+3 more)
+Cohesion: 0.17
+Nodes (6): BuscarUsuarioUseCase, Usuario, UsuarioInvalidoException, Getter, Setter, Usuario
 
 ### Community 7 - "Extrato Repository Port & Related"
-Cohesion: 0.09
-Nodes (15): AtualizarStatusExtratoUseCase, Transactional, BuscarExtratoUseCase, ListarExtratosUseCase, Logger, Transactional, RegistrarResultadoExtratoUseCase, Transactional (+7 more)
+Cohesion: 0.08
+Nodes (11): DetectorFormatoExtrato, Transactional, BuscarExtratoUseCase, Transactional, Transactional, Transactional, RemoverExtratoUseCase, ExtratoInvalidoException (+3 more)
 
 ### Community 8 - "Cadastro Page & Related"
 Cohesion: 0.05
 Nodes (31): FinSight Overview Static HTML Mockup, Frontend index.html React Mount Point, App(), BalanceChart(), buildPoints(), buildPointsDiario(), buildPointsMensal(), DIAS_LABEL (+23 more)
 
 ### Community 9 - "Transacao Cancelada Repository Port & Related"
-Cohesion: 0.12
-Nodes (10): ListarTransacoesCanceladasUseCase, CanceladoPor, admin, sistema, usuario, TransacaoCanceladaInvalidaException, Getter, Setter (+2 more)
+Cohesion: 0.09
+Nodes (21): CancelarTransacaoRequestDTO, TransacaoCanceladaResponseDTO, ApiResponse, GetMapping, Operation, PostMapping, RequestMapping, ResponseEntity (+13 more)
 
 ### Community 10 - "Consentimento Lgpd Repository Port & Related"
 Cohesion: 0.08
 Nodes (25): ConsentimentoLgpdController, ApiResponse, ApiResponses, GetMapping, Operation, PostMapping, RequestMapping, ResponseEntity (+17 more)
 
 ### Community 11 - "Motivo Cancelamento Repository Port & Related"
-Cohesion: 0.21
-Nodes (4): BuscarMotivoCancelamentoUseCase, ListarMotivosCancelamentoUseCase, MotivoCancelamento, MotivoCancelamentoRepositoryPort
+Cohesion: 0.08
+Nodes (22): MotivoCancelamentoResponseDTO, ApiResponse, ApiResponses, GetMapping, Operation, RequestMapping, ResponseEntity, RestController (+14 more)
 
 ### Community 12 - "Notificacao Repository Port & Related"
 Cohesion: 0.09
@@ -289,32 +295,32 @@ Cohesion: 0.07
 Nodes (28): EconomiaRequestDTO, Schema, Schema, MovimentacaoEconomiaResponseDTO, EconomiaController, ApiResponse, ApiResponses, GetMapping (+20 more)
 
 ### Community 14 - "Snapshot Financeiro Repository Port & Related"
-Cohesion: 0.12
+Cohesion: 0.11
 Nodes (16): SnapshotFinanceiroResponseDTO, ApiResponse, ApiResponses, GetMapping, Operation, RequestMapping, ResponseEntity, RestController (+8 more)
 
 ### Community 15 - "Conta Financeira Repository Port & Related"
-Cohesion: 0.20
-Nodes (4): ContaBancaria, Transacao, Usuario, Main
+Cohesion: 0.05
+Nodes (15): ContaBancaria, Override, Transacao, Usuario, ContaCorrente, Override, Usuario, ContaInvestimento (+7 more)
 
 ### Community 16 - "Extrato Controller & Related"
-Cohesion: 0.21
-Nodes (16): AtualizarStatusExtratoRequestDTO, ExtratoRequestDTO, ExtratoResponseDTO, ExtratoController, ApiResponse, ApiResponses, GetMapping, Operation (+8 more)
+Cohesion: 0.15
+Nodes (19): AutenticacaoCallbackN8n, Component, Logger, AtualizarStatusExtratoRequestDTO, ExtratoRequestDTO, ExtratoResponseDTO, ExtratoController, ApiResponse (+11 more)
 
 ### Community 17 - "Status Job"
 Cohesion: 0.08
 Nodes (25): Getter, Setter, ProcessamentoJob, ProcessamentoJobRepositoryPort, StatusJob, aguardando_ia, cancelado, concluido (+17 more)
 
 ### Community 18 - "Transacao Controller & Related"
-Cohesion: 0.17
-Nodes (15): EstornarTransacaoRequestDTO, RevisarTransacaoRequestDTO, TransacaoRequestDTO, TransacaoResponseDTO, ApiResponse, ApiResponses, GetMapping, Operation (+7 more)
+Cohesion: 0.15
+Nodes (16): EstornarTransacaoRequestDTO, RevisarTransacaoRequestDTO, TransacaoRequestDTO, TransacaoResponseDTO, ApiResponse, ApiResponses, GetMapping, Operation (+8 more)
 
 ### Community 19 - "Backend Documentacao & Related"
 Cohesion: 0.33
 Nodes (6): Extrato Domain Entity, extratos Table (hash_arquivo anti-duplicata), N8N as WhatsApp/Telegram-to-API Middleware, regras_classificacao Table (IA learning rules), RN-10 to RN-14: Processamento de PDF e IA Rules, Extrato Business Rules (hash idempotency, score mínimo)
 
 ### Community 20 - "Conta Financeira Controller & Related"
-Cohesion: 0.19
-Nodes (15): ContaFinanceiraController, ApiResponse, ApiResponses, GetMapping, Operation, PatchMapping, PostMapping, RequestMapping (+7 more)
+Cohesion: 0.14
+Nodes (17): ContaFinanceiraController, ApiResponse, ApiResponses, GetMapping, Operation, PatchMapping, PostMapping, RequestMapping (+9 more)
 
 ### Community 21 - "Package (Todo List)"
 Cohesion: 0.09
@@ -329,8 +335,8 @@ Cohesion: 0.29
 Nodes (4): CriarContaFinanceiraUseCase, CriarContaFinanceiraUseCaseTest, ExtendWith, Test
 
 ### Community 24 - "Status Extrato"
-Cohesion: 0.12
-Nodes (12): ExtratoParser, ImportarExtratoUseCase, Transactional, TipoCategoria, SolicitacaoProcessamentoExtrato, ArmazenamentoArquivoPort, ProcessamentoExtratoPort, ImportarExtratoUseCaseTest (+4 more)
+Cohesion: 0.18
+Nodes (10): ExtratoParser, AtualizarStatusExtratoUseCase, EncaminhamentoExtrato, ImportarExtratoUseCase, ListarExtratosUseCase, ReenviarExtratoUseCase, ArmazenamentoArquivoPort, ExtratoRepositoryPort (+2 more)
 
 ### Community 25 - "Components"
 Cohesion: 0.12
@@ -361,20 +367,20 @@ Cohesion: 0.13
 Nodes (15): devDependencies, autoprefixer, eslint, @eslint/js, eslint-plugin-react-hooks, eslint-plugin-react-refresh, globals, jsdom (+7 more)
 
 ### Community 32 - "Tipo Conta"
-Cohesion: 0.43
-Nodes (4): RemoverContaFinanceiraUseCase, DeletarContaFinanceiraUseCaseTest, ExtendWith, Test
+Cohesion: 0.11
+Nodes (15): listarPorUsuario(), bancoService, categoriaService, consentimentoService, contaFinanceiraService, economiaService, extratoService, motivoCancelamentoService (+7 more)
 
 ### Community 33 - "Conta Financeira Controller Test"
-Cohesion: 0.43
-Nodes (4): ExtendWith, Test, Transacao, ListarTransacoesUseCaseTest
+Cohesion: 0.27
+Nodes (5): ListarTransacoesUseCase, ExtendWith, Test, Transacao, ListarTransacoesUseCaseTest
 
 ### Community 34 - "Auditoria Evento Repository Port"
 Cohesion: 0.07
 Nodes (29): API REST — Endpoints, Arquitetura Hexagonal (Ports & Adapters), BeanConfig, Camada de Persistência, Categorias `/categorias`, Como Executar Localmente, Como rodar, Configuração (+21 more)
 
 ### Community 35 - "ListarContasFinanceirasUseCase"
-Cohesion: 0.06
-Nodes (23): mvnw script, clean(), die(), exec_maven(), set_java_home(), trim(), verbose(), CsvExtratoParser (+15 more)
+Cohesion: 0.23
+Nodes (4): trim(), ExtratoParsingUtils, Pattern, LancamentoExtraido
 
 ### Community 36 - "Use Toast (Hooks)"
 Cohesion: 0.31
@@ -385,12 +391,12 @@ Cohesion: 0.35
 Nodes (9): fetchFromBin(), loadConfig(), loadLocal(), saveConfig(), saveLocal(), saveToBin(), SECTIONS, SetupScreen() (+1 more)
 
 ### Community 38 - "Categoria Threshold Repository Port"
-Cohesion: 0.20
-Nodes (12): CancelarTransacaoRequestDTO, TransacaoCanceladaResponseDTO, ApiResponse, GetMapping, Operation, PostMapping, RequestMapping, ResponseEntity (+4 more)
+Cohesion: 0.18
+Nodes (11): AuthController, ApiResponse, Operation, PostMapping, RequestMapping, ResponseEntity, RestController, Tag (+3 more)
 
 ### Community 39 - "Conta Financeira Test"
-Cohesion: 0.18
-Nodes (3): ContaFinanceira, ContaFinanceiraTest, Test
+Cohesion: 0.16
+Nodes (5): ContaFinanceira, Getter, Setter, ContaFinanceiraTest, Test
 
 ### Community 40 - "Script"
 Cohesion: 0.28
@@ -401,12 +407,12 @@ Cohesion: 0.22
 Nodes (8): Toast, ToastAction, ToastClose, ToastDescription, ToastTitle, toastVariants, ToastViewport, variantIcon
 
 ### Community 42 - "Status Revisao Transacao"
-Cohesion: 0.23
-Nodes (13): CategoriaController, ApiResponse, ApiResponses, GetMapping, Operation, PostMapping, RequestMapping, ResponseEntity (+5 more)
+Cohesion: 0.11
+Nodes (20): CategoriaController, ApiResponse, ApiResponses, GetMapping, Operation, PostMapping, RequestMapping, ResponseEntity (+12 more)
 
 ### Community 43 - "Tipo Job"
-Cohesion: 0.18
-Nodes (10): CallbackExtratoRequestDTO, TipoTransacao, LancamentoDTO, TipoTransacao, LancamentoProcessado, ResultadoProcessamentoExtrato, Categoria, ExtendWith (+2 more)
+Cohesion: 0.09
+Nodes (14): CallbackExtratoRequestDTO, TipoTransacao, LancamentoDTO, TipoCategoria, TipoTransacao, LancamentoProcessado, ResultadoProcessamentoExtrato, Test (+6 more)
 
 ### Community 44 - "SECURITY (Docs)"
 Cohesion: 0.67
@@ -422,7 +428,7 @@ Nodes (19): 1. Pré-requisitos, 2. Criando o banco de dados, 3.1 Ambiente local 
 
 ### Community 47 - "CriarTransacaoUseCaseTest.java"
 Cohesion: 0.20
-Nodes (8): Getter, Setter, TipoConta, cartao, corrente, dinheiro, investimento, poupanca
+Nodes (9): TipoConta, cartao, corrente, dinheiro, investimento, poupanca, DeletarContaFinanceiraUseCaseTest, ExtendWith (+1 more)
 
 ### Community 48 - "Modal"
 Cohesion: 0.29
@@ -489,8 +495,12 @@ Cohesion: 0.15
 Nodes (12): 10. Usuario, 11. Regras transversais / agregadas, 1. ContaFinanceira, 2. Categoria e CategoriaThreshold, 3. Transacao, 4. TransacaoCancelada, 5. Extrato, 6. SnapshotFinanceiro (+4 more)
 
 ### Community 82 - "Notificacao"
-Cohesion: 0.13
-Nodes (9): Transacao, Transactional, TransacaoNaoEncontradaException, Transacao, TransacaoRepositoryPort, EstornarTransacaoUseCaseTest, ExtendWith, Test (+1 more)
+Cohesion: 0.14
+Nodes (9): CriarTransacaoUseCase, EstornarTransacaoUseCase, Transacao, Transactional, CancelarTransacaoUseCase, Transacao, TransacaoRepositoryPort, CriarTransacaoUseCaseTest (+1 more)
+
+### Community 83 - "VincularBancoModal.jsx"
+Cohesion: 0.22
+Nodes (6): CsvExtratoParser, SolicitacaoProcessamentoExtrato, BeforeEach, ExtendWith, Test, ReenviarExtratoUseCaseTest
 
 ### Community 86 - "Top Bar"
 Cohesion: 0.67
@@ -501,36 +511,36 @@ Cohesion: 0.40
 Nodes (4): Getting Started, Guides, Maven Parent overrides, Reference Documentation
 
 ### Community 102 - "Transactional"
-Cohesion: 0.18
-Nodes (5): AlterarSenhaUseCase, Usuario, CriarUsuarioUseCase, Usuario, SenhaEncoder
+Cohesion: 0.10
+Nodes (12): LoginUseCase, AlterarSenhaUseCase, Usuario, AtualizarUsuarioUseCase, CriarUsuarioUseCase, Usuario, Usuario, ListarUsuariosUseCase (+4 more)
 
 ### Community 103 - "GlobalExceptionHandler.java"
-Cohesion: 0.10
-Nodes (15): BuscarCategoriaUseCase, Categoria, Transactional, CategoriaInvalidaException, Categoria, Getter, Setter, TipoCategoria (+7 more)
+Cohesion: 0.06
+Nodes (25): GlobalExceptionHandler, ResponseEntity, Categoria, Transactional, CategoriaInvalidaException, Categoria, Getter, Setter (+17 more)
 
 ### Community 104 - "UsuarioController.java"
 Cohesion: 0.17
 Nodes (17): AlterarSenhaRequestDTO, AtualizarUsuarioRequestDTO, UsuarioRequestDTO, Usuario, UsuarioResponseDTO, ApiResponse, ApiResponses, GetMapping (+9 more)
 
 ### Community 105 - "TransacaoCanceladaController.java"
-Cohesion: 0.15
-Nodes (6): BuscarContaFinanceiraUseCase, Transactional, ContaFinanceiraInvalidaException, BuscarContaFinanceiraUseCaseTest, ExtendWith, Test
+Cohesion: 0.13
+Nodes (8): BuscarContaFinanceiraUseCase, CriarExtratoUseCase, ContaFinanceiraInvalidaException, BuscarContaFinanceiraUseCaseTest, ExtendWith, Test, CriarExtratoUseCaseTest, ExtendWith
 
 ### Community 106 - "Mock Mvc"
-Cohesion: 0.27
-Nodes (10): MotivoCancelamentoResponseDTO, ApiResponse, ApiResponses, GetMapping, Operation, RequestMapping, ResponseEntity, RestController (+2 more)
+Cohesion: 0.24
+Nodes (6): CancelarProcessamentoExtratoUseCase, Transactional, CancelarProcessamentoExtratoUseCaseTest, BeforeEach, ExtendWith, Test
 
 ### Community 145 - "StatusRevisaoTransacao"
-Cohesion: 0.15
-Nodes (9): GlobalExceptionHandler, ResponseEntity, AutenticacaoCallbackN8n, Component, Logger, CredenciaisInvalidasException, ExceptionHandler, MaxUploadSizeExceededException (+1 more)
+Cohesion: 0.35
+Nodes (5): Component, Override, XlsExtratoParser, Cell, Row
 
 ### Community 146 - "SessaoToken"
 Cohesion: 0.50
 Nodes (4): 1. Existe alternativa gratuita?, A opção "matar o n8n" (adiada, não descartada), Alternativas avaliadas e descartadas, O self-hosted é melhor para estes workflows, não só mais barato
 
 ### Community 148 - "ListarTransacoesUseCaseTest.java"
-Cohesion: 0.12
-Nodes (16): StatusExtrato, aguardando_ia, cancelado, classificando, concluido, erro_classificacao, erro_extracao, erro_formato (+8 more)
+Cohesion: 0.10
+Nodes (20): StatusExtrato, aguardando_ia, cancelado, classificando, concluido, erro_classificacao, erro_extracao, erro_formato (+12 more)
 
 ### Community 149 - "IA no projeto — como e onde aplicar"
 Cohesion: 0.25
@@ -554,23 +564,27 @@ Nodes (3): Expanding the ESLint configuration, React Compiler, React + Vite
 
 ### Community 177 - ".detectar"
 Cohesion: 0.15
-Nodes (11): DetectorFormatoExtrato, Component, Override, Pattern, PdfExtratoParser, FormatoExtrato, CSV, PDF (+3 more)
+Nodes (9): Component, Override, FormatoExtrato, CSV, PDF, TXT, XLS, XLSX (+1 more)
 
 ### Community 178 - "ContaFinanceiraControllerTest"
 Cohesion: 0.29
 Nodes (5): ContaFinanceiraControllerTest, BeforeEach, ExtendWith, MockMvc, Test
 
 ### Community 179 - "ListarTransacoesUseCaseTest.java"
-Cohesion: 0.17
-Nodes (9): EstornarTransacaoUseCase, Transacao, ListarTransacoesUseCase, BeforeEach, ExtendWith, MockMvc, Test, Transacao (+1 more)
+Cohesion: 0.29
+Nodes (6): BeforeEach, ExtendWith, MockMvc, Test, Transacao, TransacaoControllerTest
 
 ### Community 180 - "SessaoTokenRepositoryPort"
 Cohesion: 0.15
 Nodes (12): 10. Armadilhas específicas deste projeto, 11. Variante: hot-reload no frontend, 1. O que o monorepo tem hoje, 2. Arquivos a criar, 3. Backend — `backend/fintech_app/Dockerfile`, 4. Frontend — `frontend/fintech_app/Dockerfile`, 5. `frontend/fintech_app/nginx.conf` — o substituto do proxy do Vite, 6. `docker-compose.yml` (raiz do monorepo) (+4 more)
 
-### Community 183 - ".detectar"
-Cohesion: 0.38
-Nodes (4): CatalogoCategoriasImportacao, Categoria, TipoCategoria, TipoTransacao
+### Community 181 - "EstornarTransacaoUseCaseTest.java"
+Cohesion: 0.35
+Nodes (4): EstornarTransacaoUseCaseTest, ExtendWith, Test, Transacao
+
+### Community 182 - "mvnw"
+Cohesion: 0.39
+Nodes (6): mvnw script, clean(), die(), exec_maven(), set_java_home(), verbose()
 
 ### Community 184 - "ExtratosScreen.jsx"
 Cohesion: 0.60
@@ -585,48 +599,44 @@ Cohesion: 0.17
 Nodes (12): Banco de dados, Desenvolver com hot-reload, Importar os workflows no n8n, n8n Assistant: sandbox de código e web search, Onde vai cada segredo, Os serviços, Pendência conhecida: HMAC do callback, Por que isso resolve o problema do n8n (+4 more)
 
 ### Community 191 - "CategoriaControllerTest"
-Cohesion: 0.25
+Cohesion: 0.29
 Nodes (4): ListarContasFinanceirasUseCase, ExtendWith, Test, ListarContasFinanceirasUseCaseTest
 
 ### Community 193 - "XlsExtratoParser"
-Cohesion: 0.40
-Nodes (4): DESTINOS, normTipo(), RevisarExtratoModal(), STATUS_EM_PROCESSAMENTO
+Cohesion: 0.38
+Nodes (5): DESTINOS, normTipo(), RevisarExtratoModal(), STATUS_COM_ERRO, STATUS_EM_PROCESSAMENTO
 
 ### Community 194 - "CriarTransacaoUseCaseTest.java"
-Cohesion: 0.22
-Nodes (7): CriarTransacaoUseCase, Transactional, CriarTransacaoUseCaseTest, Categoria, ExtendWith, Test, TipoCategoria
+Cohesion: 0.33
+Nodes (3): Categoria, Test, TipoCategoria
 
 ### Community 195 - "Categoria"
 Cohesion: 0.31
 Nodes (3): Categoria, Override, TipoCategoria
 
 ### Community 196 - "CategoriaThreshold"
-Cohesion: 0.33
-Nodes (4): CategoriaThreshold, Getter, Setter, CategoriaThresholdRepositoryPort
+Cohesion: 0.15
+Nodes (5): CategoriaThreshold, Getter, Setter, CategoriaThresholdRepositoryPort, CodeGenerator
 
 ### Community 197 - "Extratos × N8N — onde cada coisa roda e como o encaminhamento acontece"
 Cohesion: 0.25
 Nodes (8): Autenticação das rotas de callback, Backend (`application.yaml`, bloco `n8n`), Configuração, Endereços (setup local), Extratos × N8N — onde cada coisa roda e como o encaminhamento acontece, N8N (variáveis de ambiente da instância), O caminho completo, Testando sem o N8N
 
 ### Community 199 - "CancelarTransacaoUseCase.java"
-Cohesion: 0.29
-Nodes (4): Transactional, MotivoCancelamentoInvalidoException, Getter, Setter
+Cohesion: 0.47
+Nodes (4): Component, Override, Pattern, PdfExtratoParser
 
 ### Community 200 - "StatusRevisaoTransacao"
 Cohesion: 0.09
 Nodes (19): BuscarTransacaoUseCase, Transacao, OrigemTransacao, api, importado, manual, pdf, StatusRevisaoTransacao (+11 more)
 
 ### Community 201 - "OrigemPermitidaCancelamento"
-Cohesion: 0.29
-Nodes (5): OrigemPermitidaCancelamento, admin, sistema, todos, usuario
+Cohesion: 0.40
+Nodes (4): AuthContext, AuthProvider(), readUser(), authService
 
 ### Community 203 - "TipoTransacao"
 Cohesion: 0.29
 Nodes (6): TipoTransacao, DEPOSITO, RENDIMENTO, SAQUE, TRANSFERENCIA_ENVIADA, TRANSFERENCIA_RECEBIDA
-
-### Community 204 - "Transacao"
-Cohesion: 0.21
-Nodes (4): Override, Override, TipoTransacao, Transacao
 
 ### Community 206 - "2. E hospedar no Heroku?"
 Cohesion: 0.40
@@ -637,32 +647,16 @@ Cohesion: 0.50
 Nodes (3): TipoCategoria, GASTO, RECEITA
 
 ### Community 209 - "TipoTransacao.java"
-Cohesion: 0.10
-Nodes (17): Transacao, ConfirmarRevisaoTransacaoUseCase, Categoria, TipoCategoria, TipoTransacao, Transacao, Transacao, TipoTransacao (+9 more)
-
-### Community 212 - "ContaInvestimento"
-Cohesion: 0.19
-Nodes (3): ContaInvestimento, Override, Usuario
+Cohesion: 0.07
+Nodes (25): Transacao, CatalogoCategoriasImportacao, Categoria, TipoCategoria, TipoTransacao, ConfirmarRevisaoTransacaoUseCase, Categoria, TipoCategoria (+17 more)
 
 ### Community 213 - "Usuario"
 Cohesion: 0.17
 Nodes (3): Usuario, Override, Usuario
 
 ### Community 214 - "BuscarResumoPeriodoUseCase"
-Cohesion: 0.21
+Cohesion: 0.23
 Nodes (3): ResumoPeriodoResponseDTO, BuscarResumoPeriodoUseCase, ResumoPeriodo
-
-### Community 215 - "ContaPoupanca"
-Cohesion: 0.25
-Nodes (3): ContaPoupanca, Override, Usuario
-
-### Community 216 - "ContaCorrente"
-Cohesion: 0.27
-Nodes (3): ContaCorrente, Override, Usuario
-
-### Community 218 - "CriarExtratoUseCaseTest.java"
-Cohesion: 0.31
-Nodes (4): CriarExtratoUseCase, CriarExtratoUseCaseTest, ExtendWith, Test
 
 ### Community 220 - "OpenApiConfig.java"
 Cohesion: 0.53
@@ -671,22 +665,22 @@ Nodes (4): Bean, Configuration, OpenApiConfig, OpenAPI
 ## Knowledge Gaps
 - **426 isolated node(s):** `points`, `RECEITA`, `GASTO`, `DEPOSITO`, `SAQUE` (+421 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **78 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **87 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `TransacaoRepositoryPort` connect `Notificacao` to `Conta Financeira Controller Test`, `CriarTransacaoUseCaseTest.java`, `Bean Config`, `Categoria Threshold Repository Port`, `GlobalExceptionHandler.java`, `StatusRevisaoTransacao`, `Extrato Repository Port & Related`, `CancelarTransacaoUseCase.java`, `Transacao Cancelada Repository Port & Related`, `Tipo Job`, `Transacao Repository Port & Related`, `TipoTransacao.java`, `ListarTransacoesUseCaseTest.java`, `BuscarResumoPeriodoUseCase`, `Status Extrato`?**
-  _High betweenness centrality (0.044) - this node is a cross-community bridge._
-- **Why does `ContaFinanceiraRepositoryPort` connect `Bean Config` to `Tipo Conta`, `CriarTransacaoUseCaseTest.java`, `Categoria Threshold Repository Port`, `Extrato Repository Port & Related`, `GlobalExceptionHandler.java`, `TransacaoCanceladaController.java`, `CancelarTransacaoUseCase.java`, `Transacao Cancelada Repository Port & Related`, `Conta Financeira Test`, `Transacao Repository Port & Related`, `Tipo Job`, `TipoTransacao.java`, `Notificacao`, `ListarTransacoesUseCaseTest.java`, `Tipo Transacao & Related`, `Status Extrato`, `CriarExtratoUseCaseTest.java`, `CategoriaControllerTest`?**
-  _High betweenness centrality (0.037) - this node is a cross-community bridge._
-- **Why does `ExtratoInvalidoException` connect `Extrato Repository Port & Related` to `ListarContasFinanceirasUseCase`, `GlobalExceptionHandler.java`, `TransacaoCanceladaController.java`, `Extrato Controller & Related`, `StatusRevisaoTransacao`, `.detectar`, `TipoTransacao.java`, `VincularBancoModal.jsx`, `Status Extrato`, `CriarExtratoUseCaseTest.java`?**
+- **Why does `TransacaoRepositoryPort` connect `Notificacao` to `Categoria Repository Port & Related`, `Conta Financeira Controller Test`, `Bean Config`, `GlobalExceptionHandler.java`, `StatusRevisaoTransacao`, `Tipo Job`, `TipoTransacao.java`, `VincularBancoModal.jsx`, `EstornarTransacaoUseCaseTest.java`, `BuscarResumoPeriodoUseCase`, `Status Extrato`?**
+  _High betweenness centrality (0.039) - this node is a cross-community bridge._
+- **Why does `ContaFinanceiraRepositoryPort` connect `Bean Config` to `Categoria Repository Port & Related`, `GlobalExceptionHandler.java`, `Conta Financeira Test`, `TransacaoCanceladaController.java`, `Tipo Job`, `Transacao Repository Port & Related`, `CriarTransacaoUseCaseTest.java`, `TipoTransacao.java`, `Notificacao`, `VincularBancoModal.jsx`, `Conta Financeira Controller & Related`, `EstornarTransacaoUseCaseTest.java`, `Tipo Transacao & Related`, `Status Extrato`, `CategoriaControllerTest`?**
+  _High betweenness centrality (0.038) - this node is a cross-community bridge._
+- **Why does `ContaFinanceira` connect `Conta Financeira Test` to `Categoria Repository Port & Related`, `CriarTransacaoUseCaseTest.java`, `CategoriaThreshold`, `GlobalExceptionHandler.java`, `StatusRevisaoTransacao`, `TransacaoCanceladaController.java`, `Tipo Job`, `Transacao Repository Port & Related`, `CriarTransacaoUseCaseTest.java`, `TipoTransacao.java`, `ContaFinanceiraControllerTest`, `VincularBancoModal.jsx`, `Conta Financeira Controller & Related`, `Notificacao`, `EstornarTransacaoUseCaseTest.java`, `Tipo Transacao & Related`, `Status Extrato`, `CategoriaControllerTest`?**
   _High betweenness centrality (0.036) - this node is a cross-community bridge._
 - **What connects `points`, `RECEITA`, `GASTO` to the rest of the system?**
   _457 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Banco Controller Test & Related` be split into smaller, more focused modules?**
-  _Cohesion score 0.0506155950752394 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.05126050420168067 - nodes in this community are weakly interconnected._
+- **Should `Categoria Repository Port & Related` be split into smaller, more focused modules?**
+  _Cohesion score 0.10752688172043011 - nodes in this community are weakly interconnected._
 - **Should `Index & Related` be split into smaller, more focused modules?**
-  _Cohesion score 0.05128779395296752 - nodes in this community are weakly interconnected._
-- **Should `Bean Config` be split into smaller, more focused modules?**
-  _Cohesion score 0.12605042016806722 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.12318840579710146 - nodes in this community are weakly interconnected._
