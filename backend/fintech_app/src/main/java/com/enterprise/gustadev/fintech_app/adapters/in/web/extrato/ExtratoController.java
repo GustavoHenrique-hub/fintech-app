@@ -6,9 +6,11 @@ import com.enterprise.gustadev.fintech_app.adapters.in.web.extrato.dto.ExtratoRe
 import com.enterprise.gustadev.fintech_app.adapters.in.web.extrato.dto.ExtratoResponseDTO;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.AtualizarStatusExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.BuscarExtratoUseCase;
+import com.enterprise.gustadev.fintech_app.application.extrato.usecase.CancelarProcessamentoExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.CriarExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.ImportarExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.ListarExtratosUseCase;
+import com.enterprise.gustadev.fintech_app.application.extrato.usecase.ReenviarExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.RegistrarResultadoExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.RemoverExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.domain.extrato.exception.ExtratoInvalidoException;
@@ -49,6 +51,8 @@ public class ExtratoController {
     private final RemoverExtratoUseCase removerUseCase;
     private final AtualizarStatusExtratoUseCase atualizarStatusUseCase;
     private final RegistrarResultadoExtratoUseCase registrarResultadoUseCase;
+    private final ReenviarExtratoUseCase reenviarUseCase;
+    private final CancelarProcessamentoExtratoUseCase cancelarUseCase;
     private final AutenticacaoCallbackN8n autenticacaoCallback;
     private final ObjectMapper objectMapper;
 
@@ -59,6 +63,8 @@ public class ExtratoController {
                               RemoverExtratoUseCase removerUseCase,
                               AtualizarStatusExtratoUseCase atualizarStatusUseCase,
                               RegistrarResultadoExtratoUseCase registrarResultadoUseCase,
+                              ReenviarExtratoUseCase reenviarUseCase,
+                              CancelarProcessamentoExtratoUseCase cancelarUseCase,
                               AutenticacaoCallbackN8n autenticacaoCallback,
                               ObjectMapper objectMapper) {
         this.criarUseCase = criarUseCase;
@@ -68,6 +74,8 @@ public class ExtratoController {
         this.removerUseCase = removerUseCase;
         this.atualizarStatusUseCase = atualizarStatusUseCase;
         this.registrarResultadoUseCase = registrarResultadoUseCase;
+        this.reenviarUseCase = reenviarUseCase;
+        this.cancelarUseCase = cancelarUseCase;
         this.autenticacaoCallback = autenticacaoCallback;
         this.objectMapper = objectMapper;
     }
@@ -184,6 +192,37 @@ public class ExtratoController {
             @Parameter(description = "ID do extrato (id_extratos)") @PathVariable("id_extratos") Long idExtratos,
             @Parameter(description = "Código alfanumérico de 6 caracteres (extratos_code)") @PathVariable("extratos_code") String extratosCode) {
         return ResponseEntity.ok(ExtratoResponseDTO.fromDomain(removerUseCase.executar(idExtratos, extratosCode)));
+    }
+
+    @Operation(summary = "Reenviar extrato para processamento",
+            description = "Processa de novo, com o arquivo armazenado no upload, um extrato que terminou em erro "
+                    + "(erro_formato, erro_extracao, erro_classificacao, erro_timeout) ou foi cancelado, desde que não tenha "
+                    + "gerado lançamentos. É o caminho para tentar de novo, já que o upload recusa o mesmo arquivo pelo hash. "
+                    + "PDF volta para a automação N8N + IA (status 'na_fila'); os demais formatos passam pelo parser local.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Extrato reenviado"),
+            @ApiResponse(responseCode = "400", description = "Extrato inexistente, fora de um status de erro ou arquivo não armazenado")
+    })
+    @PostMapping("/{id_extratos}/{extratos_code}/reenviar")
+    public ResponseEntity<ExtratoResponseDTO> reenviar(
+            @Parameter(description = "ID do extrato (id_extratos)") @PathVariable("id_extratos") Long idExtratos,
+            @Parameter(description = "Código alfanumérico de 6 caracteres (extratos_code)") @PathVariable("extratos_code") String extratosCode) {
+        return ResponseEntity.ok(ExtratoResponseDTO.fromDomain(reenviarUseCase.executar(idExtratos, extratosCode)));
+    }
+
+    @Operation(summary = "Cancelar processamento do extrato",
+            description = "Tira do processamento um extrato que está na fila ou sendo lido pela automação e o deixa em "
+                    + "'erro_classificacao', pronto para ser reenviado. A execução no N8N não é interrompida, mas o callback "
+                    + "que ela mandar depois é descartado.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Processamento cancelado"),
+            @ApiResponse(responseCode = "400", description = "Extrato inexistente ou fora de processamento")
+    })
+    @PatchMapping("/{id_extratos}/{extratos_code}/cancelar")
+    public ResponseEntity<ExtratoResponseDTO> cancelar(
+            @Parameter(description = "ID do extrato (id_extratos)") @PathVariable("id_extratos") Long idExtratos,
+            @Parameter(description = "Código alfanumérico de 6 caracteres (extratos_code)") @PathVariable("extratos_code") String extratosCode) {
+        return ResponseEntity.ok(ExtratoResponseDTO.fromDomain(cancelarUseCase.executar(idExtratos, extratosCode)));
     }
 
     @Operation(summary = "Buscar extrato por ID e código",

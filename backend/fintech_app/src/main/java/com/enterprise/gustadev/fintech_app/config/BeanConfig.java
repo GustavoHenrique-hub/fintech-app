@@ -24,9 +24,11 @@ import com.enterprise.gustadev.fintech_app.application.economia.usecase.Registra
 import com.enterprise.gustadev.fintech_app.application.extrato.parser.ExtratoParser;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.AtualizarStatusExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.BuscarExtratoUseCase;
+import com.enterprise.gustadev.fintech_app.application.extrato.usecase.CancelarProcessamentoExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.CriarExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.ImportarExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.ListarExtratosUseCase;
+import com.enterprise.gustadev.fintech_app.application.extrato.usecase.ReenviarExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.RegistrarResultadoExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.RemoverExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.application.notificacao.usecase.CriarNotificacaoUseCase;
@@ -200,6 +202,23 @@ public class BeanConfig {
                                                            List<ExtratoParser> parsers) {
         return new ImportarExtratoUseCase(extratoRepository, contaRepository, categoriaRepository,
                 transacaoRepository, armazenamento, processamento, parsers);
+    }
+
+    @Bean
+    public ReenviarExtratoUseCase reenviarExtratoUseCase(ExtratoRepositoryPort extratoRepository,
+                                                          ContaFinanceiraRepositoryPort contaRepository,
+                                                          CategoriaRepositoryPort categoriaRepository,
+                                                          TransacaoRepositoryPort transacaoRepository,
+                                                          ArmazenamentoArquivoPort armazenamento,
+                                                          ProcessamentoExtratoPort processamento,
+                                                          List<ExtratoParser> parsers) {
+        return new ReenviarExtratoUseCase(extratoRepository, contaRepository, categoriaRepository,
+                transacaoRepository, armazenamento, processamento, parsers);
+    }
+
+    @Bean
+    public CancelarProcessamentoExtratoUseCase cancelarProcessamentoExtratoUseCase(ExtratoRepositoryPort repository) {
+        return new CancelarProcessamentoExtratoUseCase(repository);
     }
 
     @Bean

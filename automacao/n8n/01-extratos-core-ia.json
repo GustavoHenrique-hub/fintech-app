@@ -11,7 +11,7 @@
         -60
       ],
       "parameters": {
-        "content": "## Extratos · Core IA\n\nSub-workflow compartilhado pelas 3 entradas (app, Telegram, WhatsApp).\nRecebe o arquivo em base64, chama o Claude, normaliza e faz **callback** para o backend.\n\n**Nunca responde sincronamente** — quem chama já devolveu `202` ao usuário.\n\n### Env vars necessárias no N8N\n```\nFINTECH_API_URL      http://backend:8080\nINTERNAL_API_KEY     mesmo valor do backend\nN8N_CALLBACK_SECRET  segredo do HMAC\nCLAUDE_MODEL         claude-sonnet-5 (opcional)\n```\nSe `$env` estiver bloqueado (`N8N_BLOCK_ENV_ACCESS_IN_NODE=true`),\nedite os valores direto no nó **⚙️ Config**.",
+        "content": "## Extratos · Core IA\n\nSub-workflow compartilhado pelas 3 entradas (app, Telegram, WhatsApp).\nRecebe o arquivo em base64, chama o **Gemini**, normaliza e faz **callback** para o backend.\n\n**Nunca responde sincronamente** — quem chama já devolveu `202` ao usuário.\n\n### Env vars necessárias no N8N\n```\nFINTECH_API_URL      http://backend:8082\nINTERNAL_API_KEY     mesmo valor do backend\nN8N_CALLBACK_SECRET  segredo do HMAC\nGEMINI_MODEL         gemini-3.8-flash (opcional)\nGEMINI_FALLBACK_MODEL gemini-3.5-flash-lite (opcional)\n```\nA chave do Gemini fica na credencial **Google Gemini(PaLM) Api**\ndo nó *Gemini · Extrair + Classificar*.\nSe `$env` estiver bloqueado (`N8N_BLOCK_ENV_ACCESS_IN_NODE=true`),\nedite os valores direto no nó **⚙️ Config**.\n\nSe o modelo principal falhar (503/429 depois dos retries),\no nó *Gemini · Modelo reserva* tenta o GEMINI_FALLBACK_MODEL.",
         "height": 520,
         "width": 460,
         "color": 7
@@ -91,7 +91,7 @@
             {
               "id": "-config-0",
               "name": "apiBaseUrl",
-              "value": "={{ $env.FINTECH_API_URL || 'http://backend:8080' }}",
+              "value": "={{ $env.FINTECH_API_URL || 'http://backend:8082' }}",
               "type": "string"
             },
             {
@@ -109,7 +109,13 @@
             {
               "id": "-config-3",
               "name": "modelo",
-              "value": "={{ $env.CLAUDE_MODEL || 'claude-sonnet-5' }}",
+              "value": "={{ $env.GEMINI_MODEL || 'gemini-3.8-flash' }}",
+              "type": "string"
+            },
+            {
+              "id": "-config-4",
+              "name": "modeloReserva",
+              "value": "={{ $env.GEMINI_FALLBACK_MODEL || 'gemini-3.5-flash-lite' }}",
               "type": "string"
             }
           ]
@@ -128,7 +134,7 @@
       ],
       "parameters": {
         "mode": "runOnceForAllItems",
-        "jsCode": "// Valida a entrada, resolve o formato do arquivo e monta o corpo da chamada ao Claude.\nconst c = $('⚙️ Config').first().json;\nconst e = $input.first().json;\n\nconst obrigatorios = ['extratoId', 'arquivoBase64'];\nconst faltando = obrigatorios.filter(k => e[k] === undefined || e[k] === null || e[k] === '');\nif (faltando.length) {\n  throw new Error('Campos obrigatorios ausentes na entrada: ' + faltando.join(', '));\n}\n\nconst nome = String(e.arquivoNome || 'extrato.pdf');\nconst ext = (nome.split('.').pop() || '').toLowerCase();\nconst mime = String(e.mimeType || '').toLowerCase() ||\n  ({ pdf: 'application/pdf', png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', webp: 'image/webp' })[ext] || '';\n\n// Somente PDF e imagem chegam ao modelo. CSV/TXT/XLSX continuam no parser local do backend.\nconst ehPdf = mime === 'application/pdf';\nconst ehImagem = ['image/png', 'image/jpeg', 'image/webp', 'image/gif'].includes(mime);\nconst formatoSuportado = ehPdf || ehImagem;\n\n// Remove prefixo data URI, se o chamador tiver enviado.\nconst base64 = String(e.arquivoBase64).replace(/^data:[^;]+;base64,/, '');\n\nconst schema = {\n  type: 'object',\n  properties: {\n    banco_detectado: { type: 'string', description: 'Nome do banco/instituicao emissora do extrato.' },\n    periodo_inicio: { type: 'string', description: 'Primeiro dia do periodo do extrato, formato YYYY-MM-DD.' },\n    periodo_fim: { type: 'string', description: 'Ultimo dia do periodo do extrato, formato YYYY-MM-DD.' },\n    moeda: { type: 'string', description: 'Codigo ISO da moeda, ex: BRL.' },\n    transacoes: {\n      type: 'array',\n      description: 'Todos os lancamentos do extrato, na ordem em que aparecem.',\n      items: {\n        type: 'object',\n        properties: {\n          data_transacao: { type: 'string', description: 'Data do lancamento em YYYY-MM-DD.' },\n          descricao: { type: 'string', description: 'Descricao literal como aparece no extrato.' },\n          estabelecimento: { type: 'string', description: 'Nome limpo do estabelecimento/contraparte. String vazia se nao houver.' },\n          valor: { type: 'number', description: 'Valor absoluto, sempre positivo. O sinal vai no campo tipo.' },\n          tipo: { type: 'string', enum: ['RECEITA', 'GASTO'], description: 'RECEITA para entradas/creditos, GASTO para saidas/debitos.' },\n          categoria_sugerida: { type: 'string', description: 'Categoria sugerida em minusculas, ex: alimentacao, transporte, moradia, saude, lazer, educacao, servicos, salario, investimento, transferencia, outros.' },\n          confianca_ia: { type: 'integer', description: 'Confianca de 0 a 100 na categoria sugerida.' },\n          observacao: { type: 'string', description: 'Observacao curta apenas se algo ficou ambiguo. String vazia caso contrario.' }\n        },\n        required: ['data_transacao', 'descricao', 'valor', 'tipo', 'categoria_sugerida', 'confianca_ia']\n      }\n    }\n  },\n  required: ['banco_detectado', 'transacoes']\n};\n\nconst prompt = [\n  'Voce esta lendo um extrato bancario brasileiro. Extraia TODOS os lancamentos e classifique cada um.',\n  '',\n  'Regras rigidas:',\n  '- Nao invente lancamentos. Se um valor estiver ilegivel, omita a transacao em vez de chutar.',\n  '- Nao repita lancamentos. Linhas de saldo anterior, saldo do dia e saldo final NAO sao transacoes.',\n  '- valor sempre positivo; use tipo=GASTO para debitos/saidas e tipo=RECEITA para creditos/entradas.',\n  '- Datas sempre em YYYY-MM-DD. Se o extrato mostrar apenas dia/mes, use o ano do periodo do documento.',\n  '- Valores em formato brasileiro (1.234,56) devem virar 1234.56.',\n  '- confianca_ia reflete a categoria, nao a leitura: 90+ quando o estabelecimento e inequivoco, abaixo de 60 quando a descricao e generica (ex: PIX ENVIADO, TED, saque).',\n  '- Transferencias entre contas do proprio titular usam categoria transferencia.',\n  '',\n  'Responda exclusivamente pela ferramenta registrar_extrato.'\n].join('\\n');\n\nconst anthropicBody = {\n  model: c.modelo,\n  max_tokens: 16000,\n  tools: [{ name: 'registrar_extrato', description: 'Registra os lancamentos extraidos de um extrato bancario.', input_schema: schema }],\n  tool_choice: { type: 'tool', name: 'registrar_extrato' },\n  messages: [{\n    role: 'user',\n    content: [\n      { type: ehPdf ? 'document' : 'image', source: { type: 'base64', media_type: mime || 'application/pdf', data: base64 } },\n      { type: 'text', text: prompt }\n    ]\n  }]\n};\n\nreturn [{ json: {\n  extratoId: e.extratoId,\n  extratoCode: e.extratoCode || '',\n  usuarioId: e.usuarioId ?? null,\n  contaId: e.contaId ?? null,\n  origem: e.origem || 'app',\n  canalRetorno: e.canalRetorno || 'nenhum',\n  chatIdRetorno: e.chatIdRetorno || '',\n  arquivoNome: nome,\n  mimeType: mime,\n  formato: ehPdf ? 'PDF' : (ehImagem ? 'IMAGEM' : (ext.toUpperCase() || 'DESCONHECIDO')),\n  formatoSuportado,\n  anthropicBody\n} }];"
+        "jsCode": "// Valida a entrada, resolve o formato do arquivo e monta o corpo da chamada ao Gemini.\nconst c = $('⚙️ Config').first().json;\nconst e = $input.first().json;\n\nconst obrigatorios = ['extratoId', 'arquivoBase64'];\nconst faltando = obrigatorios.filter(k => e[k] === undefined || e[k] === null || e[k] === '');\nif (faltando.length) {\n  throw new Error('Campos obrigatorios ausentes na entrada: ' + faltando.join(', '));\n}\n\nconst nome = String(e.arquivoNome || 'extrato.pdf');\nconst ext = (nome.split('.').pop() || '').toLowerCase();\nconst mime = String(e.mimeType || '').toLowerCase() ||\n  ({ pdf: 'application/pdf', png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', webp: 'image/webp' })[ext] || '';\n\n// Somente PDF e imagem chegam ao modelo. CSV/TXT/XLSX continuam no parser local do backend.\nconst ehPdf = mime === 'application/pdf';\nconst ehImagem = ['image/png', 'image/jpeg', 'image/webp', 'image/gif'].includes(mime);\nconst formatoSuportado = ehPdf || ehImagem;\n\n// Remove prefixo data URI, se o chamador tiver enviado.\nconst base64 = String(e.arquivoBase64).replace(/^data:[^;]+;base64,/, '');\n\nconst schema = {\n  type: 'object',\n  properties: {\n    banco_detectado: { type: 'string', description: 'Nome do banco/instituicao emissora do extrato.' },\n    periodo_inicio: { type: 'string', description: 'Primeiro dia do periodo do extrato, formato YYYY-MM-DD.' },\n    periodo_fim: { type: 'string', description: 'Ultimo dia do periodo do extrato, formato YYYY-MM-DD.' },\n    moeda: { type: 'string', description: 'Codigo ISO da moeda, ex: BRL.' },\n    transacoes: {\n      type: 'array',\n      description: 'Todos os lancamentos do extrato, na ordem em que aparecem.',\n      items: {\n        type: 'object',\n        properties: {\n          data_transacao: { type: 'string', description: 'Data do lancamento em YYYY-MM-DD.' },\n          descricao: { type: 'string', description: 'Descricao literal como aparece no extrato.' },\n          estabelecimento: { type: 'string', description: 'Nome limpo do estabelecimento/contraparte. String vazia se nao houver.' },\n          valor: { type: 'number', description: 'Valor absoluto, sempre positivo. O sinal vai no campo tipo.' },\n          tipo: { type: 'string', enum: ['RECEITA', 'GASTO'], description: 'RECEITA para entradas/creditos, GASTO para saidas/debitos.' },\n          categoria_sugerida: { type: 'string', description: 'Categoria sugerida em minusculas, ex: alimentacao, transporte, moradia, saude, lazer, educacao, servicos, salario, investimento, transferencia, outros.' },\n          confianca_ia: { type: 'integer', description: 'Confianca de 0 a 100 na categoria sugerida.' },\n          observacao: { type: 'string', description: 'Observacao curta apenas se algo ficou ambiguo. String vazia caso contrario.' }\n        },\n        required: ['data_transacao', 'descricao', 'valor', 'tipo', 'categoria_sugerida', 'confianca_ia']\n      }\n    }\n  },\n  required: ['banco_detectado', 'transacoes']\n};\n\nconst prompt = [\n  'Voce esta lendo um extrato bancario brasileiro. Extraia TODOS os lancamentos e classifique cada um.',\n  '',\n  'Regras rigidas:',\n  '- Nao invente lancamentos. Se um valor estiver ilegivel, omita a transacao em vez de chutar.',\n  '- Nao repita lancamentos. Linhas de saldo anterior, saldo do dia e saldo final NAO sao transacoes.',\n  '- valor sempre positivo; use tipo=GASTO para debitos/saidas e tipo=RECEITA para creditos/entradas.',\n  '- Datas sempre em YYYY-MM-DD. Se o extrato mostrar apenas dia/mes, use o ano do periodo do documento.',\n  '- Valores em formato brasileiro (1.234,56) devem virar 1234.56.',\n  '- confianca_ia reflete a categoria, nao a leitura: 90+ quando o estabelecimento e inequivoco, abaixo de 60 quando a descricao e generica (ex: PIX ENVIADO, TED, saque).',\n  '- Transferencias entre contas do proprio titular usam categoria transferencia.',\n  '',\n  'Responda somente com o JSON no formato do schema, sem texto adicional.'\n].join('\\n');\n\n// Gemini generateContent: o arquivo vai como inline_data e a saida e forcada\n// para JSON no formato do schema (responseJsonSchema aceita JSON Schema padrao).\nconst geminiBody = {\n  contents: [{\n    role: 'user',\n    parts: [\n      { inline_data: { mime_type: mime || 'application/pdf', data: base64 } },\n      { text: prompt }\n    ]\n  }],\n  generationConfig: {\n    responseMimeType: 'application/json',\n    responseJsonSchema: schema,\n    temperature: 0,\n    maxOutputTokens: 32768\n  }\n};\n\nreturn [{ json: {\n  extratoId: e.extratoId,\n  extratoCode: e.extratoCode || '',\n  usuarioId: e.usuarioId ?? null,\n  contaId: e.contaId ?? null,\n  origem: e.origem || 'app',\n  canalRetorno: e.canalRetorno || 'nenhum',\n  chatIdRetorno: e.chatIdRetorno || '',\n  arquivoNome: nome,\n  mimeType: mime,\n  formato: ehPdf ? 'PDF' : (ehImagem ? 'IMAGEM' : (ext.toUpperCase() || 'DESCONHECIDO')),\n  formatoSuportado,\n  modelo: c.modelo,\n  geminiBody\n} }];"
       }
     },
     {
@@ -200,7 +206,7 @@
     },
     {
       "id": "http-8",
-      "name": "Claude · Extrair + Classificar",
+      "name": "Gemini · Extrair + Classificar",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
@@ -212,22 +218,13 @@
           "timeout": 300000
         },
         "method": "POST",
-        "url": "https://api.anthropic.com/v1/messages",
+        "url": "={{ 'https://generativelanguage.googleapis.com/v1beta/models/' + $('Preparar arquivo').first().json.modelo + ':generateContent' }}",
         "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "anthropicApi",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "anthropic-version",
-              "value": "2023-06-01"
-            }
-          ]
-        },
+        "nodeCredentialType": "googlePalmApi",
         "sendBody": true,
         "contentType": "json",
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify($('Preparar arquivo').first().json.anthropicBody) }}"
+        "jsonBody": "={{ JSON.stringify($('Preparar arquivo').first().json.geminiBody) }}"
       },
       "retryOnFail": true,
       "maxTries": 3,
@@ -245,7 +242,7 @@
       ],
       "parameters": {
         "mode": "runOnceForAllItems",
-        "jsCode": "// Extrai o tool_use da resposta do Claude e normaliza os lancamentos para o dominio.\nconst ctx = $('Preparar arquivo').first().json;\nconst r = $input.first().json;\n\nconst blocos = Array.isArray(r.content) ? r.content : [];\nconst tool = blocos.find(b => b.type === 'tool_use' && b.name === 'registrar_extrato');\nif (!tool) {\n  const texto = blocos.filter(b => b.type === 'text').map(b => b.text).join(' ').slice(0, 400);\n  throw new Error('CLASSIFICACAO: modelo nao usou a ferramenta registrar_extrato (stop_reason=' + r.stop_reason + '). ' + texto);\n}\nif (r.stop_reason === 'max_tokens') {\n  throw new Error('CLASSIFICACAO: resposta truncada por max_tokens. Extrato provavelmente maior que o limite; divida o arquivo.');\n}\n\nconst d = tool.input || {};\nconst brutas = Array.isArray(d.transacoes) ? d.transacoes : [];\n\nconst anoPadrao = (String(d.periodo_fim || d.periodo_inicio || '').match(/^(\\d{4})/) || [])[1];\n\nfunction normalizarData(v) {\n  const s = String(v || '').trim();\n  let m = s.match(/^(\\d{4})-(\\d{2})-(\\d{2})/);\n  if (m) return m[1] + '-' + m[2] + '-' + m[3];\n  m = s.match(/^(\\d{1,2})[\\/.-](\\d{1,2})[\\/.-](\\d{2,4})$/);\n  if (m) {\n    let ano = m[3].length === 2 ? '20' + m[3] : m[3];\n    return ano + '-' + m[2].padStart(2, '0') + '-' + m[1].padStart(2, '0');\n  }\n  m = s.match(/^(\\d{1,2})[\\/.-](\\d{1,2})$/);\n  if (m && anoPadrao) return anoPadrao + '-' + m[2].padStart(2, '0') + '-' + m[1].padStart(2, '0');\n  return null;\n}\n\nfunction normalizarValor(v) {\n  if (typeof v === 'number' && isFinite(v)) return v;\n  const s = String(v || '').replace(/[^0-9,.-]/g, '');\n  // formato brasileiro: 1.234,56 -> 1234.56\n  const n = s.includes(',') ? Number(s.replace(/\\./g, '').replace(',', '.')) : Number(s);\n  return isFinite(n) ? n : NaN;\n}\n\nconst transacoes = [];\nconst descartadas = [];\nconst vistos = new Set();\n\nfor (const t of brutas) {\n  const data = normalizarData(t.data_transacao);\n  const valorBruto = normalizarValor(t.valor);\n  const descricao = String(t.descricao || '').trim().replace(/\\s+/g, ' ');\n\n  if (!data || !isFinite(valorBruto) || valorBruto === 0 || !descricao) {\n    descartadas.push({ motivo: 'campos invalidos', bruto: t });\n    continue;\n  }\n\n  // o sinal manda: se o modelo devolveu negativo, e GASTO independente do que ele disse\n  let tipo = String(t.tipo || '').toUpperCase();\n  if (valorBruto < 0) tipo = 'GASTO';\n  if (tipo !== 'RECEITA' && tipo !== 'GASTO') tipo = 'GASTO';\n\n  const valor = Math.abs(Number(valorBruto.toFixed(2)));\n\n  // dedup dentro do proprio extrato (a mesma linha lida duas vezes pelo modelo)\n  const chave = data + '|' + valor + '|' + tipo + '|' + descricao.toLowerCase();\n  if (vistos.has(chave)) { descartadas.push({ motivo: 'duplicata no extrato', bruto: t }); continue; }\n  vistos.add(chave);\n\n  let confianca = Math.round(Number(t.confianca_ia));\n  if (!isFinite(confianca)) confianca = 0;\n  confianca = Math.max(0, Math.min(100, confianca));\n\n  transacoes.push({\n    dataTransacao: data,\n    descricao: descricao.slice(0, 255),\n    estabelecimento: String(t.estabelecimento || '').trim().slice(0, 120) || null,\n    valor,\n    tipo,\n    categoriaSugerida: String(t.categoria_sugerida || 'outros').trim().toLowerCase(),\n    confiancaIa: confianca,\n    origem: 'pdf',\n    statusRevisao: 'PENDENTE_REVISAO',\n    observacao: String(t.observacao || '').trim() || null\n  });\n}\n\nconst datas = transacoes.map(t => t.dataTransacao).sort();\n\nreturn [{ json: {\n  extratoId: ctx.extratoId,\n  extratoCode: ctx.extratoCode,\n  usuarioId: ctx.usuarioId,\n  contaId: ctx.contaId,\n  origem: ctx.origem,\n  canalRetorno: ctx.canalRetorno,\n  chatIdRetorno: ctx.chatIdRetorno,\n  bancoDetectado: String(d.banco_detectado || '').trim() || null,\n  periodoInicio: normalizarData(d.periodo_inicio) || datas[0] || null,\n  periodoFim: normalizarData(d.periodo_fim) || datas[datas.length - 1] || null,\n  moeda: String(d.moeda || 'BRL').toUpperCase(),\n  totalLancamentos: transacoes.length,\n  totalDescartadas: descartadas.length,\n  transacoes,\n  descartadas,\n  modelo: r.model,\n  tokens: r.usage || null\n} }];"
+        "jsCode": "// Le o JSON devolvido pelo Gemini e normaliza os lancamentos para o dominio.\nconst ctx = $('Preparar arquivo').first().json;\nconst r = $input.first().json;\n\nconst cand = Array.isArray(r.candidates) ? r.candidates[0] : null;\nif (!cand) {\n  const bloqueio = r.promptFeedback?.blockReason;\n  throw new Error('CLASSIFICACAO: Gemini nao devolveu resposta' + (bloqueio ? ' (bloqueado: ' + bloqueio + ')' : '') + '.');\n}\nif (cand.finishReason === 'MAX_TOKENS') {\n  throw new Error('CLASSIFICACAO: resposta truncada por maxOutputTokens. Extrato provavelmente maior que o limite; divida o arquivo.');\n}\nconst texto = (cand.content?.parts || []).filter(p => typeof p.text === 'string' && !p.thought).map(p => p.text).join('');\nlet d;\ntry {\n  d = JSON.parse(texto.replace(/^\\s*```(?:json)?\\s*|\\s*```\\s*$/g, ''));\n} catch (err) {\n  throw new Error('CLASSIFICACAO: Gemini devolveu JSON invalido (finishReason=' + cand.finishReason + '). ' + texto.slice(0, 400));\n}\nd = d || {};\n\nconst brutas = Array.isArray(d.transacoes) ? d.transacoes : [];\n\nconst anoPadrao = (String(d.periodo_fim || d.periodo_inicio || '').match(/^(\\d{4})/) || [])[1];\n\nfunction normalizarData(v) {\n  const s = String(v || '').trim();\n  let m = s.match(/^(\\d{4})-(\\d{2})-(\\d{2})/);\n  if (m) return m[1] + '-' + m[2] + '-' + m[3];\n  m = s.match(/^(\\d{1,2})[\\/.-](\\d{1,2})[\\/.-](\\d{2,4})$/);\n  if (m) {\n    let ano = m[3].length === 2 ? '20' + m[3] : m[3];\n    return ano + '-' + m[2].padStart(2, '0') + '-' + m[1].padStart(2, '0');\n  }\n  m = s.match(/^(\\d{1,2})[\\/.-](\\d{1,2})$/);\n  if (m && anoPadrao) return anoPadrao + '-' + m[2].padStart(2, '0') + '-' + m[1].padStart(2, '0');\n  return null;\n}\n\nfunction normalizarValor(v) {\n  if (typeof v === 'number' && isFinite(v)) return v;\n  const s = String(v || '').replace(/[^0-9,.-]/g, '');\n  // formato brasileiro: 1.234,56 -> 1234.56\n  const n = s.includes(',') ? Number(s.replace(/\\./g, '').replace(',', '.')) : Number(s);\n  return isFinite(n) ? n : NaN;\n}\n\nconst transacoes = [];\nconst descartadas = [];\nconst vistos = new Set();\n\nfor (const t of brutas) {\n  const data = normalizarData(t.data_transacao);\n  const valorBruto = normalizarValor(t.valor);\n  const descricao = String(t.descricao || '').trim().replace(/\\s+/g, ' ');\n\n  if (!data || !isFinite(valorBruto) || valorBruto === 0 || !descricao) {\n    descartadas.push({ motivo: 'campos invalidos', bruto: t });\n    continue;\n  }\n\n  // o sinal manda: se o modelo devolveu negativo, e GASTO independente do que ele disse\n  let tipo = String(t.tipo || '').toUpperCase();\n  if (valorBruto < 0) tipo = 'GASTO';\n  if (tipo !== 'RECEITA' && tipo !== 'GASTO') tipo = 'GASTO';\n\n  const valor = Math.abs(Number(valorBruto.toFixed(2)));\n\n  // dedup dentro do proprio extrato (a mesma linha lida duas vezes pelo modelo)\n  const chave = data + '|' + valor + '|' + tipo + '|' + descricao.toLowerCase();\n  if (vistos.has(chave)) { descartadas.push({ motivo: 'duplicata no extrato', bruto: t }); continue; }\n  vistos.add(chave);\n\n  let confianca = Math.round(Number(t.confianca_ia));\n  if (!isFinite(confianca)) confianca = 0;\n  confianca = Math.max(0, Math.min(100, confianca));\n\n  transacoes.push({\n    dataTransacao: data,\n    descricao: descricao.slice(0, 255),\n    estabelecimento: String(t.estabelecimento || '').trim().slice(0, 120) || null,\n    valor,\n    tipo,\n    categoriaSugerida: String(t.categoria_sugerida || 'outros').trim().toLowerCase(),\n    confiancaIa: confianca,\n    origem: 'pdf',\n    statusRevisao: 'PENDENTE_REVISAO',\n    observacao: String(t.observacao || '').trim() || null\n  });\n}\n\nconst datas = transacoes.map(t => t.dataTransacao).sort();\n\nreturn [{ json: {\n  extratoId: ctx.extratoId,\n  extratoCode: ctx.extratoCode,\n  usuarioId: ctx.usuarioId,\n  contaId: ctx.contaId,\n  origem: ctx.origem,\n  canalRetorno: ctx.canalRetorno,\n  chatIdRetorno: ctx.chatIdRetorno,\n  bancoDetectado: String(d.banco_detectado || '').trim() || null,\n  periodoInicio: normalizarData(d.periodo_inicio) || datas[0] || null,\n  periodoFim: normalizarData(d.periodo_fim) || datas[datas.length - 1] || null,\n  moeda: String(d.moeda || 'BRL').toUpperCase(),\n  totalLancamentos: transacoes.length,\n  totalDescartadas: descartadas.length,\n  transacoes,\n  descartadas,\n  modelo: r.modelVersion || ctx.modelo,\n  tokens: r.usageMetadata || null\n} }];"
       },
       "onError": "continueErrorOutput"
     },
@@ -472,7 +469,7 @@
             {
               "id": "erro-ia-indispon-vel-1",
               "name": "mensagemErro",
-              "value": "={{ 'CLASSIFICACAO: falha na chamada a API do Claude — ' + ($json.error?.message || JSON.stringify($json.error || $json).slice(0, 500)) }}",
+              "value": "={{ 'CLASSIFICACAO: falha na chamada a API do Gemini — ' + ($json.error?.description || $json.error?.message || JSON.stringify($json.error || $json)).slice(0, 500) }}",
               "type": "string"
             }
           ]
@@ -675,6 +672,33 @@
         },
         "options": {}
       }
+    },
+    {
+      "id": "http-8b",
+      "name": "Gemini · Modelo reserva",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1110,
+        340
+      ],
+      "parameters": {
+        "options": {
+          "timeout": 300000
+        },
+        "method": "POST",
+        "url": "={{ 'https://generativelanguage.googleapis.com/v1beta/models/' + $('⚙️ Config').first().json.modeloReserva + ':generateContent' }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googlePalmApi",
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($('Preparar arquivo').first().json.geminiBody) }}"
+      },
+      "retryOnFail": true,
+      "maxTries": 5,
+      "waitBetweenTries": 5000,
+      "onError": "continueErrorOutput"
     }
   ],
   "connections": {
@@ -733,25 +757,7 @@
       "main": [
         [
           {
-            "node": "Claude · Extrair + Classificar",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Claude · Extrair + Classificar": {
-      "main": [
-        [
-          {
-            "node": "Normalizar transações",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Erro · IA indisponível",
+            "node": "Gemini · Extrair + Classificar",
             "type": "main",
             "index": 0
           }
@@ -898,6 +904,42 @@
         [
           {
             "node": "Saída · erro",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini · Extrair + Classificar": {
+      "main": [
+        [
+          {
+            "node": "Normalizar transações",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Gemini · Modelo reserva",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini · Modelo reserva": {
+      "main": [
+        [
+          {
+            "node": "Normalizar transações",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Erro · IA indisponível",
             "type": "main",
             "index": 0
           }

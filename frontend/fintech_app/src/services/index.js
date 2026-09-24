@@ -21,6 +21,7 @@ import * as NewContaFinanceira         from "./contaFinanceira/NewContaFinanceir
 import * as RemoverContaFinanceira     from "./contaFinanceira/RemoverContaFinanceira";
 import * as GetExtrato                 from "./extrato/GetExtrato";
 import * as NewExtrato                 from "./extrato/NewExtrato";
+import * as ProcessamentoExtrato        from "./extrato/ProcessamentoExtrato";
 import * as RemoverExtrato             from "./extrato/RemoverExtrato";
 import * as UploadExtrato              from "./extrato/UploadExtrato";
 import * as GetMotivoCancelamento      from "./motivoCancelamento/GetMotivoCancelamento";
@@ -45,7 +46,7 @@ export const economiaService            = { ...GetEconomia, ...NewEconomia };
 export const categoriaService           = { ...GetCategoria, ...NewCategoria };
 export const consentimentoService       = { ...GetConsentimento, ...NewConsentimento };
 export const contaFinanceiraService     = { ...GetContaFinanceira, ...NewContaFinanceira, ...RemoverContaFinanceira };
-export const extratoService             = { ...GetExtrato, ...NewExtrato, ...RemoverExtrato, ...UploadExtrato };
+export const extratoService             = { ...GetExtrato, ...NewExtrato, ...ProcessamentoExtrato, ...RemoverExtrato, ...UploadExtrato };
 export const motivoCancelamentoService  = { ...GetMotivoCancelamento };
 export const notificacaoService         = { ...GetNotificacao, ...NewNotificacao };
 export const snapshotFinanceiroService  = { ...GetSnapshotFinanceiro };

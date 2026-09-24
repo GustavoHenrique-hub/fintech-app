@@ -94,6 +94,8 @@ services:
     build:
       context: ../frontend/fintech_app
       dockerfile: ../../infra/frontend.Dockerfile
+      additional_contexts:
+        infra: .                            # nginx.conf (COPY --from=infra)
     image: fintech-app/frontend:local
     container_name: fintech-frontend
     restart: unless-stopped
@@ -121,7 +123,7 @@ services:
       GENERIC_TIMEZONE: ${TZ:-America/Sao_Paulo}
       TZ: ${TZ:-America/Sao_Paulo}
 
-      # Criptografa as credenciais salvas (a chave da Anthropic, o token do
+      # Criptografa as credenciais salvas (a chave do Gemini, o token do
       # Telegram...). Se este valor mudar, TODAS as credenciais salvas viram lixo.
       N8N_ENCRYPTION_KEY: ${N8N_ENCRYPTION_KEY}
 
@@ -133,11 +135,24 @@ services:
       FINTECH_API_URL: http://backend:8082
       INTERNAL_API_KEY: ${INTERNAL_API_KEY}
       N8N_CALLBACK_SECRET: ${N8N_CALLBACK_SECRET}
-      CLAUDE_MODEL: ${CLAUDE_MODEL:-claude-sonnet-5}
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-3.8-flash}
+      # Usado quando o modelo principal falha (503 de alta demanda, 429 de cota).
+      GEMINI_FALLBACK_MODEL: ${GEMINI_FALLBACK_MODEL:-gemini-3.5-flash-lite}
 
-      # Opcional: permite referenciar a chave como {{ $env.ANTHROPIC_API_KEY }}
+      # Opcional: permite referenciar a chave como {{ $env.GEMINI_API_KEY }}
       # dentro da credencial, em vez de colar o valor na UI.
-      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+
+      # --- n8n Assistant: sandbox de código (serviços sandbox-* abaixo) ---
+      # Equivale a preencher "Add a code sandbox" na UI com a URL e a chave.
+      N8N_INSTANCE_AI_SANDBOX_ENABLED: "true"
+      N8N_INSTANCE_AI_SANDBOX_PROVIDER: n8n-sandbox
+      N8N_INSTANCE_AI_SANDBOX_API_URL: http://sandbox-api:8080
+      N8N_SANDBOX_SERVICE_URL: http://sandbox-api:8080
+      N8N_SANDBOX_SERVICE_API_KEY: ${SANDBOX_API_KEY}
+
+      # --- n8n Assistant: web search (serviço searxng abaixo) ---
+      N8N_INSTANCE_AI_SEARXNG_URL: http://searxng:8080
     ports:
       - "${N8N_HOST_PORT:-5678}:5678"
     volumes:
@@ -146,7 +161,96 @@ services:
       # o que permite importar por linha de comando (veja docs/docker-local.md).
       - ../automacao/n8n:/workflows:ro
 
+  # ── Sandbox do n8n Assistant (n8n-sandbox) ──────────────────────────────────
+  # Onde o Assistant/Agents executam código. Copiado do compose oficial do n8n
+  # (github.com/n8n-io/n8n/blob/master/docker/get-n8n-compose.yml). São três peças:
+  #   sandbox-certs     roda uma vez e gera os certificados mTLS api <-> runner
+  #   sandbox-api       API que o n8n chama (http://sandbox-api:8080)
+  #   sandbox-runner-1  Docker-in-Docker PRIVILEGIADO que cria os sandboxes
+  # Nenhuma porta é publicada no host: só o n8n (na rede interna) os alcança.
+  # API, runner e imagem do sandbox são uma release só: N8N_SANDBOX_VERSION fixa as três.
+  sandbox-certs:
+    image: ghcr.io/n8n-io/n8n-sandbox-service-api:${N8N_SANDBOX_VERSION:-1.3.4}
+    user: '0:0'
+    entrypoint: ['sh', '-c']
+    command:
+      - >
+        bootstrap-mtls.sh --out-dir /tls --api-san sandbox-api
+        --control-san-prefix sandbox-runner --world-readable &&
+        chown -R sandbox-api:sandbox-api /tls/api && chmod -R a+rX /tls
+    environment:
+      NUM_RUNNERS: '1'
+    volumes:
+      - sandbox_tls:/tls
+
+  sandbox-api:
+    image: ghcr.io/n8n-io/n8n-sandbox-service-api:${N8N_SANDBOX_VERSION:-1.3.4}
+    container_name: fintech-sandbox-api
+    restart: unless-stopped
+    depends_on:
+      sandbox-certs:
+        condition: service_completed_successfully
+    environment:
+      SANDBOX_API_KEYS: ${SANDBOX_API_KEY}                 # = N8N_SANDBOX_SERVICE_API_KEY do n8n
+      SANDBOX_API_RUNNER_REGISTRATION_TOKEN: ${SANDBOX_RUNNER_REGISTRATION_TOKEN}
+      SANDBOX_API_RUNNER_API_KEY: ${SANDBOX_RUNNER_API_KEY}
+      SANDBOX_API_GRPC_TLS_CERT_FILE: /tls/api/grpc-server.crt
+      SANDBOX_API_GRPC_TLS_KEY_FILE: /tls/api/grpc-server.key
+      SANDBOX_API_GRPC_TLS_CLIENT_CA_FILE: /tls/api/ca.crt
+      SANDBOX_API_RUNNER_CONTROL_GRPC_TLS_CA_FILE: /tls/api/ca.crt
+      SANDBOX_API_RUNNER_CONTROL_GRPC_TLS_CERT_FILE: /tls/api/control-grpc-api-client.crt
+      SANDBOX_API_RUNNER_CONTROL_GRPC_TLS_KEY_FILE: /tls/api/control-grpc-api-client.key
+      SANDBOX_API_RUNNER_CONTROL_GRPC_TLS_SERVER_NAME: sandbox-runner-1
+    volumes:
+      - sandbox_tls:/tls:ro
+    healthcheck:
+      test: ['CMD', 'wget', '-qO-', 'http://localhost:8080/healthz']
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+
+  sandbox-runner-1:
+    image: ghcr.io/n8n-io/n8n-sandbox-service-runner-dind:${N8N_SANDBOX_VERSION:-1.3.4}
+    container_name: fintech-sandbox-runner
+    restart: unless-stopped
+    privileged: true                       # Docker-in-Docker; nunca publique portas dele
+    depends_on:
+      sandbox-api:
+        condition: service_healthy
+    environment:
+      SANDBOX_RUNNER_REGISTRATION_TOKEN: ${SANDBOX_RUNNER_REGISTRATION_TOKEN}
+      SANDBOX_RUNNER_API_KEYS: ${SANDBOX_RUNNER_API_KEY}
+      SANDBOX_RUNNER_API_GRPC_ADDR: sandbox-api:9090
+      SANDBOX_RUNNER_HTTP_BASE_URL: https://sandbox-runner-1:8080
+      SANDBOX_RUNNER_CONTROL_GRPC_LISTEN_ADDR: ':9091'
+      SANDBOX_RUNNER_CONTROL_GRPC_ADVERTISE_ADDR: sandbox-runner-1:9091
+      SANDBOX_RUNNER_ID: runner-1
+      SANDBOX_RUNNER_DOCKER_SANDBOX_IMAGE: ghcr.io/n8n-io/n8n-sandbox-service-sandbox:${N8N_SANDBOX_VERSION:-1.3.4}
+      SANDBOX_RUNNER_REGISTRATION_GRPC_CA_FILE: /tls/runner/ca.crt
+      SANDBOX_RUNNER_REGISTRATION_GRPC_CERT_FILE: /tls/runner/grpc-client.crt
+      SANDBOX_RUNNER_REGISTRATION_GRPC_KEY_FILE: /tls/runner/grpc-client.key
+      SANDBOX_RUNNER_REGISTRATION_GRPC_SERVER_NAME: sandbox-api
+      SANDBOX_RUNNER_CONTROL_GRPC_TLS_CERT_FILE: /tls/runner/control-grpc-server.crt
+      SANDBOX_RUNNER_CONTROL_GRPC_TLS_KEY_FILE: /tls/runner/control-grpc-server.key
+      SANDBOX_RUNNER_CONTROL_GRPC_TLS_CLIENT_CA_FILE: /tls/runner/ca.crt
+    volumes:
+      - sandbox_tls:/tls:ro
+
+  # ── Web search do n8n Assistant (SearXNG) ───────────────────────────────────
+  # Buscador open-source, sem API key. O searxng-settings.yml liga a API JSON,
+  # que a imagem padrão não serve. Interno: o n8n usa http://searxng:8080.
+  searxng:
+    image: ghcr.io/searxng/searxng:latest
+    container_name: fintech-searxng
+    restart: unless-stopped
+    environment:
+      SEARXNG_SECRET: ${SEARXNG_SECRET}
+    volumes:
+      - ./searxng-settings.yml:/etc/searxng/settings.yml:ro
+
 volumes:
   pgdata:
   n8n_data:
   backend_uploads:
+  sandbox_tls:

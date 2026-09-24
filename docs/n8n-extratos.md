@@ -33,7 +33,7 @@ Tela de Extratos (front, :3000)
                  (o PDF também cai aqui se o N8N não responder)
        │
        ▼
-  N8N: 02-extratos-entrada-app → 01-extratos-core-ia (Claude extrai e classifica)
+  N8N: 02-extratos-entrada-app → 01-extratos-core-ia (Gemini extrai e classifica)
        ├─ PATCH http://localhost:8082/extratos/{id}/status     (extraindo, classificando...)
        └─ POST  http://localhost:8082/extratos/{id}/callback   (lançamentos + metadados)
        │
@@ -73,7 +73,8 @@ da automação sem verificar (com aviso no log) — conveniente em dev, inaceit�
 | `FINTECH_API_URL` | `http://localhost:8082` |
 | `INTERNAL_API_KEY` | o mesmo valor de `n8n.internal-api-key` |
 | `N8N_CALLBACK_SECRET` | o mesmo valor de `n8n.callback-secret` |
-| `CLAUDE_MODEL` | `claude-sonnet-5` (default do workflow) |
+| `GEMINI_MODEL` | `gemini-3.8-flash` (default do workflow) |
+| `GEMINI_FALLBACK_MODEL` | `gemini-3.5-flash-lite` (usado se o principal falhar) |
 
 > Se o N8N rodar em container e o backend na máquina host, `FINTECH_API_URL` precisa
 > ser `http://host.docker.internal:8082` — `localhost` dentro do container é o próprio

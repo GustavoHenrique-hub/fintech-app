@@ -68,7 +68,7 @@ Na primeira subida, importe os workflows de automação no n8n:
 docker compose exec n8n n8n import:workflow --separate --input=/workflows
 ```
 
-Depois cadastre a credencial **Anthropic API** na UI do n8n e ative o workflow
+Depois cadastre a credencial **Google Gemini(PaLM) Api** na UI do n8n e ative o workflow
 `Extratos · Entrada App (backend)`. Credenciais não vêm no export do JSON.
 
 ### Opção B — rodar na máquina
@@ -103,7 +103,7 @@ com uma exceção: as credenciais de terceiros do n8n ficam na UI dele.
 | `INTERNAL_API_KEY` | `infra/.env` | header `X-Internal-Api-Key` entre backend e n8n |
 | `N8N_CALLBACK_SECRET` | `infra/.env` | HMAC do header `X-N8N-Signature` |
 | `N8N_ENCRYPTION_KEY` | `infra/.env` | criptografa as credenciais salvas no n8n |
-| Chave da Anthropic | UI do n8n → Credentials | nó *Claude - Extrair e Classificar* |
+| Chave do Gemini | UI do n8n → Credentials | nó *Gemini · Extrair + Classificar* |
 | Token do bot Telegram | UI do n8n → Credentials | workflow 03 |
 | Chave da Evolution API | UI do n8n → Credentials | workflow 04 |
 
@@ -168,7 +168,7 @@ Definidos em [`infra/docker-compose.yml`](infra/docker-compose.yml).
 
 **Automação**
 - N8N (integração WhatsApp/Telegram)
-- Claude API (classificação de transações)
+- Google Gemini API (extração e classificação de transações)
 - GitHub Actions (CI/CD)
 
 ---

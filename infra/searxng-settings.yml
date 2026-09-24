@@ -1,0 +1,7 @@
+# SearXNG para o web search do n8n Assistant.
+# A imagem padrão só serve HTML; o n8n precisa da API JSON.
+use_default_settings: true
+search:
+  formats:
+    - html
+    - json

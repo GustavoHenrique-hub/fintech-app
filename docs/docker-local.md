@@ -12,7 +12,7 @@ Edition self-hosted é gratuita, sem limite de execuções nem de workflows, e o
 JSONs de `automacao/n8n/` importam sem nenhuma alteração.
 
 Há inclusive um ganho: os workflows leem `$env.FINTECH_API_URL`,
-`$env.INTERNAL_API_KEY` e `$env.CLAUDE_MODEL` no nó ⚙️ Config. **O n8n Cloud
+`$env.INTERNAL_API_KEY` e `$env.GEMINI_MODEL` no nó ⚙️ Config. **O n8n Cloud
 bloqueia acesso a variáveis de ambiente em expressões**; o self-hosted, não —
 desde que `N8N_BLOCK_ENV_ACCESS_IN_NODE=false`, que o compose já define.
 
@@ -20,10 +20,12 @@ desde que `N8N_BLOCK_ENV_ACCESS_IN_NODE=false`, que o compose já define.
 
 | Serviço | Imagem / build | Porta no host | Nome na rede Docker |
 |---|---|---|---|
-| `postgres` | `postgres:16-alpine` | 5432 | `postgres` |
+| `postgres` | `postgres:16-alpine` | 5433 (`POSTGRES_PORT`) | `postgres` |
 | `backend` | `infra/backend.Dockerfile` | 8082 | `backend` |
 | `frontend` | `infra/frontend.Dockerfile` | 3000 | `frontend` |
 | `n8n` | `docker.n8n.io/n8nio/n8n:latest` | 5678 | `n8n` |
+| `sandbox-api` + `sandbox-runner-1` | `ghcr.io/n8n-io/n8n-sandbox-service-*` | — (interno) | `sandbox-api` |
+| `searxng` | `ghcr.io/searxng/searxng:latest` | — (interno) | `searxng` |
 
 As portas foram mantidas **iguais às do setup local** (8082 / 3000 / 5678) de
 propósito: `docs/n8n-extratos.md`, o `vite.config.js` e os defaults do
@@ -95,9 +97,10 @@ leitura) dentro do container. Na primeira subida:
 docker compose exec n8n n8n import:workflow --separate --input=/workflows
 ```
 
-3. **Cadastre a credencial da Anthropic.** Credenciais nunca vão no export do
-   JSON, então o nó *Claude - Extrair e Classificar* vem sem chave. Vá em
-   **Credentials → New → Anthropic API** e cole a `sk-ant-...`.
+3. **Cadastre a credencial do Gemini.** Credenciais nunca vão no export do
+   JSON, então o nó *Gemini · Extrair + Classificar* vem sem chave. Gere a chave
+   em https://aistudio.google.com/apikey, vá em **Credentials → New → Google
+   Gemini(PaLM) Api**, cole a `AIza...` e selecione a credencial no nó.
 4. Ative o workflow `Extratos · Entrada App (backend)` — só com ele ativo o
    webhook `POST /webhook/extratos/processar` passa a responder.
 
@@ -115,7 +118,7 @@ Resumo — os detalhes estão comentados em [`infra/.env.example`](../infra/.env
 | `INTERNAL_API_KEY` | `infra/.env` | backend **e** n8n (header `X-Internal-Api-Key`) |
 | `N8N_CALLBACK_SECRET` | `infra/.env` | HMAC do header `X-N8N-Signature` |
 | `N8N_ENCRYPTION_KEY` | `infra/.env` | criptografa as credenciais salvas no n8n |
-| Chave da Anthropic | **UI do n8n** (recomendado) ou `ANTHROPIC_API_KEY` no `.env` | nó *Claude - Extrair e Classificar* |
+| Chave do Gemini | **UI do n8n** (recomendado) ou `GEMINI_API_KEY` no `.env` | nó *Gemini · Extrair + Classificar* |
 | Token do bot Telegram | **UI do n8n** (Credentials → Telegram API) | workflow 03 |
 | Chave da Evolution API | **UI do n8n** (Credentials → Header Auth) | workflow 04 |
 
@@ -165,11 +168,41 @@ Para carregar a massa de teste **depois** que o backend subiu pelo menos uma vez
 docker compose exec -T postgres psql -U fintech -d fintech_app_dev < ../scripts/fintechapp_carga.sql
 ```
 
+## n8n Assistant: sandbox de código e web search
+
+O compose já sobe o sandbox oficial do n8n (`sandbox-certs`, `sandbox-api`,
+`sandbox-runner-1`) e o SearXNG, e já configura o n8n por variável de ambiente
+(`N8N_INSTANCE_AI_*`). Os segredos são gerados pelo `subir.cmd` em `infra/.env`.
+
+Se a UI do n8n ainda abrir os diálogos, preencha assim:
+
+| Diálogo | Opção | Campo | Valor |
+|---|---|---|---|
+| Add a code sandbox | n8n Sandbox | Service URL | `http://sandbox-api:8080` |
+| | | API key | valor de `SANDBOX_API_KEY` em `infra/.env` |
+| Add web search | SearXNG | Instance URL | `http://searxng:8080` |
+
+Use o **nome do serviço**, não `localhost`: quem chama é o container do n8n.
+O Assistant também precisa de um provedor de modelo (Anthropic/OpenAI/OpenRouter)
+configurado nas AI settings do n8n.
+
+Testar de dentro do n8n:
+
+```bash
+docker exec fintech-n8n wget -qO- http://sandbox-api:8080/healthz          # {"status":"ok"}
+docker exec fintech-n8n wget -qO- "http://searxng:8080/search?q=n8n&format=json"
+```
+
+O `sandbox-runner-1` roda **privilegiado** (Docker-in-Docker). Serve para dev
+local; para produção o n8n recomenda o Daytona.
+
 ## Problemas comuns
 
 | Sintoma | Causa / solução |
 |---|---|
 | `port is already allocated` | Algo já usa 3000/8082/5678/5432. Ajuste `*_PORT` no `.env`. |
+| DBeaver em `localhost:5432` mostra dados que o backend não vê | É o PostgreSQL nativo do Windows, não o container. O do Docker está em `localhost:5433`. |
+| Mudei o `.env` e nada mudou | O container só lê o `.env` quando é criado. Rode `docker compose up -d <serviço>` em `infra/` (restart não basta). |
 | Backend reinicia em loop | Senha do banco mudou depois do 1º boot. `docker compose down -v` e suba de novo. |
 | n8n pede login toda hora | Falta `N8N_SECURE_COOKIE=false` (o compose já define) ou você acessa por IP em vez de `localhost`. |
 | Credenciais do n8n "sumiram" | `N8N_ENCRYPTION_KEY` mudou. Volte o valor anterior ou recadastre. |

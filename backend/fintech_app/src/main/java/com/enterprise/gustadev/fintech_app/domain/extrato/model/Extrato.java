@@ -150,6 +150,42 @@ public class Extrato {
         this.atualizadoEm = OffsetDateTime.now();
     }
 
+    /**
+     * Interrompe, a pedido do usuário, um extrato que ficou preso no processamento.
+     * Vai para {@code erro_classificacao} para poder ser reenviado depois; um callback
+     * atrasado da automação é descartado porque o extrato saiu do processamento.
+     */
+    public void cancelarProcessamento() {
+        if (!emProcessamento()) {
+            throw new ExtratoInvalidoException("Só é possível cancelar um extrato em processamento (status atual: " + status + ")");
+        }
+        this.status = StatusExtrato.erro_classificacao;
+        this.atualizadoEm = OffsetDateTime.now();
+    }
+
+    /**
+     * {@code true} quando o processamento terminou em erro (ou foi cancelado) sem gerar
+     * lançamentos — só assim o reenvio não corre o risco de duplicar transações.
+     */
+    public boolean podeSerReenviado() {
+        boolean statusFinalComErro = status == StatusExtrato.erro_formato
+                || status == StatusExtrato.erro_extracao
+                || status == StatusExtrato.erro_classificacao
+                || status == StatusExtrato.erro_timeout
+                || status == StatusExtrato.cancelado;
+        return statusFinalComErro && totalLancamentos == 0;
+    }
+
+    /** Devolve o extrato ao processamento para uma nova tentativa com o mesmo arquivo. */
+    public void prepararReenvio() {
+        if (!podeSerReenviado()) {
+            throw new ExtratoInvalidoException("Só é possível reenviar um extrato com erro e sem lançamentos (status atual: " + status + ")");
+        }
+        this.status = StatusExtrato.reprocessando;
+        this.versao++;
+        this.atualizadoEm = OffsetDateTime.now();
+    }
+
     /** {@code true} enquanto o extrato ainda está em alguma etapa de processamento. */
     public boolean emProcessamento() {
         return status == StatusExtrato.upload_recebido

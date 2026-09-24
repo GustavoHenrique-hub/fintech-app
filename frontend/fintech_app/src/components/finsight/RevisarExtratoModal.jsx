@@ -15,8 +15,13 @@
 //
 // Enquanto o extrato está em processamento (PDF na fila da automação) a lista é
 // recarregada sozinha até os lançamentos chegarem pelo callback.
+//
+// Ações sobre o processamento (ExtratoController#cancelar / #reenviar):
+//   · Cancelar → extrato preso na fila/leitura vai para erro_classificacao;
+//   · Reenviar → extrato com erro e sem lançamentos é processado de novo com o
+//     arquivo já armazenado — o upload recusa o mesmo arquivo pelo hash.
 import { useEffect, useState } from "react";
-import { ArrowUpRight, ArrowDownLeft, CreditCard, Inbox, Loader2, PiggyBank } from "lucide-react";
+import { ArrowUpRight, ArrowDownLeft, CreditCard, Inbox, Loader2, PiggyBank, RotateCw, XCircle } from "lucide-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { Modal, ModalContent, ModalHeader, ModalTitle, ModalDescription } from "@/components/ui/modal";
@@ -29,13 +34,18 @@ import { useContas } from "@/hooks/use-contas";
 import { useCategorias } from "@/hooks/use-categorias";
 import { useAuth } from "@/context/AuthContext";
 import { formatBRLSigned, formatData } from "@/lib/format";
-import { transacaoService } from "@/services";
+import { extratoService, transacaoService } from "@/services";
 import { toast } from "@/hooks/use-toast";
 
 // Status de StatusExtrato em que a automação ainda está trabalhando.
 const STATUS_EM_PROCESSAMENTO = [
   "upload_recebido", "validando", "na_fila", "extraindo",
   "classificando", "aguardando_ia", "reprocessando",
+];
+
+// Status finais de erro — com eles (e sem lançamentos) o extrato pode ser reenviado.
+const STATUS_COM_ERRO = [
+  "erro_formato", "erro_extracao", "erro_classificacao", "erro_timeout", "cancelado",
 ];
 
 const DESTINOS = [
@@ -78,6 +88,7 @@ export function RevisarExtratoModal({ open, onOpenChange, extrato }) {
 
   const conta = contas.find((c) => c.id === extrato?.contaId);
   const processando = STATUS_EM_PROCESSAMENTO.includes(extrato?.status);
+  const podeReenviar = STATUS_COM_ERRO.includes(extrato?.status) && (extrato?.totalLancamentos ?? 0) === 0;
 
   const { data: lancamentos = [], isLoading } = useQuery({
     queryKey: ["transacoes-extrato", extrato?.id],
@@ -132,10 +143,34 @@ export function RevisarExtratoModal({ open, onOpenChange, extrato }) {
     },
   });
 
+  // Cancelar/reenviar devolvem o extrato atualizado; a lista de extratos (de onde o
+  // modal lê o extrato aberto) é recarregada e volta a se atualizar sozinha.
+  const { mutate: executarAcao, isPending: acaoPendente, variables: acaoEmCurso } = useMutation({
+    mutationFn: (acao) => extratoService[acao](extrato.id, extrato.code),
+    onSuccess: (_, acao) => {
+      queryClient.invalidateQueries({ queryKey: ["extratos", user?.idUsuario] });
+      queryClient.invalidateQueries({ queryKey: ["transacoes-extrato", extrato?.id] });
+      if (acao === "reenviar") queryClient.invalidateQueries({ queryKey: ["transacoes", user?.idUsuario] });
+      toast.success({
+        title: acao === "reenviar" ? "Extrato reenviado" : "Processamento cancelado",
+        description: acao === "reenviar"
+          ? "O arquivo voltou para a leitura. Os lançamentos aparecem aqui quando ficarem prontos."
+          : "O extrato foi marcado com erro na classificação. Você pode reenviá-lo quando quiser.",
+      });
+    },
+    onError: (err, acao) => {
+      toast.error({
+        title: acao === "reenviar" ? "Não foi possível reenviar o extrato" : "Não foi possível cancelar o processamento",
+        description: err?.response?.data?.error ?? "Tente novamente.",
+      });
+    },
+  });
+
   const pendentes = lancamentos.filter((t) => t.statusRevisao === "PENDENTE_REVISAO").length;
 
   const descricaoModal = () => {
     if (processando) return "Estamos lendo o arquivo. Os lançamentos aparecem aqui assim que ficarem prontos.";
+    if (podeReenviar) return "Não foi possível ler este extrato. Clique em Reenviar para tentar de novo com o mesmo arquivo.";
     if (pendentes > 0) return `${pendentes} lançamento(s) aguardando revisão. Escolha o tipo de cada um e clique em "Revisado".`;
     return "Todos os lançamentos já foram revisados.";
   };
@@ -250,6 +285,32 @@ export function RevisarExtratoModal({ open, onOpenChange, extrato }) {
             })
           )}
         </div>
+
+        {(processando || podeReenviar) && (
+          <div className="flex justify-end gap-2">
+            {processando && (
+              <Button
+                size="sm"
+                variant="secondary"
+                loading={acaoPendente && acaoEmCurso === "cancelar"}
+                disabled={acaoPendente}
+                onClick={() => executarAcao("cancelar")}
+              >
+                <XCircle className="w-3.5 h-3.5" strokeWidth={2.25} /> Cancelar
+              </Button>
+            )}
+            {podeReenviar && (
+              <Button
+                size="sm"
+                loading={acaoPendente && acaoEmCurso === "reenviar"}
+                disabled={acaoPendente}
+                onClick={() => executarAcao("reenviar")}
+              >
+                <RotateCw className="w-3.5 h-3.5" strokeWidth={2.25} /> Reenviar
+              </Button>
+            )}
+          </div>
+        )}
       </ModalContent>
     </Modal>
   );

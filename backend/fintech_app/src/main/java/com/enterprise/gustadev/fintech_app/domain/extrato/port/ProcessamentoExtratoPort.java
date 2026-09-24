@@ -4,7 +4,7 @@ import com.enterprise.gustadev.fintech_app.domain.extrato.model.SolicitacaoProce
 
 /**
  * Porta de saída para a automação que extrai e classifica os lançamentos do
- * extrato (hoje o N8N + Claude). O domínio não sabe qual automação está por trás.
+ * extrato (hoje o N8N + Gemini). O domínio não sabe qual automação está por trás.
  */
 public interface ProcessamentoExtratoPort {
 

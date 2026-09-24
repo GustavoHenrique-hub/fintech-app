@@ -34,5 +34,7 @@ RUN npm run build
 # ── Estágio 2: runtime ────────────────────────────────────────────────────────
 FROM nginx:1.27-alpine
 COPY --from=build /build/dist /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# nginx.conf fica em infra/, fora do contexto de build: vem do contexto extra
+# "infra" declarado em additional_contexts no docker-compose.yml.
+COPY --from=infra nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80

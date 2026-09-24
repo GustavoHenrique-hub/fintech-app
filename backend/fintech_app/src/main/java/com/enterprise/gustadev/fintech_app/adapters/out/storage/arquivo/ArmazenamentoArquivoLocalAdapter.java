@@ -34,6 +34,19 @@ public class ArmazenamentoArquivoLocalAdapter implements ArmazenamentoArquivoPor
         }
     }
 
+    @Override
+    public byte[] carregar(String arquivoUuid, String nomeOriginal) {
+        Path origem = diretorio.resolve(arquivoUuid + extensao(nomeOriginal));
+        if (!Files.exists(origem)) {
+            throw new ExtratoInvalidoException("Arquivo original do extrato não está mais armazenado; remova o extrato e importe o arquivo novamente");
+        }
+        try {
+            return Files.readAllBytes(origem);
+        } catch (IOException e) {
+            throw new ExtratoInvalidoException("Não foi possível ler o arquivo armazenado: " + e.getMessage());
+        }
+    }
+
     private String extensao(String nomeOriginal) {
         if (nomeOriginal == null) return "";
         int ponto = nomeOriginal.lastIndexOf('.');
