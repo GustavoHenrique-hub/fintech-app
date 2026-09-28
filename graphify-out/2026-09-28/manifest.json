@@ -880,8 +880,8 @@
     "semantic_hash": ""
   },
   "frontend/fintech_app/src/components/finsight/screens/AnalyticsScreen.jsx": {
-    "mtime": 1790602847.4738169,
-    "ast_hash": "fea5c56b07f1640b00b206012af03011",
+    "mtime": 1790624376.3285847,
+    "ast_hash": "c10fc28155b35cba7613ecea3701d19b",
     "semantic_hash": ""
   },
   "frontend/fintech_app/src/components/finsight/screens/EstornoTransacaoScreen.jsx": {
@@ -890,8 +890,8 @@
     "semantic_hash": ""
   },
   "frontend/fintech_app/src/components/finsight/screens/OverviewScreen.jsx": {
-    "mtime": 1790602487.3329868,
-    "ast_hash": "f60fa0cac8d16b76c76dbf61b4dcca25",
+    "mtime": 1790624362.960646,
+    "ast_hash": "88ba5d952128b60fdd4767ad8dcd65cc",
     "semantic_hash": ""
   },
   "frontend/fintech_app/src/components/finsight/screens/ProfileScreen.jsx": {
@@ -1510,8 +1510,8 @@
     "semantic_hash": ""
   },
   "frontend/fintech_app/src/lib/periodo.js": {
-    "mtime": 1784815634.8714073,
-    "ast_hash": "bc723fdce85072ff657e5c7507a92599",
+    "mtime": 1790624338.6704407,
+    "ast_hash": "d15bbad257bed78c60518b153ec4ac68",
     "semantic_hash": ""
   },
   "frontend/fintech_app/src/services/transacao/GetResumoPeriodo.js": {
@@ -2037,6 +2037,31 @@
   "docs/pause_estorno.png": {
     "mtime": 1790600230.5942748,
     "ast_hash": "d5712cdd65240717cc48760c53a0d98f",
+    "semantic_hash": ""
+  },
+  "frontend/fintech_app/src/test/periodo.test.js": {
+    "mtime": 1790624462.6842914,
+    "ast_hash": "e00316710a57013c23d6bf76d6ca593c",
+    "semantic_hash": ""
+  },
+  "docs/item_revisado.png": {
+    "mtime": 1790624124.4366324,
+    "ast_hash": "c7b370c61ff45140d1ba4b1ebcab57da",
+    "semantic_hash": ""
+  },
+  "docs/overview_pedente_revisao.png": {
+    "mtime": 1790624074.3493252,
+    "ast_hash": "bc1635f8178911c83fb6d9e3795d0746",
+    "semantic_hash": ""
+  },
+  "docs/saldo_atualizado_gasto_receita_nao.png": {
+    "mtime": 1790624146.5143166,
+    "ast_hash": "08e3b150f6742f3227e324b1846a2f72",
+    "semantic_hash": ""
+  },
+  "docs/transacao_item.png": {
+    "mtime": 1790624104.63959,
+    "ast_hash": "ab76caaaf8b21c787bc99668b46b7439",
     "semantic_hash": ""
   }
 }
