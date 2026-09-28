@@ -32,11 +32,14 @@ public class EstornarTransacaoUseCase {
                     repository.salvar(original);
                     Transacao estornoSalvo = repository.salvar(estorno);
 
-                    ContaFinanceira conta = contaRepository.buscarPorId(original.getConta().getId())
-                            .orElseThrow(() -> new ContaFinanceiraInvalidaException(
-                                    "Conta financeira não encontrada: " + original.getConta().getId()));
-                    conta.reverterTransacao(original.tipoEfetivo(), original.getValor().abs());
-                    contaRepository.salvar(conta);
+                    // Lançamento ainda pendente de revisão nunca entrou no saldo: nada a reverter.
+                    if (original.saldoJaAplicado()) {
+                        ContaFinanceira conta = contaRepository.buscarPorId(original.getConta().getId())
+                                .orElseThrow(() -> new ContaFinanceiraInvalidaException(
+                                        "Conta financeira não encontrada: " + original.getConta().getId()));
+                        conta.reverterTransacao(original.tipoEfetivo(), original.getValor().abs());
+                        contaRepository.salvar(conta);
+                    }
 
                     return estornoSalvo;
                 });

@@ -1,8 +1,11 @@
 package com.enterprise.gustadev.fintech_app.application.transacao;
 
+import com.enterprise.gustadev.fintech_app.application.classificacao.CalibradorConfiancaIa;
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.ConfirmarRevisaoTransacaoUseCase;
 import com.enterprise.gustadev.fintech_app.domain.categoria.model.Categoria;
 import com.enterprise.gustadev.fintech_app.domain.categoria.port.CategoriaRepositoryPort;
+import com.enterprise.gustadev.fintech_app.domain.classificacao.model.AprendizadoClassificacao;
+import com.enterprise.gustadev.fintech_app.domain.classificacao.port.AprendizadoClassificacaoRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.port.ContaFinanceiraRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.economia.model.MovimentacaoEconomia;
@@ -19,10 +22,10 @@ import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoTransacao;
 import com.enterprise.gustadev.fintech_app.domain.transacao.exception.TransacaoInvalidaException;
 import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;
 import com.enterprise.gustadev.fintech_app.domain.transacao.port.TransacaoRepositoryPort;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -53,9 +56,27 @@ class ConfirmarRevisaoTransacaoUseCaseTest {
     private CategoriaRepositoryPort categoriaRepository;
     @Mock
     private MovimentacaoEconomiaRepositoryPort movimentacaoEconomiaRepository;
+    @Mock
+    private AprendizadoClassificacaoRepositoryPort aprendizadoRepository;
 
-    @InjectMocks
     private ConfirmarRevisaoTransacaoUseCase useCase;
+
+    @BeforeEach
+    void setUp() {
+        useCase = new ConfirmarRevisaoTransacaoUseCase(transacaoRepository, extratoRepository, contaRepository,
+                categoriaRepository, movimentacaoEconomiaRepository, new CalibradorConfiancaIa(aprendizadoRepository));
+    }
+
+    /** Lançamento importado depois da mudança: ainda fora do saldo, com a conta do usuário 1. */
+    private Transacao lancamentoPendenteForaDoSaldo(BigDecimal valor) {
+        Transacao transacao = lancamentoPendente(valor);
+        ContaFinanceira conta = new ContaFinanceira(2L, "CTA001");
+        conta.setUsuarioId(1L);
+        transacao.setConta(conta);
+        transacao.setSaldoAplicado(false);
+        transacao.setConfiancaIa((short) 80);
+        return transacao;
+    }
 
     /** Lançamento importado: nasce na categoria genérica (AMBOS), negativo = gasto. */
     private Transacao lancamentoPendente(BigDecimal valor) {
@@ -209,6 +230,48 @@ class ConfirmarRevisaoTransacaoUseCaseTest {
 
         assertThat(revisada.getCategoriaId()).isEqualTo(7L);
         assertThat(revisada.tipoEfetivo()).isEqualTo(TipoTransacao.RECEITA);
+    }
+
+    @Test
+    void executar_deveAplicarNoSaldo_eSubirAConfianca_quandoLancamentoAindaNaoEstaNoSaldo() {
+        when(transacaoRepository.buscarPorIdECode(10L, "TRX001"))
+                .thenReturn(Optional.of(lancamentoPendenteForaDoSaldo(new BigDecimal("-150.50"))));
+        when(transacaoRepository.salvar(any())).thenAnswer(inv -> inv.getArgument(0));
+        when(contaRepository.buscarPorId(2L)).thenReturn(Optional.of(conta()));
+        when(contaRepository.salvar(any())).thenAnswer(inv -> inv.getArgument(0));
+        when(extratoRepository.buscarPorId(99L)).thenReturn(Optional.of(extratoComPendentes(1)));
+
+        Transacao revisada = useCase.executar(10L, "TRX001", DestinoRevisaoLancamento.GASTO, null, null);
+
+        assertThat(revisada.saldoJaAplicado()).isTrue();
+        assertThat(revisada.getConfiancaIa()).isEqualTo((short) 85);
+
+        ArgumentCaptor<ContaFinanceira> contaSalva = ArgumentCaptor.forClass(ContaFinanceira.class);
+        verify(contaRepository).salvar(contaSalva.capture());
+        assertThat(contaSalva.getValue().getSaldoAtual()).isEqualByComparingTo("699.50");
+
+        ArgumentCaptor<AprendizadoClassificacao> aprendizado = ArgumentCaptor.forClass(AprendizadoClassificacao.class);
+        verify(aprendizadoRepository).salvar(aprendizado.capture());
+        assertThat(aprendizado.getValue().getChave()).isEqualTo("supermercado");
+        assertThat(aprendizado.getValue().getTipo()).isEqualTo(TipoTransacao.GASTO);
+        assertThat(aprendizado.getValue().getAcertos()).isEqualTo(1);
+    }
+
+    @Test
+    void executarLote_deveConfirmarOsValidos_eDevolverAsFalhasSemInterromper() {
+        when(transacaoRepository.buscarPorIdECode(10L, "TRX001"))
+                .thenReturn(Optional.of(lancamentoPendente(new BigDecimal("-150.50"))));
+        when(transacaoRepository.buscarPorIdECode(11L, "TRX002")).thenReturn(Optional.empty());
+        when(transacaoRepository.salvar(any())).thenAnswer(inv -> inv.getArgument(0));
+        when(extratoRepository.buscarPorId(99L)).thenReturn(Optional.of(extratoComPendentes(2)));
+
+        ConfirmarRevisaoTransacaoUseCase.ResultadoRevisaoLote resultado = useCase.executarLote(List.of(
+                new ConfirmarRevisaoTransacaoUseCase.ItemRevisao(11L, "TRX002", DestinoRevisaoLancamento.GASTO, null, null),
+                new ConfirmarRevisaoTransacaoUseCase.ItemRevisao(10L, "TRX001", DestinoRevisaoLancamento.GASTO, null, null)));
+
+        assertThat(resultado.revisadas()).hasSize(1);
+        assertThat(resultado.falhas()).singleElement()
+                .satisfies(f -> assertThat(f.id()).isEqualTo(11L));
     }
 
     @Test

@@ -5,6 +5,7 @@ import com.enterprise.gustadev.fintech_app.application.auth.usecase.LogoutUseCas
 import com.enterprise.gustadev.fintech_app.application.banco.usecase.BuscarBancoUseCase;
 import com.enterprise.gustadev.fintech_app.application.banco.usecase.CriarBancoUseCase;
 import com.enterprise.gustadev.fintech_app.application.banco.usecase.ListarBancosUseCase;
+import com.enterprise.gustadev.fintech_app.application.classificacao.CalibradorConfiancaIa;
 import com.enterprise.gustadev.fintech_app.application.categoria.usecase.BuscarCategoriaUseCase;
 import com.enterprise.gustadev.fintech_app.application.categoria.usecase.CriarCategoriaUseCase;
 import com.enterprise.gustadev.fintech_app.application.categoria.usecase.ListarCategoriasUseCase;
@@ -44,6 +45,7 @@ import com.enterprise.gustadev.fintech_app.domain.auth.port.SenhaEncoder;
 import com.enterprise.gustadev.fintech_app.domain.auth.port.SessaoTokenRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.banco.port.BancoRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.categoria.port.CategoriaRepositoryPort;
+import com.enterprise.gustadev.fintech_app.domain.classificacao.port.AprendizadoClassificacaoRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.motivocancelamento.port.MotivoCancelamentoRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.transacaocancelada.port.TransacaoCanceladaRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.consentimentolgpd.port.ConsentimentoLgpdRepositoryPort;
@@ -231,9 +233,16 @@ public class BeanConfig {
             ExtratoRepositoryPort extratoRepository,
             ContaFinanceiraRepositoryPort contaRepository,
             CategoriaRepositoryPort categoriaRepository,
-            TransacaoRepositoryPort transacaoRepository) {
+            TransacaoRepositoryPort transacaoRepository,
+            CalibradorConfiancaIa calibradorConfiancaIa) {
         return new RegistrarResultadoExtratoUseCase(extratoRepository, contaRepository,
-                categoriaRepository, transacaoRepository);
+                categoriaRepository, transacaoRepository, calibradorConfiancaIa);
+    }
+
+    // ── Confiança da IA (aprendizado com as revisões do usuário) ─────────
+    @Bean
+    public CalibradorConfiancaIa calibradorConfiancaIa(AprendizadoClassificacaoRepositoryPort repository) {
+        return new CalibradorConfiancaIa(repository);
     }
 
     // ── Transacao ────────────────────────────────────────────────────────
@@ -269,9 +278,18 @@ public class BeanConfig {
     public ConfirmarRevisaoTransacaoUseCase confirmarRevisaoTransacaoUseCase(
             TransacaoRepositoryPort transacaoRepository, ExtratoRepositoryPort extratoRepository,
             ContaFinanceiraRepositoryPort contaRepository, CategoriaRepositoryPort categoriaRepository,
-            MovimentacaoEconomiaRepositoryPort movimentacaoEconomiaRepository) {
+            MovimentacaoEconomiaRepositoryPort movimentacaoEconomiaRepository,
+            CalibradorConfiancaIa calibradorConfiancaIa) {
         return new ConfirmarRevisaoTransacaoUseCase(transacaoRepository, extratoRepository,
-                contaRepository, categoriaRepository, movimentacaoEconomiaRepository);
+                contaRepository, categoriaRepository, movimentacaoEconomiaRepository, calibradorConfiancaIa);
+    }
+
+    @Bean
+    public DesfazerRevisaoTransacaoUseCase desfazerRevisaoTransacaoUseCase(
+            TransacaoRepositoryPort transacaoRepository, ExtratoRepositoryPort extratoRepository,
+            ContaFinanceiraRepositoryPort contaRepository, CalibradorConfiancaIa calibradorConfiancaIa) {
+        return new DesfazerRevisaoTransacaoUseCase(transacaoRepository, extratoRepository,
+                contaRepository, calibradorConfiancaIa);
     }
 
     // ── MotivoCancelamento ───────────────────────────────────────────────

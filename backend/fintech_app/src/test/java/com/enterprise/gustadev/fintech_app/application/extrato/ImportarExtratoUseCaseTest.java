@@ -94,7 +94,6 @@ class ImportarExtratoUseCaseTest {
         });
         when(categoriaRepository.listarPorTipo(TipoCategoria.AMBOS)).thenReturn(List.of(categoriaOutros()));
         when(transacaoRepository.salvar(any())).thenAnswer(inv -> inv.getArgument(0));
-        when(contaRepository.salvar(any())).thenAnswer(inv -> inv.getArgument(0));
 
         Extrato resultado = useCase.executar(1L, 1L, "extrato.csv", CSV_VALIDO);
 
@@ -103,7 +102,8 @@ class ImportarExtratoUseCaseTest {
         assertThat(resultado.getLancamentosPendentes()).isEqualTo(2);
         verify(transacaoRepository, times(2)).salvar(any());
         verify(armazenamento).salvar(anyString(), eq("extrato.csv"), any());
-        verify(contaRepository).salvar(any());
+        // Pendente de revisão não entra no saldo: ele só muda quando o usuário confirmar.
+        verify(contaRepository, never()).salvar(any());
     }
 
     @Test
@@ -140,7 +140,6 @@ class ImportarExtratoUseCaseTest {
         when(extratoRepository.salvar(any())).thenAnswer(inv -> inv.getArgument(0));
         when(categoriaRepository.listarPorTipo(TipoCategoria.AMBOS)).thenReturn(List.of(categoriaOutros()));
         when(transacaoRepository.salvar(any())).thenAnswer(inv -> inv.getArgument(0));
-        when(contaRepository.salvar(any())).thenAnswer(inv -> inv.getArgument(0));
 
         useCase.executar(1L, 1L, "extrato.csv", CSV_VALIDO);
 

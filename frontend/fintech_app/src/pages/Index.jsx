@@ -56,7 +56,7 @@ const Index = () => {
               />
             )}
             {screen === "add" && <AddTransactionScreen />}
-            {screen === "estorno" && <EstornoTransacaoScreen />}
+            {screen === "estorno" && <EstornoTransacaoScreen onCancelar={() => setScreen("payments")} />}
             {screen === "extratos" && <ExtratosScreen />}
             {screen === "profile" && <ProfileScreen />}
           </main>

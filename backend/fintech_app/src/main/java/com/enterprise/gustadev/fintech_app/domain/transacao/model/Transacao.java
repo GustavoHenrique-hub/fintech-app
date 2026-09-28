@@ -46,6 +46,13 @@ public class Transacao {
     /** Quando preenchida (origem=importado), aponta para o extrato que gerou esta transação. */
     private Long extratoId;
     private String extratoCode;
+    /**
+     * {@code true} quando o valor desta transação já está refletido no saldo da conta.
+     * Lançamentos importados nascem com {@code false} e só entram no saldo ao serem
+     * confirmados; {@code null} vem de linhas antigas, gravadas quando a importação
+     * ainda aplicava o saldo na hora — e por isso contam como aplicadas.
+     */
+    private Boolean saldoAplicado;
 
     public Transacao(Long id, ContaFinanceira conta, String indEstorno,
                      String descricao, BigDecimal valor,
@@ -84,6 +91,7 @@ public class Transacao {
              StatusRevisaoTransacao.EXTRAIDA, null, false, null, null,
              1, OffsetDateTime.now(), null, null);
         this.code = CodeGenerator.gerar();
+        this.saldoAplicado = Boolean.TRUE;
     }
 
     /**
@@ -103,7 +111,13 @@ public class Transacao {
         estorno.code = CodeGenerator.gerar();
         estorno.transacaoEstornadaId = this.id;
         estorno.categoriaTipo = this.categoriaTipo;
+        estorno.saldoAplicado = this.saldoAplicado;
         return estorno;
+    }
+
+    /** {@code true} quando o valor já está no saldo da conta (linhas antigas, sem a flag, contam como aplicadas). */
+    public boolean saldoJaAplicado() {
+        return saldoAplicado == null || saldoAplicado;
     }
 
     /**
@@ -140,6 +154,29 @@ public class Transacao {
         }
         this.statusRevisao = StatusRevisaoTransacao.CONFIRMADA;
         this.atualizadoEm = OffsetDateTime.now();
+    }
+
+    /**
+     * Desfaz ("estorna") uma revisão já confirmada: o lançamento volta para
+     * PENDENTE_REVISAO para ser classificado de novo. Não vale para estornos
+     * financeiros nem para transações já estornadas — essas não têm mais revisão.
+     */
+    public void desfazerRevisao() {
+        if (statusRevisao != StatusRevisaoTransacao.CONFIRMADA) {
+            throw new TransacaoInvalidaException(
+                    "Só é possível estornar a revisão de uma transação CONFIRMADA (status atual: " + statusRevisao + ")");
+        }
+        if ("S".equals(indEstorno) || estornadoAt != null) {
+            throw new TransacaoInvalidaException("Transação estornada não pode ter a revisão desfeita");
+        }
+        this.statusRevisao = StatusRevisaoTransacao.PENDENTE_REVISAO;
+        this.atualizadoEm = OffsetDateTime.now();
+    }
+
+    /** Soma {@code delta} (positivo ou negativo) à confiança da IA, mantendo-a entre 0 e 100. */
+    public void ajustarConfianca(int delta) {
+        int base = confiancaIa != null ? confiancaIa : 0;
+        this.confiancaIa = (short) Math.max(0, Math.min(100, base + delta));
     }
 
     /**

@@ -111,6 +111,35 @@ public class Extrato {
     }
 
     /**
+     * Reflete lançamentos que a leitura do extrato já confirmou sozinha (confiança da
+     * IA acima do limiar): saem de pendente direto para confirmado.
+     */
+    public void confirmarLancamentosAutomaticos(int quantidade) {
+        if (quantidade <= 0) return;
+        if (quantidade > lancamentosPendentes) {
+            throw new ExtratoInvalidoException("Extrato não possui " + quantidade + " lançamentos pendentes de revisão");
+        }
+        this.lancamentosPendentes -= quantidade;
+        this.lancamentosConfirmados += quantidade;
+        this.status = lancamentosPendentes == 0 ? StatusExtrato.concluido : StatusExtrato.parcialmente_revisado;
+        this.atualizadoEm = OffsetDateTime.now();
+    }
+
+    /**
+     * Reflete o estorno da revisão de um lançamento confirmado: ele volta a ser
+     * pendente e o extrato deixa de estar concluído.
+     */
+    public void reabrirLancamento() {
+        if (lancamentosConfirmados <= 0) {
+            throw new ExtratoInvalidoException("Extrato não possui lançamentos confirmados");
+        }
+        this.lancamentosConfirmados--;
+        this.lancamentosPendentes++;
+        this.status = StatusExtrato.parcialmente_revisado;
+        this.atualizadoEm = OffsetDateTime.now();
+    }
+
+    /**
      * Reflete a decisão do usuário de tirar um lançamento pendente de receitas/gastos
      * (ex.: marcou como "economias"): sai de pendente e entra em ignorados, sem contar
      * como confirmado. O status agregado segue a mesma regra de

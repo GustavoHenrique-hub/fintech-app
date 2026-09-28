@@ -1,5 +1,6 @@
 package com.enterprise.gustadev.fintech_app.application.transacao.usecase;
 
+import com.enterprise.gustadev.fintech_app.application.classificacao.CalibradorConfiancaIa;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.CatalogoCategoriasImportacao;
 import com.enterprise.gustadev.fintech_app.domain.categoria.exception.CategoriaInvalidaException;
 import com.enterprise.gustadev.fintech_app.domain.categoria.model.Categoria;
@@ -23,6 +24,8 @@ import com.enterprise.gustadev.fintech_app.domain.transacao.port.TransacaoReposi
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
 /**
@@ -30,10 +33,11 @@ import java.util.function.Consumer;
  * destino do lançamento na tela de revisão:
  *
  * <ul>
- *   <li>{@code GASTO}/{@code RECEITA} — a transação é CONFIRMADA e passa a valer na aba
- *       "Transações". Se a direção escolhida for diferente da que veio do extrato, a
- *       categoria (ou o sinal do valor, na categoria genérica) é ajustada e o saldo da
- *       conta é recalculado.</li>
+ *   <li>{@code GASTO}/{@code RECEITA} — a transação é CONFIRMADA, passa a valer na aba
+ *       "Transações" e entra no saldo da conta. Se a direção escolhida for diferente da
+ *       que veio do extrato, a categoria (ou o sinal do valor, na categoria genérica) é
+ *       ajustada. A confiança da IA sobe e a escolha alimenta o aprendizado
+ *       ({@link CalibradorConfiancaIa}).</li>
  *   <li>{@code ECONOMIA} — o valor vira uma movimentação do sub-saldo de economias da
  *       conta e a transação sai das listagens (IGNORADA), para não contar duas vezes
  *       em receitas/gastos.</li>
@@ -48,17 +52,20 @@ public class ConfirmarRevisaoTransacaoUseCase {
     private final ContaFinanceiraRepositoryPort contaRepository;
     private final CategoriaRepositoryPort categoriaRepository;
     private final MovimentacaoEconomiaRepositoryPort movimentacaoEconomiaRepository;
+    private final CalibradorConfiancaIa calibrador;
 
     public ConfirmarRevisaoTransacaoUseCase(TransacaoRepositoryPort transacaoRepository,
                                              ExtratoRepositoryPort extratoRepository,
                                              ContaFinanceiraRepositoryPort contaRepository,
                                              CategoriaRepositoryPort categoriaRepository,
-                                             MovimentacaoEconomiaRepositoryPort movimentacaoEconomiaRepository) {
+                                             MovimentacaoEconomiaRepositoryPort movimentacaoEconomiaRepository,
+                                             CalibradorConfiancaIa calibrador) {
         this.transacaoRepository = transacaoRepository;
         this.extratoRepository = extratoRepository;
         this.contaRepository = contaRepository;
         this.categoriaRepository = categoriaRepository;
         this.movimentacaoEconomiaRepository = movimentacaoEconomiaRepository;
+        this.calibrador = calibrador;
     }
 
     /** Confirma mantendo a classificação que veio do extrato. */
@@ -103,18 +110,53 @@ public class ConfirmarRevisaoTransacaoUseCase {
         }
         transacao.validar();
 
+        // Lançamento pendente ainda não está no saldo: entra agora, já na direção final.
+        // Linhas antigas (saldo aplicado na importação) só são corrigidas se a direção mudou.
         TipoTransacao direcaoFinal = transacao.tipoEfetivo();
-        if (direcaoFinal != direcaoAtual) {
+        boolean jaAplicado = transacao.saldoJaAplicado();
+        if (!jaAplicado || direcaoFinal != direcaoAtual) {
             ContaFinanceira conta = carregarConta(transacao);
-            conta.reverterTransacao(direcaoAtual, valorAbsoluto);
+            if (jaAplicado) {
+                conta.reverterTransacao(direcaoAtual, valorAbsoluto);
+            }
             conta.aplicarTransacao(direcaoFinal, valorAbsoluto);
             contaRepository.salvar(conta);
+            transacao.setSaldoAplicado(true);
         }
 
         transacao.confirmarRevisao();
+        calibrador.registrarConfirmacao(transacao.getConta().getUsuarioId(), transacao);
         Transacao salva = transacaoRepository.salvar(transacao);
         atualizarExtrato(transacao, Extrato::confirmarLancamento);
         return salva;
+    }
+
+    /** Uma escolha da tela de revisão, para confirmar vários lançamentos de uma vez ("Revisar tudo"). */
+    public record ItemRevisao(Long id, String code, DestinoRevisaoLancamento destino,
+                              Long categoriaId, String categoriaCode) { }
+
+    public record FalhaRevisao(Long id, String code, String erro) { }
+
+    public record ResultadoRevisaoLote(List<Transacao> revisadas, List<FalhaRevisao> falhas) { }
+
+    /**
+     * Confirma cada item com a escolha que o usuário deixou na tela. Um item inválido
+     * (já revisado, categoria incompatível, saldo insuficiente para economias...) não
+     * derruba os demais: vai para {@code falhas} com a mensagem do erro.
+     */
+    @Transactional
+    public ResultadoRevisaoLote executarLote(List<ItemRevisao> itens) {
+        List<Transacao> revisadas = new ArrayList<>();
+        List<FalhaRevisao> falhas = new ArrayList<>();
+        for (ItemRevisao item : itens) {
+            try {
+                revisadas.add(executar(item.id(), item.code(), item.destino(),
+                        item.categoriaId(), item.categoriaCode()));
+            } catch (RuntimeException e) {
+                falhas.add(new FalhaRevisao(item.id(), item.code(), e.getMessage()));
+            }
+        }
+        return new ResultadoRevisaoLote(revisadas, falhas);
     }
 
     /**
@@ -132,11 +174,18 @@ public class ConfirmarRevisaoTransacaoUseCase {
     private Transacao converterEmEconomia(Transacao transacao) {
         ContaFinanceira conta = carregarConta(transacao);
         BigDecimal valorAbsoluto = transacao.getValor().abs();
+        TipoTransacao direcao = transacao.tipoEfetivo();
 
-        if (transacao.tipoEfetivo() == TipoTransacao.GASTO) {
-            conta.reverterTransacao(TipoTransacao.GASTO, valorAbsoluto);
+        // Parte do saldo "antes do lançamento" e aplica só o efeito final: a entrada
+        // (RECEITA) credita e o aporte a transfere; a saída (GASTO) vira só o aporte.
+        if (transacao.saldoJaAplicado()) {
+            conta.reverterTransacao(direcao, valorAbsoluto);
+        }
+        if (direcao == TipoTransacao.RECEITA) {
+            conta.aplicarTransacao(TipoTransacao.RECEITA, valorAbsoluto);
         }
         conta.aportarEconomia(valorAbsoluto);
+        transacao.setSaldoAplicado(true);
         contaRepository.salvar(conta);
 
         MovimentacaoEconomia movimentacao = new MovimentacaoEconomia(

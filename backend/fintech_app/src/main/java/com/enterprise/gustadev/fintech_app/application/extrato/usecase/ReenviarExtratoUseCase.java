@@ -40,8 +40,7 @@ public class ReenviarExtratoUseCase {
         this.extratoRepository = extratoRepository;
         this.contaRepository = contaRepository;
         this.armazenamento = armazenamento;
-        this.encaminhamento = new EncaminhamentoExtrato(extratoRepository, contaRepository,
-                categoriaRepository, transacaoRepository, processamento, parsers);
+        this.encaminhamento = new EncaminhamentoExtrato(extratoRepository, categoriaRepository, transacaoRepository, processamento, parsers);
     }
 
     @Transactional

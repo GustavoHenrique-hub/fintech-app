@@ -136,6 +136,10 @@ public class TransacaoEntity {
     @Column(name = "extrato_code", length = 6)
     private String extratoCode;
 
+    /** Linhas antigas recebem TRUE pelo default: foram gravadas quando a importação já aplicava o saldo. */
+    @Column(name = "saldo_aplicado", columnDefinition = "BOOLEAN DEFAULT TRUE")
+    private Boolean saldoAplicado = true;
+
     /**
      * Mapeia apenas os campos escalares. A associação {@code conta} é gravada pelo adapter
      * com referência gerenciada (EntityManager) para evitar tentar persistir instância
@@ -170,6 +174,7 @@ public class TransacaoEntity {
         entity.transacaoEstornadaId = domain.getTransacaoEstornadaId();
         entity.extratoId = domain.getExtratoId();
         entity.extratoCode = domain.getExtratoCode();
+        entity.saldoAplicado = domain.saldoJaAplicado();
         return entity;
     }
 
@@ -183,6 +188,7 @@ public class TransacaoEntity {
         t.setDeletedAt(deletedAt);
         t.setExtratoId(extratoId);
         t.setExtratoCode(extratoCode);
+        t.setSaldoAplicado(saldoAplicado);
         if (categoria != null) {
             t.setCategoriaTipo(categoria.getTipo());
         }

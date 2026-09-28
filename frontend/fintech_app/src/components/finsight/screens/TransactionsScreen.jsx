@@ -5,9 +5,10 @@ import { format } from "date-fns";
 import { useTransacoes } from "@/hooks/use-transacoes";
 import { useCategorias } from "@/hooks/use-categorias";
 import { useContaSelecionada } from "@/context/ContaSelecionadaContext";
-import {
-  formatBRL, formatBRLSigned, formatDataRelativa, formatHora,
-} from "@/lib/format";
+import { formatBRLSigned, formatDataRelativa, formatHora } from "@/lib/format";
+import { valorComSinal } from "@/lib/transacoes";
+import { TransacaoDetalheModal } from "../TransacaoDetalheModal";
+import { EstornarTransacaoModal } from "../EstornarTransacaoModal";
 import { getIconeCategoria } from "@/lib/categoria-icones";
 import { Button } from "@/components/ui/button";
 import { StatusBadge, STATUS_REVISAO } from "@/components/ui/status-badge";
@@ -181,6 +182,8 @@ export const TransactionsScreen = ({ onAbrirEstorno, onNavigate }) => {
   const [filtros, setFiltros] = useState(FILTROS_PADRAO);
   const [rascunho, setRascunho] = useState(FILTROS_PADRAO);
   const [modalFiltrosAberto, setModalFiltrosAberto] = useState(false);
+  const [detalhe, setDetalhe] = useState(null);
+  const [emEstorno, setEmEstorno] = useState(null);
 
   const { data: transacoes = [], isLoading: loadingTx } = useTransacoes();
   const { data: categorias = [], isLoading: loadingCat } = useCategorias();
@@ -343,16 +346,21 @@ export const TransactionsScreen = ({ onAbrirEstorno, onNavigate }) => {
                 {items.map((t) => {
                   const categoria = categoriasPorId[t.categoriaId];
                   const Icone = getIconeCategoria(categoria?.icone);
-                  const positivo = t.tipo === "RECEITA";
+                  const valor = valorComSinal(t);
                   const mostrarConfianca =
-                    t.statusRevisao === "PENDENTE_REVISAO" ||
-                    t.statusRevisao === "CLASSIFICADA" ||
-                    t.statusRevisao === "EXTRAIDA";
+                    t.confiancaIa != null && (
+                      t.statusRevisao === "PENDENTE_REVISAO" ||
+                      t.statusRevisao === "CLASSIFICADA" ||
+                      t.statusRevisao === "EXTRAIDA"
+                    );
 
                   return (
                     <button
                       key={t.id}
-                      className="w-full flex flex-col gap-2 px-3.5 py-3 text-left row-press"
+                      type="button"
+                      onClick={() => setDetalhe(t)}
+                      aria-label={`Ver detalhes de ${t.descricao ?? t.estabelecimento ?? "lançamento"}`}
+                      className="w-full flex flex-col gap-2 px-3.5 py-3 text-left row-press hover:bg-secondary/60 transition-colors"
                     >
                       <div className="flex items-center gap-3">
                         <div
@@ -375,8 +383,8 @@ export const TransactionsScreen = ({ onAbrirEstorno, onNavigate }) => {
                           </p>
                         </div>
                         <div className="text-right shrink-0">
-                          <p className={`text-[13.5px] font-extrabold tabular-nums ${positivo ? "text-success" : "text-foreground"}`}>
-                            {formatBRLSigned(positivo ? t.valor : -t.valor)}
+                          <p className={`text-[13.5px] font-extrabold tabular-nums ${valor > 0 ? "text-success" : "text-foreground"}`}>
+                            {formatBRLSigned(valor)}
                           </p>
                           <p className="text-[10px] text-muted-foreground mt-0.5">BRL</p>
                         </div>
@@ -414,6 +422,14 @@ export const TransactionsScreen = ({ onAbrirEstorno, onNavigate }) => {
         categorias={categorias}
         onAplicar={aplicarFiltros}
       />
+
+      <TransacaoDetalheModal
+        transacao={detalhe}
+        categorias={categorias}
+        onClose={() => setDetalhe(null)}
+        onEstornar={(t) => { setDetalhe(null); setEmEstorno(t); }}
+      />
+      <EstornarTransacaoModal transacao={emEstorno} onClose={() => setEmEstorno(null)} />
     </div>
   );
 };

@@ -15,3 +15,22 @@ import { api, apiUnwrap } from "../api";
 export function revisar(id, code, escolha) {
   return apiUnwrap(api.patch(`/transacoes/${id}/${code}/revisar`, escolha ?? null));
 }
+
+/**
+ * POST /transacoes/revisar-lote — "Revisar tudo": confirma vários lançamentos com a
+ * escolha de cada um. Itens inválidos não interrompem os demais.
+ *
+ * @param {Array<{ id: number, code: string, destino?: string, categoriaId?: number, categoriaCode?: string }>} itens
+ * @returns {Promise<{ revisadas: object[], falhas: Array<{ id: number, code: string, erro: string }> }>}
+ */
+export function revisarLote(itens) {
+  return apiUnwrap(api.post("/transacoes/revisar-lote", { itens }));
+}
+
+/**
+ * PATCH /transacoes/{id}/{code}/desfazer-revisao — "Estornar revisão": o lançamento
+ * confirmado volta a pendente, sai do saldo e a confiança da IA cai.
+ */
+export function desfazerRevisao(id, code) {
+  return apiUnwrap(api.patch(`/transacoes/${id}/${code}/desfazer-revisao`));
+}

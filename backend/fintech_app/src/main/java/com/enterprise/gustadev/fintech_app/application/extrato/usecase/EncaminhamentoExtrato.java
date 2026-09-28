@@ -6,7 +6,6 @@ import com.enterprise.gustadev.fintech_app.application.extrato.parser.Lancamento
 import com.enterprise.gustadev.fintech_app.domain.categoria.model.Categoria;
 import com.enterprise.gustadev.fintech_app.domain.categoria.port.CategoriaRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
-import com.enterprise.gustadev.fintech_app.domain.contafinanceira.port.ContaFinanceiraRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.extrato.exception.ExtratoInvalidoException;
 import com.enterprise.gustadev.fintech_app.domain.extrato.model.Extrato;
 import com.enterprise.gustadev.fintech_app.domain.extrato.model.SolicitacaoProcessamentoExtrato;
@@ -38,20 +37,17 @@ class EncaminhamentoExtrato {
     private static final String ORIGEM_APP = "app";
 
     private final ExtratoRepositoryPort extratoRepository;
-    private final ContaFinanceiraRepositoryPort contaRepository;
     private final CategoriaRepositoryPort categoriaRepository;
     private final TransacaoRepositoryPort transacaoRepository;
     private final ProcessamentoExtratoPort processamento;
     private final List<ExtratoParser> parsers;
 
     EncaminhamentoExtrato(ExtratoRepositoryPort extratoRepository,
-                          ContaFinanceiraRepositoryPort contaRepository,
                           CategoriaRepositoryPort categoriaRepository,
                           TransacaoRepositoryPort transacaoRepository,
                           ProcessamentoExtratoPort processamento,
                           List<ExtratoParser> parsers) {
         this.extratoRepository = extratoRepository;
-        this.contaRepository = contaRepository;
         this.categoriaRepository = categoriaRepository;
         this.transacaoRepository = transacaoRepository;
         this.processamento = processamento;
@@ -98,15 +94,15 @@ class EncaminhamentoExtrato {
             transacao.setDescricao(lancamento.descricao());
             transacao.setCategoriaTipo(categoriaFallback.getTipo());
             transacao.setStatusRevisao(StatusRevisaoTransacao.PENDENTE_REVISAO);
+            // Pendente não mexe no saldo: ele é aplicado quando o usuário confirmar a revisão.
+            transacao.setSaldoAplicado(false);
             transacao.setExtratoId(extrato.getId());
             transacao.setExtratoCode(extrato.getCode());
             transacao.validar();
 
             transacaoRepository.salvar(transacao);
-            conta.aplicarTransacao(transacao.tipoEfetivo(), transacao.getValor().abs());
             criadas++;
         }
-        contaRepository.salvar(conta);
 
         extrato.setTotalLancamentos(criadas);
         extrato.setLancamentosPendentes(criadas);

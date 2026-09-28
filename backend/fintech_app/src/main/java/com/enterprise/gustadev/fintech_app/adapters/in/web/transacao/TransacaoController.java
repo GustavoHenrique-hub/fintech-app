@@ -2,6 +2,8 @@ package com.enterprise.gustadev.fintech_app.adapters.in.web.transacao;
 
 import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.EstornarTransacaoRequestDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.ResumoPeriodoResponseDTO;
+import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.RevisarLoteRequestDTO;
+import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.RevisarLoteResponseDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.RevisarTransacaoRequestDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.TransacaoRequestDTO;
 import com.enterprise.gustadev.fintech_app.adapters.in.web.transacao.dto.TransacaoResponseDTO;
@@ -9,6 +11,7 @@ import com.enterprise.gustadev.fintech_app.application.transacao.usecase.BuscarR
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.BuscarTransacaoUseCase;
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.ConfirmarRevisaoTransacaoUseCase;
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.CriarTransacaoUseCase;
+import com.enterprise.gustadev.fintech_app.application.transacao.usecase.DesfazerRevisaoTransacaoUseCase;
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.EstornarTransacaoUseCase;
 import com.enterprise.gustadev.fintech_app.application.transacao.usecase.ListarTransacoesUseCase;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
@@ -38,13 +41,16 @@ public class TransacaoController {
     private final EstornarTransacaoUseCase estornarUseCase;
     private final BuscarResumoPeriodoUseCase resumoPeriodoUseCase;
     private final ConfirmarRevisaoTransacaoUseCase confirmarRevisaoUseCase;
+    private final DesfazerRevisaoTransacaoUseCase desfazerRevisaoUseCase;
 
     public TransacaoController(CriarTransacaoUseCase criarUseCase,
                                ListarTransacoesUseCase listarUseCase,
                                BuscarTransacaoUseCase buscarUseCase,
                                EstornarTransacaoUseCase estornarUseCase,
                                BuscarResumoPeriodoUseCase resumoPeriodoUseCase,
-                               ConfirmarRevisaoTransacaoUseCase confirmarRevisaoUseCase) {
+                               ConfirmarRevisaoTransacaoUseCase confirmarRevisaoUseCase,
+                               DesfazerRevisaoTransacaoUseCase desfazerRevisaoUseCase) {
+        this.desfazerRevisaoUseCase = desfazerRevisaoUseCase;
         this.criarUseCase = criarUseCase;
         this.listarUseCase = listarUseCase;
         this.buscarUseCase = buscarUseCase;
@@ -154,6 +160,33 @@ public class TransacaoController {
                 : confirmarRevisaoUseCase.executar(idTransacoes, transacoesCode,
                         dto.destinoDomain(), dto.categoriaId(), dto.categoriaCode());
         return ResponseEntity.ok(TransacaoResponseDTO.fromDomain(revisada));
+    }
+
+    @Operation(summary = "Confirmar a revisão de vários lançamentos (Revisar tudo)",
+            description = "Aplica a mesma regra do revisar individual a cada item informado. Itens inválidos " +
+                    "não interrompem os demais: voltam em 'falhas' com a mensagem do erro.")
+    @ApiResponse(responseCode = "200", description = "Lote processado (veja 'revisadas' e 'falhas')")
+    @PostMapping("/revisar-lote")
+    public ResponseEntity<RevisarLoteResponseDTO> revisarLote(@Valid @RequestBody RevisarLoteRequestDTO dto) {
+        return ResponseEntity.ok(RevisarLoteResponseDTO.fromDomain(confirmarRevisaoUseCase.executarLote(
+                dto.itens().stream().map(RevisarLoteRequestDTO.Item::toDomain).toList())));
+    }
+
+    @Operation(summary = "Estornar a revisão de um lançamento confirmado",
+            description = "Devolve o lançamento para PENDENTE_REVISAO: o valor sai do saldo da conta, o extrato " +
+                    "reabre o lançamento e a confiança da IA para aquela descrição diminui. Não é um estorno " +
+                    "financeiro — para isso use /estornar.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Revisão estornada"),
+            @ApiResponse(responseCode = "400", description = "Transação não está CONFIRMADA ou já foi estornada"),
+            @ApiResponse(responseCode = "404", description = "Transação não encontrada")
+    })
+    @PatchMapping("/{id_transacoes}/{transacoes_code}/desfazer-revisao")
+    public ResponseEntity<TransacaoResponseDTO> desfazerRevisao(
+            @Parameter(description = "ID da transação (id_transacoes)") @PathVariable("id_transacoes") Long idTransacoes,
+            @Parameter(description = "Código alfanumérico de 6 caracteres (transacoes_code)") @PathVariable("transacoes_code") String transacoesCode) {
+        return ResponseEntity.ok(TransacaoResponseDTO.fromDomain(
+                desfazerRevisaoUseCase.executar(idTransacoes, transacoesCode)));
     }
 
     @Operation(summary = "Resumo por período e conta",

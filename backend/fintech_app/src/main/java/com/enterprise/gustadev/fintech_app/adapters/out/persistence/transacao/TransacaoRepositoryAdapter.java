@@ -2,6 +2,7 @@ package com.enterprise.gustadev.fintech_app.adapters.out.persistence.transacao;
 
 import com.enterprise.gustadev.fintech_app.adapters.out.persistence.categoria.CategoriaEntity;
 import com.enterprise.gustadev.fintech_app.adapters.out.persistence.contafinanceira.ContaFinanceiraEntity;
+import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusRevisaoTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoCategoria;
 import com.enterprise.gustadev.fintech_app.domain.transacao.model.ResumoPeriodo;
 import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;
@@ -93,7 +94,8 @@ public class TransacaoRepositoryAdapter implements TransacaoRepositoryPort {
         // array da linha aninhado, e o cast para BigDecimal falha em runtime).
         List<Object[]> resultado = jpaRepository.somarPorUsuarioContaNoPeriodo(
                 usuarioId, usuarioCode, contaId, contaCode, inicio, fim,
-                TipoCategoria.RECEITA, TipoCategoria.GASTO, TipoCategoria.AMBOS);
+                TipoCategoria.RECEITA, TipoCategoria.GASTO, TipoCategoria.AMBOS,
+                StatusRevisaoTransacao.PENDENTE_REVISAO);
         Object[] linha = resultado.get(0);
         return new ResumoPeriodo(usuarioId, contaId, inicio, fim,
                 (BigDecimal) linha[0], (BigDecimal) linha[1]);

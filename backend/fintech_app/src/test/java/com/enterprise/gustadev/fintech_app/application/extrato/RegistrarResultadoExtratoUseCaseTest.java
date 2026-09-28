@@ -1,8 +1,11 @@
 package com.enterprise.gustadev.fintech_app.application.extrato;
 
+import com.enterprise.gustadev.fintech_app.application.classificacao.CalibradorConfiancaIa;
 import com.enterprise.gustadev.fintech_app.application.extrato.usecase.RegistrarResultadoExtratoUseCase;
 import com.enterprise.gustadev.fintech_app.domain.categoria.model.Categoria;
 import com.enterprise.gustadev.fintech_app.domain.categoria.port.CategoriaRepositoryPort;
+import com.enterprise.gustadev.fintech_app.domain.classificacao.model.AprendizadoClassificacao;
+import com.enterprise.gustadev.fintech_app.domain.classificacao.port.AprendizadoClassificacaoRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.model.ContaFinanceira;
 import com.enterprise.gustadev.fintech_app.domain.contafinanceira.port.ContaFinanceiraRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.extrato.model.Extrato;
@@ -15,10 +18,10 @@ import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoConta;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoTransacao;
 import com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao;
 import com.enterprise.gustadev.fintech_app.domain.transacao.port.TransacaoRepositoryPort;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -46,9 +49,16 @@ class RegistrarResultadoExtratoUseCaseTest {
     private CategoriaRepositoryPort categoriaRepository;
     @Mock
     private TransacaoRepositoryPort transacaoRepository;
+    @Mock
+    private AprendizadoClassificacaoRepositoryPort aprendizadoRepository;
 
-    @InjectMocks
     private RegistrarResultadoExtratoUseCase useCase;
+
+    @BeforeEach
+    void setUp() {
+        useCase = new RegistrarResultadoExtratoUseCase(extratoRepository, contaRepository,
+                categoriaRepository, transacaoRepository, new CalibradorConfiancaIa(aprendizadoRepository));
+    }
 
     private Extrato extratoNaFila() {
         Extrato extrato = new Extrato(1L, "USR001", 2L, "CTA001", "extrato.pdf", "uuid", "hash");
@@ -80,7 +90,7 @@ class RegistrarResultadoExtratoUseCaseTest {
     }
 
     @Test
-    void executar_deveCriarTransacoesPendentesEAtualizarSaldoEExtrato() {
+    void executar_deveDeixarPendenteAbaixoDe95_eConfirmarSozinhoAPartirDe95() {
         when(extratoRepository.buscarPorId(42L)).thenReturn(Optional.of(extratoNaFila()));
         when(extratoRepository.salvar(any())).thenAnswer(inv -> inv.getArgument(0));
         when(contaRepository.buscarPorId(2L)).thenReturn(Optional.of(conta()));
@@ -90,9 +100,11 @@ class RegistrarResultadoExtratoUseCaseTest {
 
         Extrato resultado = useCase.executar(42L, resultadoComDoisLancamentos());
 
-        assertThat(resultado.getStatus()).isEqualTo(StatusExtrato.pendente_revisao);
+        // SALARIO veio com 98% de confiança: já nasce confirmado.
+        assertThat(resultado.getStatus()).isEqualTo(StatusExtrato.parcialmente_revisado);
         assertThat(resultado.getTotalLancamentos()).isEqualTo(2);
-        assertThat(resultado.getLancamentosPendentes()).isEqualTo(2);
+        assertThat(resultado.getLancamentosPendentes()).isEqualTo(1);
+        assertThat(resultado.getLancamentosConfirmados()).isEqualTo(1);
         assertThat(resultado.getBancoDetectado()).isEqualTo("Nubank");
         assertThat(resultado.getPeriodoInicio()).isEqualTo(LocalDate.parse("2026-08-01"));
 
@@ -106,10 +118,68 @@ class RegistrarResultadoExtratoUseCaseTest {
         assertThat(gasto.getCategoriaId()).isEqualTo(7L);
         assertThat(gasto.getValor()).isEqualByComparingTo("-150.50");
         assertThat(gasto.tipoEfetivo()).isEqualTo(TipoTransacao.GASTO);
+        assertThat(gasto.saldoJaAplicado()).isFalse();
 
+        Transacao salario = transacoes.getAllValues().get(1);
+        assertThat(salario.getStatusRevisao()).isEqualTo(StatusRevisaoTransacao.CONFIRMADA);
+        assertThat(salario.saldoJaAplicado()).isTrue();
+
+        // Só o confirmado entra no saldo; o gasto pendente espera a revisão.
         ArgumentCaptor<ContaFinanceira> contaSalva = ArgumentCaptor.forClass(ContaFinanceira.class);
         verify(contaRepository).salvar(contaSalva.capture());
-        assertThat(contaSalva.getValue().getSaldoAtual()).isEqualByComparingTo("5849.50");
+        assertThat(contaSalva.getValue().getSaldoAtual()).isEqualByComparingTo("6000.00");
+    }
+
+    @Test
+    void executar_deveConfirmarSozinho_quandoAprendizadoElevaAConfiancaAcimaDe95() {
+        AprendizadoClassificacao aprendizado = new AprendizadoClassificacao(1L, "supermercado xyz", TipoTransacao.GASTO);
+        aprendizado.registrarAcerto(TipoTransacao.GASTO, null, null);
+        aprendizado.registrarAcerto(TipoTransacao.GASTO, null, null);  // +8 pontos
+
+        when(extratoRepository.buscarPorId(42L)).thenReturn(Optional.of(extratoNaFila()));
+        when(extratoRepository.salvar(any())).thenAnswer(inv -> inv.getArgument(0));
+        when(contaRepository.buscarPorId(2L)).thenReturn(Optional.of(conta()));
+        when(contaRepository.salvar(any())).thenAnswer(inv -> inv.getArgument(0));
+        when(categoriaRepository.listarPorTipo(any())).thenReturn(List.of(outros()));
+        when(transacaoRepository.salvar(any())).thenAnswer(inv -> inv.getArgument(0));
+        when(aprendizadoRepository.buscarPorUsuarioEChave(1L, "supermercado xyz")).thenReturn(Optional.of(aprendizado));
+
+        Extrato resultado = useCase.executar(42L, new ResultadoProcessamentoExtrato(
+                "pendente_revisao", "Nubank", null, null,
+                List.of(new ResultadoProcessamentoExtrato.LancamentoProcessado(
+                        LocalDate.parse("2026-08-05"), "SUPERMERCADO XYZ", null,
+                        new BigDecimal("150.50"), TipoTransacao.GASTO, null, (short) 90, null))));
+
+        ArgumentCaptor<Transacao> transacao = ArgumentCaptor.forClass(Transacao.class);
+        verify(transacaoRepository).salvar(transacao.capture());
+        assertThat(transacao.getValue().getConfiancaIa()).isEqualTo((short) 98);
+        assertThat(transacao.getValue().getStatusRevisao()).isEqualTo(StatusRevisaoTransacao.CONFIRMADA);
+        assertThat(resultado.getStatus()).isEqualTo(StatusExtrato.concluido);
+    }
+
+    @Test
+    void executar_naoDeveConfirmarSozinho_quandoUsuarioJaClassificouADescricaoNaOutraDirecao() {
+        AprendizadoClassificacao aprendizado = new AprendizadoClassificacao(1L, "salario", TipoTransacao.GASTO);
+        aprendizado.registrarAcerto(TipoTransacao.GASTO, null, null);
+
+        when(extratoRepository.buscarPorId(42L)).thenReturn(Optional.of(extratoNaFila()));
+        when(extratoRepository.salvar(any())).thenAnswer(inv -> inv.getArgument(0));
+        when(contaRepository.buscarPorId(2L)).thenReturn(Optional.of(conta()));
+        when(categoriaRepository.listarPorTipo(any())).thenReturn(List.of(outros()));
+        when(transacaoRepository.salvar(any())).thenAnswer(inv -> inv.getArgument(0));
+        when(aprendizadoRepository.buscarPorUsuarioEChave(1L, "salario")).thenReturn(Optional.of(aprendizado));
+
+        useCase.executar(42L, new ResultadoProcessamentoExtrato(
+                "pendente_revisao", "Nubank", null, null,
+                List.of(new ResultadoProcessamentoExtrato.LancamentoProcessado(
+                        LocalDate.parse("2026-08-06"), "SALARIO", null,
+                        new BigDecimal("5000.00"), TipoTransacao.RECEITA, null, (short) 99, null))));
+
+        ArgumentCaptor<Transacao> transacao = ArgumentCaptor.forClass(Transacao.class);
+        verify(transacaoRepository).salvar(transacao.capture());
+        assertThat(transacao.getValue().getConfiancaIa()).isEqualTo((short) 69);
+        assertThat(transacao.getValue().getStatusRevisao()).isEqualTo(StatusRevisaoTransacao.PENDENTE_REVISAO);
+        verify(contaRepository, never()).salvar(any());
     }
 
     @Test
@@ -120,7 +190,6 @@ class RegistrarResultadoExtratoUseCaseTest {
         when(extratoRepository.buscarPorId(42L)).thenReturn(Optional.of(extratoNaFila()));
         when(extratoRepository.salvar(any())).thenAnswer(inv -> inv.getArgument(0));
         when(contaRepository.buscarPorId(2L)).thenReturn(Optional.of(conta()));
-        when(contaRepository.salvar(any())).thenAnswer(inv -> inv.getArgument(0));
         when(categoriaRepository.listarPorTipo(TipoCategoria.AMBOS)).thenReturn(List.of(outros()));
         when(categoriaRepository.listarPorTipo(TipoCategoria.GASTO)).thenReturn(List.of(alimentacao));
         when(transacaoRepository.salvar(any())).thenAnswer(inv -> inv.getArgument(0));

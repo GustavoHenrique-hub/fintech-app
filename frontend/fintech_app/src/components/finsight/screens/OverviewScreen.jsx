@@ -1,7 +1,7 @@
 import { useState, useMemo, useRef, useEffect } from "react";
 import {
   ChevronDown, ArrowUpRight, ArrowDownLeft, TrendingUp, TrendingDown,
-  PiggyBank, Plus, Eye, EyeOff, Check,
+  PiggyBank, Plus, Eye, EyeOff, Check, AlertTriangle,
 } from "lucide-react";
 
 import { BalanceChart } from "../BalanceChart";
@@ -11,8 +11,9 @@ import { useContaSelecionada } from "@/context/ContaSelecionadaContext";
 import { useTransacoes } from "@/hooks/use-transacoes";
 import { useCategorias } from "@/hooks/use-categorias";
 import { useResumoPeriodo } from "@/hooks/use-resumo-periodo";
-import { getIntervaloPeriodo } from "@/lib/periodo";
-import { formatBRL, formatNumeroBR, formatBRLSigned, formatDataRelativa } from "@/lib/format";
+import { descreverPeriodo, getDataReferencia, getIntervaloPeriodo } from "@/lib/periodo";
+import { formatBRL, formatBRLSigned, formatDataRelativa } from "@/lib/format";
+import { valorComSinal } from "@/lib/transacoes";
 import { getIconeCategoria } from "@/lib/categoria-icones";
 import { getBancoColor, getBancoLogoUrl } from "@/lib/banco-utils";
 import { Button } from "@/components/ui/button";
@@ -146,8 +147,19 @@ export const OverviewScreen = ({ onNavigate }) => {
   const { data: transacoes = [], isLoading: loadingTransacoes } = useTransacoes();
   const { data: categorias = [], isLoading: loadingCategorias } = useCategorias();
 
-  // Resumo do mês corrente, escopado à conta ativa — alimenta o hero card e os KPIs.
-  const intervaloMes = useMemo(() => getIntervaloPeriodo("Mês"), []);
+  // Transações da conta ativa — base para atividade recente, gráfico e período dos KPIs.
+  const transacoesDaConta = useMemo(
+    () => transacoes.filter((t) => t.contaId === contaAtual?.id),
+    [transacoes, contaAtual],
+  );
+
+  // Resumo do mês do lançamento confirmado mais recente, escopado à conta ativa —
+  // mesma regra da tela de Análises. Alimenta o hero card e os KPIs.
+  const intervaloMes = useMemo(
+    () => getIntervaloPeriodo("Mês", getDataReferencia(transacoesDaConta)),
+    [transacoesDaConta],
+  );
+  const periodoKpis = descreverPeriodo("Mês", intervaloMes);
   const { data: resumoMes, isLoading: loadingResumo } = useResumoPeriodo({
     conta: contaAtual, ...intervaloMes,
   });
@@ -160,11 +172,12 @@ export const OverviewScreen = ({ onNavigate }) => {
     [categorias],
   );
 
-  // Transações da conta ativa — base para atividade recente e para o gráfico.
-  const transacoesDaConta = useMemo(
-    () => transacoes.filter((t) => t.contaId === contaAtual?.id),
-    [transacoes, contaAtual],
-  );
+  // saldoAtual vem da conta e já reflete só o que foi confirmado; a lista de contas é
+  // recarregada a cada revisão/estorno (useInvalidarFinanceiro), então o card acompanha.
+  const saldoDisponivel = Number(contaAtual?.saldoAtual ?? 0);
+  const saldoTotal = saldoDisponivel + Number(contaAtual?.saldoEconomias ?? 0);
+  const saldoTotalNegativo = saldoTotal < 0;
+  const disponivelNegativo = saldoDisponivel < 0;
 
   const totalReceitas = Number(resumoMes?.totalReceitas ?? 0);
   const totalGastos = Number(resumoMes?.totalGastos ?? 0);
@@ -267,16 +280,33 @@ export const OverviewScreen = ({ onNavigate }) => {
                 {saldoOculto ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
               </button>
             </div>
-            <p className="text-[32px] lg:text-[40px] font-extrabold tracking-tight mt-1 leading-none tabular-nums">
+            {/* Sobre o gradiente da marca o vermelho puro fica ilegível: o saldo negativo
+                ganha um fundo claro, texto vermelho e o aviso por extenso. */}
+            <p
+              className={`text-[32px] lg:text-[40px] font-extrabold tracking-tight mt-1 leading-none tabular-nums ${
+                saldoTotalNegativo && !saldoOculto
+                  ? "inline-block bg-white text-destructive rounded-2xl px-3 py-1.5 -ml-1 shadow-sm"
+                  : ""
+              }`}
+            >
               {saldoOculto
                 ? "R$ ••••••"
-                : `R$ ${formatNumeroBR((contaAtual?.saldoAtual ?? 0) + (contaAtual?.saldoEconomias ?? 0))}`}
+                : formatBRLSigned(saldoTotal).replace(/^\+/, "")}
             </p>
+            {saldoTotalNegativo && !saldoOculto && (
+              <p className="inline-flex items-center gap-1 mt-2 ml-2 align-middle bg-white/95 text-destructive rounded-full px-2 py-0.5 text-[10.5px] font-bold">
+                <AlertTriangle className="w-3 h-3" strokeWidth={2.75} /> Saldo negativo
+              </p>
+            )}
             <div className="flex flex-wrap items-center gap-x-2.5 gap-y-0 mt-1.5">
               <p className="text-[11.5px] opacity-80">
                 Disponível ·{" "}
-                <span className="font-semibold">
-                  {saldoOculto ? "•••" : formatBRL(contaAtual?.saldoAtual ?? 0)}
+                <span
+                  className={`font-semibold ${
+                    disponivelNegativo && !saldoOculto ? "bg-white text-destructive rounded px-1" : ""
+                  }`}
+                >
+                  {saldoOculto ? "•••" : formatBRLSigned(saldoDisponivel).replace(/^\+/, "")}
                 </span>
               </p>
               <span className="opacity-40 text-[11.5px]">·</span>
@@ -303,11 +333,12 @@ export const OverviewScreen = ({ onNavigate }) => {
           <span className="inline-flex items-center gap-0.5 bg-white/20 rounded-full px-1.5 py-0.5 text-[10px] font-bold">
             <TrendingUp className="w-2.5 h-2.5" strokeWidth={3} /> {variacao}%
           </span>
-          <span className="text-[10.5px] opacity-80">vs receita do mês</span>
+          <span className="text-[10.5px] opacity-80">vs receita de {periodoKpis}</span>
         </div>
       </section>
 
       {/* KPIs horizontais */}
+      <p className="section-label -mb-2 lg:-mb-4 first-letter:uppercase">{periodoKpis}</p>
       <section className="grid grid-cols-3 gap-2 lg:gap-4">
         {[
           { label: "Receitas", value: totalReceitas, up: true,  icon: ArrowUpRight,  bg: "bg-surface-green",  color: "text-success" },
@@ -339,8 +370,8 @@ export const OverviewScreen = ({ onNavigate }) => {
       <section className="card-soft p-4">
         <div className="flex items-center justify-between">
           <div>
-            <p className="section-label">Saldo nos últimos dias</p>
-            <p className="text-[12.5px] text-muted-foreground mt-0.5">{PERIODO_LABEL[range]} · vs período anterior</p>
+            <p className="section-label">Evolução do saldo</p>
+            <p className="text-[12.5px] text-muted-foreground mt-0.5">{PERIODO_LABEL[range]} · transações confirmadas</p>
           </div>
           <div className="inline-flex bg-secondary rounded-full p-0.5">
             {ranges.map((r) => (
@@ -376,7 +407,7 @@ export const OverviewScreen = ({ onNavigate }) => {
           {recentes.map((t) => {
             const categoria = categoriasPorId[t.categoriaId];
             const Icone = getIconeCategoria(categoria?.icone);
-            const positivo = t.tipo === "RECEITA";
+            const valor = valorComSinal(t);
             return (
               <div key={t.id} className="flex items-center gap-3 px-3.5 py-2.5 row-press">
                 <div
@@ -397,8 +428,8 @@ export const OverviewScreen = ({ onNavigate }) => {
                     {categoria?.nome ?? "Sem categoria"} · {formatDataRelativa(t.dataTransacao)}
                   </p>
                 </div>
-                <p className={`text-[13px] font-bold tabular-nums ${positivo ? "text-success" : "text-destructive"}`}>
-                  {formatBRLSigned(positivo ? t.valor : -t.valor)}
+                <p className={`text-[13px] font-bold tabular-nums ${valor > 0 ? "text-success" : "text-foreground"}`}>
+                  {formatBRLSigned(valor)}
                 </p>
               </div>
             );

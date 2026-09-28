@@ -1,5 +1,6 @@
 package com.enterprise.gustadev.fintech_app.adapters.out.persistence.transacao;
 
+import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusRevisaoTransacao;
 import com.enterprise.gustadev.fintech_app.domain.shared.enums.TipoCategoria;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -63,7 +64,8 @@ public interface TransacaoJpaRepository extends JpaRepository<TransacaoEntity, L
     /**
      * Direção efetiva replica {@link com.enterprise.gustadev.fintech_app.domain.transacao.model.Transacao#tipoEfetivo()}:
      * categoria AMBOS decide pelo sinal de {@code t.valor}. Estornos (indEstorno='S') e
-     * transações já estornadas (estornadoAt preenchido) ficam de fora da soma.
+     * transações já estornadas (estornadoAt preenchido) ficam de fora da soma, assim como
+     * lançamentos ainda pendentes de revisão — eles só passam a valer quando confirmados.
      */
     @Query("""
         SELECT
@@ -85,6 +87,7 @@ public interface TransacaoJpaRepository extends JpaRepository<TransacaoEntity, L
           AND t.deletedAt IS NULL
           AND t.estornadoAt IS NULL
           AND t.indEstorno = 'N'
+          AND t.statusRevisao <> :pendente
     """)
     List<Object[]> somarPorUsuarioContaNoPeriodo(
             @Param("usuarioId") Long usuarioId,
@@ -95,6 +98,7 @@ public interface TransacaoJpaRepository extends JpaRepository<TransacaoEntity, L
             @Param("fim") LocalDate fim,
             @Param("receita") TipoCategoria receita,
             @Param("gasto") TipoCategoria gasto,
-            @Param("ambos") TipoCategoria ambos);
+            @Param("ambos") TipoCategoria ambos,
+            @Param("pendente") StatusRevisaoTransacao pendente);
 
 }

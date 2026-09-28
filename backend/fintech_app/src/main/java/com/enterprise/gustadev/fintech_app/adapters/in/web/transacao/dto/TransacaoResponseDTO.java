@@ -23,7 +23,12 @@ public record TransacaoResponseDTO(
         Short confiancaIa,
         boolean recorrente,
         OffsetDateTime criadoEm,
-        OffsetDateTime estornadoAt
+        OffsetDateTime estornadoAt,
+        String categoriaCode,
+        String observacao,
+        Long extratoId,
+        OffsetDateTime atualizadoEm,
+        boolean saldoAplicado
 ) {
     public static TransacaoResponseDTO fromDomain(Transacao domain) {
         return new TransacaoResponseDTO(
@@ -43,7 +48,12 @@ public record TransacaoResponseDTO(
                 domain.getConfiancaIa(),
                 domain.isRecorrente(),
                 domain.getCriadoEm(),
-                domain.getEstornadoAt()
+                domain.getEstornadoAt(),
+                domain.getCategoriaCode(),
+                domain.getObservacao(),
+                domain.getExtratoId(),
+                domain.getAtualizadoEm(),
+                domain.saldoJaAplicado()
         );
     }
 }
