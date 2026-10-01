@@ -231,14 +231,9 @@
   "229": "NewExtrato.js",
   "230": "ListarExtratosUseCase",
   "231": "CatalogoCategoriasImportacao",
-  "232": "Override",
-  "233": "Pattern",
-  "234": "DeleteMapping",
-  "235": "Bean",
-  "236": "Configuration",
-  "237": "Getter",
-  "238": "Setter",
-  "239": "BeforeEach",
-  "240": "Categoria",
-  "242": "CategoriaTest"
+  "242": "CategoriaTest",
+  "247": "GetCategoria.js",
+  "248": "GetContaFinanceira.js",
+  "249": "ProcessamentoExtrato.js",
+  "251": "GetNotificacao.js"
 }
