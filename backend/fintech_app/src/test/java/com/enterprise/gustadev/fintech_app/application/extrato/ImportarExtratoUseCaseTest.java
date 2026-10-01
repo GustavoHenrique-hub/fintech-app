@@ -147,6 +147,54 @@ class ImportarExtratoUseCaseTest {
     }
 
     @Test
+    void registrarParaAutomacao_deveDeixarNaFila_semLerArquivoNemChamarAutomacao() {
+        when(contaRepository.buscarPorId(1L)).thenReturn(Optional.of(contaValida()));
+        when(extratoRepository.buscarPorHash(anyString())).thenReturn(Optional.empty());
+        when(extratoRepository.salvar(any())).thenAnswer(inv -> {
+            Extrato e = inv.getArgument(0);
+            if (e.getId() == null) e.setId(10L);
+            return e;
+        });
+
+        // CSV de propósito: no modo síncrono ele iria direto para o parser local.
+        Extrato resultado = useCase.registrarParaAutomacao(1L, 1L, "extrato.csv", CSV_VALIDO);
+
+        assertThat(resultado.getId()).isEqualTo(10L);
+        assertThat(resultado.getStatus()).isEqualTo(StatusExtrato.na_fila);
+        assertThat(resultado.getTotalLancamentos()).isZero();
+        assertThat(resultado.getHashArquivo()).hasSize(64);
+        verify(armazenamento).salvar(anyString(), eq("extrato.csv"), any());
+        // O canal (bot) entrega o arquivo ao core de IA: aqui não pode haver parser nem envio ao N8N.
+        verify(transacaoRepository, never()).salvar(any());
+        verify(processamento, never()).enviarParaProcessamento(any());
+    }
+
+    @Test
+    void registrarParaAutomacao_deveRecusarDuplicado() {
+        when(contaRepository.buscarPorId(1L)).thenReturn(Optional.of(contaValida()));
+        when(extratoRepository.buscarPorHash(anyString()))
+                .thenReturn(Optional.of(new Extrato(1L, "USR001", 1L, "CTA001", "old.pdf", "uuid", "hash")));
+
+        assertThatThrownBy(() -> useCase.registrarParaAutomacao(1L, 1L, "extrato.pdf", CSV_VALIDO))
+                .isInstanceOf(ExtratoInvalidoException.class)
+                .hasMessageContaining("duplicado");
+
+        verify(armazenamento, never()).salvar(anyString(), anyString(), any());
+        verify(extratoRepository, never()).salvar(any());
+    }
+
+    @Test
+    void registrarParaAutomacao_deveRecusarContaDeOutroUsuario() {
+        when(contaRepository.buscarPorId(1L)).thenReturn(Optional.of(contaValida()));
+
+        assertThatThrownBy(() -> useCase.registrarParaAutomacao(99L, 1L, "extrato.pdf", CSV_VALIDO))
+                .isInstanceOf(ExtratoInvalidoException.class)
+                .hasMessageContaining("não pertence");
+
+        verify(extratoRepository, never()).salvar(any());
+    }
+
+    @Test
     void executar_deveLancarExcecao_quandoHashJaProcessado() {
         when(contaRepository.buscarPorId(1L)).thenReturn(Optional.of(contaValida()));
         when(extratoRepository.buscarPorHash(anyString()))

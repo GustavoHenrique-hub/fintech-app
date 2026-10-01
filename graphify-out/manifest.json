@@ -110,13 +110,13 @@
     "semantic_hash": ""
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/exception/GlobalExceptionHandler.java": {
-    "mtime": 1786469247.3891542,
-    "ast_hash": "479628283242c67e577ef4f27c067c08",
+    "mtime": 1790699173.2948995,
+    "ast_hash": "d59767e27c9f86d8e79747518f2001fb",
     "semantic_hash": ""
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/extrato/ExtratoController.java": {
-    "mtime": 1790277588.5761707,
-    "ast_hash": "7953ec13be949f5123040d692d108793",
+    "mtime": 1790788893.092627,
+    "ast_hash": "89c03633755922259d35570f3de3d126",
     "semantic_hash": ""
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/extrato/dto/ExtratoRequestDTO.java": {
@@ -130,8 +130,8 @@
     "semantic_hash": "a29802ec0a8fdf8d281bf9eae5f6a996"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/filter/SessaoTokenFilter.java": {
-    "mtime": 1786708213.4379528,
-    "ast_hash": "954f24e28f78a92ea4c0de6a6f5ed277",
+    "mtime": 1790788893.188262,
+    "ast_hash": "b1ab14a51dc997d6263937187692584e",
     "semantic_hash": ""
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/motivocancelamento/MotivoCancelamentoController.java": {
@@ -385,8 +385,8 @@
     "semantic_hash": "ef42322fcf951e6e735ccb943c0c067b"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/config/BeanConfig.java": {
-    "mtime": 1790600230.531252,
-    "ast_hash": "fb80aeac575acc06b48b4c4f3b6b0d0a",
+    "mtime": 1790699172.6962123,
+    "ast_hash": "d25a708b0f9cc76af44dec3c983f95c0",
     "semantic_hash": ""
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/config/OpenApiConfig.java": {
@@ -690,9 +690,9 @@
     "semantic_hash": "3131bb578e0c9c914b04482edb679403"
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/usuario/ports/UsuarioRepositoryPort.java": {
-    "mtime": 1782239102.2706888,
-    "ast_hash": "94ac7b07e3dcfff6e485c3bf79949a26",
-    "semantic_hash": "94ac7b07e3dcfff6e485c3bf79949a26"
+    "mtime": 1790698987.3183186,
+    "ast_hash": "e2c715ef296e017b1a17fd0d540c565c",
+    "semantic_hash": ""
   },
   "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/FintechAppApplicationTests.java": {
     "mtime": 1775566551.9212627,
@@ -895,8 +895,8 @@
     "semantic_hash": ""
   },
   "frontend/fintech_app/src/components/finsight/screens/ProfileScreen.jsx": {
-    "mtime": 1786469515.504609,
-    "ast_hash": "4a9ae6e81fa093d1e79f500e7d6efb4e",
+    "mtime": 1790699450.1064656,
+    "ast_hash": "b445224c791bea6480fd8b6805e9a82d",
     "semantic_hash": ""
   },
   "frontend/fintech_app/src/components/finsight/screens/TransactionsScreen.jsx": {
@@ -1195,8 +1195,8 @@
     "semantic_hash": "fa98525fe12e83c522a15ef69ad2c889"
   },
   "frontend/fintech_app/src/services/index.js": {
-    "mtime": 1790277686.5334215,
-    "ast_hash": "a19f0dc59a33b8ce077ab18c2b2ba343",
+    "mtime": 1790699414.487349,
+    "ast_hash": "8f8208928aff5f8a589bca86e114aad5",
     "semantic_hash": ""
   },
   "frontend/fintech_app/src/services/motivoCancelamento/GetMotivoCancelamento.js": {
@@ -1370,8 +1370,8 @@
     "semantic_hash": "74d32c26c8e139fbef0aac29b1d828f0"
   },
   "backend/fintech_app/src/main/resources/application.yaml": {
-    "mtime": 1786708213.4429529,
-    "ast_hash": "f99991184281ba7b42d335a91ea23a50",
+    "mtime": 1790699184.0652866,
+    "ast_hash": "56bfa7e5d1d42971e3f3b57b4aa3c40e",
     "semantic_hash": ""
   },
   "backend/fintech_app/src/test/resources/application.yaml": {
@@ -1615,8 +1615,8 @@
     "semantic_hash": ""
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/extrato/usecase/ImportarExtratoUseCase.java": {
-    "mtime": 1790600230.529237,
-    "ast_hash": "446a64925e8225eb8e61d4172b8f1a98",
+    "mtime": 1790788875.5376253,
+    "ast_hash": "77f4ca21a593601d101c4caaeb37640c",
     "semantic_hash": ""
   },
   "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/extrato/port/ArmazenamentoArquivoPort.java": {
@@ -1630,8 +1630,8 @@
     "semantic_hash": ""
   },
   "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/extrato/ImportarExtratoUseCaseTest.java": {
-    "mtime": 1790601158.218659,
-    "ast_hash": "ee69cbeafcd9fcde4214737a103f3f75",
+    "mtime": 1790788907.5826075,
+    "ast_hash": "c64e689c1a7aa5de4ef49f6b83172b41",
     "semantic_hash": ""
   },
   "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/extrato/parser/CsvExtratoParserTest.java": {
@@ -1740,8 +1740,8 @@
     "semantic_hash": ""
   },
   "automacao/n8n/03-extratos-entrada-telegram.json": {
-    "mtime": 1786643490.9431424,
-    "ast_hash": "88013db0ecdd46b682838cbe13e38c1d",
+    "mtime": 1790788985.8576097,
+    "ast_hash": "a819c3193e5dc56d9ca6546ca3d17194",
     "semantic_hash": ""
   },
   "automacao/n8n/04-extratos-entrada-whatsapp.json": {
@@ -1835,8 +1835,8 @@
     "semantic_hash": ""
   },
   "infra/docker-compose.yml": {
-    "mtime": 1790279014.764889,
-    "ast_hash": "191040069dcc5b42aaf65146d16d3951",
+    "mtime": 1790699183.7524266,
+    "ast_hash": "dbce907c6bc3fe4fb77dc8bf19c28132",
     "semantic_hash": ""
   },
   "docs/n8n-self-hosted-e-stack-docker.md": {
@@ -2004,64 +2004,124 @@
     "ast_hash": "0b0076c1a5e75eeb452ae7422245b7e7",
     "semantic_hash": ""
   },
-  "docs/atualizar_saldo.png": {
-    "mtime": 1790600230.5857878,
-    "ast_hash": "8bb6156eb992190b3a23f385cae143f1",
-    "semantic_hash": ""
-  },
-  "docs/botao_revisar_tudo.png": {
-    "mtime": 1790600230.5857878,
-    "ast_hash": "8285bb88731a97eaad3d2ec3a950e795",
-    "semantic_hash": ""
-  },
-  "docs/clique_para_revisar.png": {
-    "mtime": 1790600230.5857878,
-    "ast_hash": "b60a069d746b0c5fe7a13c6ccbc4fe78",
-    "semantic_hash": ""
-  },
-  "docs/filtros_modal_revisao.png": {
-    "mtime": 1790600230.5857878,
-    "ast_hash": "a4b42dc3624f0b0d8c1c85ca376bcbdd",
-    "semantic_hash": ""
-  },
-  "docs/grafico_overview.png": {
-    "mtime": 1790600230.5857878,
-    "ast_hash": "603ab11bcddf680b88382554914c5662",
-    "semantic_hash": ""
-  },
-  "docs/melhorar_visualiza\u00e7\u00e3o_graficos.png": {
-    "mtime": 1790600230.5926583,
-    "ast_hash": "beaf30b7fa6cdac64fd2ffe8e42eed61",
-    "semantic_hash": ""
-  },
-  "docs/pause_estorno.png": {
-    "mtime": 1790600230.5942748,
-    "ast_hash": "d5712cdd65240717cc48760c53a0d98f",
-    "semantic_hash": ""
-  },
   "frontend/fintech_app/src/test/periodo.test.js": {
     "mtime": 1790624462.6842914,
     "ast_hash": "e00316710a57013c23d6bf76d6ca593c",
     "semantic_hash": ""
   },
-  "docs/item_revisado.png": {
-    "mtime": 1790624124.4366324,
-    "ast_hash": "c7b370c61ff45140d1ba4b1ebcab57da",
+  "Entregas FIAP/Atividade Comandos SQL - RM570791 - 2026-09-28/01_ddl_oracle.sql": {
+    "mtime": 1790685417.0027122,
+    "ast_hash": "dcaa85e45d8079bbcf801b54153d3e08",
     "semantic_hash": ""
   },
-  "docs/overview_pedente_revisao.png": {
-    "mtime": 1790624074.3493252,
-    "ast_hash": "bc1635f8178911c83fb6d9e3795d0746",
+  "Entregas FIAP/Atividade Comandos SQL - RM570791 - 2026-09-28/02_comandos.sql": {
+    "mtime": 1790685417.0240674,
+    "ast_hash": "b37b202ce504e0fb71ad670d835379f4",
     "semantic_hash": ""
   },
-  "docs/saldo_atualizado_gasto_receita_nao.png": {
-    "mtime": 1790624146.5143166,
-    "ast_hash": "08e3b150f6742f3227e324b1846a2f72",
+  "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/usuario/TelegramVinculoController.java": {
+    "mtime": 1790699150.3117883,
+    "ast_hash": "b7f4f327fd4aaa3eea61cd9d3198c614",
     "semantic_hash": ""
   },
-  "docs/transacao_item.png": {
-    "mtime": 1790624104.63959,
-    "ast_hash": "ab76caaaf8b21c787bc99668b46b7439",
+  "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/usuario/dto/CodigoVinculoTelegramResponseDTO.java": {
+    "mtime": 1790699150.4466598,
+    "ast_hash": "f0dc26328d0b88921c1711a5720df6e7",
+    "semantic_hash": ""
+  },
+  "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/usuario/dto/UsuarioTelegramResponseDTO.java": {
+    "mtime": 1790699150.7359765,
+    "ast_hash": "824ccf1c1e5361e758a100017201e647",
+    "semantic_hash": ""
+  },
+  "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/adapters/in/web/usuario/dto/VincularTelegramRequestDTO.java": {
+    "mtime": 1790699150.6003509,
+    "ast_hash": "68aedad19ab98e2e9ef7d1d7d82bd4c1",
+    "semantic_hash": ""
+  },
+  "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/usuario/usecase/BuscarUsuarioPorTelegramUseCase.java": {
+    "mtime": 1790699115.5314496,
+    "ast_hash": "9f688bce66e09f73f687ad4177d3c773",
+    "semantic_hash": ""
+  },
+  "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/usuario/usecase/ConsentimentoBotTelegram.java": {
+    "mtime": 1790699114.8694005,
+    "ast_hash": "e09eef54fd025f6440fe076b9a9ab2c4",
+    "semantic_hash": ""
+  },
+  "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/usuario/usecase/DesvincularTelegramUseCase.java": {
+    "mtime": 1790699115.4190235,
+    "ast_hash": "10f857692c9d693c78ea806ea1acee67",
+    "semantic_hash": ""
+  },
+  "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/usuario/usecase/GerarCodigoVinculoTelegramUseCase.java": {
+    "mtime": 1790699115.091057,
+    "ast_hash": "174f6e08d81001ac61882805470c2fcd",
+    "semantic_hash": ""
+  },
+  "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/application/usuario/usecase/VincularTelegramUseCase.java": {
+    "mtime": 1790699115.2751539,
+    "ast_hash": "0f888ca629c062ed6cd9f052bd81a5c9",
+    "semantic_hash": ""
+  },
+  "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/usuario/exception/UsuarioNaoVinculadoException.java": {
+    "mtime": 1790699114.2906804,
+    "ast_hash": "a38c04b61e1904c9594767789bf66ab7",
+    "semantic_hash": ""
+  },
+  "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/usuario/exception/VinculoTelegramInvalidoException.java": {
+    "mtime": 1790699114.0803187,
+    "ast_hash": "9e47df11c0cf6e08d88915b202ab7891",
+    "semantic_hash": ""
+  },
+  "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/usuario/model/CodigoVinculoTelegram.java": {
+    "mtime": 1790699113.5589573,
+    "ast_hash": "438327840ab5f4b271e12d53521493c3",
+    "semantic_hash": ""
+  },
+  "backend/fintech_app/src/main/java/com/enterprise/gustadev/fintech_app/domain/usuario/ports/CodigoVinculoTelegramRepositoryPort.java": {
+    "mtime": 1790699113.816805,
+    "ast_hash": "7645282a1a5b4fe184371e4889dd7a8b",
+    "semantic_hash": ""
+  },
+  "backend/fintech_app/src/test/java/com/enterprise/gustadev/fintech_app/application/usuario/VinculoTelegramUseCaseTest.java": {
+    "mtime": 1790699228.295425,
+    "ast_hash": "a2515a34ef5ac0679d54e3bb93e72b28",
+    "semantic_hash": ""
+  },
+  "frontend/fintech_app/src/components/finsight/TelegramVinculoModal.jsx": {
+    "mtime": 1790699449.392653,
+    "ast_hash": "02f842f5bd3c5754e57a77cda8f4cc51",
+    "semantic_hash": ""
+  },
+  "frontend/fintech_app/src/services/usuario/TelegramUsuario.js": {
+    "mtime": 1790699414.1805384,
+    "ast_hash": "049a16e3ad8d7441abac959f106e88a0",
+    "semantic_hash": ""
+  },
+  "Entregas FIAP/Atividade Comandos SQL - RM570791 - 2026-09-28/Atividade Comandos SQL - RM570791.pdf": {
+    "mtime": 1790685417.052428,
+    "ast_hash": "57e3414719b35de4f49699709406625f",
+    "semantic_hash": ""
+  },
+  "Entregas FIAP/Atividade Comandos SQL - RM570791 - 2026-09-28/modelo_relacional_eraser.png": {
+    "mtime": 1790685417.086025,
+    "ast_hash": "01b1e4cca32ffa94ac6cad6509c6e207",
+    "semantic_hash": ""
+  },
+  "docs/erro_N8N.png": {
+    "mtime": 1790698790.1840389,
+    "ast_hash": "0508bed967f9a363df77acf352925b99",
+    "semantic_hash": ""
+  },
+  "docs/nodo_meu_chat_ID.png": {
+    "mtime": 1790698770.0550094,
+    "ast_hash": "6eee58d0989fac69800b879d4c4bf1d2",
+    "semantic_hash": ""
+  },
+  "docs/telegram_api_key_error.png": {
+    "mtime": 1790694027.7115338,
+    "ast_hash": "a481cf32cf29d37622181f7b6e168a42",
     "semantic_hash": ""
   }
 }

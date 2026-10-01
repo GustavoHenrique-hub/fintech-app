@@ -11,6 +11,7 @@ import com.enterprise.gustadev.fintech_app.domain.extrato.model.Extrato;
 import com.enterprise.gustadev.fintech_app.domain.extrato.port.ArmazenamentoArquivoPort;
 import com.enterprise.gustadev.fintech_app.domain.extrato.port.ExtratoRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.extrato.port.ProcessamentoExtratoPort;
+import com.enterprise.gustadev.fintech_app.domain.shared.enums.StatusExtrato;
 import com.enterprise.gustadev.fintech_app.domain.transacao.port.TransacaoRepositoryPort;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +31,10 @@ import java.util.UUID;
  *   <li><b>CSV/TXT/XLS/XLSX</b> → parser local, síncrono (a automação só entende
  *       PDF e imagem — ver o nó "Preparar arquivo" do workflow 01-extratos-core-ia).</li>
  * </ul>
+ *
+ * <p>Com {@link #registrarParaAutomacao} (upload {@code ?assincrono=true} dos bots), o
+ * extrato só é registrado e fica {@code na_fila}: o próprio canal entrega o arquivo
+ * ao core de IA.
  *
  * Se o envio ao N8N falhar (automação desligada ou fora do ar), o PDF cai no
  * parser local — a importação nunca fica sem resposta.
@@ -60,6 +65,27 @@ public class ImportarExtratoUseCase {
 
     @Transactional
     public Extrato executar(Long usuarioId, Long contaId, String nomeArquivo, byte[] conteudo) {
+        ContaFinanceira conta = validarUpload(usuarioId, contaId, conteudo);
+        Extrato extrato = registrar(conta, nomeArquivo, conteudo);
+        return encaminhamento.encaminhar(extrato, conta, conteudo);
+    }
+
+    /**
+     * Modo assíncrono ({@code ?assincrono=true}), usado pelos canais de entrada da
+     * automação (bots de Telegram/WhatsApp): faz a mesma validação, dedup por hash e
+     * armazenamento do upload normal, mas <b>não</b> lê o arquivo nem chama o N8N — quem
+     * chamou já vai entregar o arquivo ao core de IA, e as transações nascem no callback.
+     * Rodar o parser local aqui faria os lançamentos entrarem duas vezes.
+     */
+    @Transactional
+    public Extrato registrarParaAutomacao(Long usuarioId, Long contaId, String nomeArquivo, byte[] conteudo) {
+        ContaFinanceira conta = validarUpload(usuarioId, contaId, conteudo);
+        Extrato extrato = registrar(conta, nomeArquivo, conteudo);
+        extrato.setStatus(StatusExtrato.na_fila);
+        return extratoRepository.salvar(extrato);
+    }
+
+    private ContaFinanceira validarUpload(Long usuarioId, Long contaId, byte[] conteudo) {
         if (conteudo == null || conteudo.length == 0) {
             throw new ExtratoInvalidoException("Arquivo vazio");
         }
@@ -70,7 +96,10 @@ public class ImportarExtratoUseCase {
         if (!conta.getUsuarioId().equals(usuarioId)) {
             throw new ExtratoInvalidoException("Conta financeira não pertence ao usuário informado");
         }
+        return conta;
+    }
 
+    private Extrato registrar(ContaFinanceira conta, String nomeArquivo, byte[] conteudo) {
         // Falha cedo para formato não suportado, antes de gravar qualquer coisa.
         DetectorFormatoExtrato.detectar(nomeArquivo);
         String hash = calcularHash(conteudo);
@@ -81,12 +110,10 @@ public class ImportarExtratoUseCase {
         String arquivoUuid = UUID.randomUUID().toString();
         armazenamento.salvar(arquivoUuid, nomeArquivo, conteudo);
 
-        Extrato extrato = new Extrato(usuarioId, conta.getUsuarioCode(), conta.getId(), conta.getCode(),
+        Extrato extrato = new Extrato(conta.getUsuarioId(), conta.getUsuarioCode(), conta.getId(), conta.getCode(),
                 nomeArquivo, arquivoUuid, hash);
         extrato.validar();
-        extrato = extratoRepository.salvar(extrato);
-
-        return encaminhamento.encaminhar(extrato, conta, conteudo);
+        return extratoRepository.salvar(extrato);
     }
 
     private String calcularHash(byte[] conteudo) {

@@ -15,4 +15,6 @@ public interface UsuarioRepositoryPort {
 
     Optional<Usuario> buscarPorEmail(String email);
 
+    Optional<Usuario> buscarPorTelegramChatId(Long chatId);
+
 }

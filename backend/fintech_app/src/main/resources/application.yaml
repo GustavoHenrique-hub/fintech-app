@@ -45,6 +45,10 @@ n8n:
   callback-secret: ${N8N_CALLBACK_SECRET:}
   timeout-ms: ${N8N_TIMEOUT_MS:10000}
 
+# Bot do Telegram (workflow 03). Só o username: o token fica na credencial do n8n.
+telegram:
+  bot-username: ${TELEGRAM_BOT_USERNAME:}
+
 logging:
   level:
     org:

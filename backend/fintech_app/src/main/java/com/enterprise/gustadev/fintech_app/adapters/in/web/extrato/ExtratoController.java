@@ -83,16 +83,32 @@ public class ExtratoController {
     @Operation(summary = "Upload de extrato", description = "Recebe o arquivo do extrato bancário (PDF, CSV, TXT, XLS ou XLSX). "
             + "PDF é encaminhado para a automação N8N + IA e volta com status 'na_fila' — as transações aparecem depois, "
             + "pelo callback. Os demais formatos são lidos pelo parser local na hora e já devolvem os lançamentos "
-            + "criados com status PENDENTE_REVISAO. Se a automação estiver indisponível, o PDF também cai no parser local.")
+            + "criados com status PENDENTE_REVISAO. Se a automação estiver indisponível, o PDF também cai no parser local. "
+            + "[N8N] Com assincrono=true (bots de Telegram/WhatsApp, autenticados por X-Internal-Api-Key) o extrato só é "
+            + "registrado (validação, dedup e armazenamento) e volta 202 com status 'na_fila', sem criar transações — "
+            + "o próprio canal entrega o arquivo ao core de IA e os lançamentos chegam pelo callback.")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Extrato importado com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Arquivo inválido, formato não suportado ou duplicado")
+            @ApiResponse(responseCode = "202", description = "Extrato registrado e na fila da automação (assincrono=true)"),
+            @ApiResponse(responseCode = "400", description = "Arquivo inválido, formato não suportado ou duplicado"),
+            @ApiResponse(responseCode = "401", description = "Chave interna inválida (assincrono=true)")
     })
     @PostMapping(value = "/upload", consumes = "multipart/form-data")
     public ResponseEntity<ExtratoResponseDTO> upload(
             @RequestParam Long usuarioId,
             @RequestParam Long contaId,
-            @RequestParam("arquivo") MultipartFile arquivo) {
+            @RequestParam("arquivo") MultipartFile arquivo,
+            @Parameter(description = "true = só registra o extrato para a automação processar (uso interno do N8N)")
+            @RequestParam(defaultValue = "false") boolean assincrono,
+            @RequestHeader(value = "X-Internal-Api-Key", required = false) String chaveInterna) {
+        // Quem manda a chave interna é a automação, que não passa pelo SessaoTokenFilter:
+        // a chave é sempre conferida e a chamada sempre segue pelo modo assíncrono —
+        // nunca um upload síncrono sem sessão de usuário.
+        boolean viaAutomacao = assincrono || chaveInterna != null;
+        if (viaAutomacao) {
+            autenticacaoCallback.exigirChaveInterna(chaveInterna);
+        }
+
         byte[] conteudo;
         try {
             conteudo = arquivo.getBytes();
@@ -101,6 +117,14 @@ public class ExtratoController {
         }
         if (arquivo.getOriginalFilename() == null || arquivo.getOriginalFilename().isBlank()) {
             throw new ExtratoInvalidoException("Nome do arquivo é obrigatório");
+        }
+
+        if (viaAutomacao) {
+            ExtratoResponseDTO response = ExtratoResponseDTO.fromDomain(
+                    importarUseCase.registrarParaAutomacao(usuarioId, contaId, arquivo.getOriginalFilename(), conteudo));
+            return ResponseEntity.accepted()
+                    .location(URI.create("/extratos/" + response.id() + "/" + response.code()))
+                    .body(response);
         }
 
         ExtratoResponseDTO response = ExtratoResponseDTO.fromDomain(

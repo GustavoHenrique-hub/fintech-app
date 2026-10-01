@@ -38,9 +38,13 @@ import com.enterprise.gustadev.fintech_app.application.snapshotfinanceiro.usecas
 import com.enterprise.gustadev.fintech_app.application.snapshotfinanceiro.usecase.ListarSnapshotsFinanceirosUseCase;
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.AlterarSenhaUseCase;
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.AtualizarUsuarioUseCase;
+import com.enterprise.gustadev.fintech_app.application.usuario.usecase.BuscarUsuarioPorTelegramUseCase;
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.BuscarUsuarioUseCase;
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.CriarUsuarioUseCase;
+import com.enterprise.gustadev.fintech_app.application.usuario.usecase.DesvincularTelegramUseCase;
+import com.enterprise.gustadev.fintech_app.application.usuario.usecase.GerarCodigoVinculoTelegramUseCase;
 import com.enterprise.gustadev.fintech_app.application.usuario.usecase.ListarUsuariosUseCase;
+import com.enterprise.gustadev.fintech_app.application.usuario.usecase.VincularTelegramUseCase;
 import com.enterprise.gustadev.fintech_app.domain.auth.port.SenhaEncoder;
 import com.enterprise.gustadev.fintech_app.domain.auth.port.SessaoTokenRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.banco.port.BancoRepositoryPort;
@@ -57,6 +61,7 @@ import com.enterprise.gustadev.fintech_app.domain.extrato.port.ProcessamentoExtr
 import com.enterprise.gustadev.fintech_app.domain.notificacao.port.NotificacaoRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.snapshotfinanceiro.port.SnapshotFinanceiroRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.transacao.port.TransacaoRepositoryPort;
+import com.enterprise.gustadev.fintech_app.domain.usuario.ports.CodigoVinculoTelegramRepositoryPort;
 import com.enterprise.gustadev.fintech_app.domain.usuario.ports.UsuarioRepositoryPort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -103,6 +108,34 @@ public class BeanConfig {
     @Bean
     public AlterarSenhaUseCase alterarSenhaUseCase(UsuarioRepositoryPort repository, SenhaEncoder senhaEncoder) {
         return new AlterarSenhaUseCase(repository, senhaEncoder);
+    }
+
+    // ── Vínculo Telegram ─────────────────────────────────────────────────
+    @Bean
+    public GerarCodigoVinculoTelegramUseCase gerarCodigoVinculoTelegramUseCase(
+            UsuarioRepositoryPort usuarioRepository,
+            CodigoVinculoTelegramRepositoryPort codigoRepository,
+            ConsentimentoLgpdRepositoryPort consentimentoRepository) {
+        return new GerarCodigoVinculoTelegramUseCase(usuarioRepository, codigoRepository, consentimentoRepository);
+    }
+
+    @Bean
+    public VincularTelegramUseCase vincularTelegramUseCase(UsuarioRepositoryPort usuarioRepository,
+                                                           CodigoVinculoTelegramRepositoryPort codigoRepository) {
+        return new VincularTelegramUseCase(usuarioRepository, codigoRepository);
+    }
+
+    @Bean
+    public DesvincularTelegramUseCase desvincularTelegramUseCase(UsuarioRepositoryPort usuarioRepository) {
+        return new DesvincularTelegramUseCase(usuarioRepository);
+    }
+
+    @Bean
+    public BuscarUsuarioPorTelegramUseCase buscarUsuarioPorTelegramUseCase(
+            UsuarioRepositoryPort usuarioRepository,
+            ConsentimentoLgpdRepositoryPort consentimentoRepository,
+            ContaFinanceiraRepositoryPort contaRepository) {
+        return new BuscarUsuarioPorTelegramUseCase(usuarioRepository, consentimentoRepository, contaRepository);
     }
 
     // ── ContaFinanceira ──────────────────────────────────────────────────

@@ -40,4 +40,9 @@ public class UsuarioRepositoryAdapter implements UsuarioRepositoryPort {
         return jpaRepository.findByEmail(email).map(UsuarioEntity::toDomain);
     }
 
+    @Override
+    public Optional<Usuario> buscarPorTelegramChatId(Long chatId) {
+        return jpaRepository.buscarPorTelegramChatId(chatId).map(UsuarioEntity::toDomain);
+    }
+
 }

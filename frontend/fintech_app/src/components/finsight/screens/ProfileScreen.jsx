@@ -1,7 +1,7 @@
 import { useState } from "react";
 import {
   Mail, Phone, CreditCard, Bell, Languages, Lock, ShieldCheck,
-  LogOut, Trash2, ChevronRight, Pencil, AlertTriangle,
+  LogOut, Trash2, ChevronRight, Pencil, AlertTriangle, Send,
 } from "lucide-react";
 
 import { useUsuario } from "@/hooks/use-usuario";
@@ -19,6 +19,7 @@ import { EditarContatoModal } from "@/components/finsight/EditarContatoModal";
 import { AlterarSenhaModal } from "@/components/finsight/AlterarSenhaModal";
 import { ContasVinculadasModal } from "@/components/finsight/ContasVinculadasModal";
 import { IdiomaModal } from "@/components/finsight/IdiomaModal";
+import { TelegramVinculoModal } from "@/components/finsight/TelegramVinculoModal";
 import { IDIOMAS } from "@/lib/idiomas";
 
 const Row = ({
@@ -89,6 +90,7 @@ export const ProfileScreen = () => {
   const [senhaModalAberto, setSenhaModalAberto] = useState(false);
   const [contasModalAberto, setContasModalAberto] = useState(false);
   const [idiomaModalAberto, setIdiomaModalAberto] = useState(false);
+  const [telegramModalAberto, setTelegramModalAberto] = useState(false);
 
   const { logout } = useAuth();
   const { data: usuario, isLoading: loadingUsuario } = useUsuario();
@@ -225,6 +227,20 @@ export const ProfileScreen = () => {
       </div>
 
       <section>
+        <p className="section-label mb-1.5">Integrações</p>
+        <div className="card-soft divide-y divide-border">
+          <Row
+            icon={Send}
+            iconBg="bg-surface-purple"
+            iconColor="text-primary"
+            label="Telegram"
+            value={usuario?.telegramChatId ? "Vinculado" : "Não vinculado"}
+            onClick={() => setTelegramModalAberto(true)}
+          />
+        </div>
+      </section>
+
+      <section>
         <p className="section-label mb-1.5">Segurança</p>
         <div className="card-soft divide-y divide-border">
           <Row icon={Lock} iconBg="bg-secondary" label="Alterar senha" onClick={() => setSenhaModalAberto(true)} />
@@ -305,6 +321,12 @@ export const ProfileScreen = () => {
       <ContasVinculadasModal
         open={contasModalAberto}
         onOpenChange={setContasModalAberto}
+      />
+      <TelegramVinculoModal
+        open={telegramModalAberto}
+        onOpenChange={setTelegramModalAberto}
+        usuarioId={usuario?.id}
+        telegramChatId={usuario?.telegramChatId}
       />
       <IdiomaModal
         open={idiomaModalAberto}

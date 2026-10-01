@@ -24,7 +24,8 @@ public class SessaoTokenFilter extends OncePerRequestFilter {
     }
 
     /** Rotas da automação (N8N): não têm usuário logado, autenticam por X-Internal-Api-Key. */
-    private static final Pattern ROTAS_AUTOMACAO = Pattern.compile("^/extratos/\\d+/(status|callback)$");
+    private static final Pattern ROTAS_AUTOMACAO = Pattern.compile(
+            "^/extratos/\\d+/(status|callback)$|^/usuarios/telegram/(vincular|-?\\d+)$");
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
@@ -36,6 +37,10 @@ public class SessaoTokenFilter extends OncePerRequestFilter {
                 || path.startsWith("/v3/api-docs")
                 || path.startsWith("/actuator")
                 || ROTAS_AUTOMACAO.matcher(path).matches()
+                // Upload dos bots (Telegram/WhatsApp) via N8N: o ExtratoController confere a
+                // chave e força o modo assíncrono sempre que ela vem no request.
+                || (path.equals("/extratos/upload") && "POST".equalsIgnoreCase(method)
+                        && request.getHeader("X-Internal-Api-Key") != null)
                 || (path.equals("/usuarios") && "POST".equalsIgnoreCase(method));
     }
 

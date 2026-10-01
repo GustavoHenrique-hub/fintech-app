@@ -11,8 +11,8 @@
         -40
       ],
       "parameters": {
-        "content": "## Entrada 2 · Telegram\n\nO bot **não** fala com o Postgres. Ele passa pelo backend:\n\n1. resolve o usuário pelo `chat_id` (exige `ConsentimentoLgpd` ativo)\n2. faz o upload normal em `POST /extratos/upload` → dedup por `hash_arquivo`\n3. só então chama o core de IA\n\nAssim o caminho do bot herda **a mesma** validação, dedup e\nmáquina de estados do caminho do app.\n\n⚠️ `POST /extratos/upload` hoje é **síncrono** e já roda o `PdfExtratoParser`\n(`ImportarExtratoUseCase:86-118`). Este fluxo envia `?assincrono=true`, que o\nbackend precisa implementar: cria `Extrato` + `hash_arquivo` + storage, devolve\n`202` com status `na_fila` e **não** cria transações. Sem isso os lançamentos\nentram duas vezes (parser local + callback da IA) e o saldo da conta é\naplicado em dobro.\n\n⚠️ Um `400` no upload normalmente significa **extrato duplicado** —\né o dedup funcionando, não um bug.",
-        "height": 560,
+        "content": "## Entrada 2 · Telegram\n\n**Comandos** (nó *Comando?*): `/start <código>` e `/vincular <código>` ligam o chat à conta (código de uso único gerado no app, 10 min); `/meuid` devolve o chat id; `/start` sozinho mostra a ajuda. Qualquer outra mensagem segue para o caminho de arquivo.\n\nO bot **não** fala com o Postgres. Ele passa pelo backend:\n\n1. resolve o usuário pelo `chat_id` (exige `ConsentimentoLgpd` ativo)\n2. faz o upload normal em `POST /extratos/upload` → dedup por `hash_arquivo`\n3. só então chama o core de IA\n\nAssim o caminho do bot herda **a mesma** validação, dedup e\nmáquina de estados do caminho do app.\n\n`POST /extratos/upload?assincrono=true` (com `X-Internal-Api-Key`) só registra o\nextrato: cria `Extrato` + `hash_arquivo` + storage, devolve `202` com status\n`na_fila` e **não** cria transações nem chama o N8N de volta\n(`ImportarExtratoUseCase#registrarParaAutomacao`). Os lançamentos chegam só\npelo callback do core de IA.\n\n⚠️ Um `400` no upload normalmente significa **extrato duplicado** —\né o dedup funcionando, não um bug.",
+        "height": 640,
         "width": 460,
         "color": 3
       }
@@ -34,6 +34,12 @@
         "additionalFields": {
           "download": true
         }
+      },
+      "credentials": {
+        "telegramApi": {
+          "id": "telegramFintech",
+          "name": "Telegram account"
+        }
       }
     },
     {
@@ -42,8 +48,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        100,
-        300
+        320,
+        660
       ],
       "parameters": {
         "conditions": {
@@ -77,8 +83,8 @@
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1,
       "position": [
-        340,
-        180
+        560,
+        540
       ],
       "parameters": {
         "operation": "binaryToPropery",
@@ -93,15 +99,15 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        560,
-        180
+        780,
+        540
       ],
       "parameters": {
         "options": {
           "timeout": 10000
         },
         "method": "GET",
-        "url": "={{ $env.FINTECH_API_URL || 'http://backend:8080' }}/usuarios/telegram/{{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "url": "={{ $env.FINTECH_API_URL || 'http://backend:8082' }}/usuarios/telegram/{{ $('Telegram Trigger').first().json.message.chat.id }}",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
@@ -120,8 +126,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        780,
-        180
+        1000,
+        540
       ],
       "parameters": {
         "mode": "runOnceForAllItems",
@@ -134,8 +140,8 @@
       "type": "n8n-nodes-base.convertToFile",
       "typeVersion": 1.1,
       "position": [
-        1000,
-        180
+        1220,
+        540
       ],
       "parameters": {
         "operation": "toBinary",
@@ -152,15 +158,15 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1220,
-        180
+        1440,
+        540
       ],
       "parameters": {
         "options": {
           "timeout": 30000
         },
         "method": "POST",
-        "url": "={{ $env.FINTECH_API_URL || 'http://backend:8080' }}/extratos/upload",
+        "url": "={{ $env.FINTECH_API_URL || 'http://backend:8082' }}/extratos/upload",
         "sendQuery": true,
         "queryParameters": {
           "parameters": [
@@ -207,8 +213,8 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        1460,
-        180
+        1680,
+        540
       ],
       "parameters": {
         "workflowId": {
@@ -337,8 +343,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1700,
-        180
+        1920,
+        540
       ],
       "parameters": {
         "resource": "message",
@@ -348,6 +354,12 @@
         "additionalFields": {
           "appendAttribution": false
         }
+      },
+      "credentials": {
+        "telegramApi": {
+          "id": "telegramFintech",
+          "name": "Telegram account"
+        }
       }
     },
     {
@@ -356,17 +368,23 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        340,
-        460
+        560,
+        820
       ],
       "parameters": {
         "resource": "message",
         "operation": "sendMessage",
-        "chatId": "={{ $json.message.chat.id }}",
-        "text": "Me envie o extrato como *PDF* ou *foto* que eu importo pra você. 📄",
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "Me envie o extrato como *PDF* ou *foto* que eu importo pra você. 📄\n\nComandos: /vincular <código> · /meuid · /ajuda",
         "additionalFields": {
           "appendAttribution": false,
           "parse_mode": "Markdown"
+        }
+      },
+      "credentials": {
+        "telegramApi": {
+          "id": "telegramFintech",
+          "name": "Telegram account"
         }
       }
     },
@@ -376,8 +394,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        780,
-        460
+        1000,
+        820
       ],
       "parameters": {
         "resource": "message",
@@ -388,6 +406,12 @@
           "appendAttribution": false,
           "parse_mode": "Markdown"
         }
+      },
+      "credentials": {
+        "telegramApi": {
+          "id": "telegramFintech",
+          "name": "Telegram account"
+        }
       }
     },
     {
@@ -396,8 +420,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1460,
-        460
+        1680,
+        820
       ],
       "parameters": {
         "resource": "message",
@@ -408,6 +432,242 @@
           "appendAttribution": false,
           "parse_mode": "Markdown"
         }
+      },
+      "credentials": {
+        "telegramApi": {
+          "id": "telegramFintech",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "id": "switch-50",
+      "name": "Comando?",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        100,
+        300
+      ],
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "cmd-51",
+                    "leftValue": "={{ /^/(start|vincular)(@w+)?s+S+/i.test(($json.message?.text ?? '').trim()) }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "vincular"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "cmd-52",
+                    "leftValue": "={{ /^/meuid(@w+)?$/i.test(($json.message?.text ?? '').trim()) }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "meuid"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "cmd-53",
+                    "leftValue": "={{ /^/(start|vincular|ajuda|help)(@w+)?$/i.test(($json.message?.text ?? '').trim()) }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "ajuda"
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {
+          "fallbackOutput": "extra",
+          "renameFallbackOutput": "arquivo/outros"
+        }
+      }
+    },
+    {
+      "id": "http-54",
+      "name": "Vincular chat",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        340,
+        20
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.FINTECH_API_URL || 'http://backend:8082' }}/usuarios/telegram/vincular",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Internal-Api-Key",
+              "value": "={{ $env.INTERNAL_API_KEY }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ codigo: ($json.message.text || '').trim().split(/s+/)[1], chatId: $json.message.chat.id }) }}",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "id": "tg-55",
+      "name": "Telegram · vinculado",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        580,
+        -60
+      ],
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "=✅ Pronto, *{{ $json.nome }}*! Este Telegram está vinculado à sua conta.\n\nAgora é só me enviar o extrato em *PDF* ou *foto*.",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "credentials": {
+        "telegramApi": {
+          "id": "telegramFintech",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "id": "tg-56",
+      "name": "Telegram · código inválido",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        580,
+        100
+      ],
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "Não consegui vincular: o código é inválido, expirou (vale 10 min) ou já foi usado.\n\nGere um novo no app em *Perfil → Integrações → Telegram*.",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "credentials": {
+        "telegramApi": {
+          "id": "telegramFintech",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "id": "tg-57",
+      "name": "Telegram · meu id",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        340,
+        200
+      ],
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "=O ID deste chat é `{{ $('Telegram Trigger').first().json.message.chat.id }}`",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "credentials": {
+        "telegramApi": {
+          "id": "telegramFintech",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "id": "tg-58",
+      "name": "Telegram · ajuda",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        340,
+        360
+      ],
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "Olá! 👋 Para usar o bot, vincule sua conta:\n\n1. Abra o app em *Perfil → Integrações → Telegram*\n2. Toque em *Abrir no Telegram* (ou envie `/vincular <código>`)\n\nDepois é só me enviar seus extratos em *PDF* ou *foto*.",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "credentials": {
+        "telegramApi": {
+          "id": "telegramFintech",
+          "name": "Telegram account"
+        }
       }
     }
   ],
@@ -416,7 +676,7 @@
       "main": [
         [
           {
-            "node": "Tem arquivo?",
+            "node": "Comando?",
             "type": "main",
             "index": 0
           }
@@ -515,6 +775,56 @@
         [
           {
             "node": "Telegram · resultado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Comando?": {
+      "main": [
+        [
+          {
+            "node": "Vincular chat",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Telegram · meu id",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Telegram · ajuda",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Tem arquivo?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vincular chat": {
+      "main": [
+        [
+          {
+            "node": "Telegram · vinculado",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Telegram · código inválido",
             "type": "main",
             "index": 0
           }

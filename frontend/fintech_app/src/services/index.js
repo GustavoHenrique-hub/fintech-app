@@ -40,6 +40,7 @@ import * as NewTransacaoCancelada      from "./transacaoCancelada/NewTransacaoCa
 import * as GetUsuario                 from "./usuario/GetUsuario";
 import * as NewUsuario                 from "./usuario/NewUsuario";
 import * as UpdateUsuario              from "./usuario/UpdateUsuario";
+import * as TelegramUsuario            from "./usuario/TelegramUsuario";
 
 export const bancoService               = { ...GetBanco, ...NewBanco };
 export const economiaService            = { ...GetEconomia, ...NewEconomia };
@@ -52,4 +53,4 @@ export const notificacaoService         = { ...GetNotificacao, ...NewNotificacao
 export const snapshotFinanceiroService  = { ...GetSnapshotFinanceiro };
 export const transacaoService           = { ...GetTransacao, ...NewTransacao, ...EstornarTransacao, ...RevisarTransacao, ...GetResumoPeriodo };
 export const transacaoCanceladaService  = { ...GetTransacaoCancelada, ...NewTransacaoCancelada };
-export const usuarioService             = { ...GetUsuario, ...NewUsuario, ...UpdateUsuario };
+export const usuarioService             = { ...GetUsuario, ...NewUsuario, ...UpdateUsuario, ...TelegramUsuario };
