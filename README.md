@@ -1,9 +1,7 @@
 # 💸 FinTech App
 
-![CI](https://github.com/SEU_USUARIO/NOME_DO_REPO/actions/workflows/ci.yml/badge.svg)
-![Deploy](https://github.com/SEU_USUARIO/NOME_DO_REPO/actions/workflows/cd.yml/badge.svg)
 ![Java](https://img.shields.io/badge/Java-17-blue?logo=openjdk)
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-brightgreen?logo=springboot)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.x-brightgreen?logo=springboot)
 ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791?logo=postgresql)
 
@@ -21,7 +19,8 @@ fintech-app/
 ├── automacao/n8n/          # Workflows de importação de extratos (JSON)
 ├── docs/                   # Documentação, ADRs e diagramas
 ├── scripts/                # SQL de schema/carga e auto-commit
-└── organizacao/            # Roadmap, to-do list e planejamento
+├── organizacao/            # Roadmap, to-do list e planejamento
+└── about/                  # Entregas FIAP e grafo de conhecimento do código (graphify)
 ```
 
 ---
@@ -48,7 +47,7 @@ Sobe backend, frontend, PostgreSQL e n8n de uma vez. Detalhes completos em
 [`docs/docker-local.md`](docs/docker-local.md).
 
 ```bash
-git clone https://github.com/SEU_USUARIO/NOME_DO_REPO.git
+git clone https://github.com/GustavoHenrique-hub/fintech-app.git
 cd fintech-app/infra
 
 cp .env.example .env      # preencha os campos marcados <<< PREENCHER >>>
@@ -90,6 +89,11 @@ npm install && npm run dev
 O backend precisa de `DB_USERNAME`, `DB_PASSWORD` e `INTERNAL_API_KEY` no
 ambiente — os mesmos valores que estão em `infra/.env`.
 
+> ⚠️ **As credenciais do banco que aparecem neste repositório (`infra/.env.example`
+> e `infra/docker-compose.yml`) são somente para testes locais.**
+> Não são usadas em produção. Em qualquer ambiente publicado, defina usuário e senha
+> próprios via variáveis de ambiente.
+
 ---
 
 ## 🔑 Onde ficam as chaves e segredos
@@ -99,7 +103,7 @@ com uma exceção: as credenciais de terceiros do n8n ficam na UI dele.
 
 | Segredo | Onde | Para quê |
 |---|---|---|
-| `POSTGRES_PASSWORD` | `infra/.env` | banco + datasource do backend |
+| `POSTGRES_PASSWORD` | `infra/.env` | banco + datasource do backend (valor do exemplo: só para teste local) |
 | `INTERNAL_API_KEY` | `infra/.env` | header `X-Internal-Api-Key` entre backend e n8n |
 | `N8N_CALLBACK_SECRET` | `infra/.env` | HMAC do header `X-N8N-Signature` |
 | `N8N_ENCRYPTION_KEY` | `infra/.env` | criptografa as credenciais salvas no n8n |
@@ -140,36 +144,34 @@ Definidos em [`infra/docker-compose.yml`](infra/docker-compose.yml).
 
 | Branch | Uso |
 |---|---|
-| `main` | Produção — deploy automático |
-| `develop` | Integração — CI automático |
+| `main` | Versão estável |
+| `dev` | Integração do desenvolvimento |
 | `feature/*` | Novas funcionalidades |
 | `hotfix/*` | Correções urgentes em produção |
 
-**Regra:** nunca commitar diretamente em `main` ou `develop`. Sempre abrir um Pull Request.
+**Regra:** nunca commitar diretamente em `main` ou `dev`. Sempre abrir um Pull Request.
 
 ---
 
 ## 📦 Tecnologias utilizadas
 
 **Backend**
-- Java 17 + Spring Boot 3
-- PostgreSQL 16
-- Redis 7
-- RabbitMQ 3
-- Flyway (migrations)
-- JWT (autenticação)
+- Java 17 + Spring Boot 4
+- PostgreSQL 16 (Spring Data JPA)
+- Autenticação por token de sessão + senhas com BCrypt
+- PDFBox, Apache POI e Commons CSV (leitura de extratos PDF, XLS e CSV)
+- Springdoc OpenAPI (Swagger)
 
 **Frontend**
-- React 18 + TypeScript
+- React 18 (JavaScript)
 - Vite
 - Tailwind CSS
 - React Query
-- Recharts
+- ApexCharts
 
 **Automação**
-- N8N (integração WhatsApp/Telegram)
+- n8n self-hosted (entrada de extratos pelo app, Telegram e WhatsApp)
 - Google Gemini API (extração e classificação de transações)
-- GitHub Actions (CI/CD)
 
 ---
 
@@ -177,9 +179,8 @@ Definidos em [`infra/docker-compose.yml`](infra/docker-compose.yml).
 
 | Nome | Papel |
 |---|---|
-| Gustavo | Desenvolvimento |
-| [Sócio] | [Papel] |
+| Gustavo | Desenvolvimento \| Estrutura de Dados \| Regras Negociais \| Organização \| Documentação \| Infraestrutura |
 
 ---
 
-> Dúvidas? Abra uma [issue](https://github.com/SEU_USUARIO/NOME_DO_REPO/issues) ou entre em contato com o time.
+> Dúvidas? Abra uma [issue](https://github.com/GustavoHenrique-hub/fintech-app/issues) ou entre em contato com o time.
