@@ -13,6 +13,7 @@
 
 ```
 fintech-app/
+├── .claude/skills/         # Skills do Claude Code usadas neste projeto
 ├── backend/fintech_app/    # API REST — Java 17 + Spring Boot 4
 ├── frontend/fintech_app/   # Interface — React 18 + Vite
 ├── infra/                  # Docker Compose, Dockerfiles e nginx
