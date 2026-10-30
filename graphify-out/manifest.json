@@ -1,7 +1,7 @@
 {
   ".claude/settings.json": {
-    "mtime": 1783969977.4992878,
-    "ast_hash": "5bdcff2a15b63d61ca471c8f5fcaca4b",
+    "mtime": 1793393235.638247,
+    "ast_hash": "1cfe068865df8f43a39f0cb65bbc9170",
     "semantic_hash": ""
   },
   ".claude/settings.local.json": {
@@ -1925,8 +1925,8 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1791385119.926419,
-    "ast_hash": "fb5cfdbafd8415a49c4424c347e2a7cc",
+    "mtime": 1793365446.7958918,
+    "ast_hash": "6bae6aa8b76147e98ffd9a8bd10a4b6f",
     "semantic_hash": ""
   },
   "about/Entregas FIAP/Atividade Fase 4 - RM570791/index.html": {
@@ -2122,6 +2122,11 @@
   "organizacao/todo-list/src/assets/vite.svg": {
     "mtime": 1778760333.6691952,
     "ast_hash": "9960a24288958394ac50e57ff638b036",
+    "semantic_hash": ""
+  },
+  ".claude/agents/subir-projeto.md": {
+    "mtime": 1793368074.308838,
+    "ast_hash": "535c486a34a50edf6a949094e5e43e06",
     "semantic_hash": ""
   }
 }
